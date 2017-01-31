@@ -1,0 +1,55 @@
+package com.mockneat.sources.random.unit;
+
+import com.mockneat.sources.random.Rand;
+import com.mockneat.sources.random.unit.interfaces.FromAlphabetIntUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitInt;
+
+import java.util.Random;
+
+public class Ints implements RandUnitInt, FromAlphabetIntUnit {
+
+    private Rand rand;
+    private Random random;
+
+    public Ints(Rand rand) {
+        this.rand = rand;
+        this.random = rand.getRandom();
+    }
+
+    /**
+     * Returns a (pseudo)random number.
+     * All possible Integer stream are produced with approximately the same probability.
+     * <p>
+     * Negative stream can also be produced.
+     *
+     * @return The name (pseudo)random number, uniformly distributed.
+     */
+    public Integer val() {
+        return random.nextInt();
+    }
+
+    public IntsBound withBound(Integer bound) {
+        return new IntsBound(rand, bound);
+    }
+
+    public IntsBound withBound() {
+        return new IntsBound(rand);
+    }
+
+    public IntsRange inRange(Integer lowerBound, Integer upperBound) {
+        return new IntsRange(rand, lowerBound, upperBound);
+    }
+
+    public IntsRange inRange() {
+        return new IntsRange(rand);
+    }
+
+    public IntsFrom from(int[] alphabet) {
+        return new IntsFrom(rand, alphabet);
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.getRand();
+    }
+}
