@@ -26,7 +26,6 @@ public class CountriesTest {
             stream(RANDS)
                     .forEach(r -> {
                         String c = r.countries().names().val();
-                        System.out.println(c);
                         assertTrue(isUpperCase(c.charAt(0)));
                         assertTrue(isLowerCase(c.charAt(1)));
                     }));
@@ -312,7 +311,7 @@ public class CountriesTest {
                 .forEach(r -> {
                     String c = r.countries().iso2().format(StringFormatType.CAPITALIZED).val();
                     assertTrue(isUpperCase(c.charAt(0)));
-                    assertTrue(isLowerCase(c.charAt(1)));
+                    assertTrue(isUpperCase(c.charAt(1)));
                 }));
     }
 
@@ -330,7 +329,7 @@ public class CountriesTest {
                     .forEach(s ->
                             s.forEach(c -> {
                                 assertTrue(isUpperCase(c.charAt(0)));
-                                assertTrue(isLowerCase(c.charAt(1)));
+                                assertTrue(isUpperCase(c.charAt(1)));
                             }));
         });
     }

@@ -26,7 +26,7 @@ public class DictsFrom implements RandUnitGeneric<String> {
     @Override
     public String val() {
         List<String> lines = utils.get(dictType);
-        return lowerCase(rand.objs().from(lines).val());
+        return rand.objs().from(lines).val();
     }
 
     public RandUnitFormatStringImpl format(StringFormatType type) {
