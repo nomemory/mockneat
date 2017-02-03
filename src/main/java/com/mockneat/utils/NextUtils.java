@@ -33,6 +33,7 @@ public class NextUtils {
     public static final String INVALID_FLOAT_ALPHABET = "Invalid float  [] rChars. The array cannot be null or empty.";
     public static final String INVALID_NEXT_FUNCTION = "Invalid name() function. The function cannot be NULL.";
     public static final String INVALID_PROBABILITY = "Invalid probability. Value must be a number different than null between [0, 100].";
+    public static final String INVALID_TYPES = "Invalid types. Array cannot be null or empty.";
     public static final String CANNOT_CREATE_INSTANCE_OF_LIST = "Cannot create instance of List. Please check if the List implementation has a public non-arg constructor.";
 
     private NextUtils() {}
@@ -41,6 +42,12 @@ public class NextUtils {
     public static void checkType(Class<?> type) {
         if (null == type) {
             throw new IllegalArgumentException(INVALID_CLASS_TYPE);
+        }
+    }
+
+    public static <T> void checkTypes(T[] types) {
+        if (null==types || 0 == types.length) {
+            throw new IllegalArgumentException(INVALID_TYPES);
         }
     }
 

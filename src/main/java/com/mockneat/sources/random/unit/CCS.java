@@ -22,7 +22,9 @@ public class CCS implements RandUnitGeneric<String> {
         return rand.ccs().ofType(AMERICAN_EXPRESS).val();
     }
 
-    public CCSOfType ofType(CreditCardType creditCardType) {
-        return new CCSOfType(rand, creditCardType);
+    public CCSOfTypes ofType(CreditCardType creditCardType) {
+        return new CCSOfTypes(rand, creditCardType);
     }
+
+    public CCSOfTypes ofTypes(CreditCardType... creditCardTypes) { return new CCSOfTypes(rand, creditCardTypes); }
 }

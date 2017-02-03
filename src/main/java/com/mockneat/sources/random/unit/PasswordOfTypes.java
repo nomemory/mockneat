@@ -1,55 +1,44 @@
-package com.mockneat.sources.random;
+package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.alphabets.Alphabets;
+import com.mockneat.sources.random.Rand;
+import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.PassStrengthType;
-
-import java.util.Random;
-import java.util.stream.Stream;
+import com.mockneat.utils.NextUtils;
 
 import static com.mockneat.sources.random.RandConstants.POSSIBLE_CHARACTERS;
+import static com.mockneat.types.enums.PassStrengthType.WEAK_PASSWORD;
+import static com.mockneat.utils.NextUtils.checkTypes;
 
-public class NextPassword {
+/**
+ * Created by andreinicolinciobanu on 31/01/2017.
+ */
+public class PasswordOfTypes implements RandUnitGeneric<String> {
 
     private Rand rand;
-    private Random random;
+    private PassStrengthType[] types;
 
-    protected NextPassword(Rand rand) {
+    public PasswordOfTypes(Rand rand, PassStrengthType... types) {
         this.rand = rand;
-        this.random = rand.getRandom();
+        this.types = types;
     }
 
-    /**
-     * Generate a random password
-     * @param type The type of the password we want to generate
-     * @return
-     */
-    protected String nextPassword(PassStrengthType type) {
-        if (type == PassStrengthType.WEAK_PASSWORD)
-            return nextWeakPassword();
-        else if (type == PassStrengthType.MEDIUM_PASSWORD)
-            return nextMediumPassword();
-        else if (type == PassStrengthType.STRONG_PASSWORD)
-            return nextStrongPassword();
-        else throw new IllegalArgumentException("Password type doesn't exist:" + type);
+    @Override
+    public String val() {
+        checkTypes(types);
+        PassStrengthType passStrengthType = rand.objs().from(types).val();
+        switch (passStrengthType) {
+            case WEAK_PASSWORD : return nextWeakPassword();
+            case MEDIUM_PASSWORD: return nextMediumPassword();
+            case STRONG_PASSWORD: return nextStrongPassword();
+            default: return "123456";
+        }
     }
 
-    /**
-     * Generate a names of random passwords
-     * @param type The type of the password we want to generate
-     * @return
-     */
-    protected Stream<String> streamPassword(PassStrengthType type) {
-        return Stream.generate(() -> nextPassword(type));
-    }
-
-    /**
-     * Generate a weak random password
-     * @return
-     */
     protected String nextWeakPassword() {
-        Integer minLength = PassStrengthType.WEAK_PASSWORD.getLength().getLowerBound();
-        Integer maxLength = PassStrengthType.WEAK_PASSWORD.getLength().getUpperBound();
+        Integer minLength = WEAK_PASSWORD.getLength().getLowerBound();
+        Integer maxLength = WEAK_PASSWORD.getLength().getUpperBound();
         String noun = rand.dicts().from(DictType.EN_NOUN_2SYLL).val();
         noun = noun.substring(0, maxLength);
         StringBuilder resultBuff = new StringBuilder(noun);
@@ -65,18 +54,6 @@ public class NextPassword {
         return resultBuff.toString();
     }
 
-    /**
-     * Generate a Stream of weak random passwords
-     * @return
-     */
-    protected Stream<String> streamWeakPassword() {
-        return Stream.generate(() -> nextWeakPassword());
-    }
-
-    /**
-     * Generate a random medium password
-     * @return
-     */
     protected String nextMediumPassword() {
         Integer minLength = PassStrengthType.MEDIUM_PASSWORD.getLength().getLowerBound();
         Integer maxLength = PassStrengthType.MEDIUM_PASSWORD.getLength().getUpperBound();
@@ -103,18 +80,6 @@ public class NextPassword {
         return resultBuff.toString();
     }
 
-    /**
-     * Generate a names of random medium passwords
-     * @return
-     */
-    protected Stream<String> streamMediumPassword() {
-        return Stream.generate(() -> nextMediumPassword());
-    }
-
-    /**
-     * Generate a random strong password
-     * @return
-     */
     protected String nextStrongPassword() {
         Integer minLength = PassStrengthType.STRONG_PASSWORD.getLength().getLowerBound();
         Integer maxLength = PassStrengthType.STRONG_PASSWORD.getLength().getUpperBound();
@@ -126,13 +91,5 @@ public class NextPassword {
             buff.append(rand.objs().from(alphabet).val());
         }
         return buff.toString();
-    }
-
-    /**
-     * Generate a names random strong passwords
-     * @return
-     */
-    protected Stream<String> streamStrongPassword() {
-        return Stream.generate(() -> nextStrongPassword());
     }
 }

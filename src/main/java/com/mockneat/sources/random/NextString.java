@@ -7,12 +7,11 @@ import static com.mockneat.utils.NextUtils.checkSize;
 import static com.mockneat.utils.NextUtils.checkStringAlpabet;
 
 public class NextString {
-    private Random random;
+
     private Rand rand;
 
     protected NextString(Rand rand) {
         this.rand = rand;
-        this.random = rand.getRandom();
     }
 
 

@@ -7,19 +7,19 @@ import com.mockneat.types.enums.CreditCardType;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.mockneat.utils.NextUtils.checkCreditCardTypeNotNull;
+import static com.mockneat.utils.NextUtils.checkTypes;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
  */
-public class CCSOfType implements RandUnitGeneric<String> {
+public class CCSOfTypes implements RandUnitGeneric<String> {
 
     private Rand rand;
-    private CreditCardType type;
+    private CreditCardType[] types;
 
-    public CCSOfType(Rand rand, CreditCardType creditCardType) {
+    public CCSOfTypes(Rand rand, CreditCardType... creditCardType) {
         this.rand = rand;
-        this.type = creditCardType;
+        this.types = creditCardType;
     }
 
     /**
@@ -29,15 +29,17 @@ public class CCSOfType implements RandUnitGeneric<String> {
     @Override
     public String val() {
 
-        checkCreditCardTypeNotNull(type);
+        checkTypes(types);
 
-        int arraySize = type.getLength();
+        CreditCardType creditCardType = rand.objs().from(CreditCardType.class).val();
+
+        int arraySize = creditCardType.getLength();
         int cnt = arraySize - 1;
 
         int[] results = new int[arraySize];
 
         // Pick random prefix
-        List<Integer> prefix = rand.objs().from(type.getPrefixes()).val();
+        List<Integer> prefix = rand.objs().from(creditCardType.getPrefixes()).val();
 
         // Initialize the array with random numbers
         // prefix + rest of the arrays

@@ -27,7 +27,7 @@ public class DoublesGaussians implements RandUnitDouble {
      * @return The name (pseudo)random double val.
      */
     public Double val() {
-        return random.nextDouble();
+        return random.nextGaussian();
     }
 
 }

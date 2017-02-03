@@ -26,6 +26,8 @@ public class Rand {
     private Macs rMacs;
     private Names rNames;
     private Objs rObjects;
+    private Passwords rPasswords;
+    private UUIDs rUUIDs;
     private Users rUsers;
 
     public Rand(RandType randomType) {
@@ -48,6 +50,8 @@ public class Rand {
         this.rMacs = new Macs(this);
         this.rNames = new Names(this);
         this.rObjects = new Objs(this);
+        this.rPasswords = new Passwords(this);
+        this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
 
     }
@@ -109,6 +113,10 @@ public class Rand {
     public Names names() { return this.rNames; }
 
     public Objs objs() { return this.rObjects; }
+
+    public Passwords passwords() { return this.rPasswords; }
+
+    public UUIDs uuids() { return this.rUUIDs; }
 
     public Users users() { return this.rUsers; }
 

@@ -13,12 +13,10 @@ import static com.mockneat.utils.NextUtils.checkProbability;
 public class BoolsProbability implements RandUnitGeneric<Boolean> {
 
     private Rand rand;
-    private Random random;
     private Double probability;
 
     protected BoolsProbability(Rand rand, Double probability) {
         this.rand = rand;
-        this.random = rand.getRandom();
         this.probability = probability;
     }
 
