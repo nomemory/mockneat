@@ -1,6 +1,7 @@
 package com.mockneat.sources.random.utils.markov;
 
 import com.mockneat.sources.random.Rand;
+import com.mockneat.types.Pair;
 
 import java.util.*;
 
@@ -9,33 +10,37 @@ import java.util.*;
  */
 public class WordStatistic {
 
-    private Integer total = 0;
-    private Map<Integer, String> associatedWords =
-            new TreeMap<>();
+    private Double total = 0.0;
+    private Pair<Double, String>[] associatedWords;
+    private Rand rand;
 
     public WordStatistic(Map<String, Integer> rawWordCount) {
+        this.associatedWords = new Pair[rawWordCount.size()];
+        this.rand = new Rand();
         processRawWordCount(rawWordCount);
     }
 
     protected void processRawWordCount(Map<String, Integer> rawLine) {
         this.total = getTotal(rawLine);
-        int cv = 0;
+        int i = 0;
+        double cv = 0;
         for(Map.Entry<String, Integer> entry : rawLine.entrySet()) {
             cv+=entry.getValue();
-            associatedWords.put(cv, entry.getKey());
+            associatedWords[i] = new Pair<>(cv, entry.getKey());
+            i++;
         }
+        Arrays.sort(associatedWords, (v1, v2) -> v1.getFirst().compareTo(v2.getFirst()));
     }
 
-    protected Integer getTotal(Map<String, Integer> rawLine) {
-        return rawLine.values().stream().mapToInt(Integer::intValue).sum();
+    protected Double getTotal(Map<String, Integer> rawLine) {
+        return (double) rawLine.values().stream().mapToInt(Integer::intValue).sum();
     }
 
     public String nextWord() {
-        Rand rand = new Rand();
-        double rd = rand.doubles().withBound((double)total).val();
-        for (Map.Entry<Integer, String> entry : associatedWords.entrySet()) {
-            if (rd < (double) entry.getKey()) {
-                return entry.getValue();
+        double rd = rand.doubles().withBound(total).val();
+        for(int i = 0; i < associatedWords.length; ++i) {
+            if (rd < associatedWords[i].getFirst()) {
+                return associatedWords[i].getSecond();
             }
         }
         return "";

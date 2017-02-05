@@ -1,6 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 
 /**
  * Created by andreinicolinciobanu on 16/01/2017.
@@ -13,11 +15,11 @@ public class Countries {
         this.rand = rand;
     }
 
-    public CountriesNames names() {
+    public RandUnitString names() {
         return new CountriesNames(rand);
     }
 
-    public CountriesISO2 iso2() {
+    public RandUnitString iso2() {
         return new CountriesISO2(rand);
     }
 }

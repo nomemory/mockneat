@@ -2,6 +2,7 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
 import com.mockneat.sources.random.unit.interfaces.FromAlphabetGenericUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 
 import static com.mockneat.utils.NextUtils.checkAlphabet;
 
@@ -16,19 +17,19 @@ public class Chars implements FromAlphabetGenericUnit<Character> {
         this.rand = rand;
     }
 
-    public CharsDigits digits() {
+    public RandUnit<Character> digits() {
         return new CharsDigits(rand);
     }
 
-    public CharsLowerLetters lowerLetters() { return new CharsLowerLetters(rand); }
+    public RandUnit<Character> lowerLetters() { return new CharsLowerLetters(rand); }
 
-    public CharsUpperLetters upperLetters() { return new CharsUpperLetters(rand); }
+    public RandUnit<Character> upperLetters() { return new CharsUpperLetters(rand); }
 
-    public CharsLetters letters() { return new CharsLetters(rand); }
+    public RandUnit<Character> letters() { return new CharsLetters(rand); }
 
-    public CharsFrom from(String alphabet) { return new CharsFrom(rand, alphabet); }
+    public RandUnit<Character> from(String alphabet) { return new CharsFrom(rand, alphabet); }
 
-    public CharsFrom from(char[] alphabet) { return new CharsFrom(rand, alphabet); }
+    public RandUnit<Character> from(char[] alphabet) { return new CharsFrom(rand, alphabet); }
 
     @Override
     public Rand getRand() {

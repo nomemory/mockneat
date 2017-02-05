@@ -33,4 +33,9 @@ public class RandUnitLongFromImpl implements RandUnitLong {
             return alphabetList.get(idx);
         }
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }

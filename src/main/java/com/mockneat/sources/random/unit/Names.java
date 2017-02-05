@@ -2,12 +2,13 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
 import com.mockneat.sources.random.unit.interfaces.RandUnitFormatStringImpl;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.NameType;
 import com.mockneat.types.enums.StringFormatType;
 
-public class Names implements RandUnitGeneric<String> {
+public class Names implements RandUnitString {
 
     private Rand rand;
 
@@ -22,15 +23,16 @@ public class Names implements RandUnitGeneric<String> {
         return rand.dicts().from(dictType).val();
     }
 
-    public NamesOfTypes ofTypes(NameType... types) {
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
+
+    public RandUnitString ofTypes(NameType... types) {
         return new NamesOfTypes(rand, types);
     }
 
-    public NamesOfTypes ofType(NameType type) {
+    public RandUnitString ofType(NameType type) {
         return new NamesOfTypes(rand, type);
-    }
-
-    public RandUnitFormatStringImpl format(StringFormatType formatType) {
-        return new RandUnitFormatStringImpl(rand, formatType, val());
     }
 }

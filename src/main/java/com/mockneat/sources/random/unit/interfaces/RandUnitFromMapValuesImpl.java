@@ -9,12 +9,12 @@ import java.util.Map;
 /**
  * Created by andreinicolinciobanu on 02/02/2017.
  */
-public class RandUnitGenericFromMapValuesImpl<T, R> implements RandUnitGeneric<R>  {
+public class RandUnitFromMapValuesImpl<T, R> implements RandUnit<R> {
 
     private Rand rand;
     private List<R> valArray;
 
-    public RandUnitGenericFromMapValuesImpl(Rand rand, Map<T, R> map) {
+    public RandUnitFromMapValuesImpl(Rand rand, Map<T, R> map) {
         this.rand = rand;
         this.valArray = new ArrayList<>();
         valArray.addAll(map.values());
@@ -23,5 +23,10 @@ public class RandUnitGenericFromMapValuesImpl<T, R> implements RandUnitGeneric<R
     @Override
     public R val() {
         return rand.objs().from(valArray).val();
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

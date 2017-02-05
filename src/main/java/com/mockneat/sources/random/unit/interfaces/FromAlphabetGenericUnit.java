@@ -8,11 +8,11 @@ public interface FromAlphabetGenericUnit<T> {
 
     Rand getRand();
 
-    default <T> RandUnitGenericFromImpl<T> from(T[] alphabet) {
-        return new RandUnitGenericFromImpl<T>(getRand(), alphabet);
+    default <T> RandUnitFromImpl<T> from(T[] alphabet) {
+        return new RandUnitFromImpl<T>(getRand(), alphabet);
     }
 
-    default <T> RandUnitGenericFromImpl<T> from(List<T> alphabet) {
-        return new RandUnitGenericFromImpl<T>(getRand(), alphabet);
+    default <T> RandUnitFromImpl<T> from(List<T> alphabet) {
+        return new RandUnitFromImpl<T>(getRand(), alphabet);
     }
 }

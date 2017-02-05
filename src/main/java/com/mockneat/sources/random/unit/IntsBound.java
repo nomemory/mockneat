@@ -28,11 +28,6 @@ public class IntsBound implements RandUnitInt {
         this.random = rand.getRandom();
     }
 
-    public IntsBound bound(Integer bound) {
-        this.bound = bound;
-        return this;
-    }
-
     /**
      * Returns a (pseudo)random number in the range [0, bound).
      * All possible Integer stream (from the range) are produced with approximately the same probability
@@ -43,5 +38,10 @@ public class IntsBound implements RandUnitInt {
         checkIntegerBound(bound);
         checkIntegerBoundNotZero(bound);
         return random.nextInt(bound);
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

@@ -1,7 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.CreditCardType;
 
 import static com.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
@@ -9,7 +10,7 @@ import static com.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
 /**
  * Created by andreinicolinciobanu on 23/01/2017.
  */
-public class CCS implements RandUnitGeneric<String> {
+public class CCS implements RandUnitString {
 
     private Rand rand;
 
@@ -22,9 +23,14 @@ public class CCS implements RandUnitGeneric<String> {
         return rand.ccs().ofType(AMERICAN_EXPRESS).val();
     }
 
-    public CCSOfTypes ofType(CreditCardType creditCardType) {
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
+
+    public RandUnitString ofType(CreditCardType creditCardType) {
         return new CCSOfTypes(rand, creditCardType);
     }
 
-    public CCSOfTypes ofTypes(CreditCardType... creditCardTypes) { return new CCSOfTypes(rand, creditCardTypes); }
+    public RandUnitString ofTypes(CreditCardType... creditCardTypes) { return new CCSOfTypes(rand, creditCardTypes); }
 }

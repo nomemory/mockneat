@@ -30,4 +30,9 @@ public class DoublesGaussians implements RandUnitDouble {
         return random.nextGaussian();
     }
 
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
+
 }

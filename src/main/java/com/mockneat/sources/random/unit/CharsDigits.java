@@ -2,12 +2,12 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.alphabets.Alphabets;
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 
 /**
  * Created by andreinicolinciobanu on 24/01/2017.
  */
-public class CharsDigits implements RandUnitGeneric<Character> {
+public class CharsDigits implements RandUnit<Character> {
 
     private Rand rand;
 
@@ -22,5 +22,10 @@ public class CharsDigits implements RandUnitGeneric<Character> {
     @Override
     public Character val() {
         return rand.objs().from(Alphabets.DIGITS_ARR_CHR).val();
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

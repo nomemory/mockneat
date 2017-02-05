@@ -1,18 +1,20 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.CreditCardType;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static com.mockneat.utils.NextUtils.checkCreditCardTypeNotNull;
 import static com.mockneat.utils.NextUtils.checkTypes;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
  */
-public class CCSOfTypes implements RandUnitGeneric<String> {
+public class CCSOfTypes implements RandUnitString {
 
     private Rand rand;
     private CreditCardType[] types;
@@ -31,7 +33,9 @@ public class CCSOfTypes implements RandUnitGeneric<String> {
 
         checkTypes(types);
 
-        CreditCardType creditCardType = rand.objs().from(CreditCardType.class).val();
+        CreditCardType creditCardType = rand.objs().from(types).val();
+
+        checkCreditCardTypeNotNull(creditCardType);
 
         int arraySize = creditCardType.getLength();
         int cnt = arraySize - 1;
@@ -67,5 +71,10 @@ public class CCSOfTypes implements RandUnitGeneric<String> {
         StringBuilder buff = new StringBuilder();
         Arrays.stream(results).forEach(buff::append);
         return buff.toString();
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

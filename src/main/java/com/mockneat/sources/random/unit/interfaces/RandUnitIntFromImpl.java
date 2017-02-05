@@ -32,4 +32,9 @@ public class RandUnitIntFromImpl implements RandUnitInt {
             return alphabetList.get(idx);
         }
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }

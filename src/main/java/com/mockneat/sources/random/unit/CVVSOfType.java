@@ -1,7 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.CVVType;
 import com.mockneat.utils.FunctUtils;
 
@@ -10,7 +11,7 @@ import static com.mockneat.utils.NextUtils.checkCVVTypeNotNull;
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
  */
-public class CVVSOfType implements RandUnitGeneric<String> {
+public class CVVSOfType implements RandUnitString {
 
     private Rand rand;
     private CVVType cvvType;
@@ -28,4 +29,6 @@ public class CVVSOfType implements RandUnitGeneric<String> {
                 builder.append(rand.chars().digits().val()));
         return builder.toString();
     }
+
+    public Rand getRand() { return rand; }
 }

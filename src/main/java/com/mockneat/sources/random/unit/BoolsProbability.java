@@ -1,16 +1,14 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
-
-import java.util.Random;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 
 import static com.mockneat.utils.NextUtils.checkProbability;
 
 /**
  * Created by andreinicolinciobanu on 24/01/2017.
  */
-public class BoolsProbability implements RandUnitGeneric<Boolean> {
+public class BoolsProbability implements RandUnit<Boolean> {
 
     private Rand rand;
     private Double probability;
@@ -39,5 +37,10 @@ public class BoolsProbability implements RandUnitGeneric<Boolean> {
     public Boolean val() {
         checkProbability(probability);
         return val(0.0, probability, 100.0);
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

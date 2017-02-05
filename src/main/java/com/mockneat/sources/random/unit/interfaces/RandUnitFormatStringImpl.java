@@ -8,7 +8,7 @@ import static com.mockneat.utils.NextUtils.checkStringFormatTypeNotNull;
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
  */
-public class RandUnitFormatStringImpl implements RandUnitGeneric<String> {
+public class RandUnitFormatStringImpl implements RandUnitString {
 
     private Rand rand;
     private String val;
@@ -24,5 +24,10 @@ public class RandUnitFormatStringImpl implements RandUnitGeneric<String> {
     public String val() {
         checkStringFormatTypeNotNull(formatType);
         return formatType.getFormatter().apply(this.val);
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

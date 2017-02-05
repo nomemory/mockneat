@@ -1,7 +1,7 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 
 import java.util.Random;
 
@@ -10,7 +10,7 @@ import static com.mockneat.utils.NextUtils.checkFloatAlphabet;
 /**
  * Created by andreinicolinciobanu on 24/01/2017.
  */
-public class FloatsFrom implements RandUnitGeneric<Float> {
+public class FloatsFrom implements RandUnit<Float> {
 
     private Rand rand;
     private Random random;
@@ -31,5 +31,10 @@ public class FloatsFrom implements RandUnitGeneric<Float> {
         checkFloatAlphabet(alphabet);
         int randIdx = rand.ints().withBound(alphabet.length).val();
         return alphabet[randIdx];
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

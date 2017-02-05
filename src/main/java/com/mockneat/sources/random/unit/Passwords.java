@@ -1,7 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.PassStrengthType;
 
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM_PASSWORD;
@@ -9,7 +10,7 @@ import static com.mockneat.types.enums.PassStrengthType.MEDIUM_PASSWORD;
 /**
  * Created by andreinicolinciobanu on 31/01/2017.
  */
-public class Passwords implements RandUnitGeneric<String> {
+public class Passwords implements RandUnitString {
 
     private Rand rand;
 
@@ -17,16 +18,21 @@ public class Passwords implements RandUnitGeneric<String> {
         this.rand = rand;
     }
 
-    public PasswordOfTypes ofTypes(PassStrengthType... types) {
+    public RandUnit<String> ofTypes(PassStrengthType... types) {
         return new PasswordOfTypes(rand, types);
     }
 
-    public PasswordOfTypes ofType(PassStrengthType type) {
+    public RandUnit<String> ofType(PassStrengthType type) {
         return new PasswordOfTypes(rand, type);
     }
 
     @Override
     public String val() {
         return rand.passwords().ofType(MEDIUM_PASSWORD).val();
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

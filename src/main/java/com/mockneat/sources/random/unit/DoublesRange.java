@@ -60,4 +60,9 @@ public class DoublesRange implements RandUnitDouble {
             return random.nextDouble() * (upperBound - lowerBound) + lowerBound;
         }
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }

@@ -31,12 +31,12 @@ public class LongsRange implements RandUnitLong {
         this.upperBound = upperBound;
     }
 
-    public LongsRange lower(Long lowerBound) {
+    public RandUnitLong lower(Long lowerBound) {
         this.lowerBound = lowerBound;
         return this;
     }
 
-    public LongsRange upper(Long upperBound) {
+    public RandUnitLong upper(Long upperBound) {
         this.upperBound = upperBound;
         return this;
     }
@@ -55,5 +55,10 @@ public class LongsRange implements RandUnitLong {
             return ((ThreadLocalRandom) random).nextLong(lowerBound, upperBound);
         }
         return rand.longs().withBound(upperBound - lowerBound).val() + lowerBound;
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

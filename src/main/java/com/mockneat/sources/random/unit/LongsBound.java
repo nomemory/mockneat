@@ -27,7 +27,7 @@ public class LongsBound implements RandUnitLong {
         this.random = rand.getRandom();
     }
 
-    public LongsBound bound(Long bound) {
+    public RandUnitLong bound(Long bound) {
         this.bound = bound;
         return this;
     }
@@ -43,5 +43,10 @@ public class LongsBound implements RandUnitLong {
         } while (b-result+bound-1 < 0L);
 
         return result;
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

@@ -2,10 +2,10 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.alphabets.Alphabets;
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.PassStrengthType;
-import com.mockneat.utils.NextUtils;
 
 import static com.mockneat.sources.random.RandConstants.POSSIBLE_CHARACTERS;
 import static com.mockneat.types.enums.PassStrengthType.WEAK_PASSWORD;
@@ -14,7 +14,7 @@ import static com.mockneat.utils.NextUtils.checkTypes;
 /**
  * Created by andreinicolinciobanu on 31/01/2017.
  */
-public class PasswordOfTypes implements RandUnitGeneric<String> {
+public class PasswordOfTypes implements RandUnitString {
 
     private Rand rand;
     private PassStrengthType[] types;
@@ -34,6 +34,11 @@ public class PasswordOfTypes implements RandUnitGeneric<String> {
             case STRONG_PASSWORD: return nextStrongPassword();
             default: return "123456";
         }
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 
     protected String nextWeakPassword() {

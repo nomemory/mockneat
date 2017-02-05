@@ -30,12 +30,12 @@ public class IntsRange implements RandUnitInt {
         this.upperBound = upperBound;
     }
 
-    public IntsRange lower(Integer lowerBound) {
+    public RandUnitInt lower(Integer lowerBound) {
         this.lowerBound = lowerBound;
         return this;
     }
 
-    public IntsRange upper(Integer upperBound) {
+    public RandUnitInt upper(Integer upperBound) {
         this.upperBound = upperBound;
         return this;
     }
@@ -55,5 +55,10 @@ public class IntsRange implements RandUnitInt {
         }
 
         return random.nextInt(upperBound - lowerBound) + lowerBound;
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

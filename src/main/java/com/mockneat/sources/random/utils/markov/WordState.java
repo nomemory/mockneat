@@ -7,45 +7,40 @@ import java.util.*;
  */
 public class WordState {
 
-    private List<String> state;
+    private String[] state;
 
     public WordState(String... strings) {
-        this.state = Arrays.asList(strings);
-    }
-
-    public WordState(List<String> list) {
-        this.state = list;
+        this.state = strings;
     }
 
     public static WordState fromWords(List<String> words, Integer stateSize, Integer fromIdx) {
-        List<String> result = new ArrayList<>(stateSize);
-        int size = stateSize;
-        int idx = fromIdx;
-        while(size-->0) {
-            result.add(words.get(idx));
-            idx++;
+        String[] result = new String[stateSize];
+        for(int i = 0; i < stateSize; i++) {
+            result[i] = words.get(i + fromIdx);
         }
         return new WordState(result);
     }
 
-    public void nextState(String word) {
-
+    public WordState nextState(String word) {
+        String[] newState = new String[state.length];
+        System.arraycopy(state, 1, newState, 0, state.length-1);
+        newState[state.length-1] = word;
+        return new WordState(newState);
     }
 
-    public List<String> getState() {
+    public String[] getState() {
         return state;
-    }
-
-    protected void append(String word) {
-        this.state.add(word);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         WordState wordState = (WordState) o;
-        return Objects.equals(state, wordState.state);
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(state, wordState.state);
     }
 
     @Override

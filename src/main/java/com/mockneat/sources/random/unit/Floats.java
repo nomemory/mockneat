@@ -1,11 +1,11 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 
 import java.util.Random;
 
-public class Floats implements RandUnitGeneric<Float> {
+public class Floats implements RandUnit<Float> {
     private Rand rand;
     private Random random;
 
@@ -27,23 +27,28 @@ public class Floats implements RandUnitGeneric<Float> {
         return random.nextFloat();
     }
 
-    public FloatsRange inRange() {
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
+
+    public RandUnit<Float> inRange() {
         return new FloatsRange(rand);
     }
 
-    public FloatsRange inRange(Float lowerBound, Float upperBound) {
+    public RandUnit<Float> inRange(Float lowerBound, Float upperBound) {
         return new FloatsRange(rand, lowerBound, upperBound);
     }
 
-    public FloatsBound withBound() {
+    public RandUnit<Float> withBound() {
         return new FloatsBound(rand);
     }
 
-    public FloatsBound withBound(Float bound) {
+    public RandUnit<Float> withBound(Float bound) {
         return new FloatsBound(rand, bound);
     }
 
-    public FloatsFrom from(float[] alphabet) {
+    public RandUnit<Float> from(float[] alphabet) {
         return new FloatsFrom(rand, alphabet);
     }
 }

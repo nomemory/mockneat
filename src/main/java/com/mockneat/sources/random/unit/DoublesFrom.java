@@ -34,4 +34,9 @@ public class DoublesFrom implements RandUnitDouble {
         int randIdx = random.nextInt(alphabet.length);
         return alphabet[randIdx];
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }

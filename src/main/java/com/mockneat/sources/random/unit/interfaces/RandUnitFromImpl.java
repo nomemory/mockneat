@@ -9,18 +9,18 @@ import static com.mockneat.utils.NextUtils.checkAlphabet;
 /**
  * Created by andreinicolinciobanu on 25/01/2017.
  */
-public class RandUnitGenericFromImpl<T> implements RandUnitGeneric<T> {
+public class RandUnitFromImpl<T> implements RandUnit<T> {
 
     private Rand rand;
     private T[] alphabet = null;
     private List<T> alphabetList= null;
 
-    public RandUnitGenericFromImpl(Rand rand, T[] alphabet) {
+    public RandUnitFromImpl(Rand rand, T[] alphabet) {
         this.rand = rand;
         this.alphabet = alphabet;
     }
 
-    public RandUnitGenericFromImpl(Rand rand, List<T> alphabetList) {
+    public RandUnitFromImpl(Rand rand, List<T> alphabetList) {
         this.rand = rand;
         this.alphabetList = alphabetList;
     }
@@ -36,5 +36,10 @@ public class RandUnitGenericFromImpl<T> implements RandUnitGeneric<T> {
             int idx = rand.ints().withBound(alphabetList.size()).val();
             return alphabetList.get(idx);
         }
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

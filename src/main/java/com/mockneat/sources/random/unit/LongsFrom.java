@@ -32,4 +32,9 @@ public class LongsFrom implements RandUnitLong {
         int randIdx = rand.ints().withBound(alphabet.length).val();
         return alphabet[randIdx];
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }

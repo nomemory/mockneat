@@ -1,7 +1,7 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 
 import java.util.Random;
 import java.util.stream.Stream;
@@ -11,7 +11,7 @@ import static com.mockneat.utils.NextUtils.checkFloatBounds;
 /**
  * Created by andreinicolinciobanu on 24/01/2017.
  */
-public class FloatsRange implements RandUnitGeneric<Float> {
+public class FloatsRange implements RandUnit<Float> {
 
     private Rand rand;
     private Random random;
@@ -31,12 +31,12 @@ public class FloatsRange implements RandUnitGeneric<Float> {
         this.upperBound = upperBound;
     }
 
-    public FloatsRange lower(Float lowerBound) {
+    public RandUnit<Float> lower(Float lowerBound) {
         this.lowerBound = lowerBound;
         return this;
     }
 
-    public FloatsRange upper(Float upperBound) {
+    public RandUnit<Float> upper(Float upperBound) {
         this.upperBound = upperBound;
         return this;
     }
@@ -55,6 +55,11 @@ public class FloatsRange implements RandUnitGeneric<Float> {
         } else {
             return rand.floats().val() * (upperBound - lowerBound) + lowerBound;
         }
+    }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 
     /**

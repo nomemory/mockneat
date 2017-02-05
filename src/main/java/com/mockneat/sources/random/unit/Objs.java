@@ -1,10 +1,10 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGenericFromImpl;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGenericFromMapKeysImpl;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGenericFromMapValuesImpl;
-import com.mockneat.utils.NextUtils;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitFromImpl;
+import com.mockneat.sources.random.unit.interfaces.RandUnitFromMapKeysImpl;
+import com.mockneat.sources.random.unit.interfaces.RandUnitFromMapValuesImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -22,25 +22,25 @@ public class Objs {
         this.rand = rand;
     }
 
-    public <T> RandUnitGenericFromImpl<T> from(List<T> alphabet) {
-        return new RandUnitGenericFromImpl<>(rand, alphabet);
+    public <T> RandUnit<T> from(List<T> alphabet) {
+        return new RandUnitFromImpl<>(rand, alphabet);
     }
 
-    public <T> RandUnitGenericFromImpl<T> from(T[] alphabet) {
-        return new RandUnitGenericFromImpl<>(rand, alphabet);
+    public <T> RandUnit<T> from(T[] alphabet) {
+        return new RandUnitFromImpl<>(rand, alphabet);
     }
 
-    public <T extends Enum<?>> RandUnitGenericFromImpl<T> from(Class<T> enumClass) {
+    public <T extends Enum<?>> RandUnit<T> from(Class<T> enumClass) {
         checkType(enumClass);
         T[] arr = enumClass.getEnumConstants();
-        return new RandUnitGenericFromImpl<T>(rand, arr);
+        return new RandUnitFromImpl<T>(rand, arr);
     }
 
-    public <T, R> RandUnitGenericFromMapKeysImpl<T, R> fromKeys(Map<T, R> map) {
-        return new RandUnitGenericFromMapKeysImpl<>(rand, map);
+    public <T, R> RandUnitFromMapKeysImpl<T, R> fromKeys(Map<T, R> map) {
+        return new RandUnitFromMapKeysImpl<>(rand, map);
     }
 
-    public <T, R>RandUnitGenericFromMapValuesImpl<T, R> fromValues(Map<T, R> map) {
-        return new RandUnitGenericFromMapValuesImpl<>(rand, map);
+    public <T, R>RandUnitFromMapValuesImpl<T, R> fromValues(Map<T, R> map) {
+        return new RandUnitFromMapValuesImpl<>(rand, map);
     }
 }

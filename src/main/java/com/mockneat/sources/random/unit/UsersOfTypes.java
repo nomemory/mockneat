@@ -1,7 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.Pair;
 import com.mockneat.sources.random.unit.interfaces.RandUnitFormatStringImpl;
 import com.mockneat.types.enums.DictType;
@@ -15,7 +16,7 @@ import static com.mockneat.utils.StringUtils.escapeForUsername;
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
  */
-public class UsersOfTypes implements RandUnitGeneric<String> {
+public class UsersOfTypes implements RandUnitString {
 
     private static final Double L33T = 15.0;
     private static final Double UNDERSCORE = 15.0;
@@ -51,7 +52,8 @@ public class UsersOfTypes implements RandUnitGeneric<String> {
         return part1 + part2;
     }
 
-    public RandUnitFormatStringImpl format(StringFormatType formatType) {
-        return new RandUnitFormatStringImpl(rand, formatType, val());
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

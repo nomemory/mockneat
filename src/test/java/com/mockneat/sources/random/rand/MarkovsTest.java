@@ -17,10 +17,9 @@ public class MarkovsTest {
         try{
             List<String> lines = Files.readAllLines(Paths.get(textFile));
             MarkovUnit mu = new MarkovUnit(lines, 2);
-            int times = 1000;
+            int times = 100;
             while(times-->0) {
-                mu.generateText(new Rand(), 0, 100);
-                System.out.println();
+                System.out.println(mu.generateText(new Rand(), 0, 100));
             }
         } catch (IOException e) {
             e.printStackTrace();

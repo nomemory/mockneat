@@ -2,6 +2,7 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
 import com.mockneat.sources.random.unit.interfaces.FromAlphabetDoubleUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 import com.mockneat.sources.random.unit.interfaces.RandUnitDouble;
 
 import java.util.Random;
@@ -36,27 +37,27 @@ public class Doubles implements RandUnitDouble, FromAlphabetDoubleUnit {
         return random.nextDouble();
     }
 
-    public DoublesGaussians gaussians() {
+    public RandUnitDouble gaussians() {
         return new DoublesGaussians(rand);
     }
 
-    public DoublesRange inRange() {
+    public RandUnitDouble inRange() {
         return new DoublesRange(rand);
     }
 
-    public DoublesRange inRange(Double lowerBound, Double upperBound) {
+    public RandUnitDouble inRange(Double lowerBound, Double upperBound) {
         return new DoublesRange(rand, lowerBound, upperBound);
     }
 
-    public DoublesBound withBound(Double bound) {
+    public RandUnitDouble withBound(Double bound) {
         return new DoublesBound(rand, bound);
     }
 
-    public DoublesBound withBound() {
+    public RandUnitDouble withBound() {
         return new DoublesBound(rand);
     }
 
-    public DoublesFrom from(double[] alphabet) {
+    public RandUnitDouble from(double[] alphabet) {
         return new DoublesFrom(rand, alphabet);
     }
 }

@@ -2,7 +2,8 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
 import com.mockneat.sources.random.unit.interfaces.RandUnitFormatStringImpl;
-import com.mockneat.sources.random.unit.interfaces.RandUnitGeneric;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.NameType;
 import com.mockneat.types.enums.StringFormatType;
@@ -10,7 +11,7 @@ import com.mockneat.types.enums.StringFormatType;
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
  */
-public class NamesOfTypes implements RandUnitGeneric<String> {
+public class NamesOfTypes implements RandUnitString {
 
     private Rand rand;
     private NameType[] types;
@@ -28,7 +29,8 @@ public class NamesOfTypes implements RandUnitGeneric<String> {
         return rand.dicts().from(dictType).val();
     }
 
-    public RandUnitFormatStringImpl format(StringFormatType formatType) {
-        return new RandUnitFormatStringImpl(rand, formatType, val());
+    @Override
+    public Rand getRand() {
+        return this.rand;
     }
 }

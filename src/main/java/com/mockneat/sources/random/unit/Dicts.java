@@ -1,6 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 
 import java.util.Random;
@@ -18,7 +20,7 @@ public class Dicts {
         this.random = rand.getRandom();
     }
 
-    public DictsFrom from(DictType type) {
+    public RandUnitString from(DictType type) {
         return new DictsFrom(rand, type);
     }
 

@@ -1,6 +1,7 @@
 package com.mockneat.sources.random.utils.markov;
 
 import com.mockneat.sources.random.Rand;
+import com.mockneat.sources.random.unit.interfaces.RandUnitFromMapKeysImpl;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -83,39 +84,25 @@ public class MarkovUnit {
                                                   e -> new WordStatistic(e.getValue())));
     }
 
-    public void generateText(Rand rand, Integer minLength, Integer maxLength) {
+    public String  generateText(Rand rand, Integer minLength, Integer maxLength) {
         //TODO validate rand, minLength, maxLength
 
         // Obtain a random state from the existing states
-        WordState state = rand.objs().fromKeys(chain).val();
+        StringBuilder buff = new StringBuilder();
+        RandUnitFromMapKeysImpl<WordState, WordStatistic> unit = rand.objs().fromKeys(chain);
+        WordState state = unit.val();
         WordStatistic statistic;
         String nextWord;
-        int cnt = 100;
+        int cnt = 200;
         while (cnt --> 0) {
             statistic = chain.get(state);
             while(null==statistic) {
-                statistic = chain.get(rand.objs().fromKeys(chain).val());
-                //System.out.println("\nSTATE: " + state + " NOT FOUND\n");
+                statistic = chain.get(unit.val());
             }
             nextWord = statistic.nextWord();
-            //state.nextState(nextWord);
-            state = new WordState(state.getState().get(1), nextWord);
-            //System.out.print(nextWord + " ");
+            state = state.nextState(nextWord);
+            buff.append(nextWord).append(" ");
         }
-    }
-
-    public static void main(String[] args) {
-        String textFile = "resources/markov/kafka";
-        try{
-            List<String> lines = Files.readAllLines(Paths.get(textFile));
-            MarkovUnit mu = new MarkovUnit(lines, 2);
-            int times = 100;
-            while(times-->0) {
-                mu.generateText(new Rand(), 0, 100);
-                System.out.println();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return buff.toString();
     }
 }

@@ -5,7 +5,7 @@ import java.util.stream.LongStream;
 /**
  * Created by andreinicolinciobanu on 25/01/2017.
  */
-public interface RandUnitLong extends RandUnit<Long> {
+public interface RandUnitLong extends RandUnitGeneral<Long> {
     default LongStream stream() {
         return LongStream.generate(this::val);
     }

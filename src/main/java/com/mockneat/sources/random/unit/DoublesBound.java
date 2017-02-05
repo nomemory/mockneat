@@ -47,4 +47,9 @@ public class DoublesBound implements RandUnitDouble {
 
         return rand.doubles().inRange(0.0, bound).val();
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }

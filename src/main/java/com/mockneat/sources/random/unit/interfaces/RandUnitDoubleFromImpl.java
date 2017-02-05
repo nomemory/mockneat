@@ -32,5 +32,10 @@ public class RandUnitDoubleFromImpl implements RandUnitDouble {
             return alphabetList.get(idx);
         }
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }
 

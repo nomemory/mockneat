@@ -28,23 +28,23 @@ public class Ints implements RandUnitInt, FromAlphabetIntUnit {
         return random.nextInt();
     }
 
-    public IntsBound withBound(Integer bound) {
+    public RandUnitInt withBound(Integer bound) {
         return new IntsBound(rand, bound);
     }
 
-    public IntsBound withBound() {
+    public RandUnitInt withBound() {
         return new IntsBound(rand);
     }
 
-    public IntsRange inRange(Integer lowerBound, Integer upperBound) {
+    public RandUnitInt inRange(Integer lowerBound, Integer upperBound) {
         return new IntsRange(rand, lowerBound, upperBound);
     }
 
-    public IntsRange inRange() {
+    public RandUnitInt inRange() {
         return new IntsRange(rand);
     }
 
-    public IntsFrom from(int[] alphabet) {
+    public RandUnitInt from(int[] alphabet) {
         return new IntsFrom(rand, alphabet);
     }
 

@@ -32,4 +32,9 @@ public class IntsFrom implements RandUnitInt {
         int randIdx = rand.ints().withBound(alphabet.length).val();
         return alphabet[randIdx];
     }
+
+    @Override
+    public Rand getRand() {
+        return this.rand;
+    }
 }
