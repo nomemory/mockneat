@@ -24,6 +24,7 @@ public class Rand {
     private IPv4s rIPv4s;
     private Longs rLongs;
     private Macs rMacs;
+    private Markovs rMarkovs;
     private Names rNames;
     private Objs rObjects;
     private Passwords rPasswords;
@@ -48,6 +49,7 @@ public class Rand {
         this.rIPv4s = new IPv4s(this);
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
+        this.rMarkovs = new Markovs(this);
         this.rNames = new Names(this);
         this.rObjects = new Objs(this);
         this.rPasswords = new Passwords(this);
@@ -109,6 +111,8 @@ public class Rand {
     public Longs longs() { return this.rLongs; }
 
     public Macs macs() { return this.rMacs; }
+
+    public Markovs markovs() { return this.rMarkovs; }
 
     public Names names() { return this.rNames; }
 

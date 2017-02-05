@@ -1,6 +1,7 @@
 package com.mockneat.sources.random.utils.markov;
 
 import com.mockneat.sources.random.Rand;
+import com.mockneat.sources.random.unit.interfaces.RandUnit;
 import com.mockneat.sources.random.unit.interfaces.RandUnitFromMapKeysImpl;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.mockneat.utils.StringUtils.capitalize;
 import static com.mockneat.utils.StringUtils.lowerCase;
 import static java.util.Arrays.stream;
 
@@ -17,18 +19,21 @@ import static java.util.Arrays.stream;
  */
 public class MarkovUnit {
 
-    private static final String TEXT_SPLIT_REGEX = " ?(?<!\\G)((?<=[^\\p{Punct}])(?=\\p{Punct})|\\b) ?";
-
     private Map<WordState, WordStatistic> chain;
+    private RandUnit<WordState> randState;
     private Integer stateSize = 2;
+    private Rand rand = new Rand();
 
-    public MarkovUnit(List<String> lines, Integer stateSize) {
+    public MarkovUnit(Rand rand, List<String> lines, Integer stateSize) {
         this.stateSize = stateSize;
         this.chain = getChain(getRawChain(getWords(lines)));
+        this.rand = rand;
+        this.randState = this.rand.objs().fromKeys(chain);
     }
 
-    public MarkovUnit(String textFile, Integer stateSize) throws IOException {
+    public MarkovUnit(Rand rand, String textFile, Integer stateSize) throws IOException {
         this.stateSize = stateSize;
+        this.rand = rand;
 
         List<String> lines = Files.readAllLines(Paths.get(textFile));
         this.chain = getChain(getRawChain(getWords(lines)));
@@ -84,25 +89,28 @@ public class MarkovUnit {
                                                   e -> new WordStatistic(e.getValue())));
     }
 
-    public String  generateText(Rand rand, Integer minLength, Integer maxLength) {
+    public String  generateText(Integer maxLength) {
         //TODO validate rand, minLength, maxLength
 
         // Obtain a random state from the existing states
         StringBuilder buff = new StringBuilder();
-        RandUnitFromMapKeysImpl<WordState, WordStatistic> unit = rand.objs().fromKeys(chain);
-        WordState state = unit.val();
+        WordState state = randState.val();
+        String prev = ".";
         WordStatistic statistic;
-        String nextWord;
-        int cnt = 200;
-        while (cnt --> 0) {
+        String next;
+        while (buff.length() < maxLength) {
             statistic = chain.get(state);
             while(null==statistic) {
-                statistic = chain.get(unit.val());
+                statistic = chain.get(randState.val());
             }
-            nextWord = statistic.nextWord();
-            state = state.nextState(nextWord);
-            buff.append(nextWord).append(" ");
+            next = statistic.nextWord();
+            state = state.nextState(next);
+            if (prev.endsWith(".")) {
+                next = capitalize(next);
+            }
+            prev = next;
+            buff.append(next).append(" ");
         }
-        return buff.toString();
+        return buff.subSequence(0, maxLength).toString();
     }
 }

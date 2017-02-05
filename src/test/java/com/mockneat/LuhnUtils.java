@@ -6,7 +6,7 @@ public class LuhnUtils {
      * @param cc
      * @return
      */
-    public static boolean luhn(String cc) {
+    public static boolean luhnCheck(String cc) {
         int result = 0;
         boolean flag = false;
         int digit = 0;

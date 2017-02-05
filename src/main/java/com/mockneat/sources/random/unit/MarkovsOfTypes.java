@@ -2,27 +2,30 @@ package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
 import com.mockneat.sources.random.unit.interfaces.RandUnit;
+import com.mockneat.sources.random.unit.interfaces.RandUnitInt;
 import com.mockneat.sources.random.unit.interfaces.RandUnitString;
+import com.mockneat.sources.random.utils.markov.MarkovUnit;
 import com.mockneat.types.enums.MarkovChainType;
+
+import java.io.IOException;
 
 /**
  * Created by andreinicolinciobanu on 02/02/2017.
  */
 public class MarkovsOfTypes implements RandUnitString {
 
-    private Rand rand;
-    private String[] paths;
+    private final Integer DEFAULT_MAX_LENGTH = 500;
 
-    public MarkovsOfTypes(MarkovChainType... types) {
-        //TODO check types
-        this.paths = new String[types.length];
-        for(int i = 0; i < types.length; ++i) {
-        }
+    private Rand rand;
+    private MarkovsOfTypesMax markovsOfTypesMax;
+
+    public MarkovsOfTypes(Rand rand, MarkovChainType... types) {
+        this.markovsOfTypesMax = new MarkovsOfTypesMax(rand, DEFAULT_MAX_LENGTH, types);
     }
 
     @Override
     public String val() {
-        return null;
+        return markovsOfTypesMax.val();
     }
 
     @Override

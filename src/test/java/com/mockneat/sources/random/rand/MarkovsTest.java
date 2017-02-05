@@ -13,16 +13,5 @@ import java.util.List;
 public class MarkovsTest {
     @Test
     public void test1() throws Exception {
-        String textFile = "resources/markov/kafka";
-        try{
-            List<String> lines = Files.readAllLines(Paths.get(textFile));
-            MarkovUnit mu = new MarkovUnit(lines, 2);
-            int times = 100;
-            while(times-->0) {
-                System.out.println(mu.generateText(new Rand(), 0, 100));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

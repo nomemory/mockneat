@@ -64,11 +64,6 @@ public class ObjsTest {
 
     private static enum TestEnumEmpty {};
 
-    /**
-     * Test if the method
-     * >> T name(T[] rChars)
-     * Generates random T stream in the given rChars
-     */
     @Test
     public void testNextObjectCorrectValues() throws Exception {
         TestModel[] array = TestModel.getTestArray();
@@ -79,11 +74,6 @@ public class ObjsTest {
                     .forEach(tm -> assertTrue(possibleValues.contains(tm))));
     }
 
-    /**
-     * Test if the method
-     * >> T name(T[] rChars)
-     * Generates random T stream in the given rChars
-     */
     @Test
     public void testNextOjectCorrectValues2() throws Exception {
         String[] array = { "a" };
@@ -93,34 +83,18 @@ public class ObjsTest {
                     .forEach(s -> assertTrue(s.equals(array[0]))));
     }
 
-    /**
-     * Test if the method
-     * >> T name(T[] rChars)
-     * Doesn't accept a null rChars.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonNullAlphabet() throws Exception {
         TestModel[] array = null;
         RAND.objs().from(array).val();
     }
 
-    /**
-     * Test if the method
-     * >> T name(T[] rChars)
-     * Doesn't accept an empty rChars.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonEmptyAlphabet() throws Exception {
         TestModel[] array = new TestModel[]{};
         RAND.objs().from(array).val();
     }
 
-
-    /**
-     * Test if the method
-     * >> T name(List<T> rChars)
-     * Generates random T stream in the given rChars
-     */
     @Test
     public void testNextObjectCorrectValues_list() throws Exception {
         List<TestModel> list = TestModel.getTestList();
@@ -131,11 +105,6 @@ public class ObjsTest {
                     .forEach(tm -> assertTrue(possibleValues.contains(tm))));
     }
 
-    /**
-     * Test if the method
-     * >> T name(List<T> rChars)
-     * Generates random T stream in the given rChars
-     */
     @Test
     public void testNextObjectCorrectValues_list2() throws Exception {
         List<String> list = Arrays.asList(new String[]{ "a" });
@@ -145,33 +114,18 @@ public class ObjsTest {
                     .forEach(s -> assertTrue(s.equals(list.get(0)))));
     }
 
-    /**
-     * Test if the method
-     * >> T name(List<T> rChars)
-     * Doesn't accept a null rChars.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonNullAlphabet_list() throws Exception {
         List<TestModel> array = null;
         RAND.objs().from(array).val();
     }
 
-    /**
-     * Test if the method
-     * >> T name(List<T> rChars)
-     * Doesn't accept an empty rChars.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonEmptyAlphabet_list() throws Exception {
         List<TestModel> list = new ArrayList<>();
         RAND.objs().from(list).val();
     }
 
-    /**
-     * Test if the method
-     * >> T name(List<T> rChars)
-     * Generates random T stream in the given rChars
-     */
     @Test
     public void testNextObjectCorrectValues_enum() throws Exception {
         Set<TestEnum> possible = new HashSet<>(Arrays.asList(TestEnum.values()));
@@ -181,11 +135,6 @@ public class ObjsTest {
                     .forEach(tm -> assertTrue(possible.contains(tm))));
     }
 
-    /**
-     * Test if the method
-     * >> T name(List<T> rChars)
-     * Doesn't accept an empty rChars.
-     */
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonEmptyAlphabet_enum() throws Exception {
         RAND.objs().from(TestEnumEmpty.class).val();

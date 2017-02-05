@@ -1,10 +1,7 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnit;
-import com.mockneat.sources.random.unit.interfaces.RandUnitFormatStringImpl;
 import com.mockneat.sources.random.unit.interfaces.RandUnitString;
-import com.mockneat.types.enums.StringFormatType;
 import com.mockneat.types.enums.UserNameType;
 
 import static com.mockneat.types.enums.StringFormatType.LOWER_CASE;

@@ -1,11 +1,8 @@
 package com.mockneat.sources.random.unit;
 
 import com.mockneat.sources.random.Rand;
-import com.mockneat.sources.random.unit.interfaces.RandUnit;
 import com.mockneat.sources.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
-import com.mockneat.sources.random.unit.interfaces.RandUnitFormatStringImpl;
-import com.mockneat.types.enums.StringFormatType;
 
 /**
  * Created by andreinicolinciobanu on 25/01/2017.
