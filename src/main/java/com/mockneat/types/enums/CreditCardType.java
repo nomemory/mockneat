@@ -41,17 +41,17 @@ public enum CreditCardType {
 
     private List<List<Integer>> prefixes;
 
+    CreditCardType(Integer length, Integer... prefixes) {
+        this.length = length;
+        List<Integer> plist = Arrays.asList(prefixes);
+        this.prefixes = plist.stream().map(this::fromNumber).collect(Collectors.toList());
+    }
+
     public List<List<Integer>> getPrefixes() {
         return prefixes;
     }
 
     public Integer getLength() { return length; }
-
-    CreditCardType(Integer length, Integer... prefixes) {
-        this.length = length;
-        List<Integer> plist = Arrays.asList(prefixes);
-        this.prefixes = plist.stream().map(pref -> fromNumber(pref)).collect(Collectors.toList());
-    }
 
     protected ArrayList<Integer> fromNumber(int num) {
         List<Integer> list = new LinkedList<>();

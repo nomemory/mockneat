@@ -1,20 +1,12 @@
 package com.mockneat.generator;
 
-import com.mockneat.generator.mockmodels.Catalog;
 import com.mockneat.generator.mockmodels.Person;
-import com.mockneat.sources.random.Rand;
-import com.mockneat.types.Value;
-import com.mockneat.types.enums.MarkovChainType;
-import com.mockneat.types.enums.NameType;
+import com.mockneat.random.Rand;
 import org.junit.Test;
 
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
 import static com.mockneat.types.enums.NameType.FIRST_NAME;
-import static com.mockneat.types.enums.StringFormatType.CAPITALIZED;
 import static com.mockneat.types.enums.StringFormatType.UPPER_CASE;
 
 /**

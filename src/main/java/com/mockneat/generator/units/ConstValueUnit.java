@@ -9,12 +9,12 @@ public class ConstValueUnit implements MockGeneratorUnit {
 
     private Value value;
 
-    public static ConstValueUnit from(Value value) {
-        return new ConstValueUnit(value);
-    }
-
     protected ConstValueUnit(Value value) {
         this.value = value;
+    }
+
+    public static ConstValueUnit from(Value value) {
+        return new ConstValueUnit(value);
     }
 
     @Override

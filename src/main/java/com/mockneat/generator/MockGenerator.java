@@ -52,11 +52,11 @@ public class MockGenerator {
         fields.forEach((k,v) -> {
             Object value = v.next();
             try {
-                new Statement(result, getSetterName(k.toString()), new Object[]{ value }).execute();
+                new Statement(result, getSetterName(k), new Object[]{ value }).execute();
             } catch (Exception e) {
                 String valueClass = (value!=null) ? value.getClass().getSimpleName() : "null";
                 LOGGER.error("Cannot call method \"{}({})\" on bean {}.",
-                        getSetterName(k.toString()), valueClass, result.getClass().getName(), e);
+                        getSetterName(k), valueClass, result.getClass().getName(), e);
             }
         });
     }
@@ -67,7 +67,7 @@ public class MockGenerator {
             setValues(result);
             return Optional.of(result);
         } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.error("Cannot instantiate object of type '{}'. There is 'NO ARGUMENTS' public constructor not available.", cls.getName());
+            LOGGER.error("Cannot instantiate object of type '{}'. There is 'NO ARGUMENTS' public constructor not available.", cls.getName(), e);
         }
         return Optional.empty();
     }

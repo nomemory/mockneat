@@ -1,6 +1,6 @@
 package com.mockneat;
 
-import com.mockneat.sources.random.Rand;
+import com.mockneat.random.Rand;
 
 import java.util.Map;
 

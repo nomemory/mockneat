@@ -9,12 +9,12 @@ public class ReferenceUnit implements MockGeneratorUnit {
 
     private MockGenerator mockGenerator;
 
-    public static MockGeneratorUnit from(MockGenerator mockGenerator) {
-        return new ReferenceUnit(mockGenerator);
-    }
-
     protected ReferenceUnit(MockGenerator mockGenerator) {
         this.mockGenerator = mockGenerator;
+    }
+
+    public static MockGeneratorUnit from(MockGenerator mockGenerator) {
+        return new ReferenceUnit(mockGenerator);
     }
 
     @Override

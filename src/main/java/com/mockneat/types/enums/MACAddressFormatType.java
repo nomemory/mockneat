@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-import com.mockneat.sources.random.Rand;
+import com.mockneat.random.Rand;
 import com.mockneat.types.TriConsumer;
 
 /**
