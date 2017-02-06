@@ -25,27 +25,6 @@ public class MockGeneratorTest1 {
     public void randomPersonCorrectValues() throws Exception {
         Rand r = new Rand();
 
-//        MockGenerator mg = MockGenerator.forClass(Person.class);
-//
-//        mg.field("name", r.names().ofType(FIRST_NAME)::val)
-//                .field("email", r.emails().format(UPPER_CASE)::val)
-//                .field("age", r.ints().inRange(18, 90)::val)
-//                .field("catalog", MockGenerator.forClass(Catalog.class)
-//                                                .field("x", r.ints()::val)
-//                                                .field("y", r.chars().lowerLetters()::val)
-//                                                .field("z", r.emails()::val))
-//                .field("integers", r.ints().list(2)::val)
-//                .field("map", r.ccs().ofType(AMERICAN_EXPRESS).mapWithValues(2, r.ints()::val)::val);
-//
-//        IntStream.range(0,100).forEach(i -> System.out.println(mg.newInstance().get()));
-//
-//        r.emails().val();
-//        r.emails().list(10).val();
-        //System.out.println(r.emails().format(UPPER_CASE).list(10).mapWithKeys(10, r.ints()::val).val());
-        //System.out.println(r.emails().format(CAPITALIZED).list(3).mapWithValues(10, r.doubles().inRange(10.0, 20.0)::val).val());
-        //System.out.println(r.ccs().ofType(AMERICAN_EXPRESS).cut(10).list(5).list(5).list(5).val());
-        //System.out.println(r.chars().letters().list(20).stream().limit(5).map(l -> l+"").collect(Collectors.toList()));
-
         MockGenerator mg = MockGenerator.forClass(Person.class);
         mg
                 .field("name", r.names().ofType(FIRST_NAME)::val)

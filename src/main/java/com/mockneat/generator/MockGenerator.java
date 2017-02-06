@@ -11,10 +11,6 @@ import org.slf4j.LoggerFactory;
 import java.beans.Statement;
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 import static com.mockneat.utils.BeanUtils.getSetterName;
 
