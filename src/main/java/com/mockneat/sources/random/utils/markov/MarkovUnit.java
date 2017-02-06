@@ -37,6 +37,7 @@ public class MarkovUnit {
 
         List<String> lines = Files.readAllLines(Paths.get(textFile));
         this.chain = getChain(getRawChain(getWords(lines)));
+        this.randState = this.rand.objs().fromKeys(chain);
     }
 
     protected List<String> getWords(List<String> lines) {

@@ -50,7 +50,8 @@ public class MockGeneratorTest1 {
         mg
                 .field("name", r.names().ofType(FIRST_NAME)::val)
                 .field("email", r.emails().format(UPPER_CASE)::val)
-                .field("age", r.ints().inRange(18, 99)::val);
+                .field("age", r.ints().inRange(18, 99)::val)
+                .field("description", r.markovs()::val);
 
         IntStream.range(0,5).forEach(i -> System.out.println(mg.newInstance()));
 

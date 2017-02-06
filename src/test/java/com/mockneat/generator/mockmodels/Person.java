@@ -11,6 +11,7 @@ public class Person {
     private String name;
     private String email;
     private Integer age;
+    private String description;
     private Catalog catalog;
     private List<Integer> integers;
     private Map<String, Integer> map;
@@ -63,12 +64,21 @@ public class Person {
         this.map = map;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", description='" + description + '\'' +
                 ", catalog=" + catalog +
                 ", integers=" + integers +
                 ", map=" + map +

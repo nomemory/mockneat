@@ -6,7 +6,7 @@ import com.mockneat.sources.random.unit.interfaces.RandUnitInt;
 
 import java.util.Random;
 
-public class Ints implements , FromAlphabetIntUnit {
+public class Ints implements RandUnitInt, FromAlphabetIntUnit {
 
     private Rand rand;
     private Random random;
