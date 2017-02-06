@@ -2,6 +2,8 @@ package com.mockneat.sources.random.unit.interfaces;
 
 import com.mockneat.sources.random.Rand;
 
+import java.util.function.Supplier;
+
 /**
  * Created by andreinicolinciobanu on 05/02/2017.
  */
@@ -9,9 +11,9 @@ public class RandUnitStringCutImpl implements RandUnitString {
 
     private Rand rand;
     private Integer maxSize;
-    private String val;
+    private Supplier<String> val;
 
-    public RandUnitStringCutImpl(Rand rand, Integer maxSize, String val) {
+    public RandUnitStringCutImpl(Rand rand, Integer maxSize, Supplier<String> val) {
         this.rand = rand;
         this.maxSize = maxSize;
         this.val = val;
@@ -19,7 +21,7 @@ public class RandUnitStringCutImpl implements RandUnitString {
 
     @Override
     public String val() {
-        return val.substring(0, maxSize);
+        return val.get().substring(0, maxSize);
     }
 
     @Override

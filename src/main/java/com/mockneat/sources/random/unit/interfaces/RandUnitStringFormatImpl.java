@@ -3,6 +3,8 @@ package com.mockneat.sources.random.unit.interfaces;
 import com.mockneat.sources.random.Rand;
 import com.mockneat.types.enums.StringFormatType;
 
+import java.util.function.Supplier;
+
 import static com.mockneat.utils.NextUtils.checkStringFormatTypeNotNull;
 
 /**
@@ -11,10 +13,10 @@ import static com.mockneat.utils.NextUtils.checkStringFormatTypeNotNull;
 public class RandUnitStringFormatImpl implements RandUnitString {
 
     private Rand rand;
-    private String val;
+    private Supplier<String> val;
     private StringFormatType formatType;
 
-    public RandUnitStringFormatImpl(Rand rand, StringFormatType formatType, String val) {
+    public RandUnitStringFormatImpl(Rand rand, StringFormatType formatType, Supplier<String> val) {
         this.rand = rand;
         this.val = val;
         this.formatType = formatType;
@@ -23,7 +25,7 @@ public class RandUnitStringFormatImpl implements RandUnitString {
     @Override
     public String val() {
         checkStringFormatTypeNotNull(formatType);
-        return formatType.getFormatter().apply(this.val);
+        return formatType.getFormatter().apply(val.get());
     }
 
     @Override

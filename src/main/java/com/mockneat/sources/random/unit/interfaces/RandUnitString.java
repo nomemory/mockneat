@@ -8,11 +8,11 @@ import com.mockneat.types.enums.StringFormatType;
 public interface RandUnitString extends RandUnit<String> {
 
     default RandUnitString format(StringFormatType formatType) {
-        return new RandUnitStringFormatImpl(getRand(), formatType, val());
+        return new RandUnitStringFormatImpl(getRand(), formatType, this::val);
     }
 
     default RandUnitString cut(Integer maxLength) {
-        return new RandUnitStringCutImpl(getRand(),maxLength, val());
+        return new RandUnitStringCutImpl(getRand(),maxLength, this::val);
     }
 
 }

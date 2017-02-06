@@ -3,10 +3,11 @@ package com.mockneat.sources.random.unit.interfaces;
 import com.mockneat.sources.random.Rand;
 import com.mockneat.utils.NextUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.BaseStream;
+import java.util.stream.Stream;
 
 import static com.mockneat.utils.NextUtils.checkSize;
 import static com.mockneat.utils.NextUtils.checkType;
@@ -18,48 +19,47 @@ public interface RandUnitGeneral<T> {
 
     T val();
 
-    default Collection<T> collection(Integer size) {
-        return collection(size, List.class);
-    }
-
-    default Collection<T> collection(Integer size, Class<? extends Collection> collectionClass) {
-        checkSize(size);
-        checkType(collectionClass);
-        try {
-            Collection<T> result = collectionClass.newInstance();
-            int cnt = size;
-            while (cnt-- > 0) {
-                result.add(val());
-            }
-            return result;
-        } catch (InstantiationException | IllegalAccessException e) {
-            // TODO LOG ERROR
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    default List<T> list(Integer size) {
-        checkSize(size);
-        return list(size, ArrayList.class);
-    }
-
-    default List<T> list(Integer size, Class<? extends List> listClass) {
-        checkSize(size);
-        checkType(listClass);
-        try {
-            List<T> result = listClass.newInstance();
-            int cnt = size;
-            while (cnt-- > 0) {
-                result.add(val());
-            }
-            return result;
-        } catch (InstantiationException | IllegalAccessException e) {
-            // TODO LOG ERROR
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     Rand getRand();
+
+    default Supplier<T> supplier(){ return this::val; }
+
+    default RandUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, Integer size) {
+        return new RandUnitCollectionImpl<>(getRand(), this::val, collectionClass, size);
+    }
+
+    default RandUnit<Collection<T>> collection(Integer size) {
+        return new RandUnitCollectionImpl<>(getRand(), this::val, ArrayList.class, size);
+    }
+
+    default RandUnit<List<T>> list(Integer size) {
+        return new RandUnitListImpl<>(getRand(), this::val, ArrayList.class, size);
+    }
+
+    default RandUnit<List<T>> list(Class<? extends List> listClass, Integer size) {
+        return new RandUnitListImpl<>(getRand(), this::val, listClass, size);
+    }
+
+    default RandUnit<Set<T>> set(Class<? extends Set> setClass, Integer size) {
+        return new RandUnitSetImpl<>(getRand(), this::val, setClass, size);
+    }
+
+    default RandUnit<Set<T>> set(Integer size) {
+        return new RandUnitSetImpl<>(getRand(), this::val, HashSet.class, size);
+    }
+
+    default <R> RandUnit<Map<R,T>> mapWithKeys(Class<? extends Map> mapClass, Integer size, Supplier<R> keysGen) {
+        return new RandUnitMapWithKeysImpl<>(getRand(), this::val, keysGen, mapClass, size);
+    }
+
+    default <R> RandUnit<Map<R,T>> mapWithKeys(Integer size, Supplier<R> keyGen) {
+        return new RandUnitMapWithKeysImpl<>(getRand(), this::val, keyGen, HashMap.class, size);
+    }
+
+    default <R> RandUnit<Map<T,R>> mapWithValues(Class<? extends Map> mapClass, Integer size, Supplier<R> valGen) {
+        return new RandUnitMapWithValuesImpl<>(getRand(), this::val, valGen, mapClass, size);
+    }
+
+    default <R> RandUnit<Map<T,R>> mapWithValues(Integer size, Supplier<R> valGen) {
+        return new RandUnitMapWithValuesImpl<>(getRand(), this::val, valGen, HashMap.class, size);
+    }
 }

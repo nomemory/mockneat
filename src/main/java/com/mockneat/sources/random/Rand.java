@@ -9,13 +9,12 @@ public class Rand {
 
     private Random random;
 
-    private Chars rChars;
     private Bools rBools;
     private Bytes rBytes;
     private Countries rCountries;
     private CCS rCCS;
+    private Chars rChars;
     private CVVS rCVVS;
-    private CharsDigits rDigits;
     private Dicts rDicts;
     private Doubles rDoubles;
     private Emails rEmails;
@@ -44,7 +43,6 @@ public class Rand {
         this.rDoubles = new Doubles(this);
         this.rEmails = new Emails(this);
         this.rFloats = new Floats(this);
-        this.rDigits = new CharsDigits(this);
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
         this.rLongs = new Longs(this);
@@ -66,11 +64,6 @@ public class Rand {
         this(randomType);
         random.setSeed(seed);
     }
-
-    public Chars chars() {
-        return this.rChars;
-    }
-
 
     public Bools bools() {
         return this.rBools;
@@ -94,7 +87,7 @@ public class Rand {
         return this.rDicts;
     }
 
-    public CharsDigits digits() { return this.rDigits; }
+    public Chars chars() { return this.rChars; }
 
     public Doubles doubles() {
         return this.rDoubles;

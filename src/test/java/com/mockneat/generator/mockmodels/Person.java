@@ -1,95 +1,77 @@
 package com.mockneat.generator.mockmodels;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by andreinicolinciobanu on 23/01/2017.
  */
 public class Person {
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String email;
     private Integer age;
-    private String country;
-    private String description;
-    private int age2;
     private Catalog catalog;
+    private List<Integer> integers;
+    private Map<String, Integer> map;
 
-    public Person() {
+    public String getName() {
+        return name;
     }
 
-    public Person(String firstName, String lastName, Integer age, String country, String description, int age2) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.country = country;
-        this.description = description;
-        this.age2 = age2;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getEmail() {
+        return email;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getAge2() {
-        return age2;
-    }
-
-    public void setAge2(int age2) {
-        this.age2 = age2;
-    }
-
     public Catalog getCatalog() {
         return catalog;
+    }
+
+    public List<Integer> getIntegers() {
+        return integers;
+    }
+
+    public Map<String, Integer> getMap() {
+        return map;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public void setCatalog(Catalog catalog) {
         this.catalog = catalog;
     }
 
+    public void setIntegers(List<Integer> integers) {
+        this.integers = integers;
+    }
+
+    public void setMap(Map<String, Integer> map) {
+        this.map = map;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", age=" + age +
-                ", rCountries='" + country + '\'' +
-                ", description='" + description + '\'' +
-                ", age2=" + age2 +
                 ", catalog=" + catalog +
+                ", integers=" + integers +
+                ", map=" + map +
                 '}';
     }
 }

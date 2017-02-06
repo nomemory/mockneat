@@ -1,6 +1,6 @@
 package com.mockneat.generator;
 
-import com.mockneat.generator.units.IterationUnit;
+import com.mockneat.generator.units.SupplierUnit;
 import com.mockneat.generator.units.ConstValueUnit;
 import com.mockneat.generator.units.MockGeneratorUnit;
 import com.mockneat.generator.units.ReferenceUnit;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.beans.Statement;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -41,23 +42,8 @@ public class MockGenerator {
         return this;
     }
 
-    public MockGenerator field(String name, Stream stream) {
-        fields.put(name, IterationUnit.from(stream.iterator()));
-        return this;
-    }
-
-    public MockGenerator field(String name, IntStream stream) {
-        fields.put(name, IterationUnit.from(stream.iterator()));
-        return this;
-    }
-
-    public MockGenerator field(String name, LongStream stream) {
-        fields.put(name, IterationUnit.from(stream.iterator()));
-        return this;
-    }
-
-    public MockGenerator field(String name, DoubleStream stream) {
-        fields.put(name, IterationUnit.from(stream.iterator()));
+    public <T> MockGenerator field(String name, Supplier<T> supplier) {
+        fields.put(name, SupplierUnit.from(supplier));
         return this;
     }
 
