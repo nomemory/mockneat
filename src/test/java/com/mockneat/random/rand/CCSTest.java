@@ -15,7 +15,7 @@ public class CCSTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void nextCreditCardTypeNotNull() throws Exception {
-        RAND.ccs().ofType(null).val();
+        RAND.ccs().type(null).val();
     }
 
     @Test
@@ -24,13 +24,13 @@ public class CCSTest {
                 stream(RANDS)
                     .forEach(r -> {
                         CreditCardType type = r.objs().from(CreditCardType.class).val();
-                        assertTrue(luhnCheck(r.ccs().ofType(type).val()));
+                        assertTrue(luhnCheck(r.ccs().type(type).val()));
                     }));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void nextCVVTypeNotNull() throws Exception {
-        RAND.cvvs().ofType(null).val();
+        RAND.cvvs().type(null).val();
     }
 
 }

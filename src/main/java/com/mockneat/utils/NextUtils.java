@@ -26,11 +26,12 @@ public class NextUtils {
     public static final String INVALID_ALPHABET_R = "Invalid type. The type cannot be NULL.";
     public static final String INVALID_ALPHABET = "Invalid type. The array cannot be null or empty.";
     public static final String INVALID_ALPHABET_LIST = "Invalid type. The list cannot be empty or null.";
-    public static final String INVALID_STRING_ALPHABET = "Invalid String rChars. The array cannot be null or empty.";
-    public static final String INVALID_INT_ALPHABET = "Invalid int[] rChars. The array cannot be null or empty.";
-    public static final String INVALID_DOUBLE_ALPHABET = "Invalid double[] rChars. The array cannot be null or empty.";
-    public static final String INVALID_BYTE_ALPHABET = "Invalid byte[] rChars. The array cannot be null or empty.";
-    public static final String INVALID_FLOAT_ALPHABET = "Invalid float  [] rChars. The array cannot be null or empty.";
+    public static final String INVALID_CHAR_ALPHABET = "Invalid char[] alphabet. The array cannot be null or empty";
+    public static final String INVALID_STRING_ALPHABET = "Invalid String alphabet. The string cannot be null or empty.";
+    public static final String INVALID_INT_ALPHABET = "Invalid int[] alphabet. The array cannot be null or empty.";
+    public static final String INVALID_DOUBLE_ALPHABET = "Invalid double[] alphabet. The array cannot be null or empty.";
+    public static final String INVALID_BYTE_ALPHABET = "Invalid byte[] alphabet. The array cannot be null or empty.";
+    public static final String INVALID_FLOAT_ALPHABET = "Invalid float  [] alphabet. The array cannot be null or empty.";
     public static final String INVALID_NEXT_FUNCTION = "Invalid name() function. The function cannot be NULL.";
     public static final String INVALID_PROBABILITY = "Invalid probability. Value must be a number different than null between [0, 100].";
     public static final String INVALID_TYPES = "Invalid types. Array cannot be null or empty.";
@@ -190,6 +191,12 @@ public class NextUtils {
     public static void checkStringAlpabet(String alphabet) {
         if (null == alphabet || 0 == alphabet.length()) {
             throw new IllegalArgumentException(INVALID_STRING_ALPHABET);
+        }
+    }
+
+    public static void checkCharAlphabet(char[] alphabet) {
+        if (null == alphabet || 0 == alphabet.length) {
+            throw new IllegalArgumentException(INVALID_CHAR_ALPHABET);
         }
     }
 

@@ -32,6 +32,7 @@ public class CountriesTest {
                 .map(r -> r.countries()
                                 .names()
                                 .stream()
+                                .val()
                                 .limit(COUNTRY_STREAMS_LIMIT))
                 .forEach(s ->
                         s.forEach(c -> {
@@ -66,7 +67,7 @@ public class CountriesTest {
     public void testStreamCountryNameUpperCaseFormat() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () ->
             stream(RANDS)
-                .map(r -> r.countries().names().format(StringFormatType.UPPER_CASE).stream().limit(COUNTRY_STREAMS_LIMIT))
+                .map(r -> r.countries().names().format(StringFormatType.UPPER_CASE).stream().val().limit(COUNTRY_STREAMS_LIMIT))
                 .forEach(s -> s.forEach(c -> assertTrue(allUppercase(c)))));
     }
 
@@ -84,7 +85,7 @@ public class CountriesTest {
     public void testStreamCountryNameLowerCaseFormat() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () ->
                 stream(RANDS)
-                    .map(r -> r.countries().names().format(StringFormatType.LOWER_CASE).stream().limit(COUNTRY_STREAMS_LIMIT))
+                    .map(r -> r.countries().names().format(StringFormatType.LOWER_CASE).stream().val().limit(COUNTRY_STREAMS_LIMIT))
                     .forEach(s -> s.forEach(c -> assertTrue(allLowerCase(c)))));
     }
 
@@ -103,7 +104,7 @@ public class CountriesTest {
     public void testStreamCountryNameCapitalizedFormat() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () ->
                 stream(RANDS)
-                    .map(r -> r.countries().names().format(StringFormatType.CAPITALIZED).stream().limit(COUNTRY_STREAMS_LIMIT))
+                    .map(r -> r.countries().names().format(StringFormatType.CAPITALIZED).stream().val().limit(COUNTRY_STREAMS_LIMIT))
                     .forEach(s -> {
                         s.forEach(c -> {
                             assertTrue(isUpperCase(c.charAt(0)));
@@ -127,7 +128,7 @@ public class CountriesTest {
     public void testStreamNextCountryISO2() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () -> {
             stream(RANDS)
-                    .map(r -> r.countries().iso2().stream().limit(COUNTRY_STREAMS_LIMIT))
+                    .map(r -> r.countries().iso2().stream().val().limit(COUNTRY_STREAMS_LIMIT))
                     .forEach(s -> {
                         s.forEach(c -> {
                             assertTrue(isUpperCase(c.charAt(0)));
@@ -163,7 +164,7 @@ public class CountriesTest {
     public void testStreamCountryISO2UpperCaseFormat() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () -> {
             stream(RANDS)
-                    .map(r -> r.countries().iso2().format(StringFormatType.UPPER_CASE).stream().limit(COUNTRY_STREAMS_LIMIT))
+                    .map(r -> r.countries().iso2().format(StringFormatType.UPPER_CASE).stream().val().limit(COUNTRY_STREAMS_LIMIT))
                     .forEach(s ->
                         s.forEach(c -> assertTrue(allUppercase(c))));
         });
@@ -183,7 +184,7 @@ public class CountriesTest {
     public void testStreamCountryISO2LowerCaseFormat() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () -> {
             stream(RANDS)
-                    .map(r -> r.countries().iso2().format(StringFormatType.LOWER_CASE).stream().limit(COUNTRY_STREAMS_LIMIT))
+                    .map(r -> r.countries().iso2().format(StringFormatType.LOWER_CASE).stream().val().limit(COUNTRY_STREAMS_LIMIT))
                     .forEach(s ->
                             s.forEach(c -> assertTrue(allLowerCase(c))));
         });
@@ -204,7 +205,7 @@ public class CountriesTest {
     public void testStreamCountryISO2Capitalized() throws Exception {
         FunctUtils.cycle(NEXT_COUNTRY_CYCLES, () -> {
             stream(RANDS)
-                    .map(r -> r.countries().iso2().format(StringFormatType.CAPITALIZED).stream().limit(COUNTRY_STREAMS_LIMIT))
+                    .map(r -> r.countries().iso2().format(StringFormatType.CAPITALIZED).stream().val().limit(COUNTRY_STREAMS_LIMIT))
                     .forEach(s ->
                             s.forEach(c -> {
                                 assertTrue(isUpperCase(c.charAt(0)));

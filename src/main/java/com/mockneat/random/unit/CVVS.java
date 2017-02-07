@@ -1,8 +1,15 @@
 package com.mockneat.random.unit;
 
 import com.mockneat.random.Rand;
+import com.mockneat.random.unit.interfaces.RandUnit;
 import com.mockneat.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.CVVType;
+import com.mockneat.utils.FunctUtils;
+
+import java.util.function.Supplier;
+
+import static com.mockneat.types.enums.CVVType.CVV3;
+import static com.mockneat.utils.NextUtils.checkCVVTypeNotNull;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
@@ -16,16 +23,18 @@ public class CVVS implements RandUnitString {
     }
 
     @Override
-    public String val() {
-        return rand.cvvs().ofType(CVVType.CVV4).val();
+    public Supplier<String> supplier() {
+        return type(CVV3).supplier();
     }
 
-    @Override
-    public Rand getRand() {
-        return this.rand;
-    }
-
-    public RandUnitString ofType(CVVType type) {
-        return new CVVSOfType(rand, type);
+    public RandUnitString type(CVVType type) {
+        checkCVVTypeNotNull(type);
+        Supplier<String> supplier = () -> {
+            final StringBuilder builder = new StringBuilder();
+            FunctUtils.cycle(type.getLength(), () ->
+                    builder.append(rand.chars().digits().val()));
+            return builder.toString();
+        };
+        return () -> supplier;
     }
 }

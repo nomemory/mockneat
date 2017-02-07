@@ -1,15 +1,18 @@
 package com.mockneat.random.unit;
 
 import com.mockneat.random.Rand;
-import com.mockneat.random.unit.interfaces.FromAlphabetLongUnit;
 import com.mockneat.random.unit.interfaces.RandUnitLong;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
+
+import static com.mockneat.utils.NextUtils.*;
 
 /**
  * Created by andreinicolinciobanu on 02/01/2017.
  */
-public class Longs implements RandUnitLong, FromAlphabetLongUnit {
+public class Longs implements RandUnitLong {
 
     private Rand rand;
     private Random random;
@@ -20,40 +23,44 @@ public class Longs implements RandUnitLong, FromAlphabetLongUnit {
     }
 
     @Override
-    public Long val() {
-        return random.nextLong();
+    public Supplier<Long> supplier() {
+        return () -> random.nextLong();
     }
 
-    @Override
-    public Rand getRand() {
-        return this.rand;
+    public RandUnitLong bound(Long bound) {
+        checkLongBound(bound);
+        Supplier<Long> supplier = () -> {
+            long b;
+            long result;
+            do {
+                b = (random.nextLong() << 1) >>> 1;
+                result = b % bound;
+            } while (b-result+bound-1 < 0L);
+
+            return result;
+        };
+        return () -> supplier;
     }
 
-    public RandUnitLong withBound(Long bound) {
-        return new LongsBound(rand, bound);
+    public RandUnitLong range(Long lowerBound, Long upperBound) {
+        Supplier<Long> supplier = () -> {
+            checkLongBounds(lowerBound, upperBound);
+            if (random instanceof ThreadLocalRandom) {
+                // Use the native implementation that is only available for ThreadLocalRandoms
+                return ((ThreadLocalRandom) random).nextLong(lowerBound, upperBound);
+            }
+            return rand.longs().bound(upperBound - lowerBound).val() + lowerBound;
+        };
+        return () -> supplier;
     }
 
-    public RandUnitLong withBound() {
-        return new LongsBound(rand);
-    }
-
-    public RandUnitLong inRange(Long lowerBound, Long upperBound) {
-        return new LongsRange(rand, lowerBound, upperBound);
-    }
-
-    public RandUnitLong inRange() {
-        return new LongsRange(rand);
-    }
-
-    /**
-     * Returns a (pseudo)random val from the rChars array.
-     * All possible Long stream (from the array) are produced with approximately the same probability.
-     *
-     * @param alphabet Must be non-null and non-empty (rChars.length!=0)
-     * @return The name possible (pseudo)random Long, uniformly distributed from the rChars array.
-     */
     public RandUnitLong from(long[] alphabet) {
-        return new LongsFrom(rand, alphabet);
+        Supplier<Long> supp = () -> {
+            checkLongAlphabet(alphabet);
+            int idx = random.nextInt(alphabet.length);
+            return alphabet[idx];
+        };
+        return () -> supp;
     }
 
 }

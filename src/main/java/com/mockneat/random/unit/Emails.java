@@ -4,6 +4,10 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 
+import java.util.function.Supplier;
+
+import static com.mockneat.types.enums.DictType.DOMAIN_EMAIL;
+
 /**
  * Created by andreinicolinciobanu on 30/01/2017.
  */
@@ -16,12 +20,7 @@ public class Emails implements RandUnitString {
     }
 
     @Override
-    public String val() {
-        return rand.users().val() + "@" + rand.dicts().from(DictType.DOMAIN_EMAIL).val();
-    }
-
-    @Override
-    public Rand getRand() {
-        return this.rand;
+    public Supplier<String> supplier() {
+        return () -> rand.users().val() + "@" + rand.dicts().type(DOMAIN_EMAIL).val();
     }
 }

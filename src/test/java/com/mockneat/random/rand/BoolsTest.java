@@ -23,7 +23,7 @@ public class BoolsTest {
     public void testStreamBooleanAlwaysTrueIf100() throws Exception {
         cycle(NEXT_BOOLEAN_CYCLES, () ->
                 stream(RANDS)
-                    .map(r -> r.bools().probability(100.0).stream().limit(BOOLEAN_STREAMS_LIMIT))
+                    .map(r -> r.bools().probability(100.0).stream().val().limit(BOOLEAN_STREAMS_LIMIT))
                     .forEach(s -> s.forEach(Assert::assertTrue)));
     }
 
@@ -39,7 +39,7 @@ public class BoolsTest {
     public void testStreamBooleanAlwaysTrueIf100_2() throws Exception {
         cycle(NEXT_BOOLEAN_CYCLES, () ->
                 stream(RANDS)
-                        .map(r -> r.bools().probability(100.0).stream().limit(BOOLEAN_STREAMS_LIMIT))
+                        .map(r -> r.bools().probability(100.0).stream().val().limit(BOOLEAN_STREAMS_LIMIT))
                         .forEach(s -> s.forEach(Assert::assertTrue)));
     }
 
@@ -58,6 +58,7 @@ public class BoolsTest {
                         .map(r -> r.bools()
                                     .probability(0.0)
                                     .stream()
+                                    .val()
                                     .limit(BOOLEAN_STREAMS_LIMIT))
                         .forEach(s -> s.forEach(Assert::assertFalse)));
     }
@@ -74,7 +75,7 @@ public class BoolsTest {
     public void testStreamBooleanAlwaysFalseIf_2() throws Exception {
         cycle(NEXT_BOOLEAN_CYCLES, () ->
                 stream(RANDS)
-                        .map(r -> r.bools().probability(0.0).stream().limit(BOOLEAN_STREAMS_LIMIT))
+                        .map(r -> r.bools().probability(0.0).stream().val().limit(BOOLEAN_STREAMS_LIMIT))
                         .forEach(s -> s.forEach(Assert::assertFalse)));
     }
 

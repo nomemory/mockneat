@@ -30,7 +30,7 @@ public class MacsTest {
         FunctUtils.cycle(NEXT_NETWORKING_CYCLES, () -> {
             stream(RANDS)
                     .forEach(r -> {
-                        String mac = r.macs().format(type).val();
+                        String mac = r.macs().type(type).val();
                         String[] macNum = mac.split(separator);
 
                         assertTrue(macNum.length==macNumLength);

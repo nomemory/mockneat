@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         Rand R = new Rand();
-        System.out.println(R.ints().withBound(10).mapWithKeys(10,
+        System.out.println(R.ints().bound(10).mapWithKeys(10,
                 R.chars().letters()::stream
         ).val());
 
@@ -20,7 +20,7 @@ public class Main {
                                .mapWithValues(
                                         10,
                                         R.longs()
-                                         .inRange(100L, 105L)::val
+                                         .range(100L, 105L)::val
                                )
                                .val();
         System.out.println(m);

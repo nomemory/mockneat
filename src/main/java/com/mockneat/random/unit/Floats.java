@@ -4,6 +4,11 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnit;
 
 import java.util.Random;
+import java.util.function.Supplier;
+
+import static com.mockneat.utils.NextUtils.checkFloatAlphabet;
+import static com.mockneat.utils.NextUtils.checkFloatBound;
+import static com.mockneat.utils.NextUtils.checkFloatBounds;
 
 public class Floats implements RandUnit<Float> {
     private Rand rand;
@@ -14,34 +19,34 @@ public class Floats implements RandUnit<Float> {
         this.random = rand.getRandom();
     }
 
-
     @Override
-    public Float val() {
-        return random.nextFloat();
+    public Supplier<Float> supplier() {
+        return () -> random.nextFloat();
     }
 
-    @Override
-    public Rand getRand() {
-        return this.rand;
+    public RandUnit<Float> range(Float lowerBound, Float upperBound) {
+        Supplier<Float> supp = () -> {
+            checkFloatBounds(lowerBound, upperBound);
+            if (Float.valueOf(upperBound - lowerBound).isInfinite()) {
+                throw new IllegalArgumentException("Infinite bound difference.");
+            } else {
+                return random.nextFloat() * (upperBound - lowerBound) + lowerBound;
+            }
+        };
+        return () -> supp;
     }
 
-    public RandUnit<Float> inRange() {
-        return new FloatsRange(rand);
-    }
-
-    public RandUnit<Float> inRange(Float lowerBound, Float upperBound) {
-        return new FloatsRange(rand, lowerBound, upperBound);
-    }
-
-    public RandUnit<Float> withBound() {
-        return new FloatsBound(rand);
-    }
-
-    public RandUnit<Float> withBound(Float bound) {
-        return new FloatsBound(rand, bound);
+    public RandUnit<Float> bound(Float bound) {
+        checkFloatBound(bound);
+        return range(0f, bound);
     }
 
     public RandUnit<Float> from(float[] alphabet) {
-        return new FloatsFrom(rand, alphabet);
+        Supplier<Float> supp = () -> {
+            checkFloatAlphabet(alphabet);
+            int idx = random.nextInt(alphabet.length);
+            return alphabet[idx];
+        };
+        return () -> supp;
     }
 }

@@ -3,6 +3,9 @@ package com.mockneat.random.unit;
 import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnitString;
 
+import static com.mockneat.types.enums.DictType.COUNTRY_ISO_CODE_2;
+import static com.mockneat.types.enums.DictType.COUNTRY_NAME;
+
 /**
  * Created by andreinicolinciobanu on 16/01/2017.
  */
@@ -15,10 +18,10 @@ public class Countries {
     }
 
     public RandUnitString names() {
-        return new CountriesNames(rand);
+        return () -> rand.dicts().type(COUNTRY_NAME).supplier();
     }
 
     public RandUnitString iso2() {
-        return new CountriesISO2(rand);
+        return () -> rand.dicts().type(COUNTRY_ISO_CODE_2).supplier();
     }
 }

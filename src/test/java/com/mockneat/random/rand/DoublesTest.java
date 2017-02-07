@@ -24,7 +24,7 @@ public class DoublesTest {
     public void testStreamGaussianWorks() throws Exception {
         FunctUtils.cycle(NEXT_DOUBLE_CYCLES, () ->
                 stream(RANDS)
-                        .map(r -> r.doubles().gaussians().stream().limit(DOUBLE_STREAMS_LIMIT))
+                        .map(r -> r.doubles().gaussians().stream().val().limit(DOUBLE_STREAMS_LIMIT))
                         .count());
     }
 
@@ -40,19 +40,19 @@ public class DoublesTest {
     public void testStreamDoubleInCorrectRange() throws Exception {
         FunctUtils.cycle(NEXT_DOUBLE_CYCLES, () ->
                 stream(RANDS)
-                    .map(r -> r.doubles().stream().limit(DOUBLE_STREAMS_LIMIT))
+                    .map(r -> r.doubles().stream().val().limit(DOUBLE_STREAMS_LIMIT))
                     .forEach(s ->
                             s.forEach(n -> assertTrue(n >= 0 && n <1.0))));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleZeroNotBound() throws Exception {
-        RAND.doubles().withBound(0.0).val();
+        RAND.doubles().bound(0.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleNegativeNotBound() throws Exception {
-        RAND.doubles().withBound(-5.0).val();
+        RAND.doubles().bound(-5.0).val();
     }
 
     @Test
@@ -60,7 +60,7 @@ public class DoublesTest {
         final Double bound = 0.01;
         FunctUtils.cycle(NEXT_DOUBLE_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.doubles().withBound(bound).val())
+                    .map(r -> r.doubles().bound(bound).val())
                     .forEach(n -> assertTrue(n >= 0.0 && n < bound)));
     }
 
@@ -70,26 +70,27 @@ public class DoublesTest {
         FunctUtils.cycle(NEXT_DOUBLE_CYCLES, () ->
                 stream(RANDS)
                     .map(r -> r.doubles()
-                                .withBound(bound)
+                                .bound(bound)
                                 .stream()
+                                .val()
                                 .limit(DOUBLE_STREAMS_LIMIT))
                     .forEach( s -> s.forEach(d -> assertTrue(d >= 0.0 && d < bound))));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleInfinityNotBound() throws Exception {
-        RAND.doubles().withBound(Double.POSITIVE_INFINITY).val();
+        RAND.doubles().bound(Double.POSITIVE_INFINITY).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleNaNNotBound() throws Exception {
-        RAND.doubles().withBound(Double.NaN).val();
+        RAND.doubles().bound(Double.NaN).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleNullNotBound() throws Exception {
         Double bound = null;
-        RAND.doubles().withBound(bound).val();
+        RAND.doubles().bound(bound).val();
     }
 
     @Test
@@ -99,7 +100,7 @@ public class DoublesTest {
 
         FunctUtils.cycle(NEXT_DOUBLE_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.doubles().inRange(lowerBound, upperBound).val())
+                    .map(r -> r.doubles().range(lowerBound, upperBound).val())
                     .forEach(n -> assertTrue(n >= lowerBound && n < upperBound)));
     }
 
@@ -111,8 +112,9 @@ public class DoublesTest {
         FunctUtils.cycle(NEXT_DOUBLE_CYCLES, () ->
                 stream(RANDS)
                 .map(r -> r.doubles()
-                            .inRange(low, upper)
+                            .range(low, upper)
                             .stream()
+                            .val()
                             .limit(DOUBLE_STREAMS_LIMIT))
                 .forEach(s -> s.forEach(
                         d -> assertTrue(d >= 1.21 && d < upper))));
@@ -123,42 +125,42 @@ public class DoublesTest {
         Double lowerBound = 0.01;
         Double upperBound = lowerBound;
 
-        RAND.doubles().inRange(lowerBound, upperBound).val();
+        RAND.doubles().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleNaNNotBound2() throws Exception {
-        RAND.doubles().inRange(Double.NaN, 10.0).val();
+        RAND.doubles().range(Double.NaN, 10.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleNaNNotBound3() throws Exception {
-        RAND.doubles().inRange(10.0, Double.NaN).val();
+        RAND.doubles().range(10.0, Double.NaN).val();
     }
 
     @Test(expected =  IllegalArgumentException.class)
     public void testNextDoubleNullNotBound2() throws Exception {
-        RAND.doubles().inRange(10.0, null).val();
+        RAND.doubles().range(10.0, null).val();
     }
 
     @Test(expected =  IllegalArgumentException.class)
     public void testNextDoubleNullNotBound3() throws Exception {
-        RAND.doubles().inRange(null, 10.0).val();
+        RAND.doubles().range(null, 10.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleInfinityNotBound2() throws Exception {
-        RAND.doubles().inRange(Double.POSITIVE_INFINITY, 10.0).val();
+        RAND.doubles().range(Double.POSITIVE_INFINITY, 10.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleInfinityNotBound3() throws Exception {
-        RAND.doubles().inRange(10.0, Double.POSITIVE_INFINITY).val();
+        RAND.doubles().range(10.0, Double.POSITIVE_INFINITY).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleLesserUpperBound() throws Exception {
-        RAND.doubles().inRange(10.0, 8.0).val();
+        RAND.doubles().range(10.0, 8.0).val();
     }
 
     @Test

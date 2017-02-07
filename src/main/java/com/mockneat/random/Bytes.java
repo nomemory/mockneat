@@ -54,7 +54,7 @@
 //     */
 //    public Byte valueFrom(byte[] alphabet) {
 //        checkByteAlphabet(alphabet);
-//        int randIdx = rand.ints().withBound(alphabet.length).val();
+//        int randIdx = rand.ints().bound(alphabet.length).val();
 //        return alphabet[randIdx];
 //    }
 //

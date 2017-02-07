@@ -5,6 +5,8 @@ import com.mockneat.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.NameType;
 
+import java.util.function.Supplier;
+
 public class Names implements RandUnitString {
 
     private Rand rand;
@@ -14,22 +16,20 @@ public class Names implements RandUnitString {
     }
 
     @Override
-    public String val() {
-        NameType nameType = rand.objs().from(NameType.class).val();
-        DictType dictType = rand.objs().from(nameType.getDictionaries()).val();
-        return rand.dicts().from(dictType).val();
+    public Supplier<String> supplier() {
+        return null;
     }
 
-    @Override
-    public Rand getRand() {
-        return this.rand;
+    public RandUnitString types(NameType... types) {
+        Supplier<String> supplier = () -> {
+            NameType nameType = rand.objs().from(types).val();
+            DictType dictType = rand.objs().from(nameType.getDictionaries()).val();
+            return rand.dicts().type(dictType).val();
+        };
+        return () -> supplier;
     }
 
-    public RandUnitString ofTypes(NameType... types) {
-        return new NamesOfTypes(rand, types);
-    }
-
-    public RandUnitString ofType(NameType type) {
-        return new NamesOfTypes(rand, type);
+    public RandUnitString type(NameType type) {
+        return types(type);
     }
 }

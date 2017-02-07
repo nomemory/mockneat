@@ -1,12 +1,14 @@
 package com.mockneat.random.unit.interfaces;
 
+import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 
 /**
- * Created by andreinicolinciobanu on 25/01/2017.
+ * Created by andreinicolinciobanu on 07/02/2017.
  */
-public interface RandUnitDouble extends RandUnitGeneral<Double> {
-    default DoubleStream stream() {
-        return DoubleStream.generate(this::val);
+public interface RandUnitDouble extends RandUnitGeneric<Double> {
+    default RandUnit<DoubleStream> doubleStream() {
+        Supplier<DoubleStream> supp = () -> DoubleStream.generate(() -> supplier().get());
+        return () -> supp;
     }
 }

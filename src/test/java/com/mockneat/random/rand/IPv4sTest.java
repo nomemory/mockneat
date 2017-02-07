@@ -46,7 +46,7 @@ public class IPv4sTest {
     protected void testIpCycle(IPv4Type t) {
         FunctUtils.cycle(NEXT_NETWORKING_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
-                    String ip = r.ipv4s().ofType(t).val();
+                    String ip = r.ipv4s().type(t).val();
                     testIp(ip, t);
                 })
         );
@@ -104,6 +104,6 @@ public class IPv4sTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIPv4AddressTypeNotNull() throws Exception {
-        RAND.ipv4s().ofType(null).val();
+        RAND.ipv4s().type(null).val();
     }
 }

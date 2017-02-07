@@ -24,7 +24,7 @@ public enum MACAddressFormatType {
 
     private static void everyDigits(Integer i, StringBuilder buff, Rand rand, String chr, Integer digits) {
         if (i % digits == 0) buff.append(chr);
-        buff.append(Integer.toHexString(rand.ints().inRange(0, 16).val()));
+        buff.append(Integer.toHexString(rand.ints().range(0, 16).val()));
     }
 
     private static void line2Digits(Integer i, StringBuilder buff, Rand rand) {

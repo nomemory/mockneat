@@ -22,20 +22,20 @@ public class IntegersTest {
         int upperBound = 100;
         cycle(NEXT_INTEGER_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.ints().withBound(upperBound).val())
+                    .map(r -> r.ints().bound(upperBound).val())
                     .forEach(num -> assertTrue(num < 100 && num >= 0)));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNegativeNotBound() throws Exception {
         int upperBound = -100;
-        RAND.ints().withBound(upperBound).val();
+        RAND.ints().bound(upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNullNotBound() throws Exception {
         Integer bound = null;
-        RAND.ints().withBound(bound).val();
+        RAND.ints().bound(bound).val();
     }
 
     @Test
@@ -43,7 +43,7 @@ public class IntegersTest {
         int upperBound = 1;
         cycle(NEXT_INTEGER_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.ints().withBound(upperBound).val())
+                    .map(r -> r.ints().bound(upperBound).val())
                     .forEach(num -> assertTrue(num.equals(0))));
     }
 
@@ -52,7 +52,7 @@ public class IntegersTest {
         Integer upperBound = Integer.MAX_VALUE;
         cycle(NEXT_INTEGER_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.ints().withBound(upperBound).val())
+                    .map(r -> r.ints().bound(upperBound).val())
                     .forEach(num -> assertTrue(num < upperBound)));
     }
 
@@ -60,24 +60,24 @@ public class IntegersTest {
     public void testNextIntegerNegativeNotBound2() throws Exception {
         int lowerBound = -1;
         int upperBound = 100;
-        RAND.ints().inRange(lowerBound, upperBound).val();
+        RAND.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNegativeNotBound3() throws Exception {
         int lowerBound = 100;
         int upperBound = -5;
-        RAND.ints().inRange(lowerBound, upperBound).val();
+        RAND.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNullNotBound2() throws Exception {
-        RAND.ints().inRange(null, 10).val();
+        RAND.ints().range(null, 10).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNullNotBound3() throws Exception {
-        RAND.ints().inRange(10, null).val();
+        RAND.ints().range(10, null).val();
     }
 
     @Test
@@ -86,14 +86,14 @@ public class IntegersTest {
         int upperBound = 8;
         cycle(NEXT_INTEGER_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.ints().inRange(lowerBound, upperBound).val())
+                    .map(r -> r.ints().range(lowerBound, upperBound).val())
                     .forEach( num -> assertTrue((num >= lowerBound) && (num < upperBound))));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNonEqualBounds() throws Exception {
         int lowerBound = 10, upperBound = 10;
-        RAND.ints().inRange(lowerBound, upperBound).val();
+        RAND.ints().range(lowerBound, upperBound).val();
     }
 
     @Test
@@ -101,7 +101,7 @@ public class IntegersTest {
         int lowerBound = 10, upperBound = lowerBound + 1;
         cycle(NEXT_INTEGER_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.ints().inRange(lowerBound, upperBound).val())
+                    .map(r -> r.ints().range(lowerBound, upperBound).val())
                     .forEach(num -> num.equals(lowerBound)));
     }
 
@@ -111,7 +111,7 @@ public class IntegersTest {
         int upperBound = Integer.MAX_VALUE;
         cycle(NEXT_INTEGER_CYCLES, () ->
             stream(RANDS)
-                    .map(r -> r.ints().inRange(lowerBound, upperBound).val())
+                    .map(r -> r.ints().range(lowerBound, upperBound).val())
                     .forEach(num -> assertTrue(num >= lowerBound && num < upperBound)));
     }
 

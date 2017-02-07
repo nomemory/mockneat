@@ -1,17 +1,25 @@
 package com.mockneat.random;
 
-import com.mockneat.alphabets.Alphabets;
+import java.util.ArrayList;
+import java.util.List;
+import static com.mockneat.alphabets.Alphabets.*;
+import static java.util.Collections.unmodifiableList;
 
 /**
  * Created by andreinicolinciobanu on 03/01/2017.
  */
-public interface RandConstants {
+public class RandConstants {
 
-    Character[][] POSSIBLE_CHARACTERS = {
-            Alphabets.LETTERS_LOWERCASE_ARR_CHR,
-            Alphabets.LETTERS_UPPERCASE_ARR_CHR,
-            Alphabets.DIGITS_ARR_CHR,
-            Alphabets.SPECIAL_CHARACTERS_ARR_CHR
-    };
+    protected static final List<Character> POSSIBLE_CHARACTERS_MUTABLE = new ArrayList<>();
+
+    static {
+        POSSIBLE_CHARACTERS_MUTABLE.addAll(LETTERS_LOWERCASE);
+        POSSIBLE_CHARACTERS_MUTABLE.addAll(LETTERS_UPPERCASE);
+        POSSIBLE_CHARACTERS_MUTABLE.addAll(DIGITS);
+        POSSIBLE_CHARACTERS_MUTABLE.addAll(SPECIAL_CHARACTERS);
+    }
+
+    public static final List<Character> POSSIBLE_CHARACTERS = unmodifiableList(POSSIBLE_CHARACTERS_MUTABLE);
+
 
 }

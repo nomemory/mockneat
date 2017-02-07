@@ -1,12 +1,14 @@
 package com.mockneat.random.unit.interfaces;
 
+import java.util.function.Supplier;
 import java.util.stream.LongStream;
 
 /**
- * Created by andreinicolinciobanu on 25/01/2017.
+ * Created by andreinicolinciobanu on 07/02/2017.
  */
-public interface RandUnitLong extends RandUnitGeneral<Long> {
-    default LongStream stream() {
-        return LongStream.generate(this::val);
+public interface RandUnitLong extends RandUnitGeneric<Long> {
+    default RandUnit<LongStream> longStream() {
+        Supplier<LongStream> supp = () -> LongStream.generate(() -> supplier().get());
+        return () -> supp;
     }
 }

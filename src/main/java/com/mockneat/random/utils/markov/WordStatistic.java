@@ -37,7 +37,7 @@ public class WordStatistic {
     }
 
     public String nextWord() {
-        double rd = rand.doubles().withBound(total).val();
+        double rd = rand.doubles().bound(total).val();
         for(int i = 0; i < associatedWords.length; ++i) {
             if (rd < associatedWords[i].getFirst()) {
                 return associatedWords[i].getSecond();
