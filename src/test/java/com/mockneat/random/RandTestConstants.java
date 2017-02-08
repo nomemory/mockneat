@@ -13,12 +13,14 @@ public class RandTestConstants {
 
     public static final Integer BOOLS_CYCLES = 10000;
     public static final Integer CHARS_CYCLES = 10000;
+    public static final Integer COMPOSE_CYCLES = 10000;
+    public static final Integer CVVS_CYCLES= 10000;
     public static final Integer DOUBLES_CYCLES = 10000;
     public static final Integer LONGS_CYCLES = 10000;
     public static final Integer INTS_CYCLES = 10000;
     public static final Integer FLOATS_CYCLES = 10000;
     public static final Integer OBJS_CYCLES = 10000;
     public static final Integer IPV4S_CYCLES = 10000;
-    public static final Integer COUNTRIES_CYCLES = 1000;
-    public static final Integer CCS_CYCLES = 1000;
+    public static final Integer COUNTRIES_CYCLES = 10000;
+    public static final Integer CCS_CYCLES = 10000;
 }

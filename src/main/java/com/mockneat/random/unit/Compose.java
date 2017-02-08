@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 
+import static com.mockneat.utils.CheckUtils.checkComposeObjectNotNull;
+import static com.mockneat.utils.CheckUtils.checkComposePairs;
+
 /**
  * Created by andreinicolinciobanu on 08/02/2017.
  */
@@ -31,17 +34,24 @@ public class Compose {
 
     protected Object[] values() {
         Object[] result = new Object[this.pairs.length];
+        Supplier supplier;
         for(int i = 0; i < this.pairs.length; ++i) {
-            result[i] = pairs[i].getFirst().get();
+            supplier = pairs[i].getFirst();
+            result[i] = (null==supplier) ? null : supplier.get();
         }
         return result;
     }
 
-    public <T> RandUnit<T> unit(Class<T> cls) {
+    public <T> RandUnit<T> object(Class<T> cls) {
+        checkComposeObjectNotNull(cls);
+        checkComposePairs(pairs);
         Supplier<T> supp = () -> {
             try {
                 return cls.getDeclaredConstructor(classes()).newInstance(values());
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            } catch (InstantiationException |
+                     IllegalAccessException |
+                     NoSuchMethodException  |
+                     InvocationTargetException e) {
                 logger.error("Cannot instantiate object", e);
                 throw new IllegalArgumentException("Cannot instantiate object: ", e);
             }

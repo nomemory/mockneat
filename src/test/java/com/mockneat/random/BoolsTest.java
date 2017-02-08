@@ -64,4 +64,18 @@ public class BoolsTest {
     public void testNextBooleanGreaterThan100NotProbability2() throws Exception {
         RAND.bools().probability(105.0).val();
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testBoolsProbabilityNull() throws Exception {
+        RAND.bools().probability(null).val();
+    }
+
+    @Test
+    public void testBools() throws Exception {
+        cycle(BOOLS_CYCLES, () ->
+                stream(RANDS).forEach(r -> {
+                    Boolean b = r.bools().val();
+                    assertTrue(b!=null && (b||!b));
+                }));
+    }
 }

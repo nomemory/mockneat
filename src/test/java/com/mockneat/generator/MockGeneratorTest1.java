@@ -19,7 +19,7 @@ public class MockGeneratorTest1 {
                 Pair.of(r.names()::val, String.class),
                 Pair.of(r.emails()::val, String.class),
                 Pair.of(r.ints().range(18,89)::val, Integer.class)
-        ).unit(Person.class).val();
+        ).object(Person.class).val();
 
         System.out.println(p);
     }
