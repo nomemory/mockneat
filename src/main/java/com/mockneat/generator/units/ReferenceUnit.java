@@ -5,7 +5,7 @@ import com.mockneat.generator.MockGenerator;
 /**
  * Created by andreinicolinciobanu on 23/01/2017.
  */
-public class ReferenceUnit implements MockGeneratorUnit {
+public class ReferenceUnit implements GeneratorUnit {
 
     private MockGenerator mockGenerator;
 
@@ -13,7 +13,7 @@ public class ReferenceUnit implements MockGeneratorUnit {
         this.mockGenerator = mockGenerator;
     }
 
-    public static MockGeneratorUnit from(MockGenerator mockGenerator) {
+    public static GeneratorUnit from(MockGenerator mockGenerator) {
         return new ReferenceUnit(mockGenerator);
     }
 

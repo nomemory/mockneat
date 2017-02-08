@@ -1,11 +1,10 @@
 package com.mockneat.random.unit.interfaces;
 
 import com.mockneat.types.enums.StringFormatType;
-import com.mockneat.utils.NextUtils;
 
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.NextUtils.checkStringFormatTypeNotNull;
+import static com.mockneat.utils.CheckUtils.checkStringFormatTypeNotNull;
 
 /**
  * Created by andreinicolinciobanu on 07/02/2017.

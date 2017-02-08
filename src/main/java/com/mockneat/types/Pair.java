@@ -10,20 +10,30 @@ public class Pair <T1,T2> {
         this.second = second;
     }
 
-    public T1 getFirst() {
-        return first;
+    public static <T1, T2> Pair<T1, T2> of(T1 first, T2 second) {
+        return new Pair<>(first, second);
     }
 
-    public void setFirst(T1 first) {
-        this.first = first;
+    public T1 getFirst() {
+        return first;
     }
 
     public T2 getSecond() {
         return second;
     }
 
-    public void setSecond(T2 second) {
-        this.second = second;
+    @Override
+    public String toString() {
+        return "Pair{" +
+                "first=" + first +
+                ", second=" + second +
+                '}';
     }
 
+    public String toString(String firstLabel, String secondLabel) {
+        return "Pair{" +
+                firstLabel + "=" + first +
+                ", " + secondLabel + "=" + second +
+                '}';
+    }
 }

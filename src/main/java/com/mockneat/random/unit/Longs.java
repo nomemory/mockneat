@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.NextUtils.*;
+import static com.mockneat.utils.CheckUtils.*;
 
 /**
  * Created by andreinicolinciobanu on 02/01/2017.
@@ -24,7 +24,7 @@ public class Longs implements RandUnitLong {
 
     @Override
     public Supplier<Long> supplier() {
-        return () -> random.nextLong();
+        return random::nextLong;
     }
 
     public RandUnitLong bound(Long bound) {

@@ -21,5 +21,5 @@ public class RandConstants {
 
     public static final List<Character> POSSIBLE_CHARACTERS = unmodifiableList(POSSIBLE_CHARACTERS_MUTABLE);
 
-
+    private RandConstants() {}
 }

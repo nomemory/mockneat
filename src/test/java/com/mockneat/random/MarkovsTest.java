@@ -1,4 +1,4 @@
-package com.mockneat.random.rand;
+package com.mockneat.random;
 
 
 import org.junit.Test;

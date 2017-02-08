@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 import static com.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
-import static com.mockneat.utils.NextUtils.checkIpTypeNotNull;
+import static com.mockneat.utils.CheckUtils.checkIpTypeNotNull;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.

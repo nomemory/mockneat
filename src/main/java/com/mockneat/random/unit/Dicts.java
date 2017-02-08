@@ -2,10 +2,8 @@ package com.mockneat.random.unit;
 
 import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnitString;
-import com.mockneat.random.utils.DictsUtils;
+import com.mockneat.random.utils.dicts.DictsUtils;
 import com.mockneat.types.enums.DictType;
-
-import java.util.function.Supplier;
 
 /**
  * Created by andreinicolinciobanu on 16/01/2017.

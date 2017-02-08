@@ -3,13 +3,12 @@ package com.mockneat.random.unit;
 import com.mockneat.alphabets.Alphabets;
 import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnit;
-import com.mockneat.utils.NextUtils;
 
 import java.util.function.Supplier;
 
 import static com.mockneat.alphabets.Alphabets.*;
-import static com.mockneat.utils.NextUtils.checkCharAlphabet;
-import static com.mockneat.utils.NextUtils.checkStringAlpabet;
+import static com.mockneat.utils.CheckUtils.checkCharAlphabet;
+import static com.mockneat.utils.CheckUtils.checkStringAlpabet;
 
 /**
  * Created by andreinicolinciobanu on 03/01/2017.
@@ -24,7 +23,7 @@ public class Chars implements RandUnit<Character> {
 
     @Override
     public Supplier<Character> supplier() {
-        return () -> rand.objs().from(Alphabets.ALPHA_NUMERIC).val();
+        return rand.objs().from(Alphabets.ALPHA_NUMERIC)::val;
     }
 
     public RandUnit<Character> digits() {

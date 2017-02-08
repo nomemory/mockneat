@@ -1,4 +1,4 @@
-package com.mockneat.random.rand;
+package com.mockneat.random;
 
 import com.mockneat.types.Range;
 import com.mockneat.types.enums.IPv4Type;
@@ -12,9 +12,9 @@ import java.util.stream.IntStream;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
-import static com.mockneat.random.rand.RandTestConstants.NEXT_NETWORKING_CYCLES;
-import static com.mockneat.random.rand.RandTestConstants.RAND;
-import static com.mockneat.random.rand.RandTestConstants.RANDS;
+import static com.mockneat.random.RandTestConstants.IPV4S_CYCLES;
+import static com.mockneat.random.RandTestConstants.RAND;
+import static com.mockneat.random.RandTestConstants.RANDS;
 import static org.junit.Assert.assertTrue;
 
 public class IPv4sTest {
@@ -44,7 +44,7 @@ public class IPv4sTest {
     }
 
     protected void testIpCycle(IPv4Type t) {
-        FunctUtils.cycle(NEXT_NETWORKING_CYCLES, () ->
+        FunctUtils.cycle(IPV4S_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
                     String ip = r.ipv4s().type(t).val();
                     testIp(ip, t);

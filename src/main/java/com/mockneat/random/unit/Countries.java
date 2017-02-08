@@ -18,10 +18,10 @@ public class Countries {
     }
 
     public RandUnitString names() {
-        return () -> rand.dicts().type(COUNTRY_NAME).supplier();
+        return rand.dicts().type(COUNTRY_NAME);
     }
 
     public RandUnitString iso2() {
-        return () -> rand.dicts().type(COUNTRY_ISO_CODE_2).supplier();
+        return rand.dicts().type(COUNTRY_ISO_CODE_2);
     }
 }

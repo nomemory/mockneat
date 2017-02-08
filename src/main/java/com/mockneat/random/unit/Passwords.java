@@ -1,11 +1,9 @@
 package com.mockneat.random.unit;
 
 import com.mockneat.random.Rand;
-import com.mockneat.random.unit.interfaces.RandUnit;
 import com.mockneat.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.PassStrengthType;
-import com.mockneat.utils.NextUtils;
 
 import java.util.function.Supplier;
 
@@ -15,6 +13,7 @@ import static com.mockneat.types.enums.DictType.EN_NOUN_3SYLL;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM_PASSWORD;
 import static com.mockneat.types.enums.PassStrengthType.STRONG_PASSWORD;
 import static com.mockneat.types.enums.PassStrengthType.WEAK_PASSWORD;
+import static com.mockneat.utils.CheckUtils.checkPasswordStrengthType;
 
 /**
  * Created by andreinicolinciobanu on 31/01/2017.
@@ -39,13 +38,12 @@ public class Passwords implements RandUnitString {
     }
 
     public RandUnitString types(PassStrengthType... passStrengthTypes) {
-        //TODO check
         PassStrengthType passStrengthType = rand.objs().from(passStrengthTypes).val();
         return type(passStrengthType);
     }
 
     protected String nextPassword(PassStrengthType passStrengthType) {
-        //TODO check password strength
+        checkPasswordStrengthType(passStrengthType);
         switch (passStrengthType) {
             case WEAK_PASSWORD:
                 return nextWeakPassword();

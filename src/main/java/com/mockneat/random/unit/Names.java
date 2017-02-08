@@ -17,7 +17,7 @@ public class Names implements RandUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return null;
+        return type(NameType.FIRST_NAME)::val;
     }
 
     public RandUnitString types(NameType... types) {

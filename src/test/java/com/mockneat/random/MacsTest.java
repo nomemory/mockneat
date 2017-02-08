@@ -1,4 +1,4 @@
-package com.mockneat.random.rand;
+package com.mockneat.random;
 
 import com.mockneat.types.enums.MACAddressFormatType;
 import com.mockneat.utils.FunctUtils;
@@ -7,9 +7,6 @@ import org.junit.Test;
 
 import java.util.stream.IntStream;
 
-import static com.mockneat.random.rand.RandTestConstants.NEXT_NETWORKING_CYCLES;
-import static com.mockneat.random.rand.RandTestConstants.RAND;
-import static com.mockneat.random.rand.RandTestConstants.RANDS;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 
@@ -20,15 +17,15 @@ public class MacsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextMACAddress_TypeNotNull() throws Exception {
-        RAND.macs().format(null).val();
+        RandTestConstants.RAND.macs().format(null).val();
     }
 
     protected void testNextMACAddress(MACAddressFormatType type,
                                       String separator,
                                       Integer macNumLength,
                                       Integer sectionLength) {
-        FunctUtils.cycle(NEXT_NETWORKING_CYCLES, () -> {
-            stream(RANDS)
+        FunctUtils.cycle(RandTestConstants.IPV4S_CYCLES, () -> {
+            stream(RandTestConstants.RANDS)
                     .forEach(r -> {
                         String mac = r.macs().type(type).val();
                         String[] macNum = mac.split(separator);

@@ -1,6 +1,5 @@
 package com.mockneat.random.unit;
 
-import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnitString;
 
 import java.util.UUID;

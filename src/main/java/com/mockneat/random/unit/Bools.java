@@ -7,7 +7,7 @@ import com.mockneat.random.unit.interfaces.RandUnit;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.NextUtils.checkProbability;
+import static com.mockneat.utils.CheckUtils.checkProbability;
 
 /**
  * Created by andreinicolinciobanu on 02/01/2017.
@@ -34,7 +34,7 @@ public class Bools implements RandUnit<Boolean> {
 
     @Override
     public Supplier<Boolean> supplier() {
-        return () -> random.nextBoolean();
+        return random::nextBoolean;
     }
 }
 

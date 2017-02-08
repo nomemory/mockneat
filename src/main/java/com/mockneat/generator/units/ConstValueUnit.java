@@ -5,7 +5,7 @@ import com.mockneat.types.Value;
 /**
  * Created by andreinicolinciobanu on 23/01/2017.
  */
-public class ConstValueUnit implements MockGeneratorUnit {
+public class ConstValueUnit implements GeneratorUnit {
 
     private Value value;
 

@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.NextUtils.*;
+import static com.mockneat.utils.CheckUtils.*;
 
 public class Ints implements RandUnitInt {
 
@@ -19,7 +19,7 @@ public class Ints implements RandUnitInt {
 
     @Override
     public Supplier<Integer> supplier() {
-        return () -> random.nextInt();
+        return random::nextInt;
     }
 
     public RandUnitInt bound(Integer bound) {

@@ -6,10 +6,9 @@ import com.mockneat.random.unit.interfaces.*;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.DoubleStream;
 
-import static com.mockneat.utils.NextUtils.checkAlphabet;
-import static com.mockneat.utils.NextUtils.checkType;
+import static com.mockneat.utils.CheckUtils.checkAlphabet;
+import static com.mockneat.utils.CheckUtils.checkType;
 
 /**
  * Created by andreinicolinciobanu on 26/01/2017.
@@ -65,78 +64,78 @@ public class Objs {
     }
 
     public RandUnitInt fromInts(Integer[] alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitInt fromInts(int[] alphabet) {
-        return () -> rand.ints().from(alphabet).supplier();
+        return () -> rand.ints().from(alphabet)::val;
     }
 
     public RandUnitInt fromInts(List<Integer> alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitInt fromIntsValues(Map<?, Integer> map) {
-        return () -> fromValues(map).supplier();
+        return () -> fromValues(map)::val;
     }
 
     public RandUnitInt fromIntsKeys(Map<Integer, ?> map) {
-        return () -> fromKeys(map).supplier();
+        return () -> fromKeys(map)::val;
     }
 
     public RandUnitDouble fromDoubles(Double[] alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitDouble fromDoubles(double[] alphabet) {
-        return () -> rand.doubles().from(alphabet).supplier();
+        return () -> rand.doubles().from(alphabet)::val;
     }
 
     public RandUnitDouble fromDoubles(List<Double> alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitDouble fromDoublesValues(Map<?, Double> map) {
-        return () -> fromValues(map).supplier();
+        return () -> fromValues(map)::val;
     }
 
     public RandUnitDouble fromDoublesKeys(Map<Double, ?> map) {
-        return () -> fromKeys(map).supplier();
+        return () -> fromKeys(map)::val;
     }
 
     public RandUnitLong fromLongs(Long[] alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitLong fromLongs(long[] alphabet) {
-        return () -> rand.longs().from(alphabet).supplier();
+        return () -> rand.longs().from(alphabet)::val;
     }
 
     public RandUnitLong fromLongs(List<Long> alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitLong fromLongsValues(Map<?, Long> map) {
-        return () -> fromValues(map).supplier();
+        return () -> fromValues(map)::val;
     }
 
     public RandUnitLong fromLongsKeys(Map<Long, ?> map) {
-        return () -> fromKeys(map).supplier();
+        return () -> fromKeys(map)::val;
     }
 
     public RandUnitString fromStrings(String[] alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitString fromStrings(List<String> alphabet) {
-        return () -> from(alphabet).supplier();
+        return () -> from(alphabet)::val;
     }
 
     public RandUnitString fromStringsValues(Map<?, String> map) {
-        return () -> fromValues(map).supplier();
+        return () -> fromValues(map)::val;
     }
 
     public RandUnitString fromStringsKeys(Map<String, ?> map) {
-        return () -> fromKeys(map).supplier();
+        return () -> fromKeys(map)::val;
     }
 }

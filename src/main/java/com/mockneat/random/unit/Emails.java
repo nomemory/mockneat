@@ -2,7 +2,6 @@ package com.mockneat.random.unit;
 
 import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnitString;
-import com.mockneat.types.enums.DictType;
 
 import java.util.function.Supplier;
 

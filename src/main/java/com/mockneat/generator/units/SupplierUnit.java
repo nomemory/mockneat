@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 /**
  * Created by andreinicolinciobanu on 23/01/2017.
  */
-public class SupplierUnit<T> implements MockGeneratorUnit {
+public class SupplierUnit<T> implements GeneratorUnit {
 
     private Supplier<T> gen;
 

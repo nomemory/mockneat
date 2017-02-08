@@ -1,4 +1,4 @@
-package com.mockneat.random.utils;
+package com.mockneat.random.utils.dicts;
 
 import com.mockneat.types.enums.DictType;
 import org.slf4j.Logger;

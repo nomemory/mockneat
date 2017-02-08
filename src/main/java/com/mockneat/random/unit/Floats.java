@@ -6,22 +6,20 @@ import com.mockneat.random.unit.interfaces.RandUnit;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.NextUtils.checkFloatAlphabet;
-import static com.mockneat.utils.NextUtils.checkFloatBound;
-import static com.mockneat.utils.NextUtils.checkFloatBounds;
+import static com.mockneat.utils.CheckUtils.checkFloatAlphabet;
+import static com.mockneat.utils.CheckUtils.checkFloatBound;
+import static com.mockneat.utils.CheckUtils.checkFloatBounds;
 
 public class Floats implements RandUnit<Float> {
-    private Rand rand;
     private Random random;
 
     public Floats(Rand rand) {
-        this.rand = rand;
         this.random = rand.getRandom();
     }
 
     @Override
     public Supplier<Float> supplier() {
-        return () -> random.nextFloat();
+        return random::nextFloat;
     }
 
     public RandUnit<Float> range(Float lowerBound, Float upperBound) {

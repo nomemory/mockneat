@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static com.mockneat.types.enums.MACAddressFormatType.COLON_EVERY_2_DIGITS;
-import static com.mockneat.utils.NextUtils.checkMacFormatTypeNotNull;
+import static com.mockneat.utils.CheckUtils.checkMacFormatTypeNotNull;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.

@@ -1,7 +1,5 @@
 package com.mockneat.alphabets;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -9,8 +7,6 @@ import static com.mockneat.utils.ArrayUtils.concat;
 import static java.util.Collections.unmodifiableList;
 
 public class Alphabets {
-
-    //TODO transform mutable array into immutable collections
 
     /**
      * ---------------------------------------------------------

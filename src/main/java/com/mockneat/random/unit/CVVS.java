@@ -1,7 +1,6 @@
 package com.mockneat.random.unit;
 
 import com.mockneat.random.Rand;
-import com.mockneat.random.unit.interfaces.RandUnit;
 import com.mockneat.random.unit.interfaces.RandUnitString;
 import com.mockneat.types.enums.CVVType;
 import com.mockneat.utils.FunctUtils;
@@ -9,7 +8,7 @@ import com.mockneat.utils.FunctUtils;
 import java.util.function.Supplier;
 
 import static com.mockneat.types.enums.CVVType.CVV3;
-import static com.mockneat.utils.NextUtils.checkCVVTypeNotNull;
+import static com.mockneat.utils.CheckUtils.checkCVVTypeNotNull;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.

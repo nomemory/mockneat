@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * Created by andreinicolinciobanu on 03/01/2017.
  */
-public class NextUtils {
+public class CheckUtils {
 
     public static final String INVALID_CLASS_TYPE = "Invalid class type. Type cannot be null.";
     public static final String IPV4_TYPE_NOT_NULL = "Invalid IPv4Type. Type cannot be null.";
@@ -16,6 +16,9 @@ public class NextUtils {
     public static final String STRING_FORMAT_TYPE_NOT_NULL = "Invalid StringFormatType. Type cannot be null.";
     public static final String CREDIT_CARD_TYPE_NOT_NULL = "Invalid CreditCardType. Type cannot be null.";
     public static final String CVV_TYPE_NOT_NULL = "Invalid CVVType. Type cannot be null.";
+    public static final String MARKOV_CHAIN_TYPE_NOT_NULL = "Invalid MarkovChainType. Type cannot be null.";
+    public static final String PASS_STRENGTH_TYPE_NOT_NULL = "Invalid PassStrengthType. Type cannot be null.";
+    public static final String USERNAME_TYPE_NOT_NULL = "Invalid UserNameType. Type cannot be null.";
     public static final String BOUND_NOT_NULL = "Invalid bound(s). Value(s) must be different than NULL.";
     public static final String BOUND_NOT_NAN = "Invalid bound(s). Value(s) must be different than NaN.";
     public static final String BOUND_NOT_INFINITY = "Invalid bound(s). Value(s) must be different than INFINITY.";
@@ -37,7 +40,7 @@ public class NextUtils {
     public static final String INVALID_TYPES = "Invalid types. Array cannot be null or empty.";
     public static final String CANNOT_CREATE_INSTANCE_OF_LIST = "Cannot create instance of List. Please check if the List implementation has a public non-arg constructor.";
 
-    private NextUtils() {}
+    private CheckUtils() {}
 
 
     public static void checkType(Class<?> type) {
@@ -292,6 +295,24 @@ public class NextUtils {
     public static void checkCVVTypeNotNull(CVVType type) {
         if (null == type) {
             throw new IllegalArgumentException(CVV_TYPE_NOT_NULL);
+        }
+    }
+
+    public static void checkMarkovChainTypeNotNull(MarkovChainType type) {
+        if (null == type) {
+            throw new IllegalArgumentException(MARKOV_CHAIN_TYPE_NOT_NULL);
+        }
+    }
+
+    public static void checkPasswordStrengthType(PassStrengthType type) {
+        if (null == type) {
+            throw new IllegalArgumentException(PASS_STRENGTH_TYPE_NOT_NULL);
+        }
+    }
+
+    public static void checkUserNameType(UserNameType userNameType) {
+        if (null == userNameType) {
+            throw new IllegalArgumentException(USERNAME_TYPE_NOT_NULL);
         }
     }
 }

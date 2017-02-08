@@ -1,4 +1,4 @@
-package com.mockneat.random.rand;
+package com.mockneat.random;
 
 import com.mockneat.utils.ArrayUtils;
 import org.junit.Test;
@@ -6,9 +6,6 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mockneat.random.rand.RandTestConstants.NEXT_INTEGER_CYCLES;
-import static com.mockneat.random.rand.RandTestConstants.RAND;
-import static com.mockneat.random.rand.RandTestConstants.RANDS;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static com.mockneat.utils.ArrayUtils.toWrapperArray;
@@ -20,8 +17,8 @@ public class IntegersTest {
     @Test
     public void testNextIntegerInCorrectRange() throws Exception {
         int upperBound = 100;
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().bound(upperBound).val())
                     .forEach(num -> assertTrue(num < 100 && num >= 0)));
     }
@@ -29,20 +26,20 @@ public class IntegersTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNegativeNotBound() throws Exception {
         int upperBound = -100;
-        RAND.ints().bound(upperBound).val();
+        RandTestConstants.RAND.ints().bound(upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNullNotBound() throws Exception {
         Integer bound = null;
-        RAND.ints().bound(bound).val();
+        RandTestConstants.RAND.ints().bound(bound).val();
     }
 
     @Test
     public void testNextIntegerInCorrectRange2() throws Exception {
         int upperBound = 1;
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().bound(upperBound).val())
                     .forEach(num -> assertTrue(num.equals(0))));
     }
@@ -50,8 +47,8 @@ public class IntegersTest {
     @Test
     public void testNextIntegerInCorrectRange3() throws Exception {
         Integer upperBound = Integer.MAX_VALUE;
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().bound(upperBound).val())
                     .forEach(num -> assertTrue(num < upperBound)));
     }
@@ -60,32 +57,32 @@ public class IntegersTest {
     public void testNextIntegerNegativeNotBound2() throws Exception {
         int lowerBound = -1;
         int upperBound = 100;
-        RAND.ints().range(lowerBound, upperBound).val();
+        RandTestConstants.RAND.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNegativeNotBound3() throws Exception {
         int lowerBound = 100;
         int upperBound = -5;
-        RAND.ints().range(lowerBound, upperBound).val();
+        RandTestConstants.RAND.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNullNotBound2() throws Exception {
-        RAND.ints().range(null, 10).val();
+        RandTestConstants.RAND.ints().range(null, 10).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNullNotBound3() throws Exception {
-        RAND.ints().range(10, null).val();
+        RandTestConstants.RAND.ints().range(10, null).val();
     }
 
     @Test
     public void testNextIntegerInCorrectRange4() throws Exception {
         int lowerBound = 5;
         int upperBound = 8;
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().range(lowerBound, upperBound).val())
                     .forEach( num -> assertTrue((num >= lowerBound) && (num < upperBound))));
     }
@@ -93,14 +90,14 @@ public class IntegersTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNonEqualBounds() throws Exception {
         int lowerBound = 10, upperBound = 10;
-        RAND.ints().range(lowerBound, upperBound).val();
+        RandTestConstants.RAND.ints().range(lowerBound, upperBound).val();
     }
 
     @Test
     public void testNextIntegerCorrectValues() throws Exception {
         int lowerBound = 10, upperBound = lowerBound + 1;
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().range(lowerBound, upperBound).val())
                     .forEach(num -> num.equals(lowerBound)));
     }
@@ -109,8 +106,8 @@ public class IntegersTest {
     public void testNextIntegerInCorrectRange5() throws Exception {
         int lowerBound = 0;
         int upperBound = Integer.MAX_VALUE;
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().range(lowerBound, upperBound).val())
                     .forEach(num -> assertTrue(num >= lowerBound && num < upperBound)));
     }
@@ -119,8 +116,8 @@ public class IntegersTest {
     public void testNextCorrectValues() throws Exception {
         int[] alphabet = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
         Set<Integer> helperSet = new HashSet<>(asList(ArrayUtils.toWrapperArray(alphabet)));
-        cycle(NEXT_INTEGER_CYCLES, () ->
-            stream(RANDS)
+        cycle(RandTestConstants.INTS_CYCLES, () ->
+            stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().from(alphabet).val())
                     .forEach(num -> assertTrue(helperSet.contains(num))));
     }
@@ -128,12 +125,12 @@ public class IntegersTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextNulLNotAlphabet() throws Exception {
         int[] alphabet = null;
-        RAND.ints().from(alphabet).val();
+        RandTestConstants.RAND.ints().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextEmptyArrayNotAlphabet() throws Exception {
         int[] alphabet = new int[]{};
-        RAND.ints().from(alphabet).val();
+        RandTestConstants.RAND.ints().from(alphabet).val();
     }
 }
