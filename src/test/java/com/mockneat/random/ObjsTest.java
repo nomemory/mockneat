@@ -80,7 +80,7 @@ public class ObjsTest {
                     .forEach(s -> assertTrue(s.equals(array[0]))));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextObjectNonNullAlphabet() throws Exception {
         TestModel[] array = null;
         RandTestConstants.RAND.objs().from(array).val();
@@ -111,7 +111,7 @@ public class ObjsTest {
                     .forEach(s -> assertTrue(s.equals(list.get(0)))));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextObjectNonNullAlphabet_list() throws Exception {
         List<TestModel> array = null;
         RandTestConstants.RAND.objs().from(array).val();

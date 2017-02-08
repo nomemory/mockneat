@@ -9,9 +9,9 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.mockneat.utils.StringUtils.capitalize;
-import static com.mockneat.utils.StringUtils.lowerCase;
 import static java.util.Arrays.stream;
+import static org.apache.commons.lang3.StringUtils.lowerCase;
+import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 /**
  * Created by andreinicolinciobanu on 01/02/2017.

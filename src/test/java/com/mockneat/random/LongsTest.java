@@ -1,14 +1,14 @@
 package com.mockneat.random;
 
-import com.mockneat.utils.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mockneat.random.RandTestConstants.RAND;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.utils.ArrayUtils.toWrapperArray;
 import static com.mockneat.utils.FunctUtils.cycle;
 import static org.junit.Assert.assertTrue;
 
@@ -26,13 +26,13 @@ public class LongsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextLongNegativeNotBound() throws Exception {
         long upperBound = -100;
-        RandTestConstants.RAND.longs().bound(upperBound).val();
+        RAND.longs().bound(upperBound).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound() throws Exception {
         Long bound = null;
-        RandTestConstants.RAND.longs().bound(bound).val();
+        RAND.longs().bound(bound).val();
     }
 
     @Test
@@ -57,24 +57,26 @@ public class LongsTest {
     public void testNextLongNegativeNotBound2() throws Exception {
         long lowerBound = -1;
         long upperBound = 100;
-        RandTestConstants.RAND.longs().range(lowerBound, upperBound).val();
+        RAND.longs().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextLongNegativeNotBound3() throws Exception {
         long lowerBound = 100;
         long upperBound = -5;
-        RandTestConstants.RAND.longs().range(lowerBound, upperBound).val();
+        RAND.longs().range(lowerBound, upperBound).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound2() throws Exception {
-        RandTestConstants.RAND.longs().range(null, 10L).val();
+        Long l = null;
+        RAND.longs().range(l, 10L).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound3() throws Exception {
-        RandTestConstants.RAND.longs().range(10L, null).val();
+        Long l = null;
+        RAND.longs().range(10L, l).val();
     }
 
     @Test
@@ -90,7 +92,7 @@ public class LongsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextLongNonEqualBounds() throws Exception {
         long lowerBound = 10, upperBound = 10;
-        RandTestConstants.RAND.longs().range(lowerBound, upperBound).val();
+        RAND.longs().range(lowerBound, upperBound).val();
     }
 
     @Test
@@ -115,22 +117,22 @@ public class LongsTest {
     @Test
     public void testNextCorrectValues() throws Exception {
         long[] alphabet = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
-        Set<Long> helperSet = new HashSet<>(asList(ArrayUtils.toWrapperArray(alphabet)));
+        Set<Long> helperSet = new HashSet<>(asList(ArrayUtils.toObject(alphabet)));
         cycle(RandTestConstants.LONGS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
                     .map(r -> r.longs().from(alphabet).val())
                     .forEach(num -> assertTrue(helperSet.contains(num))));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextNulLNotAlphabet() throws Exception {
         long[] alphabet = null;
-        RandTestConstants.RAND.longs().from(alphabet).val();
+        RAND.longs().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextEmptyArrayNotAlphabet() throws Exception {
         long[] alphabet = new long[]{};
-        RandTestConstants.RAND.longs().from(alphabet).val();
+        RAND.longs().from(alphabet).val();
     }
 }

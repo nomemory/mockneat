@@ -1,7 +1,7 @@
 package com.mockneat.random;
 
-import com.mockneat.utils.ArrayUtils;
 import com.mockneat.utils.FunctUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
+import static org.apache.commons.lang3.ArrayUtils.toObject;
 import static org.junit.Assert.assertTrue;
 
 public class DoublesTest {
@@ -47,16 +48,11 @@ public class DoublesTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleInfinityNotBound() throws Exception {
-        RandTestConstants.RAND.doubles().bound(Double.POSITIVE_INFINITY).val();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleNaNNotBound() throws Exception {
         RandTestConstants.RAND.doubles().bound(Double.NaN).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextDoubleNullNotBound() throws Exception {
         Double bound = null;
         RandTestConstants.RAND.doubles().bound(bound).val();
@@ -91,24 +87,9 @@ public class DoublesTest {
         RandTestConstants.RAND.doubles().range(10.0, Double.NaN).val();
     }
 
-    @Test(expected =  IllegalArgumentException.class)
-    public void testNextDoubleNullNotBound2() throws Exception {
-        RandTestConstants.RAND.doubles().range(10.0, null).val();
-    }
-
-    @Test(expected =  IllegalArgumentException.class)
-    public void testNextDoubleNullNotBound3() throws Exception {
-        RandTestConstants.RAND.doubles().range(null, 10.0).val();
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testNextDoubleInfinityNotBound2() throws Exception {
         RandTestConstants.RAND.doubles().range(Double.POSITIVE_INFINITY, 10.0).val();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleInfinityNotBound3() throws Exception {
-        RandTestConstants.RAND.doubles().range(10.0, Double.POSITIVE_INFINITY).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -119,7 +100,7 @@ public class DoublesTest {
     @Test
     public void testNextDoubleCorrectValues() throws Exception {
         double[] doubles = { 1.0, 5.0, 10.0, 15.0, 20.52 };
-        Set<Double> values = new HashSet<>(asList(ArrayUtils.toWrapperArray(doubles)));
+        Set<Double> values = new HashSet<>(asList(toObject(doubles)));
 
         FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
             stream(RandTestConstants.RANDS).map(r -> r.doubles().from(doubles).val())
@@ -135,7 +116,7 @@ public class DoublesTest {
                     .forEach(num -> assertTrue(num.equals(doubles[0]))));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextDoubleNullNotAlphabet() throws Exception {
         double[] alphabet = null;
         RandTestConstants.RAND.doubles().from(alphabet).val();

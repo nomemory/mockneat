@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.CheckUtils.checkAlphabet;
-import static com.mockneat.utils.CheckUtils.checkType;
+import static com.mockneat.utils.ValidationUtils.*;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 26/01/2017.
@@ -22,8 +23,8 @@ public class Objs {
     }
 
     public <T> RandUnit<T> from(List<T> alphabet) {
+        notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<T> supp = () -> {
-            checkAlphabet(alphabet);
             int idx = rand.getRandom().nextInt(alphabet.size());
             return alphabet.get(idx);
         };
@@ -31,8 +32,8 @@ public class Objs {
     }
 
     public <T> RandUnit<T> from(T[] alphabet) {
+        notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<T> supp = () -> {
-            checkAlphabet(alphabet);
             int idx = rand.getRandom().nextInt(alphabet.length);
             return alphabet[idx];
         };
@@ -40,12 +41,13 @@ public class Objs {
     }
 
     public <T extends Enum<?>> RandUnit<T> from(Class<T> enumClass) {
-        checkType(enumClass);
+        notNull(enumClass, INPUT_PARAMETER_NOT_NULL, "enumClass");
         T[] arr = enumClass.getEnumConstants();
         return from(arr);
     }
 
     public <T> RandUnit<T> fromKeys(Map<T, ?> map) {
+        notEmpty(map, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "map");
         Supplier<T> supp = () -> {
             T[] keys = (T[]) map.keySet().toArray();
             int idx = rand.getRandom().nextInt(keys.length);
@@ -55,6 +57,7 @@ public class Objs {
     }
 
     public <T> RandUnit<T> fromValues(Map<?, T> map) {
+        notEmpty(map, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "map");
         Supplier<T> supp = () -> {
             T[] values = (T[]) map.values().toArray();
             int idx = rand.getRandom().nextInt(values.length);

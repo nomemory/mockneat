@@ -61,7 +61,7 @@ public class CharsTest {
         RAND.chars().from(alphabet).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testFromStringNullAlphabet() throws Exception {
         String alphabet = null;
         RAND.chars().from(alphabet).val();
@@ -73,9 +73,9 @@ public class CharsTest {
         RAND.chars().from(alphabet).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testFromArrayNull() throws Exception {
-        char[] alphabet = {};
+        char[] alphabet = null;
         RAND.chars().from(alphabet).val();
     }
 }

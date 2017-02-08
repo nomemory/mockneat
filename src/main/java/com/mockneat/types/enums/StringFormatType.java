@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-import com.mockneat.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.function.Function;
 

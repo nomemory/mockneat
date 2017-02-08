@@ -2,25 +2,26 @@ package com.mockneat.random.unit;
 
 import com.mockneat.random.unit.interfaces.RandUnit;
 import com.mockneat.types.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.CheckUtils.checkComposeObjectNotNull;
-import static com.mockneat.utils.CheckUtils.checkComposePairs;
+import static com.mockneat.utils.ValidationUtils.INPUT_COMPOSE_TYPE_NOT_NULL;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static java.util.Arrays.stream;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 08/02/2017.
  */
 public class Compose {
 
-    private Logger logger = LoggerFactory.getLogger(Compose.class);
-
     private Pair<Supplier, Class>[] pairs;
 
     public Compose(Pair<Supplier, Class>... pairs) {
+        notNull(pairs, INPUT_PARAMETER_NOT_NULL, "pairs");
+        stream(pairs)
+                .forEach(p -> notNull(p.getSecond(), INPUT_COMPOSE_TYPE_NOT_NULL));
         this.pairs = pairs;
     }
 
@@ -43,8 +44,7 @@ public class Compose {
     }
 
     public <T> RandUnit<T> object(Class<T> cls) {
-        checkComposeObjectNotNull(cls);
-        checkComposePairs(pairs);
+        notNull(cls, INPUT_PARAMETER_NOT_NULL, "cls");
         Supplier<T> supp = () -> {
             try {
                 return cls.getDeclaredConstructor(classes()).newInstance(values());
@@ -52,7 +52,6 @@ public class Compose {
                      IllegalAccessException |
                      NoSuchMethodException  |
                      InvocationTargetException e) {
-                logger.error("Cannot instantiate object", e);
                 throw new IllegalArgumentException("Cannot instantiate object: ", e);
             }
         };

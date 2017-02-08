@@ -13,7 +13,7 @@ public class WordState {
         this.state = strings;
     }
 
-    public static WordState fromWords(List<String> words, Integer stateSize, Integer fromIdx) {
+    public static WordState fromWords(List<String> words, int stateSize, int fromIdx) {
         String[] result = new String[stateSize];
         for(int i = 0; i < stateSize; i++) {
             result[i] = words.get(i + fromIdx);

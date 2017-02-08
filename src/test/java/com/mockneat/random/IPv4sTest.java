@@ -102,7 +102,7 @@ public class IPv4sTest {
         testIpCycle(IPv4Type.NO_CONSTRAINT);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextIPv4AddressTypeNotNull() throws Exception {
         RAND.ipv4s().type(null).val();
     }

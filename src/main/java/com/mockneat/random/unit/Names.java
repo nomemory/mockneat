@@ -7,6 +7,11 @@ import com.mockneat.types.enums.NameType;
 
 import java.util.function.Supplier;
 
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
+
 public class Names implements RandUnitString {
 
     private Rand rand;
@@ -21,15 +26,14 @@ public class Names implements RandUnitString {
     }
 
     public RandUnitString types(NameType... types) {
-        Supplier<String> supplier = () -> {
-            NameType nameType = rand.objs().from(types).val();
-            DictType dictType = rand.objs().from(nameType.getDictionaries()).val();
-            return rand.dicts().type(dictType).val();
-        };
-        return () -> supplier;
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        NameType nameType = rand.objs().from(types).val();
+        return type(nameType);
     }
 
     public RandUnitString type(NameType type) {
-        return types(type);
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        DictType dictType = rand.objs().from(type.getDictionaries()).val();
+        return () -> rand.dicts().type(dictType)::val;
     }
 }

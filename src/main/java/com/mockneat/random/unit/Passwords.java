@@ -13,7 +13,10 @@ import static com.mockneat.types.enums.DictType.EN_NOUN_3SYLL;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM_PASSWORD;
 import static com.mockneat.types.enums.PassStrengthType.STRONG_PASSWORD;
 import static com.mockneat.types.enums.PassStrengthType.WEAK_PASSWORD;
-import static com.mockneat.utils.CheckUtils.checkPasswordStrengthType;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 31/01/2017.
@@ -33,6 +36,7 @@ public class Passwords implements RandUnitString {
     }
 
     public RandUnitString type(PassStrengthType passStrengthType) {
+        notNull(passStrengthType, INPUT_PARAMETER_NOT_NULL, "passStrengthType");
         Supplier<String> supplier = () -> nextPassword(passStrengthType);
         return () -> supplier;
     }
@@ -43,7 +47,6 @@ public class Passwords implements RandUnitString {
     }
 
     protected String nextPassword(PassStrengthType passStrengthType) {
-        checkPasswordStrengthType(passStrengthType);
         switch (passStrengthType) {
             case WEAK_PASSWORD:
                 return nextWeakPassword();

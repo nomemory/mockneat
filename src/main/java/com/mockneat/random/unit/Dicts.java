@@ -5,6 +5,9 @@ import com.mockneat.random.unit.interfaces.RandUnitString;
 import com.mockneat.random.utils.dicts.DictsUtils;
 import com.mockneat.types.enums.DictType;
 
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * Created by andreinicolinciobanu on 16/01/2017.
  */
@@ -18,7 +21,7 @@ public class Dicts {
     }
 
     public RandUnitString type(DictType type) {
-        // TODO validate type
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         return () -> rand.objs().from(utils.get(type))::val;
     }
 }

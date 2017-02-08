@@ -15,9 +15,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class MacsTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextMACAddress_TypeNotNull() throws Exception {
-        RandTestConstants.RAND.macs().format(null).val();
+    @Test(expected = NullPointerException.class)
+    public void testNextMACAddressTypeNotNull() throws Exception {
+        RandTestConstants.RAND.macs().type(null).val();
     }
 
     protected void testNextMACAddress(MACAddressFormatType type,

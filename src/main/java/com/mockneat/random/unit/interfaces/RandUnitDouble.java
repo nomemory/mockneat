@@ -8,7 +8,7 @@ import java.util.stream.DoubleStream;
  */
 public interface RandUnitDouble extends RandUnit<Double> {
     default RandUnit<DoubleStream> doubleStream() {
-        Supplier<DoubleStream> supp = () -> DoubleStream.generate(() -> supplier().get());
+        Supplier<DoubleStream> supp = () -> DoubleStream.generate(supplier()::get);
         return () -> supp;
     }
 }

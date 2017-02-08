@@ -8,6 +8,13 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
+import static com.mockneat.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO_STRICT;
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
+
 @FunctionalInterface
 public interface RandUnit<T> {
 
@@ -20,17 +27,18 @@ public interface RandUnit<T> {
 
     default <R> R val(Function<T, R> funct) { return funct.apply(supplier().get()); }
 
-    default String strVal() { return supplier().get().toString(); }
+    default String valStr() { return supplier().get().toString(); }
 
-    default RandUnitString str() { return () -> () -> supplier().get().toString(); }
+    default RandUnitString str() { return () -> supplier().get()::toString; }
 
     default RandUnit<Stream<T>> stream() {
         Supplier<Stream<T>> supp = () -> Stream.generate(supplier());
         return () -> supp;
     }
 
-    default RandUnit<List<T>> list(Class<? extends List> listClass, Integer size) {
-        // TODO validate size
+    default RandUnit<List<T>> list(Class<? extends List> listClass, int size) {
+        notNull(listClass, INPUT_PARAMETER_NOT_NULL, "listClass");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<List<T>> supp = () -> {
             try {
                 List<T> result = listClass.newInstance();
@@ -46,12 +54,13 @@ public interface RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<List<T>> list(Integer size) {
+    default RandUnit<List<T>> list(int size) {
         return list(ArrayList.class, size);
     }
 
-    default RandUnit<Set<T>> set(Class<? extends Set> setClass, Integer size) {
-        // TODO validate size
+    default RandUnit<Set<T>> set(Class<? extends Set> setClass, int size) {
+        notNull(setClass, INPUT_PARAMETER_NOT_NULL, "setClass");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Set<T>> supp = () -> {
             try {
                 Set<T> result = setClass.newInstance();
@@ -68,12 +77,13 @@ public interface RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Set<T>> set(Integer size) {
+    default RandUnit<Set<T>> set(int size) {
         return set(HashSet.class, size);
     }
 
-    default RandUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, Integer size) {
-        // TODO validate size
+    default RandUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, int size) {
+        notNull(collectionClass, INPUT_PARAMETER_NOT_NULL, "collectionClass");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Collection<T>> supp = () -> {
             try {
                 Collection<T> result = collectionClass.newInstance();
@@ -89,12 +99,14 @@ public interface RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Collection<T>> collection(Integer size) {
+    default RandUnit<Collection<T>> collection(int size) {
         return collection(ArrayList.class, size);
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, Integer size, Supplier<R> keysSupplier) {
-        // TODO validation
+    default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, int size, Supplier<R> keysSupplier) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(keysSupplier, INPUT_PARAMETER_NOT_NULL, "keysSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
@@ -110,12 +122,13 @@ public interface RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(Integer size, Supplier<R> keysSupplier) {
+    default <R> RandUnit<Map<R, T>> mapWithKeys(int size, Supplier<R> keysSupplier) {
         return mapWithKeys(HashMap.class, size, keysSupplier);
     }
 
     default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, Iterable<R> keys) {
-        //TODO validation
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
@@ -134,6 +147,8 @@ public interface RandUnit<T> {
     }
 
     default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, R[] keys) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
@@ -153,6 +168,8 @@ public interface RandUnit<T> {
     }
 
     default RandUnit<Map<Integer, T>> mapWithKeys(Class<? extends Map> mapClass, int[] keys) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<Integer, T>> supp = () -> {
             try {
                 Map<Integer, T> result = mapClass.newInstance();
@@ -172,6 +189,8 @@ public interface RandUnit<T> {
     }
 
     default RandUnit<Map<Long, T>> mapWithKeys(Class<? extends Map> mapClass, long[] keys) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<Long, T>> supp = () -> {
             try {
                 Map<Long, T> result = mapClass.newInstance();
@@ -191,6 +210,8 @@ public interface RandUnit<T> {
     }
 
     default RandUnit<Map<Double, T>> mapWithKeys(Class<? extends Map> mapClass, double[] keys) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<Double, T>> supp = () -> {
             try {
                 Map<Double, T> result = mapClass.newInstance();
@@ -209,7 +230,10 @@ public interface RandUnit<T> {
         return mapWithKeys(HashMap.class, keys);
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, Integer size, Supplier<R> valuesSupplier) {
+    default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(valuesSupplier, INPUT_PARAMETER_NOT_NULL, "valuesSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
@@ -226,11 +250,13 @@ public interface RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(Integer size, Supplier<R> valuesSupplier) {
+    default <R> RandUnit<Map<T, R>> mapWithValues(int size, Supplier<R> valuesSupplier) {
         return mapWithValues(HashMap.class, size, valuesSupplier);
     }
 
     default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, Iterable<R> values) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
@@ -249,6 +275,8 @@ public interface RandUnit<T> {
     }
 
     default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, R[] values) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
@@ -267,6 +295,8 @@ public interface RandUnit<T> {
     }
 
     default RandUnit<Map<T, Integer>> mapWithValues(Class<? extends Map> mapClass, int[] values) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, Integer>> supp = () -> {
             try {
                 Map<T, Integer> result = mapClass.newInstance();
@@ -285,6 +315,8 @@ public interface RandUnit<T> {
     }
 
     default RandUnit<Map<T, Long>> mapWithValues(Class<? extends Map> mapClass, long[] values) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, Long>> supp = () -> {
             try {
                 Map<T, Long> result = mapClass.newInstance();
@@ -303,6 +335,8 @@ public interface RandUnit<T> {
     }
 
     default RandUnit<Map<T, Double>> mapWithValues(Class<? extends Map> mapClass, double[] values) {
+        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
+        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, Double>> supp = () -> {
             try {
                 Map<T, Double> result = mapClass.newInstance();

@@ -1,10 +1,12 @@
 package com.mockneat.alphabets;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static com.mockneat.utils.ArrayUtils.concat;
 import static java.util.Collections.unmodifiableList;
+import static org.apache.commons.lang3.ArrayUtils.addAll;
 
 public class Alphabets {
 
@@ -133,13 +135,13 @@ public class Alphabets {
      * ---------------------------------------------------------
      */
     protected static final Character[] ALPHA_NUMERIC_ARR_CHR =
-            concat(concat(LETTERS_LOWERCASE_ARR_CHR, LETTERS_UPPERCASE_ARR_CHR), DIGITS_ARR_CHR);
+            addAll(addAll(LETTERS_LOWERCASE_ARR_CHR, LETTERS_UPPERCASE_ARR_CHR), DIGITS_ARR_CHR);
 
     public static final List<Character> ALPHA_NUMERIC =
             unmodifiableList(asList(ALPHA_NUMERIC_ARR_CHR));
 
     protected static final String[] ALPHA_NUMERIC_ARR_STR =
-            concat(concat(LETTERS_LOWERCASE_ARR_STR, LETTERS_UPPERCASE_ARR_STR), DIGITS_ARR_STR);
+            addAll(addAll(LETTERS_LOWERCASE_ARR_STR, LETTERS_UPPERCASE_ARR_STR), DIGITS_ARR_STR);
 
     public static final List<String> ALPHA_NUMERIC_STR =
             unmodifiableList(asList(ALPHA_NUMERIC_ARR_STR));

@@ -4,10 +4,11 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.unit.interfaces.RandUnitLong;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.CheckUtils.*;
+import static com.mockneat.utils.ValidationUtils.*;
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 02/01/2017.
@@ -27,8 +28,8 @@ public class Longs implements RandUnitLong {
         return random::nextLong;
     }
 
-    public RandUnitLong bound(Long bound) {
-        checkLongBound(bound);
+    public RandUnitLong bound(long bound) {
+        isTrue(bound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         Supplier<Long> supplier = () -> {
             long b;
             long result;
@@ -42,21 +43,20 @@ public class Longs implements RandUnitLong {
         return () -> supplier;
     }
 
-    public RandUnitLong range(Long lowerBound, Long upperBound) {
-        Supplier<Long> supplier = () -> {
-            checkLongBounds(lowerBound, upperBound);
-            if (random instanceof ThreadLocalRandom) {
-                // Use the native implementation that is only available for ThreadLocalRandoms
-                return ((ThreadLocalRandom) random).nextLong(lowerBound, upperBound);
-            }
-            return rand.longs().bound(upperBound - lowerBound).val() + lowerBound;
-        };
+    public RandUnitLong range(long lowerBound, long upperBound) {
+        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
+        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
+        isTrue(lowerBound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>0, UPPER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
+        Supplier<Long> supplier = () ->
+                rand.longs().bound(upperBound - lowerBound).val() + lowerBound;
         return () -> supplier;
     }
 
     public RandUnitLong from(long[] alphabet) {
+        notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Long> supp = () -> {
-            checkLongAlphabet(alphabet);
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];
         };

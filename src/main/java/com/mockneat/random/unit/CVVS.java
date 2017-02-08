@@ -8,7 +8,8 @@ import com.mockneat.utils.FunctUtils;
 import java.util.function.Supplier;
 
 import static com.mockneat.types.enums.CVVType.CVV3;
-import static com.mockneat.utils.CheckUtils.checkCVVTypeNotNull;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 27/01/2017.
@@ -27,7 +28,7 @@ public class CVVS implements RandUnitString {
     }
 
     public RandUnitString type(CVVType type) {
-        checkCVVTypeNotNull(type);
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
             FunctUtils.cycle(type.getLength(), () ->

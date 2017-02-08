@@ -4,7 +4,9 @@ import com.mockneat.types.enums.StringFormatType;
 
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.CheckUtils.checkStringFormatTypeNotNull;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static org.apache.commons.lang3.Validate.notNull;
+
 
 /**
  * Created by andreinicolinciobanu on 07/02/2017.
@@ -13,7 +15,7 @@ import static com.mockneat.utils.CheckUtils.checkStringFormatTypeNotNull;
 public interface RandUnitString extends RandUnit<String> {
 
     default RandUnitString format(StringFormatType formatType) {
-        checkStringFormatTypeNotNull(formatType);
+        notNull(formatType, INPUT_PARAMETER_NOT_NULL, "formatType");
         Supplier<String> supplier = () -> formatType.getFormatter().apply(supplier().get());
         return () -> supplier;
     }

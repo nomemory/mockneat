@@ -1,6 +1,5 @@
 package com.mockneat.random;
 
-import com.mockneat.utils.ArrayUtils;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -8,8 +7,8 @@ import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.utils.ArrayUtils.toWrapperArray;
 import static com.mockneat.utils.FunctUtils.cycle;
+import static org.apache.commons.lang3.ArrayUtils.toObject;
 import static org.junit.Assert.assertTrue;
 
 public class IntsTest {
@@ -29,7 +28,7 @@ public class IntsTest {
         RandTestConstants.RAND.ints().bound(upperBound).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound() throws Exception {
         Integer bound = null;
         RandTestConstants.RAND.ints().bound(bound).val();
@@ -67,14 +66,16 @@ public class IntsTest {
         RandTestConstants.RAND.ints().range(lowerBound, upperBound).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound2() throws Exception {
-        RandTestConstants.RAND.ints().range(null, 10).val();
+        Integer x = null;
+        RandTestConstants.RAND.ints().range(x, 10).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound3() throws Exception {
-        RandTestConstants.RAND.ints().range(10, null).val();
+        Integer x = null;
+        RandTestConstants.RAND.ints().range(10, x).val();
     }
 
     @Test
@@ -115,14 +116,14 @@ public class IntsTest {
     @Test
     public void testNextCorrectValues() throws Exception {
         int[] alphabet = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
-        Set<Integer> helperSet = new HashSet<>(asList(ArrayUtils.toWrapperArray(alphabet)));
+        Set<Integer> helperSet = new HashSet<>(asList(toObject(alphabet)));
         cycle(RandTestConstants.INTS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
                     .map(r -> r.ints().from(alphabet).val())
                     .forEach(num -> assertTrue(helperSet.contains(num))));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextNulLNotAlphabet() throws Exception {
         int[] alphabet = null;
         RandTestConstants.RAND.ints().from(alphabet).val();

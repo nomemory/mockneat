@@ -29,6 +29,7 @@ public class Rand {
     private Longs rLongs;
     private Macs rMacs;
     private Markovs rMarkovs;
+    private Months rMonths;
     private Names rNames;
     private Objs rObjects;
     private Passwords rPasswords;
@@ -52,12 +53,12 @@ public class Rand {
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
         this.rMarkovs = new Markovs(this);
+        this.rMonths = new Months(this);
         this.rNames = new Names(this);
         this.rObjects = new Objs(this);
         this.rPasswords = new Passwords(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
-
     }
 
     public Rand() {
@@ -108,6 +109,8 @@ public class Rand {
     public Macs macs() { return this.rMacs; }
 
     public Markovs markovs() { return this.rMarkovs; }
+
+    public Months months() { return this.rMonths; }
 
     public Names names() { return this.rNames; }
 

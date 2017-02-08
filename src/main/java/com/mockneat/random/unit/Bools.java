@@ -7,7 +7,8 @@ import com.mockneat.random.unit.interfaces.RandUnit;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.CheckUtils.checkProbability;
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 02/01/2017.
@@ -26,8 +27,8 @@ public class Bools implements RandUnit<Boolean> {
         return rand.doubles().range(lower, upper).val() < trigger;
     }
 
-    public RandUnit<Boolean> probability(Double probability) {
-        checkProbability(probability);
+    public RandUnit<Boolean> probability(double probability) {
+        inclusiveBetween(0.0, 100.0, probability);
         Supplier<Boolean> supp = () -> withProb(0.0, probability, 100.0);
         return () -> supp;
     }

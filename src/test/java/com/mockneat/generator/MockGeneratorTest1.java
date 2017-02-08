@@ -13,14 +13,10 @@ public class MockGeneratorTest1 {
     public void randomPersonCorrectValues() throws Exception {
         Rand r = new Rand();
 
-        System.out.println(r.names().val());
-
         Person p = r.compose(
                 Pair.of(r.names()::val, String.class),
                 Pair.of(r.emails()::val, String.class),
                 Pair.of(r.ints().range(18,89)::val, Integer.class)
         ).object(Person.class).val();
-
-        System.out.println(p);
     }
 }

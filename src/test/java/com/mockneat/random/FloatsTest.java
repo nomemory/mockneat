@@ -1,6 +1,5 @@
 package com.mockneat.random;
 
-import com.mockneat.utils.ArrayUtils;
 import com.mockneat.utils.FunctUtils;
 import org.junit.Test;
 
@@ -9,7 +8,7 @@ import java.util.Set;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.utils.ArrayUtils.toWrapperArray;
+import static org.apache.commons.lang3.ArrayUtils.toObject;
 import static org.junit.Assert.assertTrue;
 
 public class FloatsTest {
@@ -42,16 +41,11 @@ public class FloatsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatInfinityNotBound() throws Exception {
-        RandTestConstants.RAND.floats().bound(Float.POSITIVE_INFINITY).val();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
     public void testNextFloatNaNNotBound() throws Exception {
         RandTestConstants.RAND.floats().bound(Float.NaN).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void nextFloat_NullNotBound() throws Exception {
         Float bound = null;
         stream(RandTestConstants.RANDS)
@@ -88,24 +82,16 @@ public class FloatsTest {
         RandTestConstants.RAND.floats().range(10.0f, Float.NaN).val();
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test(expected =  NullPointerException.class)
     public void testNextFloatNullNotBound2() throws Exception {
-        RandTestConstants.RAND.floats().range(10.0f, null).val();
+        Float f = null;
+        RandTestConstants.RAND.floats().range(10.0f, f).val();
     }
 
-    @Test(expected =  IllegalArgumentException.class)
+    @Test(expected =  NullPointerException.class)
     public void testNextFloatNullNotBound3() throws Exception {
-        RandTestConstants.RAND.floats().range(null, 10.0f).val();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatInfinityNotBound2() throws Exception {
-        RandTestConstants.RAND.floats().range(Float.POSITIVE_INFINITY, 10.0f).val();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatInfinityNotBound3() throws Exception {
-        RandTestConstants.RAND.floats().range(10.0f, Float.POSITIVE_INFINITY).val();
+        Float f = null;
+        RandTestConstants.RAND.floats().range(f, 10.0f).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -116,7 +102,7 @@ public class FloatsTest {
     @Test
     public void testNextCorrectValues() throws Exception {
         float[] floats = { 1.0f, 5.0f, 10.0f, 15.0f, 20.52f };
-        Set<Float> values = new HashSet<>(asList(ArrayUtils.toWrapperArray(floats)));
+        Set<Float> values = new HashSet<>(asList(toObject(floats)));
 
         FunctUtils.cycle(RandTestConstants.FLOATS_CYCLES, () ->
             stream(RandTestConstants.RANDS).map(r -> r.floats().from(floats).val())
@@ -131,7 +117,7 @@ public class FloatsTest {
                     .forEach(num -> assertTrue(num.equals(floats[0]))));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNextNullNotAlphabet() throws Exception {
         float[] alphabet = null;
         RandTestConstants.RAND.floats().from(alphabet).val();

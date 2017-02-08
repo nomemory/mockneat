@@ -18,13 +18,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class ComposeTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testComposeNullPairs() throws Exception {
         Pair[] pairs = null;
         RAND.compose(pairs).object(EmptyClass.class).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testComposeNullObject() throws Exception {
         RAND.compose().object(null).val();
     }
@@ -49,7 +49,7 @@ public class ComposeTest {
         });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testComposeNullClass() {
         RAND.compose(
                 Pair.of(RAND.ints()::val, null),

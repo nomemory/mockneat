@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static com.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
-import static com.mockneat.utils.CheckUtils.checkCreditCardTypeNotNull;
-import static com.mockneat.utils.CheckUtils.checkTypes;
+import static com.mockneat.utils.ValidationUtils.*;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * Created by andreinicolinciobanu on 23/01/2017.
@@ -30,18 +31,15 @@ public class CCS implements RandUnitString {
     }
 
     public RandUnitString type(CreditCardType type) {
-        return types(type);
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        Supplier<String> supplier = () -> generateCreditCard(type);
+        return () -> supplier;
     }
 
     public RandUnitString types(CreditCardType... types) {
-        Supplier<String> supplier = () -> {
-            checkTypes(types);
-            CreditCardType creditCardType = rand.objs().from(types).val();
-
-            checkCreditCardTypeNotNull(creditCardType);
-            return generateCreditCard(creditCardType);
-        };
-        return () -> supplier;
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        CreditCardType creditCardType = rand.objs().from(types).val();
+        return types(creditCardType);
     }
 
     protected String generateCreditCard(CreditCardType creditCardType) {
