@@ -5,6 +5,10 @@ import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
+import static java.lang.Character.isDigit;
+import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
+
 /**
  * Created by andreinicolinciobanu on 19/12/2016.
  */
@@ -83,7 +87,7 @@ public class StringUtils {
     public static boolean allUppercase(String str) {
         return !IntStream
                     .range(0, str.length())
-                    .filter(i -> Character.isLowerCase(str.charAt(i)))
+                    .filter(i -> isLowerCase(str.charAt(i)))
                     .findFirst()
                     .isPresent();
     }
@@ -91,7 +95,15 @@ public class StringUtils {
     public static boolean allLowerCase(String str) {
         return !IntStream
                     .range(0, str.length())
-                    .filter(i -> Character.isUpperCase((str.charAt(i))))
+                    .filter(i -> isUpperCase((str.charAt(i))))
+                    .findFirst()
+                    .isPresent();
+    }
+
+    public static boolean allDigits(String str) {
+        return !IntStream
+                    .range(0, str.length())
+                    .filter(i -> !isDigit(str.charAt(i)))
                     .findFirst()
                     .isPresent();
     }

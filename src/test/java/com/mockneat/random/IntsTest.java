@@ -12,7 +12,7 @@ import static com.mockneat.utils.ArrayUtils.toWrapperArray;
 import static com.mockneat.utils.FunctUtils.cycle;
 import static org.junit.Assert.assertTrue;
 
-public class IntegersTest {
+public class IntsTest {
 
     @Test
     public void testNextIntegerInCorrectRange() throws Exception {

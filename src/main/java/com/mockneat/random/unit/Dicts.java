@@ -19,6 +19,6 @@ public class Dicts {
 
     public RandUnitString type(DictType type) {
         // TODO validate type
-        return () -> rand.objs().from(utils.get(type)).supplier();
+        return () -> rand.objs().from(utils.get(type))::val;
     }
 }

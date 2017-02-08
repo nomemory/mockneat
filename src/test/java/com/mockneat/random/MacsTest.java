@@ -55,6 +55,7 @@ public class MacsTest {
         testNextMACAddress(MACAddressFormatType.COLON_EVERY_2_DIGITS, ":", 6, 2);
     }
 
+    @Test
     public void testNextMACAddress_DOT_EVERY_2_DIGITS() throws Exception {
         testNextMACAddress(MACAddressFormatType.DOT_EVERY_2_DIGITS, "\\.", 6, 2);
     }

@@ -20,8 +20,13 @@ public class CCSTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCreditCardTypeNotNull() throws Exception {
         CreditCardType type = null;
-        CreditCardType[] types = null;
         RAND.ccs().type(type).val();
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreditCardTypesNotNull() throws Exception {
+        CreditCardType[] types = null;
         RAND.ccs().types(types).val();
     }
 

@@ -1,9 +1,11 @@
 package com.mockneat.utils;
 
+import com.mockneat.types.Pair;
 import com.mockneat.types.enums.*;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Created by andreinicolinciobanu on 03/01/2017.
@@ -19,7 +21,10 @@ public class CheckUtils {
     public static final String MARKOV_CHAIN_TYPE_NOT_NULL = "Invalid MarkovChainType. Type cannot be null.";
     public static final String PASS_STRENGTH_TYPE_NOT_NULL = "Invalid PassStrengthType. Type cannot be null.";
     public static final String USERNAME_TYPE_NOT_NULL = "Invalid UserNameType. Type cannot be null.";
-    public static final String BOUND_NOT_NULL = "Invalid bound(s). Value(s) must be different than NULL.";
+    public static final String INVALID_PAIRS_NOT_NULL = "Invalid compose(...) arguments. Arguments cannot be null.";
+    public static final String INVALID_PAIRS_CLASS_NOT_NULL = "Invalid compose(...) arguments. NULL Class<?> detected.";
+    public static final String INVALID_OBJECT_CLASS_NOT_NULL = "Invalid object(...) argument. NULL Class<?> detected.";
+    public static final String BOUND_NOT_NULL = "Invalid bound(s). Value(s) must be different than null.";
     public static final String BOUND_NOT_NAN = "Invalid bound(s). Value(s) must be different than NaN.";
     public static final String BOUND_NOT_INFINITY = "Invalid bound(s). Value(s) must be different than INFINITY.";
     public static final String BOUND_NOT_ZERO = "Invalid bound(s). Value(s) must be different than ZERO.";
@@ -210,7 +215,7 @@ public class CheckUtils {
     }
 
     public static <T> void checkAlphabet(List<T> alphabet) {
-        if (null == alphabet || 0 == alphabet.size()) {
+        if (null == alphabet || alphabet.isEmpty()) {
             throw new IllegalArgumentException(INVALID_ALPHABET_LIST);
         }
     }
@@ -313,6 +318,22 @@ public class CheckUtils {
     public static void checkUserNameType(UserNameType userNameType) {
         if (null == userNameType) {
             throw new IllegalArgumentException(USERNAME_TYPE_NOT_NULL);
+        }
+    }
+
+    public static void checkComposePairs(Pair<Supplier, Class>[] pairs) {
+        if (null == pairs) {
+            throw new IllegalArgumentException(INVALID_PAIRS_NOT_NULL);
+        }
+        for(Pair<Supplier, Class> p : pairs) {
+            if (null==p.getSecond())
+                throw new IllegalArgumentException(INVALID_PAIRS_CLASS_NOT_NULL);
+        }
+    }
+
+    public static void checkComposeObjectNotNull(Class cls) {
+        if (null == cls) {
+            throw new IllegalArgumentException(INVALID_OBJECT_CLASS_NOT_NULL);
         }
     }
 }
