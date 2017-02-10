@@ -11,7 +11,7 @@ import org.junit.Test;
 public class MockGeneratorTest1 {
     @Test
     public void randomPersonCorrectValues() throws Exception {
-        Rand r = new Rand();
+        Rand r = Rand.threadLocal();
 
         Person p = r.compose(
                 Pair.of(r.names()::val, String.class),

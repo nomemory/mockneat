@@ -1,0 +1,64 @@
+package com.mockneat.random.unit.time;
+
+/**
+ * Copyright 2017, Andrei N. Ciobanu
+
+ Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
+ documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+import com.mockneat.random.Rand;
+import com.mockneat.random.interfaces.RandUnitDays;
+import java.time.DayOfWeek;
+import java.util.function.Supplier;
+import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.utils.ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER;
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
+
+public class Days implements RandUnitDays {
+
+    private Rand rand;
+
+    public Days(Rand rand) {
+        this.rand = rand;
+    }
+
+    @Override
+    public Supplier<DayOfWeek> supplier() {
+        return rand.objs().from(DayOfWeek.class)::val;
+    }
+
+    public RandUnitDays range(DayOfWeek lower, DayOfWeek upper) {
+        notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
+        notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
+        isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
+        Supplier<DayOfWeek> supp = () -> {
+            int idx = rand.ints().range(lower.getValue(), upper.getValue()).val();
+            return DayOfWeek.values()[idx];
+        };
+        return () -> supp;
+    }
+
+    public RandUnitDays before(DayOfWeek before) {
+        notNull(before, INPUT_PARAMETER_NOT_NULL, "before");
+        isTrue(before.getValue()>0);
+        return range(DayOfWeek.values()[0], before);
+    }
+
+    public RandUnitDays after(DayOfWeek after) {
+        notNull(after, INPUT_PARAMETER_NOT_NULL, "after");
+        isTrue(after.getValue()<DayOfWeek.values().length-1);
+        return range(after, DayOfWeek.values()[DayOfWeek.values().length-1]);
+    }
+}
