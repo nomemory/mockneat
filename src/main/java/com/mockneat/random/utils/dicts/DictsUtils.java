@@ -36,7 +36,7 @@ public class DictsUtils {
 
     private final Map<String, List<String>> defaults = new HashMap<>();
 
-    protected final com.mockneat.utils.DictsUtils utils = com.mockneat.utils.DictsUtils.getInstance();
+    protected final com.mockneat.random.utils.DictsUtils utils = com.mockneat.random.utils.DictsUtils.getInstance();
 
     public static synchronized DictsUtils getInstance() {
         return INSTANCE;

@@ -21,7 +21,7 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitInt;
 import java.util.Random;
 import java.util.function.Supplier;
-import static com.mockneat.utils.ValidationUtils.*;
+import static com.mockneat.random.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 

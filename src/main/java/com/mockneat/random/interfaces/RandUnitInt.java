@@ -21,9 +21,22 @@ package com.mockneat.random.interfaces;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+import static com.mockneat.random.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
+import static java.util.stream.IntStream.range;
+import static org.apache.commons.lang3.Validate.isTrue;
+
 public interface RandUnitInt extends RandUnit<Integer> {
     default RandUnit<IntStream> intStream() {
         Supplier<IntStream> supp = () -> IntStream.generate(() -> supplier().get());
+        return () -> supp;
+    }
+    default RandUnit<int[]> arrayPrimitive(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<int[]> supp = () -> {
+            final int[] result = new int[size];
+            range(0, size).forEach(i -> result[i] = val());
+            return result;
+        };
         return () -> supp;
     }
 }

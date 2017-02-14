@@ -1,8 +1,8 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.networking;
 
 import com.mockneat.types.Range;
 import com.mockneat.types.enums.IPv4Type;
-import com.mockneat.utils.FunctUtils;
+import com.mockneat.random.utils.FunctUtils;
 import junit.framework.Assert;
 import org.junit.Test;
 

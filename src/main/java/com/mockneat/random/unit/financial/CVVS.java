@@ -20,10 +20,10 @@ package com.mockneat.random.unit.financial;
 import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitString;
 import com.mockneat.types.enums.CVVType;
-import com.mockneat.utils.FunctUtils;
+import com.mockneat.random.utils.FunctUtils;
 import java.util.function.Supplier;
 import static com.mockneat.types.enums.CVVType.CVV3;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class CVVS implements RandUnitString {

@@ -23,8 +23,8 @@ import com.mockneat.random.interfaces.RandUnitMonth;
 import java.time.Month;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.utils.ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -38,7 +38,7 @@ public class Months implements RandUnitMonth {
 
     @Override
     public Supplier<Month> supplier() {
-        return rand.objs().from(Month.class)::val;
+        return rand.from(Month.class)::val;
     }
 
     public RandUnitMonth range(Month lower, Month upper) {

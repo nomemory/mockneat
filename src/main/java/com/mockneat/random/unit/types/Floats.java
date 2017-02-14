@@ -21,9 +21,9 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnit;
 import java.util.Random;
 import java.util.function.Supplier;
-import static com.mockneat.utils.ValidationUtils.*;
-import static com.mockneat.utils.ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND;
-import static com.mockneat.utils.ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO;
+import static com.mockneat.random.utils.ValidationUtils.*;
+import static com.mockneat.random.utils.ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND;
+import static com.mockneat.random.utils.ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.Validate.notNaN;
 

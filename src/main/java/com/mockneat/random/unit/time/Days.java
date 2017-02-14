@@ -21,8 +21,8 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitDays;
 import java.time.DayOfWeek;
 import java.util.function.Supplier;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.utils.ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -36,7 +36,7 @@ public class Days implements RandUnitDays {
 
     @Override
     public Supplier<DayOfWeek> supplier() {
-        return rand.objs().from(DayOfWeek.class)::val;
+        return rand.from(DayOfWeek.class)::val;
     }
 
     public RandUnitDays range(DayOfWeek lower, DayOfWeek upper) {

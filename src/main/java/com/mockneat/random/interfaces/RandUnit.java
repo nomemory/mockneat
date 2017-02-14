@@ -17,7 +17,6 @@ package com.mockneat.random.interfaces;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,13 +25,18 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
+import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.RandUnitUtils.add;
+import static com.mockneat.random.utils.RandUnitUtils.put;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
+import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @FunctionalInterface
-public interface    RandUnit<T> {
+@SuppressWarnings("unchecked")
+public interface RandUnit<T> {
 
     Logger logger = LoggerFactory.getLogger(RandUnit.class);
 
@@ -44,6 +48,30 @@ public interface    RandUnit<T> {
     default <R> R val(Function<T, R> funct) { return funct.apply(supplier().get()); }
 
     default String valStr() { return supplier().get().toString(); }
+
+    default <R> RandUnit<R> map(Function<T, R> funct) {
+        notNull(funct, INPUT_PARAMETER_NOT_NULL, "funct");
+        Supplier<R> supp = () -> funct.apply(supplier().get());
+        return () -> supp;
+    }
+
+    default RandUnitInt mapToInt(Function<T, Integer> funct) {
+        notNull(funct, INPUT_PARAMETER_NOT_NULL, "funct");
+        Supplier<Integer> supp = () -> funct.apply(val());
+        return () -> supp;
+    }
+
+    default RandUnitDouble mapToDouble(Function<T, Double> funct) {
+        notNull(funct, INPUT_PARAMETER_NOT_NULL, "funct");
+        Supplier<Double> supp = () -> funct.apply(val());
+        return () -> supp;
+    }
+
+    default RandUnitLong mapToLong(Function<T, Long> funct) {
+        notNull(funct, INPUT_PARAMETER_NOT_NULL, "funct");
+        Supplier<Long> supp = () -> funct.apply(val());
+        return () -> supp;
+    }
 
     default RandUnitString str() { return () -> supplier().get()::toString; }
 
@@ -58,9 +86,7 @@ public interface    RandUnit<T> {
         Supplier<List<T>> supp = () -> {
             try {
                 List<T> result = listClass.newInstance();
-                int cnt = size;
-                while(cnt-->0)
-                    result.add(supplier().get());
+                cycle(size, () -> add(listClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate list.", e);
@@ -80,10 +106,7 @@ public interface    RandUnit<T> {
         Supplier<Set<T>> supp = () -> {
             try {
                 Set<T> result = setClass.newInstance();
-                int cnt = size;
-                while(cnt-->0) {
-                    result.add(supplier().get());
-                }
+                cycle(size, () -> add(setClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate set.", e);
@@ -103,9 +126,7 @@ public interface    RandUnit<T> {
         Supplier<Collection<T>> supp = () -> {
             try {
                 Collection<T> result = collectionClass.newInstance();
-                int cnt = size;
-                while(cnt-->0)
-                    result.add(supplier().get());
+                cycle(size, () -> add(collectionClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate collection.", e);
@@ -119,16 +140,14 @@ public interface    RandUnit<T> {
         return collection(ArrayList.class, size);
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, int size, Supplier<R> keysSupplier) {
+    default <R> RandUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, int size, Supplier<R> keysSupplier) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(keysSupplier, INPUT_PARAMETER_NOT_NULL, "keysSupplier");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                int cnt = size;
-                while(cnt-->0)
-                    result.put(keysSupplier.get(), supplier().get());
+                cycle(size, () -> put(mapClass, result, keysSupplier, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -138,17 +157,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(int size, Supplier<R> keysSupplier) {
-        return mapWithKeys(HashMap.class, size, keysSupplier);
+    default <R> RandUnit<Map<R, T>> mapKeys(int size, Supplier<R> keysSupplier) {
+        return mapKeys(HashMap.class, size, keysSupplier);
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, Iterable<R> keys) {
+    default <R> RandUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, Iterable<R> keys) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                keys.forEach(key -> result.put(key, supplier().get()));
+                keys.forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -158,17 +177,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(Iterable<R> keys) {
-        return mapWithKeys(HashMap.class, keys);
+    default <R> RandUnit<Map<R, T>> mapKeys(Iterable<R> keys) {
+        return mapKeys(HashMap.class, keys);
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(Class<? extends Map> mapClass, R[] keys) {
+    default <R> RandUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, R[] keys) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key ->result.put(key, supplier().get()));
+                Arrays.stream(keys).forEach(key ->put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -179,17 +198,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<R, T>> mapWithKeys(R[] keys) {
-        return mapWithKeys(HashMap.class, keys);
+    default <R> RandUnit<Map<R, T>> mapKeys(R[] keys) {
+        return mapKeys(HashMap.class, keys);
     }
 
-    default RandUnit<Map<Integer, T>> mapWithKeys(Class<? extends Map> mapClass, int[] keys) {
+    default RandUnit<Map<Integer, T>> mapKeys(Class<? extends Map> mapClass, int[] keys) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<Integer, T>> supp = () -> {
             try {
                 Map<Integer, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key ->result.put(key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -200,17 +219,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Map<Integer, T>> mapWithKeys(int[] keys) {
-        return mapWithKeys(HashMap.class, keys);
+    default RandUnit<Map<Integer, T>> mapKeys(int[] keys) {
+        return mapKeys(HashMap.class, keys);
     }
 
-    default RandUnit<Map<Long, T>> mapWithKeys(Class<? extends Map> mapClass, long[] keys) {
+    default RandUnit<Map<Long, T>> mapKeys(Class<? extends Map> mapClass, long[] keys) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<Long, T>> supp = () -> {
             try {
                 Map<Long, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key ->result.put(key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -221,17 +240,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Map<Long, T>> mapWithKeys(long[] keys) {
-        return mapWithKeys(HashMap.class, keys);
+    default RandUnit<Map<Long, T>> mapKeys(long[] keys) {
+        return mapKeys(HashMap.class, keys);
     }
 
-    default RandUnit<Map<Double, T>> mapWithKeys(Class<? extends Map> mapClass, double[] keys) {
+    default RandUnit<Map<Double, T>> mapKeys(Class<? extends Map> mapClass, double[] keys) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
         Supplier<Map<Double, T>> supp = () -> {
             try {
                 Map<Double, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key ->result.put(key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -242,21 +261,18 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Map<Double, T>> mapWithKeys(double[] keys) {
-        return mapWithKeys(HashMap.class, keys);
+    default RandUnit<Map<Double, T>> mapKeys(double[] keys) {
+        return mapKeys(HashMap.class, keys);
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
+    default <R> RandUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(valuesSupplier, INPUT_PARAMETER_NOT_NULL, "valuesSupplier");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                int cnt = size;
-                while (cnt-- > 0) {
-                    result.put(supplier().get(), valuesSupplier.get());
-                }
+                cycle(size, () -> put(mapClass, result, supplier(), valuesSupplier));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -266,17 +282,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(int size, Supplier<R> valuesSupplier) {
-        return mapWithValues(HashMap.class, size, valuesSupplier);
+    default <R> RandUnit<Map<T, R>> mapVals(int size, Supplier<R> valuesSupplier) {
+        return mapVals(HashMap.class, size, valuesSupplier);
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, Iterable<R> values) {
+    default <R> RandUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, Iterable<R> values) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                values.forEach(value -> result.put(supplier().get(), value));
+                values.forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -286,17 +302,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(Iterable<R> values) {
-        return mapWithValues(HashMap.class, values);
+    default <R> RandUnit<Map<T, R>> mapVals(Iterable<R> values) {
+        return mapVals(HashMap.class, values);
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(Class<? extends Map> mapClass, R[] values) {
+    default <R> RandUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, R[] values) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -306,17 +322,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default <R> RandUnit<Map<T, R>> mapWithValues(R[] values) {
-        return mapWithValues(HashMap.class, values);
+    default <R> RandUnit<Map<T, R>> mapVals(R[] values) {
+        return mapVals(HashMap.class, values);
     }
 
-    default RandUnit<Map<T, Integer>> mapWithValues(Class<? extends Map> mapClass, int[] values) {
+    default RandUnit<Map<T, Integer>> mapVals(Class<? extends Map> mapClass, int[] values) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, Integer>> supp = () -> {
             try {
                 Map<T, Integer> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -326,17 +342,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Map<T, Integer>> mapWithValues(int[] values) {
-        return mapWithValues(HashMap.class, values);
+    default RandUnit<Map<T, Integer>> mapVals(int[] values) {
+        return mapVals(HashMap.class, values);
     }
 
-    default RandUnit<Map<T, Long>> mapWithValues(Class<? extends Map> mapClass, long[] values) {
+    default RandUnit<Map<T, Long>> mapVals(Class<? extends Map> mapClass, long[] values) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, Long>> supp = () -> {
             try {
                 Map<T, Long> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -346,17 +362,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Map<T, Long>> mapWithValues(long[] values) {
-        return mapWithValues(HashMap.class, values);
+    default RandUnit<Map<T, Long>> mapVals(long[] values) {
+        return mapVals(HashMap.class, values);
     }
 
-    default RandUnit<Map<T, Double>> mapWithValues(Class<? extends Map> mapClass, double[] values) {
+    default RandUnit<Map<T, Double>> mapVals(Class<? extends Map> mapClass, double[] values) {
         notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
         notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
         Supplier<Map<T, Double>> supp = () -> {
             try {
                 Map<T, Double> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -366,7 +382,17 @@ public interface    RandUnit<T> {
         return () -> supp;
     }
 
-    default RandUnit<Map<T, Double>> mapWithValues(double[] values) {
-        return mapWithValues(HashMap.class, values);
+    default RandUnit<Map<T, Double>> mapVals(double[] values) {
+        return mapVals(HashMap.class, values);
+    }
+
+    default RandUnit<T[]> array(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<T[]> supp = () -> {
+            final T[] array = (T[]) new Object[size];
+            range(0, size).forEach(i -> array[i] = val());
+            return array;
+        };
+        return () -> supp;
     }
 }

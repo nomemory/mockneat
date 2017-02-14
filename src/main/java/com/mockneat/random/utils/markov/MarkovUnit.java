@@ -41,7 +41,7 @@ public class MarkovUnit {
         this.stateSize = stateSize;
         this.chain = getChain(getRawChain(getWords(lines)));
         this.rand = rand;
-        this.randState = this.rand.objs().fromKeys(chain);
+        this.randState = this.rand.fromKeys(chain);
     }
 
     public MarkovUnit(Rand rand, String textFile, Integer stateSize) throws IOException {
@@ -50,7 +50,7 @@ public class MarkovUnit {
 
         List<String> lines = Files.readAllLines(Paths.get(textFile));
         this.chain = getChain(getRawChain(getWords(lines)));
-        this.randState = this.rand.objs().fromKeys(chain);
+        this.randState = this.rand.fromKeys(chain);
     }
 
     protected List<String> getWords(List<String> lines) {

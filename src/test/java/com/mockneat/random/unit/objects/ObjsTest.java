@@ -1,12 +1,13 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.objects;
 
+import com.mockneat.random.RandTestConstants;
 import org.junit.Test;
 
 import java.util.*;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static org.junit.Assert.assertTrue;
 
 public class ObjsTest {
@@ -67,7 +68,7 @@ public class ObjsTest {
         Set<TestModel> possibleValues = new HashSet<>(asList(array));
         cycle(RandTestConstants.OBJS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
-                    .map(r -> r.objs().from(array).val())
+                    .map(r -> r.from(array).val())
                     .forEach(tm -> assertTrue(possibleValues.contains(tm))));
     }
 
@@ -76,20 +77,20 @@ public class ObjsTest {
         String[] array = { "a" };
         cycle(RandTestConstants.OBJS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
-                    .map(r -> r.objs().from(array).val())
+                    .map(r -> r.from(array).val())
                     .forEach(s -> assertTrue(s.equals(array[0]))));
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextObjectNonNullAlphabet() throws Exception {
         TestModel[] array = null;
-        RandTestConstants.RAND.objs().from(array).val();
+        RandTestConstants.RAND.from(array).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonEmptyAlphabet() throws Exception {
         TestModel[] array = new TestModel[]{};
-        RandTestConstants.RAND.objs().from(array).val();
+        RandTestConstants.RAND.from(array).val();
     }
 
     @Test
@@ -98,7 +99,7 @@ public class ObjsTest {
         Set<TestModel> possibleValues = new HashSet<>(list);
         cycle(RandTestConstants.OBJS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
-                    .map(r -> r.objs().from(list).val())
+                    .map(r -> r.from(list).val())
                     .forEach(tm -> assertTrue(possibleValues.contains(tm))));
     }
 
@@ -107,20 +108,20 @@ public class ObjsTest {
         List<String> list = Arrays.asList(new String[]{ "a" });
         cycle(RandTestConstants.OBJS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
-                    .map(r -> r.objs().from(list).val())
+                    .map(r -> r.from(list).val())
                     .forEach(s -> assertTrue(s.equals(list.get(0)))));
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextObjectNonNullAlphabet_list() throws Exception {
         List<TestModel> array = null;
-        RandTestConstants.RAND.objs().from(array).val();
+        RandTestConstants.RAND.from(array).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonEmptyAlphabet_list() throws Exception {
         List<TestModel> list = new ArrayList<>();
-        RandTestConstants.RAND.objs().from(list).val();
+        RandTestConstants.RAND.from(list).val();
     }
 
     @Test
@@ -128,12 +129,12 @@ public class ObjsTest {
         Set<TestEnum> possible = new HashSet<>(Arrays.asList(TestEnum.values()));
         cycle(RandTestConstants.OBJS_CYCLES, () ->
             stream(RandTestConstants.RANDS)
-                    .map(r -> r.objs().from(TestEnum.class).val())
+                    .map(r -> r.from(TestEnum.class).val())
                     .forEach(tm -> assertTrue(possible.contains(tm))));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextObjectNonEmptyAlphabet_enum() throws Exception {
-        RandTestConstants.RAND.objs().from(TestEnumEmpty.class).val();
+        RandTestConstants.RAND.from(TestEnumEmpty.class).val();
     }
 }

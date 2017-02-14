@@ -1,4 +1,4 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.types;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import static com.mockneat.alphabets.Alphabets.*;
 import static com.mockneat.random.RandTestConstants.CHARS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.util.Arrays.stream;
 
 public class CharsTest {

@@ -24,7 +24,7 @@ import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static java.time.LocalDate.MAX;
 import static java.time.LocalDate.MIN;
 import static java.time.LocalDate.now;

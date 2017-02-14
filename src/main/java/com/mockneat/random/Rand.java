@@ -17,14 +17,13 @@ package com.mockneat.random;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import com.mockneat.random.interfaces.*;
 import com.mockneat.random.unit.address.Countries;
 import com.mockneat.random.unit.financial.CCS;
 import com.mockneat.random.unit.financial.CVVS;
 import com.mockneat.random.unit.id.UUIDs;
 import com.mockneat.random.unit.networking.IPv4s;
 import com.mockneat.random.unit.networking.Macs;
-import com.mockneat.random.unit.objects.Compose;
-import com.mockneat.random.unit.objects.Objs;
 import com.mockneat.random.unit.text.Dicts;
 import com.mockneat.random.unit.time.Days;
 import com.mockneat.random.unit.time.LocalDates;
@@ -40,6 +39,11 @@ import com.mockneat.types.enums.RandType;
 
 import java.util.*;
 import java.util.function.Supplier;
+
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
 
 public class Rand {
 
@@ -63,7 +67,6 @@ public class Rand {
     private Markovs rMarkovs;
     private Months rMonths;
     private Names rNames;
-    private Objs rObjects;
     private Passwords rPasswords;
     private UUIDs rUUIDs;
     private Users rUsers;
@@ -89,7 +92,6 @@ public class Rand {
         this.rMarkovs = new Markovs(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
-        this.rObjects = new Objs(this);
         this.rPasswords = new Passwords(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
@@ -156,8 +158,6 @@ public class Rand {
 
     public Names names() { return this.rNames; }
 
-    public Objs objs() { return this.rObjects; }
-
     public Passwords passwords() { return this.rPasswords; }
 
     public UUIDs uuids() { return this.rUUIDs; }
@@ -166,5 +166,125 @@ public class Rand {
 
     public Random getRandom() {
         return random;
+    }
+
+    public <T> RandUnit<T> from(List<T> alphabet) {
+        notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        Supplier<T> supp = () -> {
+            int idx = getRandom().nextInt(alphabet.size());
+            return alphabet.get(idx);
+        };
+        return () -> supp;
+    }
+
+    public <T> RandUnit<T> from(T[] alphabet) {
+        notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        Supplier<T> supp = () -> {
+            int idx = getRandom().nextInt(alphabet.length);
+            return alphabet[idx];
+        };
+        return () -> supp;
+    }
+
+    public <T extends Enum<?>> RandUnit<T> from(Class<T> enumClass) {
+        notNull(enumClass, INPUT_PARAMETER_NOT_NULL, "enumClass");
+        T[] arr = enumClass.getEnumConstants();
+        return from(arr);
+    }
+
+    public <T> RandUnit<T> fromKeys(Map<T, ?> map) {
+        notEmpty(map, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "map");
+        Supplier<T> supp = () -> {
+            T[] keys = (T[]) map.keySet().toArray();
+            int idx = getRandom().nextInt(keys.length);
+            return keys[idx];
+        };
+        return () -> supp;
+    }
+
+    public <T> RandUnit<T> fromValues(Map<?, T> map) {
+        notEmpty(map, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "map");
+        Supplier<T> supp = () -> {
+            T[] values = (T[]) map.values().toArray();
+            int idx = getRandom().nextInt(values.length);
+            return values[idx];
+        };
+        return () -> supp;
+    }
+
+    public RandUnitInt fromInts(Integer[] alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitInt fromInts(int[] alphabet) {
+        return () -> this.ints().from(alphabet)::val;
+    }
+
+    public RandUnitInt fromInts(List<Integer> alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitInt fromIntsValues(Map<?, Integer> map) {
+        return () -> fromValues(map)::val;
+    }
+
+    public RandUnitInt fromIntsKeys(Map<Integer, ?> map) {
+        return () -> fromKeys(map)::val;
+    }
+
+    public RandUnitDouble fromDoubles(Double[] alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitDouble fromDoubles(double[] alphabet) {
+        return () -> this.doubles().from(alphabet)::val;
+    }
+
+    public RandUnitDouble fromDoubles(List<Double> alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitDouble fromDoublesValues(Map<?, Double> map) {
+        return () -> fromValues(map)::val;
+    }
+
+    public RandUnitDouble fromDoublesKeys(Map<Double, ?> map) {
+        return () -> fromKeys(map)::val;
+    }
+
+    public RandUnitLong fromLongs(Long[] alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitLong fromLongs(long[] alphabet) {
+        return () -> this.longs().from(alphabet)::val;
+    }
+
+    public RandUnitLong fromLongs(List<Long> alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitLong fromLongsValues(Map<?, Long> map) {
+        return () -> fromValues(map)::val;
+    }
+
+    public RandUnitLong fromLongsKeys(Map<Long, ?> map) {
+        return () -> fromKeys(map)::val;
+    }
+
+    public RandUnitString fromStrings(String[] alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitString fromStrings(List<String> alphabet) {
+        return () -> from(alphabet)::val;
+    }
+
+    public RandUnitString fromStringsValues(Map<?, String> map) {
+        return () -> fromValues(map)::val;
+    }
+
+    public RandUnitString fromStringsKeys(Map<String, ?> map) {
+        return () -> fromKeys(map)::val;
     }
 }

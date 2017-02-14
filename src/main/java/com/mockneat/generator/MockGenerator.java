@@ -31,7 +31,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.mockneat.utils.BeanUtils.getSetterName;
+import static com.mockneat.random.utils.BeanUtils.getSetterName;
 
 public class MockGenerator<T1> {
 

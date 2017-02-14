@@ -1,7 +1,7 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.types;
 
-import com.mockneat.utils.FunctUtils;
-import org.apache.commons.lang3.ArrayUtils;
+import com.mockneat.random.RandTestConstants;
+import com.mockneat.random.utils.FunctUtils;
 import org.junit.Test;
 
 import java.util.HashSet;

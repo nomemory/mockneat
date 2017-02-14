@@ -18,6 +18,7 @@ package com.mockneat.random.unit.user;
  */
 
 import com.mockneat.random.Rand;
+import com.mockneat.random.interfaces.RandUnit;
 import com.mockneat.random.interfaces.RandUnitString;
 import java.util.function.Supplier;
 import static com.mockneat.types.enums.DictType.DOMAIN_EMAIL;
@@ -33,5 +34,18 @@ public class Emails implements RandUnitString {
     @Override
     public Supplier<String> supplier() {
         return () -> rand.users().val() + "@" + rand.dicts().type(DOMAIN_EMAIL).val();
+    }
+
+    public RandUnit<String> withDomains(String... domains) {
+        Supplier<String> supp = () -> {
+            String user = rand.users().val();
+            String domain = rand.from(domains).val();
+            return user + "@" + domain;
+        };
+        return () -> supp;
+    }
+
+    public RandUnit<String> withDomain(String domain) {
+        return withDomains(domain);
     }
 }

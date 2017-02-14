@@ -1,13 +1,12 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.user;
 
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.regex.Pattern;
 
 import static com.mockneat.random.RandTestConstants.EMAILS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 

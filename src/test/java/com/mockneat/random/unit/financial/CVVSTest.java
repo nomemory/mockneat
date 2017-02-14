@@ -1,4 +1,4 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.financial;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.types.enums.CVVType.CVV3;
 import static com.mockneat.types.enums.CVVType.CVV4;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.util.Arrays.stream;
 import static junit.framework.Assert.assertTrue;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;

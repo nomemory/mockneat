@@ -21,9 +21,22 @@ package com.mockneat.random.interfaces;
 import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 
+import static com.mockneat.random.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
+import static java.util.stream.IntStream.range;
+import static org.apache.commons.lang3.Validate.isTrue;
+
 public interface RandUnitDouble extends RandUnit<Double> {
     default RandUnit<DoubleStream> doubleStream() {
         Supplier<DoubleStream> supp = () -> DoubleStream.generate(supplier()::get);
+        return () -> supp;
+    }
+    default RandUnit<double[]> arrayPrimitive(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<double[]> supp = () -> {
+            double[] array = new double[size];
+            range(0, size).forEach(i -> array[i] = val());
+            return array;
+        };
         return () -> supp;
     }
 }

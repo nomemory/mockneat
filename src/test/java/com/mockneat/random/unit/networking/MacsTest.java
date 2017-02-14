@@ -1,7 +1,8 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.networking;
 
+import com.mockneat.random.RandTestConstants;
 import com.mockneat.types.enums.MACAddressFormatType;
-import com.mockneat.utils.FunctUtils;
+import com.mockneat.random.utils.FunctUtils;
 import junit.framework.Assert;
 import org.junit.Test;
 

@@ -22,8 +22,8 @@ import com.mockneat.random.interfaces.RandUnit;
 import com.mockneat.types.Pair;
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
-import static com.mockneat.utils.ValidationUtils.INPUT_COMPOSE_TYPE_NOT_NULL;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_COMPOSE_TYPE_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static java.util.Arrays.stream;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -62,9 +62,9 @@ public class Compose {
             try {
                 return cls.getDeclaredConstructor(classes()).newInstance(values());
             } catch (InstantiationException |
-                     IllegalAccessException |
-                     NoSuchMethodException  |
-                     InvocationTargetException e) {
+                    IllegalAccessException |
+                    NoSuchMethodException  |
+                    InvocationTargetException e) {
                 throw new IllegalArgumentException("Cannot instantiate object: ", e);
             }
         };

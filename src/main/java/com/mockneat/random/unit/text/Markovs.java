@@ -30,8 +30,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static com.mockneat.types.enums.MarkovChainType.KAFKA;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -68,7 +68,7 @@ public class Markovs implements RandUnitString {
 
     public RandUnitString types(MarkovChainType... types) {
         notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        MarkovChainType type = rand.objs().from(types).val();
+        MarkovChainType type = rand.from(types).val();
         return type(type);
     }
 

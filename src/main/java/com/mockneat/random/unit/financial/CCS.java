@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 import static com.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
-import static com.mockneat.utils.ValidationUtils.*;
+import static com.mockneat.random.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -49,7 +49,7 @@ public class CCS implements RandUnitString {
 
     public RandUnitString types(CreditCardType... types) {
         notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        CreditCardType creditCardType = rand.objs().from(types).val();
+        CreditCardType creditCardType = rand.from(types).val();
         return types(creditCardType);
     }
 
@@ -60,7 +60,7 @@ public class CCS implements RandUnitString {
         int[] results = new int[arraySize];
 
         // Pick random prefix
-        List<Integer> prefix = rand.objs().from(creditCardType.getPrefixes()).val();
+        List<Integer> prefix = rand.from(creditCardType.getPrefixes()).val();
 
         // Initialize the array with random numbers
         // prefix + rest of the arrays

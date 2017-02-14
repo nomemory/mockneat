@@ -1,10 +1,9 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.types;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static com.mockneat.random.RandTestConstants.*;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

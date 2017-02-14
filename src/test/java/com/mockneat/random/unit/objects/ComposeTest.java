@@ -1,4 +1,4 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.objects;
 
 import com.mockneat.random.compose.PlainOldJavaObject;
 import com.mockneat.random.compose.EmptyClass;
@@ -9,7 +9,7 @@ import org.junit.Test;
 import static com.mockneat.random.RandTestConstants.COMPOSE_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 

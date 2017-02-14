@@ -1,6 +1,5 @@
 package com.mockneat.random;
 
-import com.mockneat.random.Rand;
 import com.mockneat.types.enums.RandType;
 
 /**

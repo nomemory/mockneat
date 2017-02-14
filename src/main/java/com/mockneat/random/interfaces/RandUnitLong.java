@@ -20,9 +20,22 @@ package com.mockneat.random.interfaces;
 import java.util.function.Supplier;
 import java.util.stream.LongStream;
 
+import static com.mockneat.random.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
+import static java.util.stream.IntStream.range;
+import static org.apache.commons.lang3.Validate.isTrue;
+
 public interface RandUnitLong extends RandUnit<Long> {
     default RandUnit<LongStream> longStream() {
         Supplier<LongStream> supp = () -> LongStream.generate(() -> supplier().get());
+        return () -> supp;
+    }
+    default RandUnit<long[]> arrayPrimitive(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<long[]> supp = () -> {
+            long[] array = new long[size];
+            range(0, size).forEach(i -> array[i] = val());
+            return array;
+        };
         return () -> supp;
     }
 }

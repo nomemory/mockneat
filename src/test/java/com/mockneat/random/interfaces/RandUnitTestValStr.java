@@ -1,4 +1,4 @@
-package com.mockneat.random;
+package com.mockneat.random.interfaces;
 
 import com.mockneat.random.randunit.ToString;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import java.util.List;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.random.RandTestConstants.RU_CYCLES;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.lang.Character.isDigit;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
@@ -85,6 +85,6 @@ public class RandUnitTestValStr {
         final List<ToString> arr = RAND.compose().object(ToString.class).list(100).val();
         cycle(RU_CYCLES, () ->
             stream(RANDS).forEach(r ->
-                    assertTrue(r.objs().from(arr).valStr().equals(ToString.CONST))));
+                    assertTrue(r.from(arr).valStr().equals(ToString.CONST))));
     }
 }

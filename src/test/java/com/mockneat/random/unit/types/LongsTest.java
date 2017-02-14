@@ -1,5 +1,6 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.types;
 
+import com.mockneat.random.RandTestConstants;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import java.util.Set;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static org.junit.Assert.assertTrue;
 
 public class LongsTest {

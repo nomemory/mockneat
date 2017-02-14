@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static com.mockneat.types.enums.MACAddressFormatType.COLON_EVERY_2_DIGITS;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Macs implements RandUnitString {

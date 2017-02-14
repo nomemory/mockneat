@@ -18,8 +18,10 @@ package com.mockneat.random.interfaces;
  */
 
 import com.mockneat.types.enums.StringFormatType;
+
 import java.util.function.Supplier;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @FunctionalInterface
@@ -41,7 +43,7 @@ public interface RandUnitString extends RandUnit<String> {
     }
 
     default RandUnitString concat(String str) {
-        // TODO validate String
+        notEmpty(str);
         Supplier<String> supplier = () -> supplier().get().concat(str);
         return () -> supplier;
     }

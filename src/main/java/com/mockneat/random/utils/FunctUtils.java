@@ -1,4 +1,4 @@
-package com.mockneat.utils;
+package com.mockneat.random.utils;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu

@@ -30,7 +30,7 @@ import static com.mockneat.types.enums.DictType.EN_NOUN_3SYLL;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM_PASSWORD;
 import static com.mockneat.types.enums.PassStrengthType.STRONG_PASSWORD;
 import static com.mockneat.types.enums.PassStrengthType.WEAK_PASSWORD;
-import static com.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -46,7 +46,7 @@ public class Passwords implements RandUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        PassStrengthType passStrengthType = rand.objs().from(PassStrengthType.class).val();
+        PassStrengthType passStrengthType = rand.from(PassStrengthType.class).val();
         return () -> nextPassword(passStrengthType);
     }
 
@@ -57,7 +57,7 @@ public class Passwords implements RandUnitString {
     }
 
     public RandUnitString types(PassStrengthType... passStrengthTypes) {
-        PassStrengthType passStrengthType = rand.objs().from(passStrengthTypes).val();
+        PassStrengthType passStrengthType = rand.from(passStrengthTypes).val();
         return type(passStrengthType);
     }
 
@@ -111,7 +111,7 @@ public class Passwords implements RandUnitString {
         if (resultBuff.length() < maxLength) {
             int randSpecialChrIdx = rand.ints().range(0, resultBuff.length()).val();
             resultBuff.insert(randSpecialChrIdx,
-                    rand.objs().from(SPECIAL_CHARACTERS).val());
+                    rand.from(SPECIAL_CHARACTERS).val());
         }
 
         return resultBuff.toString();
@@ -123,7 +123,7 @@ public class Passwords implements RandUnitString {
         int passLength = rand.ints().range(minLength, maxLength).val();
         StringBuilder buff = new StringBuilder();
         while (passLength-- > 0) {
-            buff.append(rand.objs().from(POSSIBLE_CHARACTERS).val());
+            buff.append(rand.from(POSSIBLE_CHARACTERS).val());
         }
         return buff.toString();
     }

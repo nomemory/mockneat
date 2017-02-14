@@ -23,7 +23,7 @@ import com.mockneat.random.interfaces.RandUnit;
 import org.apache.commons.lang3.Validate;
 import java.util.function.Supplier;
 import static com.mockneat.alphabets.Alphabets.*;
-import static com.mockneat.utils.ValidationUtils.*;
+import static com.mockneat.random.utils.ValidationUtils.*;
 
 public class Chars implements RandUnit<Character> {
 
@@ -35,23 +35,23 @@ public class Chars implements RandUnit<Character> {
 
     @Override
     public Supplier<Character> supplier() {
-        return rand.objs().from(Alphabets.ALPHA_NUMERIC)::val;
+        return rand.from(Alphabets.ALPHA_NUMERIC)::val;
     }
 
     public RandUnit<Character> digits() {
-        return rand.objs().from(DIGITS);
+        return rand.from(DIGITS);
     }
 
     public RandUnit<Character> lowerLetters() {
-        return rand.objs().from(LETTERS_LOWERCASE);
+        return rand.from(LETTERS_LOWERCASE);
     }
 
     public RandUnit<Character> upperLetters() {
-        return rand.objs().from(LETTERS_UPPERCASE);
+        return rand.from(LETTERS_UPPERCASE);
     }
 
     public RandUnit<Character> letters() {
-        return rand.objs().from(LETTERS);
+        return rand.from(LETTERS);
     }
 
     public RandUnit<Character> from(String alphabet) {

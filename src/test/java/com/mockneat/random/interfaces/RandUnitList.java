@@ -1,6 +1,5 @@
-package com.mockneat.random;
+package com.mockneat.random.interfaces;
 
-import com.mockneat.random.interfaces.RandUnit;
 import org.junit.Test;
 
 import java.util.*;
@@ -8,7 +7,7 @@ import java.util.*;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.random.RandTestConstants.RU_CYCLES;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 
@@ -84,7 +83,7 @@ public class RandUnitList {
     protected RandUnit getRecursiveRandUnitList(RandUnit ru, int stop) {
         Class[] listsImpls = new Class[] { ArrayList.class, LinkedList.class, Stack.class };
         while(stop-->0) {
-            ru = ru.list(RAND.objs().from(listsImpls).val(), 1);
+            ru = ru.list(RAND.from(listsImpls).val(), 1);
         }
         return ru;
     }
@@ -108,7 +107,7 @@ public class RandUnitList {
         List<Integer> integers = Arrays.asList(null, null, null, null);
         cycle(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
-                List<Integer> list = r.objs().from(integers).list(LinkedList.class, 100).val();
+                List<Integer> list = r.from(integers).list(LinkedList.class, 100).val();
                 assertTrue(list instanceof LinkedList);
                 list.forEach(i -> assertTrue(null==i));
             });

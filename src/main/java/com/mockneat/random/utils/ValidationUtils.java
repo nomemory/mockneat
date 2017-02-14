@@ -1,4 +1,4 @@
-package com.mockneat.utils;
+package com.mockneat.random.utils;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -28,6 +28,10 @@ public class ValidationUtils {
     public static final String UPPER_MONTH_BIGGER_THAN_LOWER = "'lower' Month < 'upper' Month";
     public static final String SIZE_BIGGER_THAN_ZERO_STRICT = "The size needs to be bigger than 0 (>).";
     public static final String SIZE_BIGGER_THAN_ZERO = "The size needs to be bigger than 0 (>=).";
+    public static final String CANNOT_ADD_VALUE_TO_COLLECTION = "Cannot add value '%s' to Collection('%s')";
+    public static final String CANNOT_ADD_VALUE_TO_LIST = "Cannot add value '%s' to List('%s')";
+    public static final String CANNOT_ADD_VALUE_TO_SET = "Cannot add value '%s' to Set('%s')";
+    public static final String CANNOT_PUT_VALUES_TO_MAP = "Cannot put values {'%s' : '%s'} to Map('%s')";
 
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)

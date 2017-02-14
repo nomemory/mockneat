@@ -1,4 +1,4 @@
-package com.mockneat.random;
+package com.mockneat.random.unit.financial;
 
 import com.mockneat.types.enums.CreditCardType;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static java.util.Arrays.stream;
 import static com.mockneat.random.RandTestConstants.CCS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.cycle;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -34,7 +34,7 @@ public class CCSTest {
     public void testCreditCardCorrectLength() throws Exception {
         cycle(CCS_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
-                    CreditCardType creditCardType = r.objs().from(CreditCardType.class).val();
+                    CreditCardType creditCardType = r.from(CreditCardType.class).val();
                     String cc = r.ccs().type(creditCardType).val();
                     assertTrue(cc.length() == creditCardType.getLength());
                 }));
@@ -44,7 +44,7 @@ public class CCSTest {
     public void testCreditCardHasCorrectPrefix() throws Exception {
         cycle(CCS_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
-                    CreditCardType creditCardType = r.objs().from(CreditCardType.class).val();
+                    CreditCardType creditCardType = r.from(CreditCardType.class).val();
                     // Obtain the set of prefixes associated with the credit card type
                     Set<String> prefixes = creditCardType
                                                 .getPrefixes()
@@ -74,7 +74,7 @@ public class CCSTest {
         cycle(CCS_CYCLES, () ->
                 stream(RANDS)
                     .forEach(r -> {
-                        CreditCardType type = r.objs().from(CreditCardType.class).val();
+                        CreditCardType type = r.from(CreditCardType.class).val();
                         assertTrue(luhnCheck(r.ccs().type(type).val()));
                     }));
     }

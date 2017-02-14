@@ -1,5 +1,7 @@
 package com.mockneat.types;
 
+import java.util.function.Supplier;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -28,8 +30,10 @@ public class Pair <T1,T2> {
     }
 
     public static <T1, T2> Pair<T1, T2> of(T1 first, T2 second) {
-        return new Pair<>(first, second);
+        return new Pair<T1, T2>(first, second);
     }
+
+    public static Pair<Supplier, Class> valueType(Supplier value, Class type) { return new Pair<Supplier, Class>(value, type); }
 
     public T1 getFirst() {
         return first;
