@@ -1,4 +1,4 @@
-package com.mockneat.random.compose;
+package com.mockneat.random.unit.objects.models;
 
 /**
  * Created by andreinicolinciobanu on 08/02/2017.

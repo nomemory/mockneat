@@ -1,6 +1,6 @@
 package com.mockneat.random.interfaces;
 
-import com.mockneat.random.randunit.ToString;
+import com.mockneat.random.interfaces.models.ToString;
 import org.junit.Test;
 
 import java.util.List;

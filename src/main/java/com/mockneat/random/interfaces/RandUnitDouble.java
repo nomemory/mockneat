@@ -33,9 +33,18 @@ public interface RandUnitDouble extends RandUnit<Double> {
     default RandUnit<double[]> arrayPrimitive(int size) {
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<double[]> supp = () -> {
-            double[] array = new double[size];
-            range(0, size).forEach(i -> array[i] = val());
-            return array;
+            final double[] result = new double[size];
+            range(0, size).forEach(i -> result[i] = val());
+            return result;
+        };
+        return () -> supp;
+    }
+    default RandUnit<Double[]> array(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<Double[]> supp = () -> {
+            final Double[] result = new Double[size];
+            range(0, size).forEach(i -> result[i] = val());
+            return result;
         };
         return () -> supp;
     }

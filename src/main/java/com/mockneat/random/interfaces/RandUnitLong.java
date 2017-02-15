@@ -38,4 +38,13 @@ public interface RandUnitLong extends RandUnit<Long> {
         };
         return () -> supp;
     }
+    default RandUnit<Long[]> array(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<Long[]> supp = () -> {
+            final Long[] result = new Long[size];
+            range(0, size).forEach(i -> result[i] = val());
+            return result;
+        };
+        return () -> supp;
+    }
 }

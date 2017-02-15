@@ -1,8 +1,8 @@
 package com.mockneat.random.unit.objects;
 
-import com.mockneat.random.compose.PlainOldJavaObject;
-import com.mockneat.random.compose.EmptyClass;
-import com.mockneat.random.compose.PrivateConstructors;
+import com.mockneat.random.unit.objects.models.EmptyClass;
+import com.mockneat.random.unit.objects.models.PlainOldJavaObject;
+import com.mockneat.random.unit.objects.models.PrivateConstructors;
 import com.mockneat.types.Pair;
 import org.junit.Test;
 

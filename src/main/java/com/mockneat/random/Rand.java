@@ -24,6 +24,7 @@ import com.mockneat.random.unit.financial.CVVS;
 import com.mockneat.random.unit.id.UUIDs;
 import com.mockneat.random.unit.networking.IPv4s;
 import com.mockneat.random.unit.networking.Macs;
+import com.mockneat.random.unit.objects.Compose;
 import com.mockneat.random.unit.text.Dicts;
 import com.mockneat.random.unit.time.Days;
 import com.mockneat.random.unit.time.LocalDates;

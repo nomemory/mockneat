@@ -1,4 +1,4 @@
-package com.mockneat.random.compose;
+package com.mockneat.random.unit.objects.models;
 
 public class PlainOldJavaObject {
     private Integer x;

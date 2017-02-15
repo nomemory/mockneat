@@ -39,4 +39,13 @@ public interface RandUnitInt extends RandUnit<Integer> {
         };
         return () -> supp;
     }
+    default RandUnit<Integer[]> array(int size) {
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<Integer[]> supp = () -> {
+            final Integer[] result = new Integer[size];
+            range(0, size).forEach(i -> result[i] = val());
+            return result;
+        };
+        return () -> supp;
+    }
 }

@@ -20,6 +20,7 @@ package com.mockneat.random.interfaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -384,15 +385,5 @@ public interface RandUnit<T> {
 
     default RandUnit<Map<T, Double>> mapVals(double[] values) {
         return mapVals(HashMap.class, values);
-    }
-
-    default RandUnit<T[]> array(int size) {
-        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
-        Supplier<T[]> supp = () -> {
-            final T[] array = (T[]) new Object[size];
-            range(0, size).forEach(i -> array[i] = val());
-            return array;
-        };
-        return () -> supp;
     }
 }
