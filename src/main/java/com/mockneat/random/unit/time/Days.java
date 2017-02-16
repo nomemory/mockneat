@@ -21,8 +21,9 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitDays;
 import java.time.DayOfWeek;
 import java.util.function.Supplier;
-import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.random.utils.ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER;
+
+import static com.mockneat.random.utils.ValidationUtils.*;
+import static java.util.Calendar.MONDAY;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -39,12 +40,23 @@ public class Days implements RandUnitDays {
         return rand.from(DayOfWeek.class)::val;
     }
 
+    public RandUnitDays rangeClosed(DayOfWeek lower, DayOfWeek upper) {
+        notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
+        notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
+        isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
+        Supplier<DayOfWeek> supp = () -> {
+            int idx = rand.ints().range(lower.getValue()-1, upper.getValue()).val();
+            return DayOfWeek.values()[idx];
+        };
+        return () -> supp;
+    }
+
     public RandUnitDays range(DayOfWeek lower, DayOfWeek upper) {
         notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
         notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = rand.ints().range(lower.getValue(), upper.getValue()).val();
+            int idx = rand.ints().range(lower.getValue()-1, upper.getValue()-1).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;
@@ -52,13 +64,17 @@ public class Days implements RandUnitDays {
 
     public RandUnitDays before(DayOfWeek before) {
         notNull(before, INPUT_PARAMETER_NOT_NULL, "before");
-        isTrue(before.getValue()>0);
+        isTrue(before.getValue()-1>0, BEFORE_DAY_DIFFERENT_THAN_MONDAY);
         return range(DayOfWeek.values()[0], before);
     }
 
     public RandUnitDays after(DayOfWeek after) {
         notNull(after, INPUT_PARAMETER_NOT_NULL, "after");
-        isTrue(after.getValue()<DayOfWeek.values().length-1);
-        return range(after, DayOfWeek.values()[DayOfWeek.values().length-1]);
+        isTrue(after.getValue()-1<DayOfWeek.values().length-1, AFTER_DAY_DIFFERENT_THAN_SUNDAY);
+        Supplier<DayOfWeek> supp = () -> {
+            int idx = rand.ints().range(after.getValue(), DayOfWeek.values().length).val();
+            return DayOfWeek.values()[idx];
+        };
+        return () -> supp;
     }
 }

@@ -16,6 +16,7 @@ public class RandTestConstants {
     public static final Integer COMPOSE_CYCLES = 10000;
     public static final Integer CVVS_CYCLES= 10000;
     public static final Integer COUNTRIES_CYCLES = 10000;
+    public static final Integer DAYS_CYCLES = 10000;
     public static final Integer DOUBLES_CYCLES = 10000;
     public static final Integer EMAILS_CYCLES = 10000;
     public static final Integer INTS_CYCLES = 10000;

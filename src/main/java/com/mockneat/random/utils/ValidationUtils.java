@@ -32,6 +32,8 @@ public class ValidationUtils {
     public static final String CANNOT_ADD_VALUE_TO_LIST = "Cannot add value '%s' to List('%s')";
     public static final String CANNOT_ADD_VALUE_TO_SET = "Cannot add value '%s' to Set('%s')";
     public static final String CANNOT_PUT_VALUES_TO_MAP = "Cannot put values {'%s' : '%s'} to Map('%s')";
+    public static final String BEFORE_DAY_DIFFERENT_THAN_MONDAY = "Cannot use 'Monday' as 'before'. 'Monday' is considered to be the first day of the week.";
+    public static final String AFTER_DAY_DIFFERENT_THAN_SUNDAY = "Cannot use 'SUNDAY' as 'after'. 'Sunday' is considered to be the last day of the week.";
 
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)

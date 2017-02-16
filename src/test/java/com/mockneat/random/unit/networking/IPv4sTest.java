@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -105,5 +106,15 @@ public class IPv4sTest {
     @Test(expected = NullPointerException.class)
     public void testNextIPv4AddressTypeNotNull() throws Exception {
         RAND.ipv4s().type(null).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNextIPv4AddressTypesNotNull() throws Exception {
+        RAND.ipv4s().types(null).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextIPv4AddressTypesNotEmpty() throws Exception {
+        RAND.ipv4s().types().val();
     }
 }

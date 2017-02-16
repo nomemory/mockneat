@@ -23,7 +23,7 @@ public class Main {
 //                    .type(FIRST_NAME_FEMALE).format(LOWER_CASE)
 //                    .list(10)
 //                    .mapKeys(10,
-//                        R.ints().range(0, 100).supplier())
+//                        R.ints().rangeClosed(0, 100).supplier())
 //                    .list(10)
 //                    .val();
 //
@@ -32,7 +32,7 @@ public class Main {
 //        List<Elev> list = R.compose(
 //                valueType(R.names()::val, String.class),
 //                valueType(R.emails()::val, String.class),
-//                valueType(R.ints().range(18,24)::val, Integer.class),
+//                valueType(R.ints().rangeClosed(18,24)::val, Integer.class),
 //                valueType(R.ccs().type(AMERICAN_EXPRESS)::val, String.class)
 //        ).object(Elev.class).list(10).val();
 //
