@@ -1,4 +1,4 @@
-package com.mockneat;
+package com.mockneat.random.utils;
 
 public class LuhnUtils {
     /**

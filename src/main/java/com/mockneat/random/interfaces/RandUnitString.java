@@ -42,9 +42,15 @@ public interface RandUnitString extends RandUnit<String> {
         return () -> supplier;
     }
 
-    default RandUnitString concat(String str) {
+    default RandUnitString append(String str) {
         notEmpty(str);
         Supplier<String> supplier = () -> supplier().get().concat(str);
+        return () -> supplier;
+    }
+
+    default RandUnitString prepend(String str) {
+        notEmpty(str);
+        Supplier<String> supplier = () -> str.concat(supplier().get());
         return () -> supplier;
     }
 

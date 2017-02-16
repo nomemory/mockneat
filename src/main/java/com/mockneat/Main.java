@@ -1,8 +1,13 @@
 package com.mockneat;
 
+import com.mockneat.random.Rand;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.security.SecureRandom;
+import java.util.stream.IntStream;
+
+import static com.mockneat.types.enums.URLScheme.FTP;
+import static com.mockneat.types.enums.URLScheme.HTTP;
 
 /**
  * Created by andreinicolinciobanu on 15/01/2017.
@@ -52,6 +57,13 @@ public class Main {
 //        System.out.println(R.chars().digits().val());
 //        System.out.println(R.passwords().type(STRONG_PASSWORD).val());
 
-        System.out.println(RandomStringUtils.random(32, 32, 127, true, true, null, new SecureRandom()));
+        IntStream.range(0, 100).forEach(i -> {
+            System.out.println(Rand.threadLocal().urls().val());
+        });
+
+        Rand r = Rand.threadLocal();
+        for (int i = 0; i < 100; i++) {
+            System.out.println(r.urls().schemes(FTP, HTTP).domains("com", "org").ports(80, 8080).val());
+        }
     }
 }

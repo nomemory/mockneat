@@ -1,10 +1,9 @@
-package com.mockneat.random.unit.objects;
+package com.mockneat.random;
 
-import com.mockneat.random.RandTestConstants;
 import com.mockneat.random.interfaces.RandUnitDouble;
 import com.mockneat.random.interfaces.RandUnitInt;
 import com.mockneat.random.interfaces.RandUnitLong;
-import org.apache.commons.lang3.ArrayUtils;
+import com.mockneat.random.interfaces.RandUnitString;
 import org.junit.Test;
 
 import java.util.*;
@@ -18,7 +17,7 @@ import static com.mockneat.random.utils.FunctUtils.cycle;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
 import static org.junit.Assert.assertTrue;
 
-public class FromTest {
+public class RandFromFunctionsTest {
 
     private static class TestModel {
         private String x1;
@@ -566,5 +565,105 @@ public class FromTest {
     public void testFromLongsKeysEmptyMap() {
         Map<Long, ?> map = new HashMap<>();
         RAND.fromLongsKeys(map).val();
+    }
+
+    /**********************
+     * fromStrings
+     ***********************/
+
+    @Test
+    public void testFromStrings() throws Exception {
+        String[] array = {"a", "b", "c"};
+        Set<String> arrayValues = new HashSet<>(asList(array));
+        cycle(RU_CYCLES, () ->
+                stream(RANDS).forEach(r -> {
+                    String x = r.fromStrings(array).val();
+                    assertTrue(arrayValues.contains(x));
+                }));
+        assertTrue(RAND.fromStrings(array) instanceof RandUnitString);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFromStringNullArray() throws Exception {
+        String[] array = null;
+        RAND.fromStrings(array).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFromStringsEmptyArray() throws Exception {
+        String[] array = new String[0];
+        RAND.fromStrings(array).val();
+    }
+
+    @Test
+    public void testFromStringList() throws Exception {
+        List<String> list = new ArrayList<>(asList(new String[]{"a","b","c"}));
+        Set<String> listValues = new HashSet<>(list);
+        cycle(RU_CYCLES, () ->
+                stream(RANDS).forEach(r -> {
+                    String x = r.fromStrings(list).val();
+                    assertTrue(listValues.contains(x));
+                }));
+        assertTrue(RAND.fromStrings(list) instanceof RandUnitString);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFromStringNullList() throws Exception {
+        List<String> list = null;
+        RAND.fromStrings(list).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFromLStringsListNotEmpty() throws Exception {
+        List<String> list = new ArrayList<>();
+        RAND.fromStrings(list).val();
+    }
+
+    @Test
+    public void testFromStringValues() {
+        Map<Character, String> map = RAND.chars().letters().mapVals(25, RAND.names()::val).val();
+        cycle(RU_CYCLES, () -> {
+            stream(RANDS).forEach(r -> {
+                String x = r.fromStringsValues(map).val();
+                assertTrue(map.containsValue(x));
+            });
+        });
+        assertTrue(RAND.fromStringsValues(map) instanceof RandUnitString);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFromStringValuesNullMap() {
+        Map<Collection, String> map = null;
+        RAND.fromStringsValues(map).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFromStringValuesEmptyMap() {
+        Map<String, String> map = new HashMap<>();
+        RAND.fromStringsValues(map).val();
+    }
+
+    @Test
+    public void testFromStringKeys() {
+        Map<String, Character> map = RAND.chars().letters().mapKeys(25, RAND.names()::val).val();
+        cycle(RU_CYCLES, () -> {
+            stream(RANDS).forEach(r -> {
+                String x = r.fromStringsKeys(map).val();
+                assertTrue(map.containsKey(x));
+            });
+        });
+        assertTrue(RAND.fromStringsKeys(map) instanceof RandUnitString);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testFromStringKeysNullMap() {
+        Map<String, ?> map = null;
+        RAND.fromStringsKeys(map).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFromStringKeysEmptyMap() {
+        Map<String, ?> map = new HashMap<>();
+        RAND.fromStringsKeys(map).val();
     }
 }

@@ -21,8 +21,10 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitString;
 import com.mockneat.random.utils.dicts.DictsUtils;
 import com.mockneat.types.enums.DictType;
+import com.mockneat.types.enums.StringFormatType;
 
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Dicts {
@@ -36,6 +38,6 @@ public class Dicts {
 
     public RandUnitString type(DictType type) {
         notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
-        return () -> rand.from(utils.get(type))::val;
+        return () -> rand.from(utils.get(type)).mapToString().format(LOWER_CASE)::val;
     }
 }

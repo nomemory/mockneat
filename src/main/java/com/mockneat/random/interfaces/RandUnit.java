@@ -20,7 +20,6 @@ package com.mockneat.random.interfaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -31,7 +30,6 @@ import static com.mockneat.random.utils.RandUnitUtils.add;
 import static com.mockneat.random.utils.RandUnitUtils.put;
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.random.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
-import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -71,6 +69,17 @@ public interface RandUnit<T> {
     default RandUnitLong mapToLong(Function<T, Long> funct) {
         notNull(funct, INPUT_PARAMETER_NOT_NULL, "funct");
         Supplier<Long> supp = () -> funct.apply(val());
+        return () -> supp;
+    }
+
+    default RandUnitString mapToString(Function<T, String> funct) {
+        notNull(funct, INPUT_PARAMETER_NOT_NULL, "funct");
+        Supplier<String> supp = () -> funct.apply(val());
+        return () -> supp;
+    }
+
+    default RandUnitString mapToString() {
+        Supplier<String> supp = () -> val().toString();
         return () -> supp;
     }
 

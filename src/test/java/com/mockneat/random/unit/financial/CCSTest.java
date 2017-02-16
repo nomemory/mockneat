@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.mockneat.LuhnUtils.luhnCheck;
+import static com.mockneat.random.utils.LuhnUtils.luhnCheck;
 import static java.util.Arrays.stream;
 import static com.mockneat.random.RandTestConstants.CCS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;

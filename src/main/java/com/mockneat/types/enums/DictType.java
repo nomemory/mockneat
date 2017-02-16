@@ -27,7 +27,6 @@ public enum DictType {
     DOMAIN_EMAIL("domain-email"),
     DOMAIN_TOP_LEVEL_ALL("domain-top-level-all"),
     DOMAIN_TOP_LEVEL_POPULAR("domain-top-level-popular"),
-    DOMAIN_COUNTRY("domain-country"),
 
     // NAMES
     FIRST_NAME_MALE_AMERICAN("first-names-american-male"),

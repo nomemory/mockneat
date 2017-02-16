@@ -22,8 +22,10 @@ import com.mockneat.random.unit.address.Countries;
 import com.mockneat.random.unit.financial.CCS;
 import com.mockneat.random.unit.financial.CVVS;
 import com.mockneat.random.unit.id.UUIDs;
+import com.mockneat.random.unit.networking.Domains;
 import com.mockneat.random.unit.networking.IPv4s;
 import com.mockneat.random.unit.networking.Macs;
+import com.mockneat.random.unit.networking.URLs;
 import com.mockneat.random.unit.objects.Compose;
 import com.mockneat.random.unit.text.Dicts;
 import com.mockneat.random.unit.time.Days;
@@ -57,6 +59,7 @@ public class Rand {
     private CVVS rCVVS;
     private Days rDays;
     private Dicts rDicts;
+    private Domains rDomains;
     private Doubles rDoubles;
     private Emails rEmails;
     private Floats rFloats;
@@ -80,8 +83,9 @@ public class Rand {
         this.rCountries = new Countries(this);
         this.rCCS = new CCS(this);
         this.rCVVS = new CVVS(this);
-        this.rDicts = new Dicts(this);
         this.rDays = new Days(this);
+        this.rDomains = new Domains(this);
+        this.rDicts = new Dicts(this);
         this.rDoubles = new Doubles(this);
         this.rEmails = new Emails(this);
         this.rFloats = new Floats(this);
@@ -135,6 +139,8 @@ public class Rand {
 
     public Days days() { return this.rDays; }
 
+    public Domains domains() { return this.rDomains;}
+
     public Doubles doubles() {
         return this.rDoubles;
     }
@@ -160,6 +166,8 @@ public class Rand {
     public Names names() { return this.rNames; }
 
     public Passwords passwords() { return this.rPasswords; }
+
+    public URLs urls() { return new URLs(this); }
 
     public UUIDs uuids() { return this.rUUIDs; }
 
