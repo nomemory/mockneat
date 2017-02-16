@@ -56,9 +56,9 @@ public class IPv4s implements RandUnitString {
             Arrays.stream(oc).forEach(range -> {
                 int low = range.getLowerBound();
                 int up = range.getUpperBound();
-                if (range.isConstant()) buff.append(range.getLowerBound()).append(".");
+                if (range.isConstant()) buff.append(low).append(".");
                 else {
-                    int result = rand.ints().range(range.getLowerBound(), range.getUpperBound() + 1).val();
+                    int result = rand.ints().range(low, up + 1).val();
                     buff.append(result).append(".");
                 }
             });

@@ -26,7 +26,7 @@ import static org.apache.commons.lang3.Validate.isTrue;
 
 public interface RandUnitLong extends RandUnit<Long> {
     default RandUnit<LongStream> longStream() {
-        Supplier<LongStream> supp = () -> LongStream.generate(() -> supplier().get());
+        Supplier<LongStream> supp = () -> LongStream.generate(supplier()::get);
         return () -> supp;
     }
     default RandUnit<long[]> arrayPrimitive(int size) {

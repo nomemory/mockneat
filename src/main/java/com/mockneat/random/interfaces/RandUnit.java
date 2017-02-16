@@ -79,8 +79,7 @@ public interface RandUnit<T> {
     }
 
     default RandUnitString mapToString() {
-        Supplier<String> supp = () -> val().toString();
-        return () -> supp;
+        return () -> val()::toString;
     }
 
     default RandUnitString str() { return () -> supplier().get()::toString; }

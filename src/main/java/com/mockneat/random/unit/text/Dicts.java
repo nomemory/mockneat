@@ -21,7 +21,6 @@ import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitString;
 import com.mockneat.random.utils.dicts.DictsUtils;
 import com.mockneat.types.enums.DictType;
-import com.mockneat.types.enums.StringFormatType;
 
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.types.enums.StringFormatType.LOWER_CASE;

@@ -26,7 +26,7 @@ public class UUIDs implements RandUnitString {
 
     @Override
     public Supplier<String> supplier() {
-       return () -> UUID.randomUUID().toString();
+       return UUID.randomUUID()::toString;
     }
 
 }

@@ -28,20 +28,6 @@ public class URLs implements RandUnitString {
 
     // <schemes://><user:password@><host><.domain><:port></.../...>
     private static final String URL_FORMAT = "%s%s%s%s%s";
-    private static final String urlFormat(String scheme,
-                                          String auth,
-                                          String host,
-                                          String domain,
-                                          String port,
-                                          String paths) {
-        return String.format(URL_FORMAT,
-                scheme,
-                auth,
-                host,
-                domain,
-                port,
-                paths);
-    }
 
     private Rand rand;
 
@@ -65,6 +51,21 @@ public class URLs implements RandUnitString {
     public URLs(Rand rand) {
         this.rand = rand;
         this.initializeSuppliers();
+    }
+
+    private static final String urlFormat(String scheme,
+                                          String auth,
+                                          String host,
+                                          String domain,
+                                          String port,
+                                          String paths) {
+        return String.format(URL_FORMAT,
+                scheme,
+                auth,
+                host,
+                domain,
+                port,
+                paths);
     }
 
     protected void initializeSuppliers() {

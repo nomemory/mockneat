@@ -27,7 +27,7 @@ import static org.apache.commons.lang3.Validate.isTrue;
 
 public interface RandUnitInt extends RandUnit<Integer> {
     default RandUnit<IntStream> intStream() {
-        Supplier<IntStream> supp = () -> IntStream.generate(() -> supplier().get());
+        Supplier<IntStream> supp = () -> IntStream.generate(supplier()::get);
         return () -> supp;
     }
     default RandUnit<int[]> arrayPrimitive(int size) {
