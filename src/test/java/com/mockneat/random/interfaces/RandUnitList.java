@@ -7,7 +7,7 @@ import java.util.*;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.random.RandTestConstants.RU_CYCLES;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 
@@ -33,21 +33,21 @@ public class RandUnitList {
 
     @Test
     public void testListCorrectSize0() throws Exception {
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                         assertTrue(r.ints().list(0).list(0).val().isEmpty())));
     }
 
     @Test
     public void testListCorrectSize0_1() throws Exception {
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                         assertTrue(r.ints().list(5000).list(0).val().isEmpty())));
     }
 
     @Test
     public void testListCorrectSize0_2() throws Exception {
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
                     List<List<Integer>> result = r.ints().list(10).list(5).val();
                     assertTrue(result.size()==5);
@@ -57,7 +57,7 @@ public class RandUnitList {
 
     @Test
     public void testListCorrectValues() throws Exception {
-        cycle(RU_CYCLES, () -> stream(RANDS).forEach(r -> {
+        loop(RU_CYCLES, () -> stream(RANDS).forEach(r -> {
             List<List<List<Integer>>> result =
                 r.ints().range(100, 200)
                         .list(LinkedList.class, 5)
@@ -105,7 +105,7 @@ public class RandUnitList {
     @Test
     public void testListOfNulls() {
         List<Integer> integers = Arrays.asList(null, null, null, null);
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 List<Integer> list = r.from(integers).list(LinkedList.class, 100).val();
                 assertTrue(list instanceof LinkedList);

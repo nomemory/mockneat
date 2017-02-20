@@ -8,12 +8,11 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static com.mockneat.random.RandTestConstants.RAND;
-import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.random.RandTestConstants.RU_CYCLES;
+import static com.mockneat.random.RandTestConstants.*;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
+import static org.apache.commons.lang3.ArrayUtils.remove;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
 import static org.junit.Assert.assertTrue;
 
@@ -73,19 +72,19 @@ public class RandFromFunctionsTest {
     public void testFromArray() throws Exception {
         TestModel[] array = TestModel.getTestArray();
         Set<TestModel> possibleValues = new HashSet<>(asList(array));
-        cycle(RandTestConstants.OBJS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.from(array).val())
-                    .forEach(tm -> assertTrue(possibleValues.contains(tm))));
+        loop(OBJS_CYCLES,
+                RANDS,
+                r -> r.from(array).val(),
+                tm -> assertTrue(possibleValues.contains(tm)));
     }
 
     @Test
     public void testFromArraySingleElement() throws Exception {
         String[] array = { "a" };
-        cycle(RandTestConstants.OBJS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.from(array).val())
-                    .forEach(s -> assertTrue(s.equals(array[0]))));
+        loop(OBJS_CYCLES,
+                RANDS,
+                r -> r.from(array).val(),
+                s -> assertTrue(s.equals(array[0])));
     }
 
     @Test(expected = NullPointerException.class)
@@ -104,19 +103,19 @@ public class RandFromFunctionsTest {
     public void testFromList() throws Exception {
         List<TestModel> list = TestModel.getTestList();
         Set<TestModel> possibleValues = new HashSet<>(list);
-        cycle(RandTestConstants.OBJS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.from(list).val())
-                    .forEach(tm -> assertTrue(possibleValues.contains(tm))));
+        loop(OBJS_CYCLES,
+                RANDS,
+                r -> r.from(list).val(),
+                tm -> assertTrue(possibleValues.contains(tm)));
     }
 
     @Test
     public void testFrom1ElementList() throws Exception {
         List<String> list = Arrays.asList(new String[]{ "a" });
-        cycle(RandTestConstants.OBJS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.from(list).val())
-                    .forEach(s -> assertTrue(s.equals(list.get(0)))));
+        loop(OBJS_CYCLES,
+                RANDS,
+                r -> r.from(list).val(),
+                s -> assertTrue(s.equals(list.get(0))));
     }
 
     @Test(expected = NullPointerException.class)
@@ -134,10 +133,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testEnum() throws Exception {
         Set<TestEnum> possible = new HashSet<>(asList(TestEnum.values()));
-        cycle(RandTestConstants.OBJS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.from(TestEnum.class).val())
-                    .forEach(tm -> assertTrue(possible.contains(tm))));
+        loop(OBJS_CYCLES,
+                RANDS,
+                r -> r.from(TestEnum.class).val(),
+                tm -> assertTrue(possible.contains(tm)));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -154,11 +153,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromKeys() throws Exception {
         Map<Integer, Integer> map = RAND.ints().mapKeys(25, RAND.ints()::val).val();
-        cycle(RU_CYCLES, () ->
-            stream(RANDS).forEach(r -> {
-                int x = r.fromKeys(map).val();
-                assertTrue(map.containsKey(x));
-            }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromKeys(map).val(),
+                x -> map.containsKey(x));
     }
 
     @Test(expected = NullPointerException.class)
@@ -176,11 +174,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromValues() throws Exception {
         Map<Integer, Integer> map = RAND.ints().mapKeys(25, RAND.ints()::val).val();
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    int x = r.fromValues(map).val();
-                    assertTrue(map.containsValue(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromValues(map).val(),
+                x -> assertTrue(map.containsValue(x)));
     }
 
     @Test(expected = NullPointerException.class)
@@ -203,11 +200,10 @@ public class RandFromFunctionsTest {
     public void testFromIntsInteger() throws Exception {
         Integer[] array = RAND.ints().array(25).val();
         Set<Integer> arrayValues = new HashSet<>(asList(array));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    int x = r.fromInts(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromInts(array).val(),
+                x -> arrayValues.contains(x));
         assertTrue(RAND.fromInts(array) instanceof RandUnitInt);
     }
 
@@ -227,11 +223,10 @@ public class RandFromFunctionsTest {
     public void testFromIntsInt() throws Exception {
         int[] array = RAND.ints().arrayPrimitive(25).val();
         Set<Integer> arrayValues = new HashSet<>(asList(toObject(array)));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    int x = r.fromInts(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromInts(array).val(),
+                x -> arrayValues.contains(x));
         assertTrue(RAND.fromInts(array) instanceof RandUnitInt);
     }
 
@@ -251,11 +246,10 @@ public class RandFromFunctionsTest {
     public void testFromIntsList() throws Exception {
         List<Integer> list = RAND.ints().range(0,5).list(10).val();
         Set<Integer> listValues = new HashSet<>(list);
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    int x = r.fromInts(list).val();
-                    assertTrue(listValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromInts(list).val(),
+                x -> assertTrue(listValues.contains(x)));
         assertTrue(RAND.fromInts(list) instanceof RandUnitInt);
     }
 
@@ -274,12 +268,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromIntsValues() {
         Map<Character, Integer> map = RAND.chars().letters().mapVals(25, RAND.ints()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                int x = r.fromIntsValues(map).val();
-                assertTrue(map.containsValue(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromIntsValues(map).val(),
+                x -> assertTrue(map.containsValue(x)));
         assertTrue(RAND.fromIntsValues(map) instanceof RandUnitInt);
     }
 
@@ -298,12 +290,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromIntsKeys() {
         Map<Integer, Character> map = RAND.chars().letters().mapKeys(25, RAND.ints()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                int x = r.fromIntsKeys(map).val();
-                assertTrue(map.containsKey(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromIntsKeys(map).val(),
+                x -> assertTrue(map.containsKey(x)));
         assertTrue(RAND.fromIntsKeys(map) instanceof RandUnitInt);
     }
 
@@ -327,11 +317,10 @@ public class RandFromFunctionsTest {
     public void testFromDoublesDouble() throws Exception {
         Double[] array = RAND.doubles().array(25).val();
         Set<Double> arrayValues = new HashSet<>(asList(array));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    double x = r.fromDoubles(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromDoubles(array).val(),
+                x -> assertTrue(arrayValues.contains(x)));
         assertTrue(RAND.fromDoubles(array) instanceof RandUnitDouble);
     }
 
@@ -351,11 +340,10 @@ public class RandFromFunctionsTest {
     public void testFromDoublesDoublePrim() throws Exception {
         double[] array = RAND.doubles().arrayPrimitive(25).val();
         Set<Double> arrayValues = new HashSet<>(asList(toObject(array)));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    double x = r.fromDoubles(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromDoubles(array).val(),
+                x -> assertTrue(arrayValues.contains(x)));
         assertTrue(RAND.fromDoubles(array) instanceof RandUnitDouble);
     }
 
@@ -375,11 +363,10 @@ public class RandFromFunctionsTest {
     public void testFromDoubleList() throws Exception {
         List<Double> list = RAND.doubles().range(0,5).list(10).val();
         Set<Double> listValues = new HashSet<>(list);
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    double x = r.fromDoubles(list).val();
-                    assertTrue(listValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromDoubles(list).val(),
+                x -> assertTrue(listValues.contains(x)));
         assertTrue(RAND.fromDoubles(list) instanceof RandUnitDouble);
     }
 
@@ -398,12 +385,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromDoublesValues() {
         Map<Character, Double> map = RAND.chars().letters().mapVals(25, RAND.doubles()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                double x = r.fromDoublesValues(map).val();
-                assertTrue(map.containsValue(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromDoublesValues(map).val(),
+                x -> assertTrue(map.containsValue(x)));
         assertTrue(RAND.fromDoublesValues(map) instanceof RandUnitDouble);
     }
 
@@ -422,12 +407,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromDoublesKeys() {
         Map<Double, Character> map = RAND.chars().letters().mapKeys(25, RAND.doubles()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                double x = r.fromDoublesKeys(map).val();
-                assertTrue(map.containsKey(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromDoublesKeys(map).val(),
+                x -> assertTrue(map.containsKey(x)));
         assertTrue(RAND.fromDoublesKeys(map) instanceof RandUnitDouble);
     }
 
@@ -451,11 +434,10 @@ public class RandFromFunctionsTest {
     public void testFromLongsLong() throws Exception {
         Long[] array = RAND.longs().array(25).val();
         Set<Long> arrayValues = new HashSet<>(asList(array));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    long x = r.fromLongs(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromLongs(array).val(),
+                x -> assertTrue(arrayValues.contains(x)));
         assertTrue(RAND.fromLongs(array) instanceof RandUnitLong);
     }
 
@@ -475,11 +457,10 @@ public class RandFromFunctionsTest {
     public void testFromLongsLongPrim() throws Exception {
         long[] array = RAND.longs().arrayPrimitive(25).val();
         Set<Long> arrayValues = new HashSet<>(asList(toObject(array)));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    long x = r.fromLongs(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromLongs(array).val(),
+                x -> assertTrue(arrayValues.contains(x)));
         assertTrue(RAND.fromLongs(array) instanceof RandUnitLong);
     }
 
@@ -499,11 +480,10 @@ public class RandFromFunctionsTest {
     public void testFromLongsList() throws Exception {
         List<Long> list = RAND.longs().range(0,5).list(10).val();
         Set<Long> listValues = new HashSet<>(list);
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    long x = r.fromLongs(list).val();
-                    assertTrue(listValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromLongs(list).val(),
+                x -> listValues.contains(x));
         assertTrue(RAND.fromLongs(list) instanceof RandUnitLong);
     }
 
@@ -522,12 +502,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromLongsValues() {
         Map<Character, Long> map = RAND.chars().letters().mapVals(25, RAND.longs()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                long x = r.fromLongsValues(map).val();
-                assertTrue(map.containsValue(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromLongsValues(map).val(),
+                x -> assertTrue(map.containsValue(x)));
         assertTrue(RAND.fromLongsValues(map) instanceof RandUnitLong);
     }
 
@@ -546,12 +524,11 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromLongsKeys() {
         Map<Long, Character> map = RAND.chars().letters().mapKeys(25, RAND.longs()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                long x = r.fromLongsKeys(map).val();
-                assertTrue(map.containsKey(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromLongsKeys(map).val(),
+                x -> assertTrue(map.containsKey(x)));
+
         assertTrue(RAND.fromLongsKeys(map) instanceof RandUnitLong);
     }
 
@@ -575,11 +552,10 @@ public class RandFromFunctionsTest {
     public void testFromStrings() throws Exception {
         String[] array = {"a", "b", "c"};
         Set<String> arrayValues = new HashSet<>(asList(array));
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    String x = r.fromStrings(array).val();
-                    assertTrue(arrayValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromStrings(array).val(),
+                x -> assertTrue(arrayValues.contains(x)));
         assertTrue(RAND.fromStrings(array) instanceof RandUnitString);
     }
 
@@ -599,11 +575,10 @@ public class RandFromFunctionsTest {
     public void testFromStringList() throws Exception {
         List<String> list = new ArrayList<>(asList(new String[]{"a","b","c"}));
         Set<String> listValues = new HashSet<>(list);
-        cycle(RU_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    String x = r.fromStrings(list).val();
-                    assertTrue(listValues.contains(x));
-                }));
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromStrings(list).val(),
+                x -> assertTrue(listValues.contains(x)));
         assertTrue(RAND.fromStrings(list) instanceof RandUnitString);
     }
 
@@ -622,12 +597,10 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromStringValues() {
         Map<Character, String> map = RAND.chars().letters().mapVals(25, RAND.names()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                String x = r.fromStringsValues(map).val();
-                assertTrue(map.containsValue(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromStringsValues(map).val(),
+                x -> assertTrue(map.containsValue(x)));
         assertTrue(RAND.fromStringsValues(map) instanceof RandUnitString);
     }
 
@@ -646,12 +619,11 @@ public class RandFromFunctionsTest {
     @Test
     public void testFromStringKeys() {
         Map<String, Character> map = RAND.chars().letters().mapKeys(25, RAND.names()::val).val();
-        cycle(RU_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                String x = r.fromStringsKeys(map).val();
-                assertTrue(map.containsKey(x));
-            });
-        });
+        loop(RU_CYCLES,
+                RANDS,
+                r -> r.fromStringsKeys(map).val(),
+                x -> map.containsKey(x));
+
         assertTrue(RAND.fromStringsKeys(map) instanceof RandUnitString);
     }
 

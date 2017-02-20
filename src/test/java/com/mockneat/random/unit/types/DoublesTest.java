@@ -7,6 +7,9 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mockneat.random.RandTestConstants.DOUBLES_CYCLES;
+import static com.mockneat.random.RandTestConstants.RANDS;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
@@ -16,16 +19,15 @@ public class DoublesTest {
 
     @Test
     public void testNextGaussianInCorrectRange() throws Exception {
-        FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
-            stream(RandTestConstants.RANDS).map(r -> r.doubles()).count());
+        loop(DOUBLES_CYCLES, () -> stream(RANDS).map(r -> r.doubles()).count());
     }
 
     @Test
     public void testNextDoubleInCorrectRange() throws Exception {
-        FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.doubles().val())
-                    .forEach(n -> assertTrue(n >= 0.0 && n < 1.0)));
+        loop(DOUBLES_CYCLES,
+                RANDS,
+                r -> r.doubles().val(),
+                n -> assertTrue(n >= 0.0 && n < 1.0));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -41,10 +43,10 @@ public class DoublesTest {
     @Test
     public void testNextDoubleInCorrectRange2() throws Exception {
         final Double bound = 0.01;
-        FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.doubles().bound(bound).val())
-                    .forEach(n -> assertTrue(n >= 0.0 && n < bound)));
+        loop(DOUBLES_CYCLES,
+                RANDS,
+                r -> r.doubles().bound(bound).val(),
+                n -> assertTrue(n >= 0.0 && n < bound));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -63,10 +65,10 @@ public class DoublesTest {
         Double lowerBound = 1.1987;
         Double upperBound = Double.MAX_VALUE;
 
-        FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.doubles().range(lowerBound, upperBound).val())
-                    .forEach(n -> assertTrue(n >= lowerBound && n < upperBound)));
+        loop(DOUBLES_CYCLES,
+                RANDS,
+                r -> r.doubles().range(lowerBound, upperBound).val(),
+                n -> assertTrue(n >= lowerBound && n < upperBound));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -102,18 +104,19 @@ public class DoublesTest {
         double[] doubles = { 1.0, 5.0, 10.0, 15.0, 20.52 };
         Set<Double> values = new HashSet<>(asList(toObject(doubles)));
 
-        FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
-            stream(RandTestConstants.RANDS).map(r -> r.doubles().from(doubles).val())
-                    .forEach(num -> assertTrue(values.contains(num))));
+        loop(DOUBLES_CYCLES,
+                RANDS,
+                r -> r.doubles().from(doubles).val(),
+                num -> assertTrue(values.contains(num)));
     }
 
     @Test
     public void testnNextDoubleCorrectValues2() throws Exception {
         double[] doubles = { 0.0 };
-        FunctUtils.cycle(RandTestConstants.DOUBLES_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.doubles().from(doubles).val())
-                    .forEach(num -> assertTrue(num.equals(doubles[0]))));
+        loop(DOUBLES_CYCLES,
+                RANDS,
+                r -> r.doubles().from(doubles).val(),
+                num -> assertTrue(num.equals(doubles[0])));
     }
 
     @Test(expected = NullPointerException.class)

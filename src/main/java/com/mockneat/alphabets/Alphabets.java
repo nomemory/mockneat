@@ -162,4 +162,46 @@ public class Alphabets {
             unmodifiableList(asList(ALPHA_NUMERIC_ARR_STR));
 
     private Alphabets() {}
+
+    /**
+     * ---------------------------------------------------------
+     * HEXA LOWER
+     * ---------------------------------------------------------
+     */
+    protected static final Character[] HEXA_UPPER_ARR_CHR = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'A', 'B', 'C', 'D', 'E', 'F'
+    };
+
+    public static final List<Character> HEXA_UPPER =
+            unmodifiableList(asList(HEXA_UPPER_ARR_CHR));
+
+    protected static final String[] HEXA_UPPER_ARR_STR = {
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "A", "B", "C", "D", "E", "F"
+    };
+
+    public static final List<String> HEXA_UPPER_STR =
+            unmodifiableList(asList(HEXA_UPPER_ARR_STR));
+
+    /**
+     * ---------------------------------------------------------
+     * HEXA
+     * ---------------------------------------------------------
+     */
+    protected static final Character[] HEXA_ARR_CHR = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+            'a', 'b', 'c', 'd', 'e', 'f'
+    };
+
+    public static final List<Character> HEXA =
+            unmodifiableList(asList(HEXA_ARR_CHR));
+
+    protected static final String[] HEXA_ARR_STR = {
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+            "a", "b", "c", "d", "e", "f"
+    };
+
+    public static final List<String> HEXA_STR =
+            unmodifiableList(asList(HEXA_ARR_STR));
 }

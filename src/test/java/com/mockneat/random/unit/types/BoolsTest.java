@@ -3,7 +3,7 @@ package com.mockneat.random.unit.types;
 import org.junit.Test;
 
 import static com.mockneat.random.RandTestConstants.*;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,36 +12,26 @@ public class BoolsTest {
 
     @Test
     public void test100ProbabilityVal() throws Exception {
-        cycle(BOOLS_CYCLES, () ->
-                stream(RANDS)
-                    .map(rand -> rand.bools().probability(100.0).val())
-                    .forEach(bol -> assertTrue(bol)));
+        loop(BOOLS_CYCLES,
+                RANDS,
+                r -> r.bools().probability(100.0).val(),
+                b -> assertTrue(b));
     }
-
-
-    @Test
-    public void testNextBooleanAlwaysTrueIf1002() throws Exception {
-        cycle(BOOLS_CYCLES, () ->
-            stream(RANDS)
-                    .map(rand -> rand.bools().probability(100.0).val())
-                    .forEach(bol -> assertTrue(bol)));
-    }
-
 
     @Test
     public void testNextBooleanAlwaysFalseIf() throws Exception {
-        cycle(BOOLS_CYCLES, () ->
-            stream(RANDS)
-                    .map(rand -> rand.bools().probability(0.0).val())
-                    .forEach(bol -> assertFalse(bol)));
+        loop(BOOLS_CYCLES,
+                RANDS,
+                r -> r.bools().probability(0.0).val(),
+                bol -> assertFalse(bol));
     }
 
     @Test
     public void testNextBooleanAlwaysFalseIf02() throws Exception {
-        cycle(BOOLS_CYCLES, () ->
-            stream(RANDS)
-                    .map(rand -> rand.bools().probability(0.0).val())
-                    .forEach(bol -> assertFalse(bol)));
+        loop(BOOLS_CYCLES,
+                RANDS,
+                rand -> rand.bools().probability(0.0).val(),
+                bol -> assertFalse(bol));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -66,10 +56,9 @@ public class BoolsTest {
 
     @Test
     public void testBools() throws Exception {
-        cycle(BOOLS_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    Boolean b = r.bools().val();
-                    assertTrue(b!=null && (b||!b));
-                }));
+        loop(BOOLS_CYCLES,
+                RANDS,
+                r -> r.bools().val(),
+                b -> assertTrue(b!=null && (b||!b)));
     }
 }

@@ -12,14 +12,14 @@ import static com.mockneat.alphabets.Alphabets.*;
 import static com.mockneat.random.RandTestConstants.CHARS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 
 public class CharsTest {
 
     protected void inAlpabet(List<Character> alphabet, Supplier<Character> charSuppl) {
         Set<Character> possibleDigits = new HashSet<>(alphabet);
-        cycle(CHARS_CYCLES, () -> {
+        loop(CHARS_CYCLES, () -> {
             char c = charSuppl.get();
             Assert.assertTrue(possibleDigits.contains(c));
         });
@@ -53,6 +53,12 @@ public class CharsTest {
     public void testLetters() throws Exception {
         stream(RANDS).forEach(rand ->
                 inAlpabet(LETTERS, rand.chars().letters()::val));
+    }
+
+    @Test
+    public void testHexa() throws Exception {
+        stream(RANDS).forEach(rand ->
+                inAlpabet(HEXA, rand.chars().hex()::val));
     }
 
     @Test(expected = IllegalArgumentException.class)

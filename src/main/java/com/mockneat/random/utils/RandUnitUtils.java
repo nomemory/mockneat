@@ -25,8 +25,8 @@ import java.util.function.Supplier;
 
 import static com.mockneat.random.utils.ValidationUtils.*;
 
+@SuppressWarnings("unchecked")
 public class RandUnitUtils {
-    @SuppressWarnings("unchecked")
     public static <T> void add(Class<? extends Collection> collectionClass, Collection<T> result, Supplier<T> supplier) {
         T value = supplier.get();
         try {
@@ -37,7 +37,6 @@ public class RandUnitUtils {
             throw new IllegalArgumentException(msg, e);
         }
     }
-    @SuppressWarnings("unchecked")
     public static <T> void add(Class<? extends List> listClass, List<T> result, Supplier<T> supplier) {
         T value = supplier.get();
         try {
@@ -48,7 +47,6 @@ public class RandUnitUtils {
             throw new IllegalArgumentException(msg, e);
         }
     }
-    @SuppressWarnings("unchecked")
     public static <T> void add(Class<? extends Set> setClass, Set<T> result, Supplier<T> supplier) {
         T value = supplier.get();
         try {
@@ -59,7 +57,6 @@ public class RandUnitUtils {
             throw new IllegalArgumentException(msg, e);
         }
     }
-    @SuppressWarnings("unchecked")
     public static <T, R> void put(Class<? extends Map> mapClass, Map<T, R> map, Supplier<T> keySupplier, Supplier<R> valueSupplier) {
         T keyVal = keySupplier.get();
         R valVal =  valueSupplier.get();
@@ -71,7 +68,6 @@ public class RandUnitUtils {
             throw new IllegalArgumentException(msg, e);
         }
     }
-    @SuppressWarnings("unchecked")
     public static <T, R> void put(Class<? extends Map> mapClass, Map<T, R> map, T key, R value) {
         try {
             map.put(key, value);

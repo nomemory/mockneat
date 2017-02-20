@@ -8,7 +8,7 @@ import java.util.List;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.random.RandTestConstants.RU_CYCLES;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.lang.Character.isDigit;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
@@ -18,7 +18,7 @@ public class RandUnitTestValStr {
 
     @Test
     public void testStrValBools() throws Exception {
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 String b = r.bools().valStr();
                 assertTrue(b.equals("false") || b.equals("true"));
@@ -28,7 +28,7 @@ public class RandUnitTestValStr {
 
     @Test
     public void testStrValChars() throws Exception {
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 String c = r.chars().digits().valStr();
                 assertTrue(c.length()==1 && isDigit(c.charAt(0)));
@@ -38,7 +38,7 @@ public class RandUnitTestValStr {
 
     @Test
     public void testStrValDoubles() throws Exception {
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 String d = r.doubles().valStr();
                 try { Double.valueOf(d); }
@@ -49,7 +49,7 @@ public class RandUnitTestValStr {
 
     @Test
     public void testStrValInts() throws Exception {
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 String i = r.ints().valStr();
                 try { Integer.valueOf(i); }
@@ -60,7 +60,7 @@ public class RandUnitTestValStr {
 
     @Test
     public void testStrValLongs() throws Exception {
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 String l = r.longs().valStr();
                 try { Long.valueOf(l); }
@@ -71,7 +71,7 @@ public class RandUnitTestValStr {
 
     @Test
     public void testStrValFloats() throws Exception {
-        cycle(RU_CYCLES, () -> {
+        loop(RU_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 String f = r.floats().valStr();
                 try { Float.valueOf(f); }
@@ -83,7 +83,7 @@ public class RandUnitTestValStr {
     @Test
     public void testStrValClass() throws Exception {
         final List<ToString> arr = RAND.compose().object(ToString.class).list(100).val();
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
             stream(RANDS).forEach(r ->
                     assertTrue(r.from(arr).valStr().equals(ToString.CONST))));
     }

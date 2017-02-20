@@ -17,13 +17,39 @@ package com.mockneat.random.utils;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import com.mockneat.random.Rand;
 import com.mockneat.types.CallBack;
+
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class FunctUtils {
 
-    public static final void cycle(int cycles, CallBack callBack) {
+    public static final void loop(int cycles, CallBack callBack) {
         for (int i = 0; i < cycles; i++) {
             callBack.call();
         }
+    }
+
+    public static final void loop(int cycles, Rand[] array, Consumer<Rand> consumer) {
+        loop(cycles, () -> Arrays.stream(array).forEach(consumer::accept));
+    }
+
+    public static final <T> void loop(int cycles, Rand[] array, Function<Rand, T> map, Consumer<T> consume) {
+        loop(cycles, () -> Arrays.stream(array).map(map::apply).forEach(consume::accept));
+    }
+
+    public static final <T> void loop(boolean dbg, int cycles, Rand[] array, Function<Rand, T> map, Consumer<T> consume) {
+        loop(cycles,
+                () -> Arrays.stream(array)
+                        .map(r -> {
+                            T o = map.apply(r);
+                            if (dbg)
+                                System.out.println(o);
+                            return o;
+                        })
+                        .forEach(consume::accept));
+
     }
 }

@@ -25,7 +25,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static com.mockneat.random.utils.RandUnitUtils.add;
 import static com.mockneat.random.utils.RandUnitUtils.put;
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
@@ -95,7 +95,7 @@ public interface RandUnit<T> {
         Supplier<List<T>> supp = () -> {
             try {
                 List<T> result = listClass.newInstance();
-                cycle(size, () -> add(listClass, result, supplier()));
+                loop(size, () -> add(listClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate list.", e);
@@ -115,7 +115,7 @@ public interface RandUnit<T> {
         Supplier<Set<T>> supp = () -> {
             try {
                 Set<T> result = setClass.newInstance();
-                cycle(size, () -> add(setClass, result, supplier()));
+                loop(size, () -> add(setClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate set.", e);
@@ -135,7 +135,7 @@ public interface RandUnit<T> {
         Supplier<Collection<T>> supp = () -> {
             try {
                 Collection<T> result = collectionClass.newInstance();
-                cycle(size, () -> add(collectionClass, result, supplier()));
+                loop(size, () -> add(collectionClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate collection.", e);
@@ -156,7 +156,7 @@ public interface RandUnit<T> {
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                cycle(size, () -> put(mapClass, result, keysSupplier, supplier()));
+                loop(size, () -> put(mapClass, result, keysSupplier, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -281,7 +281,7 @@ public interface RandUnit<T> {
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                cycle(size, () -> put(mapClass, result, supplier(), valuesSupplier));
+                loop(size, () -> put(mapClass, result, supplier(), valuesSupplier));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);

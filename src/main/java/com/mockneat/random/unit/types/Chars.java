@@ -20,10 +20,14 @@ package com.mockneat.random.unit.types;
 import com.mockneat.alphabets.Alphabets;
 import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnit;
+import com.mockneat.random.utils.ValidationUtils;
+import com.mockneat.types.enums.CharsType;
 import org.apache.commons.lang3.Validate;
 import java.util.function.Supplier;
 import static com.mockneat.alphabets.Alphabets.*;
 import static com.mockneat.random.utils.ValidationUtils.*;
+import static org.apache.commons.lang3.Validate.notEmpty;
+import static org.apache.commons.lang3.Validate.notNull;
 
 public class Chars implements RandUnit<Character> {
 
@@ -54,6 +58,26 @@ public class Chars implements RandUnit<Character> {
         return rand.from(LETTERS);
     }
 
+    public RandUnit<Character> hex() { return rand.from(HEXA); }
+
+    public RandUnit<Character> type(CharsType type) {
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        switch (type) {
+            case DIGITS: return digits();
+            case HEX: return hex();
+            case LOWER_LETTERS: return lowerLetters();
+            case UPPER_LETTERS: return upperLetters();
+            case LETTERS: return letters();
+            default: return letters();
+        }
+    }
+
+    public RandUnit<Character> types(CharsType... types) {
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        CharsType type = rand.from(types).val();
+        return type(type);
+    }
+
     public RandUnit<Character> from(String alphabet) {
         Validate.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Character> supp = () -> {
@@ -64,7 +88,7 @@ public class Chars implements RandUnit<Character> {
     }
 
     public RandUnit<Character> from(char[] alphabet) {
-        notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL, "alphabet");
+        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL, "alphabet");
         Supplier<Character> supp = () -> {
             int idx = rand.getRandom().nextInt(alphabet.length);
             return alphabet[idx];

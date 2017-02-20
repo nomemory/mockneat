@@ -20,9 +20,9 @@ package com.mockneat.types.enums;
 import com.mockneat.types.Range;
 
 public enum PassStrengthType {
-    WEAK_PASSWORD(new Range(6, 9)),
-    MEDIUM_PASSWORD(new Range(8, 13)),
-    STRONG_PASSWORD(new Range(12, 15));
+    WEAK(new Range(6, 9)),
+    MEDIUM(new Range(8, 13)),
+    STRONG(new Range(12, 15));
 
     private Range<Integer> length;
 

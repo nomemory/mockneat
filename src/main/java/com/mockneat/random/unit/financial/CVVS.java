@@ -43,7 +43,7 @@ public class CVVS implements RandUnitString {
         notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
-            FunctUtils.cycle(type.getLength(), () ->
+            FunctUtils.loop(type.getLength(), () ->
                     builder.append(rand.chars().digits().val()));
             return builder.toString();
         };

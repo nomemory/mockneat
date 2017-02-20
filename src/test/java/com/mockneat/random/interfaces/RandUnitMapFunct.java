@@ -10,7 +10,7 @@ import static java.util.Arrays.stream;
 
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.random.RandTestConstants.RU_CYCLES;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class RandUnitMapFunct {
     @Test
     public void testMapToIntInts() {
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                     r.ints()
                         .range(0, 5)
@@ -36,7 +36,7 @@ public class RandUnitMapFunct {
 
     @Test
     public void testMapToLong() {
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
             stream(RANDS).forEach(r ->
                     r.longs()
                         .range(0, 5)
@@ -53,7 +53,7 @@ public class RandUnitMapFunct {
 
     @Test
     public void testMapToDoubleDoubles() {
-        cycle(RU_CYCLES, () ->
+        loop(RU_CYCLES, () ->
             stream(RANDS).forEach( r ->
                         r.doubles()
                             .range(0.5, 5.0)

@@ -33,7 +33,10 @@ public class ValidationUtils {
     public static final String CANNOT_ADD_VALUE_TO_SET = "Cannot add value '%s' to Set('%s')";
     public static final String CANNOT_PUT_VALUES_TO_MAP = "Cannot put values {'%s' : '%s'} to Map('%s')";
     public static final String BEFORE_DAY_DIFFERENT_THAN_MONDAY = "Cannot use 'Monday' as 'before'. 'Monday' is considered to be the first day of the week.";
-    public static final String AFTER_DAY_DIFFERENT_THAN_SUNDAY = "Cannot use 'SUNDAY' as 'after'. 'Sunday' is considered to be the last day of the week.";
+    public static final String AFTER_DAY_DIFFERENT_THAN_SUNDAY = "Cannot use 'Sunday' as 'after'. 'Sunday' is considered to be the last day of the week.";
+    public static final String BEFORE_MONTH_DIFFERENT_THAN_JANUARY = "Cannot use 'January' as 'before'. 'January' is considered to be the first month of the year.";
+    public static final String AFTER_MONTH_DIFFERENT_TNAN_DECEMBER = "Cannot use 'December' as 'after'. 'December' is considered to be the last month of the year.";
+    public static final String CANNOT_URL_ENCODE_UTF_8 = "Cannot URL encode the following string: '%s'.";
 
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)

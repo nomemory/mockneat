@@ -7,10 +7,10 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mockneat.random.RandTestConstants.RAND;
+import static com.mockneat.random.RandTestConstants.*;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 public class LongsTest {
@@ -18,10 +18,10 @@ public class LongsTest {
     @Test
     public void testNextLongInCorrectRange() throws Exception {
         long upperBound = 100;
-        cycle(RandTestConstants.FLOATS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().bound(upperBound).val())
-                    .forEach(num -> assertTrue(num >= 0 && num < upperBound)));
+        loop(FLOATS_CYCLES,
+                RANDS,
+                r -> r.longs().bound(upperBound).val(),
+                num -> assertTrue(num >= 0 && num < upperBound));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -39,19 +39,19 @@ public class LongsTest {
     @Test
     public void testNextLongInCorrectRange2() throws Exception {
         long upperBound = 1L;
-        cycle(RandTestConstants.LONGS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().bound(upperBound).val())
-                    .forEach(num -> assertTrue(num.equals(0L))));
+        loop(LONGS_CYCLES,
+                RANDS,
+                r -> r.longs().bound(upperBound).val(),
+                num -> assertTrue(num.equals(0L)));
     }
 
     @Test
     public void testNextLongInCorrectRange3() throws Exception {
         Long upperBound = Long.MAX_VALUE;
-        cycle(RandTestConstants.LONGS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().bound(upperBound).val())
-                    .forEach(num -> assertTrue(num < upperBound)));
+        loop(LONGS_CYCLES,
+                RANDS,
+                r -> r.longs().bound(upperBound).val(),
+                num -> assertTrue(num < upperBound));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -84,10 +84,10 @@ public class LongsTest {
     public void testNextLongInCorrectRange4() throws Exception {
         long lowerBound = 5;
         long upperBound = 8;
-        cycle(RandTestConstants.LONGS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().range(lowerBound, upperBound).val())
-                    .forEach( num -> assertTrue((num >= lowerBound) && (num < upperBound))));
+        loop(LONGS_CYCLES,
+                RANDS,
+                r -> r.longs().range(lowerBound, upperBound).val(),
+                num -> assertTrue((num >= lowerBound) && (num < upperBound)));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -99,30 +99,30 @@ public class LongsTest {
     @Test
     public void testNextLongCorrectValues() throws Exception {
         long lowerBound = 10, upperBound = lowerBound + 1;
-        cycle(RandTestConstants.LONGS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().range(lowerBound, upperBound).val())
-                    .forEach(num -> num.equals(lowerBound)));
+        loop(LONGS_CYCLES,
+                RANDS,
+                r -> r.longs().range(lowerBound, upperBound).val(),
+                num -> num.equals(lowerBound));
     }
 
     @Test
     public void testNextLongInCorrectRange5() throws Exception {
         long lowerBound = 0;
         long upperBound = Long.MAX_VALUE;
-        cycle(RandTestConstants.LONGS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().range(lowerBound, upperBound).val())
-                    .forEach(num -> assertTrue(num >= lowerBound && num < upperBound)));
+        loop(LONGS_CYCLES,
+                RANDS,
+                r -> r.longs().range(lowerBound, upperBound).val(),
+                num -> assertTrue(num >= lowerBound && num < upperBound));
     }
 
     @Test
     public void testNextCorrectValues() throws Exception {
         long[] alphabet = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
         Set<Long> helperSet = new HashSet<>(asList(ArrayUtils.toObject(alphabet)));
-        cycle(RandTestConstants.LONGS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.longs().from(alphabet).val())
-                    .forEach(num -> assertTrue(helperSet.contains(num))));
+        loop(LONGS_CYCLES,
+                RANDS,
+                r -> r.longs().from(alphabet).val(),
+                num -> assertTrue(helperSet.contains(num)));
     }
 
     @Test(expected = NullPointerException.class)

@@ -7,6 +7,9 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.mockneat.random.RandTestConstants.FLOATS_CYCLES;
+import static com.mockneat.random.RandTestConstants.RANDS;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
@@ -16,10 +19,10 @@ public class FloatsTest {
 
     @Test
     public void testNextFloatInCorrectRange() throws Exception {
-        FunctUtils.cycle(RandTestConstants.FLOATS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.floats().val())
-                    .forEach(n -> assertTrue(n >= 0.0 && n < 1.0)));
+        loop(FLOATS_CYCLES,
+                RANDS,
+                r -> r.floats().val(),
+                n -> assertTrue(n >= 0.0 && n < 1.0));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -35,10 +38,10 @@ public class FloatsTest {
     @Test
     public void testNextFloatInCorrectRange2() throws Exception {
         Float bound = 0.01f;
-        FunctUtils.cycle(RandTestConstants.FLOATS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.floats().bound(bound).val())
-                    .forEach(n -> assertTrue(n >= 0.0 && n < bound)));
+        loop(FLOATS_CYCLES,
+                RANDS,
+                r -> r.floats().bound(bound).val(),
+                n -> assertTrue(n >= 0.0 && n < bound));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -49,9 +52,7 @@ public class FloatsTest {
     @Test(expected = NullPointerException.class)
     public void nextFloat_NullNotBound() throws Exception {
         Float bound = null;
-        stream(RandTestConstants.RANDS)
-                .map(r -> r.floats().bound(bound).val())
-                .count();
+        stream(RANDS).map(r -> r.floats().bound(bound).val()).count();
     }
 
     @Test
@@ -59,10 +60,10 @@ public class FloatsTest {
         Float lowerBound = 1.1987f;
         Float upperBound = Float.MAX_VALUE;
 
-        FunctUtils.cycle(RandTestConstants.FLOATS_CYCLES, () ->
-            stream(RandTestConstants.RANDS)
-                    .map(r -> r.floats().range(lowerBound, upperBound).val())
-                    .forEach(n -> assertTrue(n >= lowerBound && n < upperBound)));
+        loop(FLOATS_CYCLES,
+                RANDS,
+                r -> r.floats().range(lowerBound, upperBound).val(),
+                n -> assertTrue(n >= lowerBound && n < upperBound));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -104,18 +105,19 @@ public class FloatsTest {
     public void testNextCorrectValues() throws Exception {
         float[] floats = { 1.0f, 5.0f, 10.0f, 15.0f, 20.52f };
         Set<Float> values = new HashSet<>(asList(toObject(floats)));
-
-        FunctUtils.cycle(RandTestConstants.FLOATS_CYCLES, () ->
-            stream(RandTestConstants.RANDS).map(r -> r.floats().from(floats).val())
-                    .forEach(num -> assertTrue(values.contains(num))));
+        loop(FLOATS_CYCLES,
+                RANDS,
+                r -> r.floats().from(floats).val(),
+                num -> assertTrue(values.contains(num)));
     }
 
     @Test
     public void testNextCorrectValues2() throws Exception {
         float[] floats = { 0.0f };
-        FunctUtils.cycle(RandTestConstants.FLOATS_CYCLES, () ->
-            stream(RandTestConstants.RANDS).map(r -> r.floats().from(floats).val())
-                    .forEach(num -> assertTrue(num.equals(floats[0]))));
+        loop(FLOATS_CYCLES,
+                RANDS,
+                r -> r.floats().from(floats).val(),
+                num -> assertTrue(num.equals(floats[0])));
     }
 
     @Test(expected = NullPointerException.class)

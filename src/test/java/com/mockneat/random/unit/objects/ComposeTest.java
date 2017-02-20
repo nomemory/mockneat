@@ -9,7 +9,7 @@ import org.junit.Test;
 import static com.mockneat.random.RandTestConstants.COMPOSE_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 
@@ -37,15 +37,13 @@ public class ComposeTest {
 
     @Test
     public void testComposeNullSupplier() {
-        cycle(COMPOSE_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
-                PlainOldJavaObject a = r.compose(
-                        Pair.of(null, Integer.class),
-                        Pair.of(RAND.names()::val, String.class),
-                        Pair.of(RAND.doubles()::val, Double.class)
-                ).object(PlainOldJavaObject.class).val();
-                assertTrue(a.getX() == null);
-            });
+        loop(COMPOSE_CYCLES, RANDS, r -> {
+            PlainOldJavaObject a = r.compose(
+                Pair.of(null, Integer.class),
+                Pair.of(RAND.names()::val, String.class),
+                Pair.of(RAND.doubles()::val, Double.class)
+            ).object(PlainOldJavaObject.class).val();
+            assertTrue(a.getX() == null);
         });
     }
 
@@ -72,17 +70,12 @@ public class ComposeTest {
 
     @Test
     public void testCompose() {
-        cycle(COMPOSE_CYCLES, () -> {
-            stream(RANDS).forEach(rand -> {
-                PlainOldJavaObject p =
-                        rand.compose(
-                                Pair.of(RAND.ints()::val, Integer.class),
-                                Pair.of(RAND.emails()::val, String.class),
-                                Pair.of(RAND.doubles()::val, Double.class)
-                        ).object(PlainOldJavaObject.class).val();
-                assertTrue(null != p.getX() && null != p.getY() && null != p.getZ());
-            });
-        });
+        loop(COMPOSE_CYCLES, RANDS, r -> r.compose(
+                    Pair.of(RAND.ints()::val, Integer.class),
+                    Pair.of(RAND.emails()::val, String.class),
+                    Pair.of(RAND.doubles()::val, Double.class)
+                ).object(PlainOldJavaObject.class).val(),
+                p -> assertTrue(null != p.getX() && null != p.getY() && null != p.getZ()));
     }
 
     @Test(expected = IllegalArgumentException.class)

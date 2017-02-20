@@ -19,8 +19,13 @@ package com.mockneat.random.interfaces;
 
 import com.mockneat.types.enums.StringFormatType;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.function.Supplier;
+
+import static com.mockneat.random.utils.ValidationUtils.CANNOT_URL_ENCODE_UTF_8;
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static java.net.URLEncoder.encode;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -81,5 +86,22 @@ public interface RandUnitString extends RandUnit<String> {
 
     default RandUnit<String[]> split(String regex) {
         return split(regex, 0);
+    }
+
+    default RandUnitString urlEncode(String enc) {
+        Supplier<String> supplier = () -> {
+            String val = supplier().get();
+            try {
+                return encode(val, enc);
+            } catch (UnsupportedEncodingException e) {
+                String msg = String.format(CANNOT_URL_ENCODE_UTF_8, val);
+                throw new IllegalArgumentException(msg, e);
+            }
+        };
+        return () -> supplier;
+    }
+
+    default RandUnitString urlEncode() {
+        return urlEncode("UTF-8");
     }
 }

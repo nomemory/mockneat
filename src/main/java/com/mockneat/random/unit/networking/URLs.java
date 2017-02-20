@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static com.mockneat.types.enums.DomainSuffixType.POPULAR;
+import static com.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static com.mockneat.types.enums.URLScheme.*;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -35,8 +36,9 @@ public class URLs implements RandUnitString {
     private Supplier<String> schemeSupplier;
 
     // Auth
-    private Supplier<String> userSupplier;
-    private Supplier<String> passSupplier;
+    private Supplier<String> authSupplier;
+    private Supplier<String> userNameSupplier;
+    private Supplier<String> passWordSupplier;
 
     //Host
     private Supplier<String> hostSupplier;
@@ -70,6 +72,7 @@ public class URLs implements RandUnitString {
 
     protected void initializeSuppliers() {
         this.schemeSupplier = defaultSchemesSupplier();
+        this.authSupplier = defaultAuthSupplier();
         this.hostSupplier = defaultHostSupplier();
         this.domainSupplier = defaultDomainSupplier();
         this.portSupplier = defaultPortSupplier();
@@ -98,6 +101,26 @@ public class URLs implements RandUnitString {
     public URLs scheme(String scheme) {
         notEmpty(scheme, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "scheme");
         this.schemeSupplier = schemeSupplier(scheme);
+        return this;
+    }
+
+    protected Supplier<String> defaultAuthSupplier() {
+        return () -> "";
+    }
+
+    protected Supplier<String> authSupplier() {
+        return () -> this.userNameSupplier.get() + ":" + this.passWordSupplier.get() + "@";
+    }
+
+    public URLs auth() {
+        this.userNameSupplier = rand.users()
+                                    .urlEncode()
+                                    .supplier();
+        this.passWordSupplier = rand.passwords()
+                                    .type(MEDIUM)
+                                    .urlEncode()
+                                    .supplier();
+        this.authSupplier = authSupplier();
         return this;
     }
 
@@ -275,7 +298,7 @@ public class URLs implements RandUnitString {
     public Supplier<String> supplier() {
         return () -> {
             String scheme = schemeSupplier.get();
-            String auth = "";
+            String auth = authSupplier.get();
             String host = hostSupplier.get();
             String domain = domainSupplier.get();
             String port = portSupplier.get();

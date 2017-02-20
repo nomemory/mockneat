@@ -11,7 +11,7 @@ import static java.util.Arrays.stream;
 import static com.mockneat.random.RandTestConstants.CCS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -32,18 +32,16 @@ public class CCSTest {
 
     @Test
     public void testCreditCardCorrectLength() throws Exception {
-        cycle(CCS_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    CreditCardType creditCardType = r.from(CreditCardType.class).val();
-                    String cc = r.ccs().type(creditCardType).val();
-                    assertTrue(cc.length() == creditCardType.getLength());
-                }));
+        loop(CCS_CYCLES, RANDS, r -> {
+            CreditCardType creditCardType = r.from(CreditCardType.class).val();
+            String cc =  r.ccs().type(creditCardType).val();
+            assertTrue(cc.length() == creditCardType.getLength());
+        });
     }
 
     @Test
     public void testCreditCardHasCorrectPrefix() throws Exception {
-        cycle(CCS_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
+        loop(CCS_CYCLES, RANDS, r -> {
                     CreditCardType creditCardType = r.from(CreditCardType.class).val();
                     // Obtain the set of prefixes associated with the credit card type
                     Set<String> prefixes = creditCardType
@@ -65,18 +63,18 @@ public class CCSTest {
                         }
                     }
                     assertTrue(test);
-                })
-        );
+                });
     }
 
     @Test
     public void nextCreditCardAreValidLuhn() throws Exception {
-        cycle(CCS_CYCLES, () ->
-                stream(RANDS)
-                    .forEach(r -> {
-                        CreditCardType type = r.from(CreditCardType.class).val();
-                        assertTrue(luhnCheck(r.ccs().type(type).val()));
-                    }));
+        loop(CCS_CYCLES,
+                RANDS,
+                r -> {
+                    CreditCardType c = r.from(CreditCardType.class).val();
+                    return r.ccs().type(c).val();
+                },
+                c -> assertTrue(luhnCheck(c)));
     }
 
 }

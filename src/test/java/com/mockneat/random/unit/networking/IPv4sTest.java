@@ -7,10 +7,10 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 
-import java.net.InetAddress;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static com.mockneat.random.RandTestConstants.IPV4S_CYCLES;
@@ -45,12 +45,7 @@ public class IPv4sTest {
     }
 
     protected void testIpCycle(IPv4Type t) {
-        FunctUtils.cycle(IPV4S_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
-                    String ip = r.ipv4s().type(t).val();
-                    testIp(ip, t);
-                })
-        );
+        loop(IPV4S_CYCLES, RANDS, r -> r.ipv4s().type(t).val(), ip -> testIp(ip, t));
     }
 
     @Test

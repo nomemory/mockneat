@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import static com.mockneat.random.RandTestConstants.EMAILS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 
@@ -21,8 +21,7 @@ public class EmailsTest {
 
     @Test
     public void testEmails() throws Exception {
-        cycle(EMAILS_CYCLES, () ->
-            stream(RANDS).forEach(r ->
-                assertTrue(EMAIL_PATTERN.matcher(r.emails().val()).matches())));
+        loop(EMAILS_CYCLES, RANDS, r ->
+                assertTrue(EMAIL_PATTERN.matcher(r.emails().val()).matches()));
     }
 }

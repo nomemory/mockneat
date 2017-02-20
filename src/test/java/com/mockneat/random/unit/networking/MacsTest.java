@@ -8,7 +8,12 @@ import org.junit.Test;
 
 import java.util.stream.IntStream;
 
+import static com.mockneat.random.RandTestConstants.IPV4S_CYCLES;
+import static com.mockneat.random.RandTestConstants.RAND;
+import static com.mockneat.random.RandTestConstants.RANDS;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
+import static java.util.stream.IntStream.range;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -18,31 +23,22 @@ public class MacsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextMACAddressTypeNotNull() throws Exception {
-        RandTestConstants.RAND.macs().type(null).val();
+        RAND.macs().type(null).val();
     }
 
     protected void testNextMACAddress(MACAddressFormatType type,
                                       String separator,
                                       Integer macNumLength,
                                       Integer sectionLength) {
-        FunctUtils.cycle(RandTestConstants.IPV4S_CYCLES, () -> {
-            stream(RandTestConstants.RANDS)
-                    .forEach(r -> {
-                        String mac = r.macs().type(type).val();
-                        String[] macNum = mac.split(separator);
-
-                        assertTrue(macNum.length==macNumLength);
-
-                        stream(macNum).forEach(s -> {
-                            assertTrue(sectionLength == s.length());
-                            IntStream
-                                    .range(0, s.length())
-                                    .forEach(i -> {
-                                        try { Integer.parseInt(s.charAt(i)+"", 16); }
-                                        catch (NumberFormatException e) { Assert.fail(); }
-                                    });
-                        });
-                    });
+        loop(IPV4S_CYCLES, RANDS, r -> r.macs().type(type).val().split(separator), macNum -> {
+            assertTrue(macNum.length==macNumLength);
+            stream(macNum).forEach(s -> {
+                assertTrue(sectionLength == s.length());
+                range(0, s.length()).forEach(i -> {
+                    try { Integer.parseInt(s.charAt(i)+"", 16); }
+                    catch (NumberFormatException e) { Assert.fail(); }
+                });
+            });
         });
     }
 

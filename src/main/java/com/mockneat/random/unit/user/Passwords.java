@@ -26,11 +26,15 @@ import java.util.function.Supplier;
 
 import static com.mockneat.alphabets.Alphabets.SPECIAL_CHARACTERS;
 import static com.mockneat.random.RandConstants.POSSIBLE_CHARACTERS;
+import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.types.enums.DictType.EN_NOUN_1SYLL;
+import static com.mockneat.types.enums.DictType.EN_NOUN_2SYLL;
 import static com.mockneat.types.enums.DictType.EN_NOUN_3SYLL;
-import static com.mockneat.types.enums.PassStrengthType.MEDIUM_PASSWORD;
-import static com.mockneat.types.enums.PassStrengthType.STRONG_PASSWORD;
-import static com.mockneat.types.enums.PassStrengthType.WEAK_PASSWORD;
+import static com.mockneat.types.enums.PassStrengthType.MEDIUM;
+import static com.mockneat.types.enums.PassStrengthType.STRONG;
+import static com.mockneat.types.enums.PassStrengthType.WEAK;
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -57,27 +61,31 @@ public class Passwords implements RandUnitString {
     }
 
     public RandUnitString types(PassStrengthType... passStrengthTypes) {
+        notEmpty(passStrengthTypes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "passStrengthTypes");
         PassStrengthType passStrengthType = rand.from(passStrengthTypes).val();
         return type(passStrengthType);
     }
 
     protected String nextPassword(PassStrengthType passStrengthType) {
         switch (passStrengthType) {
-            case WEAK_PASSWORD:
+            case WEAK:
                 return nextWeakPassword();
-            case MEDIUM_PASSWORD:
+            case MEDIUM:
                 return nextMediumPassword();
-            case STRONG_PASSWORD:
+            case STRONG:
                 return nextStrongPassword();
         }
         return "123456";
     }
 
     protected String nextWeakPassword() {
-        Integer minLength = WEAK_PASSWORD.getLength().getLowerBound();
-        Integer maxLength = WEAK_PASSWORD.getLength().getUpperBound();
-        String noun = rand.dicts().type(DictType.EN_NOUN_2SYLL).val();
-        noun = noun.substring(0, maxLength);
+        Integer minLength = WEAK.getLength().getLowerBound();
+        Integer maxLength = WEAK.getLength().getUpperBound();
+        DictType dictType = rand.from(EN_NOUN_2SYLL, EN_NOUN_1SYLL).val();
+        String noun = rand.dicts().type(dictType).val();
+        if (noun.length()>maxLength) {
+            noun = noun.substring(0, maxLength);
+        }
         StringBuilder resultBuff = new StringBuilder(noun);
 
         if (noun.length() < minLength) {
@@ -92,39 +100,49 @@ public class Passwords implements RandUnitString {
     }
 
     protected String nextMediumPassword() {
-        Integer minLength = MEDIUM_PASSWORD.getLength().getLowerBound();
-        Integer maxLength = MEDIUM_PASSWORD.getLength().getUpperBound();
+        Integer minLength = MEDIUM.getLength().getLowerBound();
+        Integer maxLength = MEDIUM.getLength().getUpperBound();
         String noun = rand.dicts().type(EN_NOUN_3SYLL).val();
+        if (noun.length()>maxLength) {
+            noun = noun.substring(0, maxLength);
+        }
         StringBuilder resultBuff = new StringBuilder(noun);
 
         if (noun.length() < minLength) {
             int diff = minLength - noun.length();
             while (diff-- > 0)
-                resultBuff.append(rand.ints().range(0, 10).val());
+                resultBuff.append(rand.chars().digits().val());
         }
 
-        int randUpperCase = rand.ints().range(0, noun.length() - 1).val();
-        char replChar = resultBuff.charAt(randUpperCase);
+        // Create a random uppercase character
+        int randUpperCaseIdx = rand.ints().range(0, noun.length() - 1).val();
+        char replChar = resultBuff.charAt(randUpperCaseIdx);
+        resultBuff.setCharAt(randUpperCaseIdx, Character.toUpperCase(replChar));
 
-        resultBuff.setCharAt(randUpperCase, Character.toUpperCase(replChar));
-
+        // Insert / Replace with a random special character
+        int randSpecialChrIdx = rand.ints().range(0, resultBuff.length()).val();
+        char specialChar = rand.from(SPECIAL_CHARACTERS).val();
         if (resultBuff.length() < maxLength) {
-            int randSpecialChrIdx = rand.ints().range(0, resultBuff.length()).val();
-            resultBuff.insert(randSpecialChrIdx,
-                    rand.from(SPECIAL_CHARACTERS).val());
+            resultBuff.insert(randSpecialChrIdx, specialChar);
+        } else {
+            resultBuff.setCharAt(randSpecialChrIdx, specialChar);
         }
+
 
         return resultBuff.toString();
     }
 
     protected String nextStrongPassword() {
-        Integer minLength = STRONG_PASSWORD.getLength().getLowerBound();
-        Integer maxLength = STRONG_PASSWORD.getLength().getUpperBound();
+        Integer minLength = STRONG.getLength().getLowerBound();
+        Integer maxLength = STRONG.getLength().getUpperBound();
         int passLength = rand.ints().range(minLength, maxLength).val();
         StringBuilder buff = new StringBuilder();
-        while (passLength-- > 0) {
+        while (passLength-- > 1) {
             buff.append(rand.from(POSSIBLE_CHARACTERS).val());
         }
+        // Insert a special character to be 100% confident it exists
+        int randSpecialChrIdx = rand.ints().range(0, buff.length()).val();
+        buff.insert(randSpecialChrIdx, rand.from(SPECIAL_CHARACTERS).val());
         return buff.toString();
     }
 }

@@ -3,14 +3,13 @@ package com.mockneat.random.unit.time;
 import org.junit.Test;
 
 import java.time.DayOfWeek;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
 
 import static com.mockneat.random.RandTestConstants.DAYS_CYCLES;
 import static com.mockneat.random.RandTestConstants.RAND;
 import static com.mockneat.random.RandTestConstants.RANDS;
-import static com.mockneat.random.utils.FunctUtils.cycle;
+import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.time.DayOfWeek.*;
 import static org.junit.Assert.assertTrue;
 
@@ -21,11 +20,8 @@ public class DaysTest {
 
     @Test
     public void testDays() throws Exception {
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                assertTrue((r.days().val()) instanceof DayOfWeek);
-            });
-        });
+        loop(DAYS_CYCLES, RANDS, r ->
+                assertTrue((r.days().val()) instanceof DayOfWeek));
     }
 
     @Test
@@ -33,12 +29,10 @@ public class DaysTest {
         DayOfWeek lower = TUESDAY;
         DayOfWeek upper = DayOfWeek.THURSDAY;
         Set<DayOfWeek> dayOfWeekSet = EnumSet.of(TUESDAY, WEDNESDAY);
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                DayOfWeek d = r.days().range(lower, upper).val();
-                assertTrue(dayOfWeekSet.contains(d));
-            });
-        });
+        loop(DAYS_CYCLES,
+                RANDS,
+                r -> r.days().range(lower, upper).val(),
+                d -> assertTrue(dayOfWeekSet.contains(d)));
     }
 
     @Test(expected = NullPointerException.class)
@@ -66,12 +60,10 @@ public class DaysTest {
         DayOfWeek lower = TUESDAY;
         DayOfWeek upper = DayOfWeek.THURSDAY;
         Set<DayOfWeek> dayOfWeekSet = EnumSet.of(TUESDAY, WEDNESDAY, THURSDAY);
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                DayOfWeek d = r.days().rangeClosed(lower, upper).val();
-                assertTrue(dayOfWeekSet.contains(d));
-            });
-        });
+        loop(DAYS_CYCLES,
+                RANDS,
+                r -> r.days().rangeClosed(lower, upper).val(),
+                d -> assertTrue(dayOfWeekSet.contains(d)));
     }
 
     @Test(expected = NullPointerException.class)
@@ -98,12 +90,10 @@ public class DaysTest {
     public void testDaysBefore() throws Exception {
         DayOfWeek bound = WEDNESDAY;
         Set<DayOfWeek> set = EnumSet.of(MONDAY, TUESDAY, WEDNESDAY);
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                DayOfWeek d = r.days().before(bound).val();
-                assertTrue(set.contains(d));
-            });
-        });
+        loop(DAYS_CYCLES,
+                RANDS,
+                r -> r.days().before(bound).val(),
+                d -> assertTrue(set.contains(d)));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -116,12 +106,10 @@ public class DaysTest {
     public void testDaysBeforeTuesday() throws Exception {
         DayOfWeek bound = TUESDAY;
         Set<DayOfWeek> set = EnumSet.of(MONDAY);
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                DayOfWeek d = r.days().before(bound).val();
-                assertTrue(set.contains(d));
-            });
-        });
+        loop(DAYS_CYCLES,
+                RANDS,
+                r -> r.days().before(bound).val(),
+                d -> assertTrue(set.contains(d)));
     }
 
     @Test(expected = NullPointerException.class)
@@ -134,24 +122,20 @@ public class DaysTest {
     public void testDaysAfter() throws Exception {
         DayOfWeek after = FRIDAY;
         Set<DayOfWeek> weekEnd = EnumSet.of(SUNDAY, SATURDAY);
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                DayOfWeek d = r.days().after(after).val();
-                assertTrue(weekEnd.contains(d));
-            });
-        });
+        loop(DAYS_CYCLES,
+                RANDS,
+                r -> r.days().after(after).val(),
+                d -> assertTrue(weekEnd.contains(d)));
     }
 
     @Test
     public void testDaysAfterSaturday() throws Exception {
         DayOfWeek after = SATURDAY;
         Set<DayOfWeek> sunday = EnumSet.of(SUNDAY);
-        cycle(DAYS_CYCLES, () -> {
-            Arrays.stream(RANDS).forEach(r -> {
-                DayOfWeek d = r.days().after(after).val();
-                assertTrue(sunday.contains(d));
-            });
-        });
+        loop(DAYS_CYCLES,
+                RANDS,
+                r -> r.days().after(after).val(),
+                d -> assertTrue(sunday.contains(d)));
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -22,25 +22,26 @@ import com.mockneat.random.unit.address.Countries;
 import com.mockneat.random.unit.financial.CCS;
 import com.mockneat.random.unit.financial.CVVS;
 import com.mockneat.random.unit.id.UUIDs;
-import com.mockneat.random.unit.networking.Domains;
-import com.mockneat.random.unit.networking.IPv4s;
-import com.mockneat.random.unit.networking.Macs;
-import com.mockneat.random.unit.networking.URLs;
+import com.mockneat.random.unit.networking.*;
 import com.mockneat.random.unit.objects.Compose;
 import com.mockneat.random.unit.text.Dicts;
+import com.mockneat.random.unit.text.Files;
+import com.mockneat.random.unit.text.Markovs;
+import com.mockneat.random.unit.text.Strings;
 import com.mockneat.random.unit.time.Days;
 import com.mockneat.random.unit.time.LocalDates;
-import com.mockneat.random.unit.user.Emails;
-import com.mockneat.random.unit.user.Names;
-import com.mockneat.random.unit.text.Markovs;
 import com.mockneat.random.unit.time.Months;
 import com.mockneat.random.unit.types.*;
+import com.mockneat.random.unit.user.Emails;
+import com.mockneat.random.unit.user.Names;
 import com.mockneat.random.unit.user.Passwords;
 import com.mockneat.random.unit.user.Users;
 import com.mockneat.types.Pair;
 import com.mockneat.types.enums.RandType;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.function.Supplier;
 
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
@@ -62,9 +63,11 @@ public class Rand {
     private Domains rDomains;
     private Doubles rDoubles;
     private Emails rEmails;
+    private Files rFiles;
     private Floats rFloats;
     private Ints rInts;
     private IPv4s rIPv4s;
+    private IPv6s rIPv6s;
     private LocalDates rLocalDates;
     private Longs rLongs;
     private Macs rMacs;
@@ -88,9 +91,11 @@ public class Rand {
         this.rDicts = new Dicts(this);
         this.rDoubles = new Doubles(this);
         this.rEmails = new Emails(this);
+        this.rFiles = new Files(this);
         this.rFloats = new Floats(this);
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
+        this.rIPv6s = new IPv6s(this);
         this.rLocalDates = new LocalDates(this);
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
@@ -147,11 +152,15 @@ public class Rand {
 
     public Emails emails() { return this.rEmails; }
 
+    public Files files() { return this.rFiles; }
+
     public Floats floats() { return this.rFloats; }
 
     public Ints ints() { return this.rInts; }
 
     public IPv4s ipv4s() { return this.rIPv4s; }
+
+    public IPv6s iPv6s() { return this.rIPv6s; }
 
     public LocalDates localDates() { return this.rLocalDates; }
 
@@ -166,6 +175,8 @@ public class Rand {
     public Names names() { return this.rNames; }
 
     public Passwords passwords() { return this.rPasswords; }
+
+    public Strings strings() { return new Strings(this); }
 
     public URLs urls() { return new URLs(this); }
 
@@ -186,7 +197,7 @@ public class Rand {
         return () -> supp;
     }
 
-    public <T> RandUnit<T> from(T[] alphabet) {
+    public <T> RandUnit<T> from(T... alphabet) {
         notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<T> supp = () -> {
             int idx = getRandom().nextInt(alphabet.length);
