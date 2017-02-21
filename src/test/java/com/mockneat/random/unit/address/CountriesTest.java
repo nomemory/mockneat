@@ -6,6 +6,7 @@ import static com.mockneat.random.RandTestConstants.COUNTRIES_CYCLES;
 import static com.mockneat.random.RandTestConstants.RANDS;
 import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.lang.Character.isLowerCase;
+import static java.lang.Character.isUpperCase;
 import static org.junit.Assert.assertTrue;
 
 public class CountriesTest {
@@ -16,7 +17,7 @@ public class CountriesTest {
                 RANDS,
                 r -> r.countries().names().val(),
                 c -> {
-                    assertTrue(isLowerCase(c.charAt(0)));
+                    assertTrue(isUpperCase(c.charAt(0)));
                     assertTrue(isLowerCase(c.charAt(1)));
                 });
     }
@@ -27,8 +28,8 @@ public class CountriesTest {
                 RANDS,
                 r -> r.countries().iso2().val(),
                 c -> {
-                    assertTrue(isLowerCase(c.charAt(0)));
-                    assertTrue(isLowerCase(c.charAt(1)));
+                    assertTrue(isUpperCase(c.charAt(0)));
+                    assertTrue(isUpperCase(c.charAt(1)));
                 });
     }
 }

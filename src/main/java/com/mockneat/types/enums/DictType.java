@@ -28,6 +28,9 @@ public enum DictType {
     DOMAIN_TOP_LEVEL_ALL("domain-top-level-all"),
     DOMAIN_TOP_LEVEL_POPULAR("domain-top-level-popular"),
 
+    //FINANCIAL
+    FOREX_PAIRS("forex-pairs"),
+
     // NAMES
     FIRST_NAME_MALE_AMERICAN("first-names-american-male"),
     FIRST_NAME_FEMALE_AMERICAN("first-names-american-female"),

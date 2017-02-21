@@ -2,23 +2,23 @@ package com.mockneat.random.unit.networking;
 
 import com.mockneat.types.Range;
 import com.mockneat.types.enums.IPv4Type;
-import com.mockneat.random.utils.FunctUtils;
 import junit.framework.Assert;
+import org.apache.commons.validator.routines.InetAddressValidator;
 import org.junit.Test;
-
 
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static com.mockneat.random.RandTestConstants.*;
 import static com.mockneat.random.utils.FunctUtils.loop;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
-import static com.mockneat.random.RandTestConstants.IPV4S_CYCLES;
-import static com.mockneat.random.RandTestConstants.RAND;
-import static com.mockneat.random.RandTestConstants.RANDS;
 import static org.junit.Assert.assertTrue;
 
 public class IPv4sTest {
+
+    private static final InetAddressValidator IAV = new InetAddressValidator();
+
     protected void testIp(String ip, IPv4Type type) {
         Range[] bounds = type.getOctets();
         assertTrue(bounds.length == 4);
@@ -105,11 +105,22 @@ public class IPv4sTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextIPv4AddressTypesNotNull() throws Exception {
-        RAND.ipv4s().types(null).val();
+        IPv4Type[] types = null;
+        RAND.ipv4s().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIPv4AddressTypesNotEmpty() throws Exception {
         RAND.ipv4s().types().val();
+    }
+
+    @Test
+    public void testIPv4AddressesWithINetValidator() {
+        loop(IPV4S_CYCLES, RANDS,
+            r -> {
+                IPv4Type type = r.from(IPv4Type.class).val();
+                return r.ipv4s().type(type).val();
+            },
+            u -> assertTrue(IAV.isValidInet4Address(u)));
     }
 }

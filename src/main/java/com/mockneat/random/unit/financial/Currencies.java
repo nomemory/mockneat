@@ -1,4 +1,4 @@
-package com.mockneat.random.unit.text;
+package com.mockneat.random.unit.financial;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -19,23 +19,33 @@ package com.mockneat.random.unit.text;
 
 import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitString;
-import com.mockneat.random.utils.file.FileManager;
-import com.mockneat.types.enums.DictType;
+import com.mockneat.types.enums.CurrencySymbolType;
 
-import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static org.apache.commons.lang3.Validate.notNull;
+import static com.mockneat.types.enums.DictType.FOREX_PAIRS;
 
-public class Dicts {
-
+public class Currencies {
     private Rand rand;
-    private FileManager fm = FileManager.getInstance();
 
-    public Dicts(Rand rand) {
+    public Currencies(Rand rand) {
         this.rand = rand;
     }
 
-    public RandUnitString type(DictType type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
-        return () -> rand.fromStrings(fm.getLines(type))::val;
+    public RandUnitString forexPair() {
+        return () -> rand.dicts().type(FOREX_PAIRS)::val;
+    }
+
+    public RandUnitString code() {
+        return () -> rand.from(CurrencySymbolType.class)
+                            .mapToString(CurrencySymbolType::getCode)::val;
+    }
+
+    public RandUnitString symbol() {
+        return () -> rand.from(CurrencySymbolType.class)
+                            .mapToString(CurrencySymbolType::getSymbol)::val;
+    }
+
+    public RandUnitString name() {
+        return () -> rand.from(CurrencySymbolType.class)
+                            .mapToString(CurrencySymbolType::getName)::val;
     }
 }

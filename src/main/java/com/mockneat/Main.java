@@ -4,6 +4,8 @@ import com.mockneat.random.Rand;
 
 import java.util.stream.IntStream;
 
+import static java.util.Locale.CHINA;
+
 /**
  * Created by andreinicolinciobanu on 15/01/2017.
  */
@@ -15,5 +17,6 @@ public class Main {
         });
 
         Rand r = Rand.threadLocal();
+        System.out.println(r.money().locale(CHINA).val());
     }
 }

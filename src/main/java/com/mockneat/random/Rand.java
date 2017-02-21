@@ -21,6 +21,8 @@ import com.mockneat.random.interfaces.*;
 import com.mockneat.random.unit.address.Countries;
 import com.mockneat.random.unit.financial.CCS;
 import com.mockneat.random.unit.financial.CVVS;
+import com.mockneat.random.unit.financial.Currencies;
+import com.mockneat.random.unit.financial.Money;
 import com.mockneat.random.unit.id.UUIDs;
 import com.mockneat.random.unit.networking.*;
 import com.mockneat.random.unit.objects.Compose;
@@ -57,6 +59,7 @@ public class Rand {
     private Countries rCountries;
     private CCS rCCS;
     private Chars rChars;
+    private Currencies rCurrencies;
     private CVVS rCVVS;
     private Days rDays;
     private Dicts rDicts;
@@ -72,6 +75,7 @@ public class Rand {
     private Longs rLongs;
     private Macs rMacs;
     private Markovs rMarkovs;
+    private Money rMoney;
     private Months rMonths;
     private Names rNames;
     private Passwords rPasswords;
@@ -85,6 +89,7 @@ public class Rand {
         this.rBools = new Bools(this);
         this.rCountries = new Countries(this);
         this.rCCS = new CCS(this);
+        this.rCurrencies = new Currencies(this);
         this.rCVVS = new CVVS(this);
         this.rDays = new Days(this);
         this.rDomains = new Domains(this);
@@ -100,6 +105,7 @@ public class Rand {
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
         this.rMarkovs = new Markovs(this);
+        this.rMoney = new Money(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
         this.rPasswords = new Passwords(this);
@@ -124,21 +130,23 @@ public class Rand {
         return this.rBools;
     }
 
+    public CCS ccs() {
+        return this.rCCS;
+    }
+
+    public Chars chars() { return this.rChars; }
+
     public Countries countries() {
         return this.rCountries;
     }
 
-    public CCS ccs() {
-        return this.rCCS;
-    }
+    public Currencies currencies() { return this.rCurrencies; }
 
     public CVVS cvvs() { return this.rCVVS; }
 
     public Dicts dicts() {
         return this.rDicts;
     }
-
-    public Chars chars() { return this.rChars; }
 
     public Compose compose(Pair<Supplier, Class>... units) { return new Compose(units); }
 
@@ -171,6 +179,8 @@ public class Rand {
     public Markovs markovs() { return this.rMarkovs; }
 
     public Months months() { return this.rMonths; }
+
+    public Money money() { return this.rMoney; }
 
     public Names names() { return this.rNames; }
 

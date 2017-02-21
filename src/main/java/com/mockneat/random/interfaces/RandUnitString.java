@@ -20,7 +20,6 @@ package com.mockneat.random.interfaces;
 import com.mockneat.types.enums.StringFormatType;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.function.Supplier;
 
 import static com.mockneat.random.utils.ValidationUtils.CANNOT_URL_ENCODE_UTF_8;
@@ -103,5 +102,9 @@ public interface RandUnitString extends RandUnit<String> {
 
     default RandUnitString urlEncode() {
         return urlEncode("UTF-8");
+    }
+
+    default RandUnitString noSpecialChars() {
+        return () -> () -> supplier().get().replaceAll("[^\\dA-Za-z ]", "");
     }
 }

@@ -1,4 +1,4 @@
-package com.mockneat.random.unit.text;
+package com.mockneat.random.unit.financial;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -19,23 +19,47 @@ package com.mockneat.random.unit.text;
 
 import com.mockneat.random.Rand;
 import com.mockneat.random.interfaces.RandUnitString;
-import com.mockneat.random.utils.file.FileManager;
-import com.mockneat.types.enums.DictType;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.function.Supplier;
 
 import static com.mockneat.random.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static java.text.NumberFormat.getCurrencyInstance;
+import static java.util.Locale.US;
 import static org.apache.commons.lang3.Validate.notNull;
 
-public class Dicts {
+public class Money implements RandUnitString {
 
     private Rand rand;
-    private FileManager fm = FileManager.getInstance();
+    private NumberFormat formatter = getCurrencyInstance(US);
+    public static final double DEFAULT_LOWER = 0.0;
+    public static final double DEFAULT_UPPER = 10000.0;
 
-    public Dicts(Rand rand) {
+    public Money(Rand rand) {
         this.rand = rand;
     }
 
-    public RandUnitString type(DictType type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
-        return () -> rand.fromStrings(fm.getLines(type))::val;
+    public Money locale(Locale locale) {
+        notNull(locale, INPUT_PARAMETER_NOT_NULL, "locale");
+        this.formatter = getCurrencyInstance(locale);
+        return this;
+    }
+
+    public RandUnitString range(double lowerBound, double upperBound) {
+        return () -> rand.doubles()
+                         .range(lowerBound, upperBound)
+                         .mapToString(formatter::format)::val;
+    }
+
+    public RandUnitString bound(double bound) {
+        return () -> rand.doubles()
+                            .bound(bound)
+                            .mapToString(formatter::format)::val;
+    }
+
+    @Override
+    public Supplier<String> supplier() {
+        return range(DEFAULT_LOWER, DEFAULT_UPPER)::val;
     }
 }
