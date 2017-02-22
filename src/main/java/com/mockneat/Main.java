@@ -1,6 +1,6 @@
 package com.mockneat;
 
-import com.mockneat.random.Rand;
+import com.mockneat.mock.MockNeat;
 
 import java.util.stream.IntStream;
 
@@ -13,10 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
         IntStream.range(0, 10).forEach(i -> {
-            System.out.println(Rand.threadLocal().iPv6s().val());
+            System.out.println(MockNeat.threadLocal().iPv6s().val());
         });
 
-        Rand r = Rand.threadLocal();
+        MockNeat r = MockNeat.threadLocal();
         System.out.println(r.money().locale(CHINA).val());
     }
 }

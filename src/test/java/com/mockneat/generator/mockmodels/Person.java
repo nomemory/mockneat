@@ -1,6 +1,5 @@
 package com.mockneat.generator.mockmodels;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,8 @@ public class Person {
     private Catalog catalog;
     private List<Integer> integers;
     private Map<String, Integer> map;
+
+    public Person() {}
 
     public Person(String name, String email, Integer age) {
         this.name = name;
@@ -46,7 +47,7 @@ public class Person {
         return map;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
