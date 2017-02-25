@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class FunctUtils {
+public class LoopsUtils {
 
     public static final void loop(int cycles, CallBack callBack) {
         for (int i = 0; i < cycles; i++) {

@@ -18,22 +18,21 @@ package com.mockneat.types.enums;
  */
 
 import java.security.SecureRandom;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public enum RandType {
+public enum RandomType {
 
-    RANDOM (new Random()),
-    SECURE_RANDOM (new SecureRandom()),
-    THREAD_LOCAL_RANDOM (ThreadLocalRandom.current());
+    OLD(new java.util.Random()),
+    SECURE(new SecureRandom()),
+    THREAD_LOCAL(ThreadLocalRandom.current());
 
-    private Random random;
+    private java.util.Random random;
 
-    RandType(Random random) {
+    RandomType(java.util.Random random) {
         this.random = random;
     }
 
-    public Random getRandom() {
+    public java.util.Random getRandom() {
         return random;
     }
 }

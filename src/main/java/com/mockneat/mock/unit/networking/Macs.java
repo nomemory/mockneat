@@ -30,10 +30,10 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Macs implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Macs(MockNeat rand) {
-        this.rand = rand;
+    public Macs(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Macs implements MockUnitString {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> {
             StringBuilder buff = new StringBuilder();
-            IntStream.range(0, 12).forEach(i -> type.getConsumer().consume(i, buff, this.rand));
+            IntStream.range(0, 12).forEach(i -> type.getConsumer().consume(i, buff, this.mock));
             return buff.deleteCharAt(0).toString();
         };
         return () -> supplier;

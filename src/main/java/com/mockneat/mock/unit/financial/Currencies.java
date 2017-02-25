@@ -24,28 +24,28 @@ import com.mockneat.types.enums.CurrencySymbolType;
 import static com.mockneat.types.enums.DictType.FOREX_PAIRS;
 
 public class Currencies {
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Currencies(MockNeat rand) {
-        this.rand = rand;
+    public Currencies(MockNeat mock) {
+        this.mock = mock;
     }
 
     public MockUnitString forexPair() {
-        return () -> rand.dicts().type(FOREX_PAIRS)::val;
+        return () -> mock.dicts().type(FOREX_PAIRS)::val;
     }
 
     public MockUnitString code() {
-        return () -> rand.from(CurrencySymbolType.class)
+        return () -> mock.from(CurrencySymbolType.class)
                             .mapToString(CurrencySymbolType::getCode)::val;
     }
 
     public MockUnitString symbol() {
-        return () -> rand.from(CurrencySymbolType.class)
+        return () -> mock.from(CurrencySymbolType.class)
                             .mapToString(CurrencySymbolType::getSymbol)::val;
     }
 
     public MockUnitString name() {
-        return () -> rand.from(CurrencySymbolType.class)
+        return () -> mock.from(CurrencySymbolType.class)
                             .mapToString(CurrencySymbolType::getName)::val;
     }
 }

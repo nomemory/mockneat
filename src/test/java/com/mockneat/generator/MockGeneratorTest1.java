@@ -60,7 +60,7 @@ public class MockGeneratorTest1 {
                                         .field("country", r.countries().names())
                                         .field("lastIpAddress", r.ipv4s().type(CLASS_B))
                                         .field("registeredMacAddress", r.macs())
-                                        .field("creditCardsCVVs", r.ccs()
+                                        .field("creditCardsCVVs", r.creditCards()
                                                                    .type(AMERICAN_EXPRESS)
                                                                    .mapVals(10, r.cvvs()::val))
                                         .list(100)

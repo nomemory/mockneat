@@ -15,8 +15,8 @@ public class Files {
     private MockNeat rand;
     private FileManager fm = FileManager.getInstance();
 
-    public Files(MockNeat rand) {
-        this.rand = rand;
+    public Files(MockNeat mock) {
+        this.rand = mock;
     }
 
     public MockUnitString from(String path) {

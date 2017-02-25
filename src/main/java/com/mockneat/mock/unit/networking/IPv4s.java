@@ -30,10 +30,10 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class IPv4s implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public IPv4s(MockNeat rand) {
-        this.rand = rand;
+    public IPv4s(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class IPv4s implements MockUnitString {
 
     public MockUnitString types(IPv4Type... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        IPv4Type type = rand.from(types).val();
+        IPv4Type type = mock.from(types).val();
         return type(type);
     }
 
@@ -57,7 +57,7 @@ public class IPv4s implements MockUnitString {
                 int up = range.getUpperBound();
                 if (range.isConstant()) buff.append(low).append(".");
                 else {
-                    int result = rand.ints().range(low, up + 1).val();
+                    int result = mock.ints().range(low, up + 1).val();
                     buff.append(result).append(".");
                 }
             });

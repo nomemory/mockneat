@@ -37,10 +37,10 @@ public class LocalDates implements MockUnitLocalDate {
     private static final long DEFAULT_DAYS_BEFORE = 10;
     private static final long DEFAULT_DAYS_AFTER = 10;
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public LocalDates(MockNeat rand) {
-        this.rand = rand;
+    public LocalDates(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class LocalDates implements MockUnitLocalDate {
         Supplier<LocalDate> supp = () -> {
             int year = now().getYear();
             int maxDays = now().lengthOfYear();
-            int randDay = rand.ints().range(0, maxDays+1).val();
+            int randDay = mock.ints().range(0, maxDays+1).val();
             return LocalDate.ofYearDay(year, randDay);
         };
         return () -> supp;
@@ -63,7 +63,7 @@ public class LocalDates implements MockUnitLocalDate {
             int year = now().getYear();
             Month month = now().getMonth();
             int lM = now().lengthOfMonth();
-            int randDay = rand.ints().range(0, lM+1).val();
+            int randDay = mock.ints().range(0, lM+1).val();
             return LocalDate.of(year, month, randDay);
         };
         return () -> supp;
@@ -79,7 +79,7 @@ public class LocalDates implements MockUnitLocalDate {
         Supplier<LocalDate> supp = () -> {
             long lowerEpoch = lower.toEpochDay();
             long upperEpoch = upper.toEpochDay();
-            long randEpoch = rand.longs().range(lowerEpoch, upperEpoch).val();
+            long randEpoch = mock.longs().range(lowerEpoch, upperEpoch).val();
             return LocalDate.ofEpochDay(randEpoch);
         };
         return ()-> supp;

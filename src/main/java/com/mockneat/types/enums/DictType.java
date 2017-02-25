@@ -30,6 +30,7 @@ public enum DictType {
 
     //FINANCIAL
     FOREX_PAIRS("forex-pairs"),
+    CREDIT_CARD_NAMES("credit-card-names"),
 
     // NAMES
     FIRST_NAME_MALE_AMERICAN("first-names-american-male"),
@@ -51,7 +52,10 @@ public enum DictType {
     EN_VERB_1SYLL("words/en-verb-1syll"),
     EN_VERB_2SYLL("words/en-verb-2syll"),
     EN_VERB_3SYLL("words/en-verb-3syll"),
-    EN_VERB_4SYLL("words/en-verb-4syll");
+    EN_VERB_4SYLL("words/en-verb-4syll"),
+
+    //COMPANIES
+    DEPARTMENTS("departments");
 
     private String fileName;
 

@@ -27,15 +27,15 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Dicts {
 
-    private MockNeat rand;
+    private MockNeat mock;
     private FileManager fm = FileManager.getInstance();
 
-    public Dicts(MockNeat rand) {
-        this.rand = rand;
+    public Dicts(MockNeat mock) {
+        this.mock = mock;
     }
 
     public MockUnitString type(DictType type) {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
-        return () -> rand.fromStrings(fm.getLines(type))::val;
+        return () -> mock.fromStrings(fm.getLines(type))::val;
     }
 }

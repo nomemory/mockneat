@@ -30,8 +30,8 @@ public class Ints implements MockUnitInt {
 
     private Random random;
 
-    public Ints(MockNeat rand) {
-        this.random = rand.getRandom();
+    public Ints(MockNeat mock) {
+        this.random = mock.getRandom();
     }
 
     @Override

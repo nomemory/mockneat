@@ -3,9 +3,9 @@ package com.mockneat.mock.unit.networking;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.junit.Test;
 
-import static com.mockneat.mock.RandTestConstants.IPV6S_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.IPV6S_CYCLES;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 /**

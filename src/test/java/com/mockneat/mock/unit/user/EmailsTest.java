@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import java.util.regex.Pattern;
 
-import static com.mockneat.mock.RandTestConstants.EMAILS_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.EMAILS_CYCLES;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 

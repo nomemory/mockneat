@@ -30,10 +30,10 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Names implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Names(MockNeat rand) {
-        this.rand = rand;
+    public Names(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -43,13 +43,13 @@ public class Names implements MockUnitString {
 
     public MockUnitString types(NameType... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        NameType nameType = rand.from(types).val();
+        NameType nameType = mock.from(types).val();
         return type(nameType);
     }
 
     public MockUnitString type(NameType type) {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
-        DictType dictType = rand.from(type.getDictionaries()).val();
-        return () -> rand.dicts().type(dictType)::val;
+        DictType dictType = mock.from(type.getDictionaries()).val();
+        return () -> mock.dicts().type(dictType)::val;
     }
 }

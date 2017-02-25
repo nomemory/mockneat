@@ -6,9 +6,9 @@ import java.time.Month;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static com.mockneat.mock.RandTestConstants.DAYS_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.DAYS_CYCLES;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.time.Month.DECEMBER;
 import static java.time.Month.NOVEMBER;
 import static java.time.Month.OCTOBER;

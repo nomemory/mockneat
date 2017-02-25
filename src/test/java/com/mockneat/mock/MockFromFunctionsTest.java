@@ -8,13 +8,13 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static com.mockneat.mock.RandTestConstants.*;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.*;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
 import static org.junit.Assert.assertTrue;
 
-public class RandFromFunctionsTest {
+public class MockFromFunctionsTest {
 
     private static class TestModel {
         private String x1;

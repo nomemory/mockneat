@@ -2,9 +2,9 @@ package com.mockneat.mock.interfaces;
 
 import org.junit.Test;
 
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.RandTestConstants.RU_CYCLES;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.RU_CYCLES;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.lang.Character.isDigit;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;

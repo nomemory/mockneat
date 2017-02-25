@@ -9,10 +9,10 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import static com.mockneat.alphabets.Alphabets.*;
-import static com.mockneat.mock.RandTestConstants.CHARS_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RAND;
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.CHARS_CYCLES;
+import static com.mockneat.mock.Constants.RAND;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 
 public class CharsTest {

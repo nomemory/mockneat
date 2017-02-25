@@ -9,8 +9,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.mockneat.mock.RandTestConstants.*;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.*;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertTrue;

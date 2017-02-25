@@ -3,7 +3,7 @@ package com.mockneat.mock.unit.user;
 import com.mockneat.types.enums.UserNameType;
 import org.junit.Test;
 
-import static com.mockneat.mock.RandTestConstants.RAND;
+import static com.mockneat.mock.Constants.RAND;
 
 /**
  * Created by andreinicolinciobanu on 18/02/2017.

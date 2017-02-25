@@ -32,8 +32,8 @@ public class Doubles implements MockUnitDouble {
 
     private Random random;
 
-    public Doubles(MockNeat rand) {
-        this.random = rand.getRandom();
+    public Doubles(MockNeat mock) {
+        this.random = mock.getRandom();
     }
 
     @Override

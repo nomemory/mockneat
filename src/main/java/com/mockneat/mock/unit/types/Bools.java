@@ -25,16 +25,16 @@ import static org.apache.commons.lang3.Validate.inclusiveBetween;
 
 public class Bools implements MockUnit<Boolean> {
 
-    private MockNeat rand;
+    private MockNeat mock;
     private Random random;
 
-    public Bools(MockNeat rand) {
-        this.rand = rand;
-        this.random = rand.getRandom();
+    public Bools(MockNeat mock) {
+        this.mock = mock;
+        this.random = mock.getRandom();
     }
 
     protected Boolean withProb(Double lower, Double trigger, Double upper) {
-        return rand.doubles().range(lower, upper).val() < trigger;
+        return mock.doubles().range(lower, upper).val() < trigger;
     }
 
     public MockUnit<Boolean> probability(double probability) {

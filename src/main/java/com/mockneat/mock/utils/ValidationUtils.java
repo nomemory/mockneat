@@ -41,6 +41,11 @@ public class ValidationUtils {
     public static final String CANNOT_INSTANTIATE_OBJECT_OF_CLASS = "Cannot create an instance of '%s'. Please verify if the class has a public 'No Arguments' constructor: %s().";
     public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field %s.%s with value '%s'. Is the supplied value correct ?";
     public static final String CANNOT_INFER_CONSTRUCTOR = "Cannot infer %s%s. Are you sure the constructor exists and it's public ?";
+    // SEQ
+    public static final String INT_SEQ_OVERFLOW = "IntSeq overflow. Values are generated inside the interval: [%d, %d]. Cannot increment any further.";
+    public static final String LONG_SEQ_OVERFLOW = "LongSeq overflow. Values are generated inside the interval: [%d, %d]. Cannot increment any further.";
+    public static final String SEQ_INVALID_RANGE = "The min value (%d) should be lower than the maximum (%d) value of the sequence.";
+
 
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)

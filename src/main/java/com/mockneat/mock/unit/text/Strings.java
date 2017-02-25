@@ -18,13 +18,13 @@ import static org.apache.commons.lang3.Validate.notEmpty;
 
 public class Strings implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
     private Random random;
     private int size = 64;
 
-    public Strings(MockNeat rand) {
-        this.rand = rand;
-        this.random = rand.getRandom();
+    public Strings(MockNeat mock) {
+        this.mock = mock;
+        this.random = mock.getRandom();
     }
 
     public Strings size(int size) {
@@ -48,7 +48,7 @@ public class Strings implements MockUnitString {
 
     public MockUnitString types(StringType... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        StringType type = rand.from(types).val();
+        StringType type = mock.from(types).val();
         return type(type);
     }
 
@@ -65,14 +65,14 @@ public class Strings implements MockUnitString {
     }
 
     protected Supplier<String> hex() {
-        return () -> rand.fromStrings(HEXA_STR)
+        return () -> mock.fromStrings(HEXA_STR)
                             .stream().val()
                             .limit(size)
                             .collect(joining());
     }
 
     protected Supplier<String> specialChars() {
-        return () -> rand.fromStrings(SPECIAL_CHARACTERS_STR)
+        return () -> mock.fromStrings(SPECIAL_CHARACTERS_STR)
                             .stream().val()
                             .limit(size)
                             .collect(joining());

@@ -35,22 +35,22 @@ public class MarkovUnit {
     private Map<WordState, WordStatistic> chain;
     private MockUnit<WordState> randState;
     private Integer stateSize = 2;
-    private MockNeat rand = MockNeat.threadLocal();
+    private MockNeat mock = MockNeat.threadLocal();
 
-    public MarkovUnit(MockNeat rand, List<String> lines, Integer stateSize) {
+    public MarkovUnit(MockNeat mock, List<String> lines, Integer stateSize) {
         this.stateSize = stateSize;
         this.chain = getChain(getRawChain(getWords(lines)));
-        this.rand = rand;
-        this.randState = this.rand.fromKeys(chain);
+        this.mock = mock;
+        this.randState = this.mock.fromKeys(chain);
     }
 
-    public MarkovUnit(MockNeat rand, String textFile, Integer stateSize) throws IOException {
+    public MarkovUnit(MockNeat mock, String textFile, Integer stateSize) throws IOException {
         this.stateSize = stateSize;
-        this.rand = rand;
+        this.mock = mock;
 
         List<String> lines = Files.readAllLines(Paths.get(textFile));
         this.chain = getChain(getRawChain(getWords(lines)));
-        this.randState = this.rand.fromKeys(chain);
+        this.randState = this.mock.fromKeys(chain);
     }
 
     protected List<String> getWords(List<String> lines) {
@@ -104,7 +104,7 @@ public class MarkovUnit {
     }
 
     public String  generateText(Integer maxLength) {
-        //TODO validate rand, minLength, maxLength
+        //TODO validate mock, minLength, maxLength
 
         // Obtain a objs state from the existing states
         StringBuilder buff = new StringBuilder();

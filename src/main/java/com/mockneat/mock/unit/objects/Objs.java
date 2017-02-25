@@ -10,20 +10,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static java.lang.String.format;
 import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.reflect.ConstructorUtils.invokeConstructor;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 public class Objs<T> implements MockUnit<T> {
 
-    private MockNeat rand = MockNeat.threadLocal();
+    private MockNeat mock = MockNeat.threadLocal();
     private Map<String, MockValue> fields = new LinkedHashMap<>();
     private Class<T> cls;
 
     public Objs() {}
 
-    public Objs(MockNeat rand, Class<T> cls) {
-        this.rand = rand;
+    public Objs(MockNeat mock, Class<T> cls) {
+        this.mock = mock;
         this.cls = cls;
     }
 
@@ -51,7 +52,7 @@ public class Objs<T> implements MockUnit<T> {
         try {
             return cls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            String fmt = String.format(ValidationUtils.CANNOT_INSTANTIATE_OBJECT_OF_CLASS,
+            String fmt = format(ValidationUtils.CANNOT_INSTANTIATE_OBJECT_OF_CLASS,
                     cls.getSimpleName(),
                     cls.getSimpleName());
             throw new IllegalArgumentException(fmt, e);
@@ -64,7 +65,7 @@ public class Objs<T> implements MockUnit<T> {
             try {
                 writeField(object, key, cVal, true);
             } catch (IllegalAccessException e) {
-                String fmt = String.format(ValidationUtils.CANNOT_SET_FIELD_WITH_VALUE, cls.getSimpleName(), key, cVal);
+                String fmt = format(ValidationUtils.CANNOT_SET_FIELD_WITH_VALUE, cls.getSimpleName(), key, cVal);
                throw new IllegalArgumentException(fmt, e);
             }
         });
@@ -86,16 +87,13 @@ public class Objs<T> implements MockUnit<T> {
         Supplier<T> supp = () -> {
             Object[] args = new Object[mockUnits.length];
             range(0, mockUnits.length).forEach(i -> {
-                if (mockUnits[i]==null) {
-                    args[i] = null;
-                } else {
-                    args[i] = mockUnits[i].val();
-                }
+                if (mockUnits[i]==null) { args[i] = null; }
+                else { args[i] = mockUnits[i].val(); }
             });
             try {
                 return invokeConstructor(cls, args);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                String fmt = String.format(ValidationUtils.CANNOT_INFER_CONSTRUCTOR, cls.getName(), listTypes(args));
+                String fmt = format(ValidationUtils.CANNOT_INFER_CONSTRUCTOR, cls.getName(), listTypes(args));
                 throw new IllegalArgumentException(fmt, e);
             }
         };

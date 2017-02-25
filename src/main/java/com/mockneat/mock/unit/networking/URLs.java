@@ -31,7 +31,7 @@ public class URLs implements MockUnitString {
     // <schemes://><user:password@><host><.domain><:port></.../...>
     private static final String URL_FORMAT = "%s%s%s%s%s";
 
-    private MockNeat rand;
+    private MockNeat mock;
 
     // Scheme
     private Supplier<String> schemeSupplier;
@@ -51,8 +51,8 @@ public class URLs implements MockUnitString {
     // Port
     private Supplier<String> portSupplier;
 
-    public URLs(MockNeat rand) {
-        this.rand = rand;
+    public URLs(MockNeat mock) {
+        this.mock = mock;
         this.initializeSuppliers();
     }
 
@@ -85,7 +85,7 @@ public class URLs implements MockUnitString {
     }
 
     protected Supplier<String> schemeSupplier(String... schemes) {
-        return rand.fromStrings(schemes).append("://")::val;
+        return mock.fromStrings(schemes).append("://")::val;
     }
 
     protected Supplier<String> schemeSupplier(String scheme) {
@@ -99,7 +99,7 @@ public class URLs implements MockUnitString {
     }
 
     protected Supplier<String> schemeSupplier(URLSchemeType... schemes) {
-        return rand.from(schemes).mapToString().append("://")::val;
+        return mock.from(schemes).mapToString().append("://")::val;
     }
 
     public URLs schemes(String... schemes) {
@@ -142,10 +142,10 @@ public class URLs implements MockUnitString {
     }
 
     public URLs auth() {
-        this.userNameSupplier = rand.users()
+        this.userNameSupplier = mock.users()
                                     .urlEncode()
                                     .supplier();
-        this.passWordSupplier = rand.passwords()
+        this.passWordSupplier = mock.passwords()
                                     .type(MEDIUM)
                                     .urlEncode()
                                     .supplier();
@@ -156,19 +156,19 @@ public class URLs implements MockUnitString {
     protected Supplier<String> defaultHostSupplier() {
         return () -> {
             List<Pair<DictType, DictType>> comboList =
-                    rand.from(HostNameType.class).val().getDictCombos();
+                    mock.from(HostNameType.class).val().getDictCombos();
             Pair<DictType, DictType> combo =
-                    rand.from(comboList).val();
+                    mock.from(comboList).val();
             String result =
-                    rand.dicts().type(combo.getFirst()).noSpecialChars().val() +
-                    rand.dicts().type(combo.getSecond()).noSpecialChars().val();
+                    mock.dicts().type(combo.getFirst()).noSpecialChars().val() +
+                    mock.dicts().type(combo.getSecond()).noSpecialChars().val();
             if (www) { result = "www.".concat(result); }
             return result;
         };
     }
 
     protected Supplier<String> hostSupplier(String... hosts) {
-        return rand.fromStrings(hosts).prepend(www ? "www." : "")::val;
+        return mock.fromStrings(hosts).prepend(www ? "www." : "")::val;
     }
 
     protected Supplier<String> hostSupplier(String host) {
@@ -176,16 +176,16 @@ public class URLs implements MockUnitString {
     }
 
     protected Supplier<String> hostSupplier(HostNameType... types) {
-        HostNameType type = rand.from(types).val();
+        HostNameType type = mock.from(types).val();
         return hostSupplier(type);
     }
 
     protected Supplier<String> hostSupplier(HostNameType hostNameType) {
        return () -> {
             List<Pair<DictType, DictType>> comboList = hostNameType.getDictCombos();
-            Pair<DictType, DictType> combo = rand.from(comboList).val();
-            String result1 = rand.dicts().type(combo.getFirst()).noSpecialChars().val();
-            String result2 = rand.dicts().type(combo.getSecond()).noSpecialChars().val();
+            Pair<DictType, DictType> combo = mock.from(comboList).val();
+            String result1 = mock.dicts().type(combo.getFirst()).noSpecialChars().val();
+            String result2 = mock.dicts().type(combo.getSecond()).noSpecialChars().val();
             String result = result1 + result2;
             if (www) result = "www.".concat(result);
             return result;
@@ -226,15 +226,15 @@ public class URLs implements MockUnitString {
     }
 
     protected Supplier<String> domainSupplier(DomainSuffixType... types) {
-        return rand.domains().types(types).prepend(".")::val;
+        return mock.domains().types(types).prepend(".")::val;
     }
 
     protected Supplier<String> domainSupplier(DomainSuffixType type) {
-        return rand.domains().types(type).prepend(".")::val;
+        return mock.domains().types(type).prepend(".")::val;
     }
 
     protected Supplier<String> domainSupplier(String... domains) {
-        return rand.fromStrings(domains).prepend(".")::val;
+        return mock.fromStrings(domains).prepend(".")::val;
     }
 
     protected Supplier<String> domainSupplier(String domain) {
@@ -278,7 +278,7 @@ public class URLs implements MockUnitString {
     }
 
     protected Supplier<String> portSupplier(Integer... array) {
-        return rand.fromInts(array).mapToString().prepend(":")::val;
+        return mock.fromInts(array).mapToString().prepend(":")::val;
     }
 
     protected Supplier<String> portSupplier(Integer port) {

@@ -6,10 +6,10 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mockneat.mock.RandTestConstants.*;
+import static com.mockneat.mock.Constants.*;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 public class LongsTest {

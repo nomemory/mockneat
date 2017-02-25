@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.mockneat.alphabets.Alphabets.SPECIAL_CHARACTERS;
-import static com.mockneat.mock.RandTestConstants.PASS_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RAND;
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.PASS_CYCLES;
+import static com.mockneat.mock.Constants.RAND;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static com.mockneat.types.enums.PassStrengthType.STRONG;
 import static com.mockneat.types.enums.PassStrengthType.WEAK;

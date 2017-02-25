@@ -17,7 +17,7 @@ package com.mockneat.mock.unit.financial;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import com.mockneat.mock.utils.FunctUtils;
+import com.mockneat.mock.utils.LoopsUtils;
 import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
@@ -29,10 +29,10 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class CVVS implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public CVVS(MockNeat rand) {
-        this.rand = rand;
+    public CVVS(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class CVVS implements MockUnitString {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
-            FunctUtils.loop(type.getLength(), () ->
-                    builder.append(rand.chars().digits().val()));
+            LoopsUtils.loop(type.getLength(), () ->
+                    builder.append(mock.chars().digits().val()));
             return builder.toString();
         };
         return () -> supplier;

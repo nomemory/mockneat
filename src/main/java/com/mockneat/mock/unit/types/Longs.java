@@ -29,12 +29,12 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Longs implements MockUnitLong {
 
-    private MockNeat rand;
+    private MockNeat mock;
     private Random random;
 
-    public Longs(MockNeat rand) {
-        this.rand = rand;
-        this.random = rand.getRandom();
+    public Longs(MockNeat mock) {
+        this.mock = mock;
+        this.random = mock.getRandom();
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Longs implements MockUnitLong {
         isTrue(upperBound>0, ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>lowerBound, ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND);
         Supplier<Long> supplier = () ->
-                rand.longs().bound(upperBound - lowerBound).val() + lowerBound;
+                mock.longs().bound(upperBound - lowerBound).val() + lowerBound;
         return () -> supplier;
     }
 

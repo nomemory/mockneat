@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
-public class RandUnitUtils {
+public class MockUnitUtils {
     public static <T> void add(Class<? extends Collection> collectionClass, Collection<T> result, Supplier<T> supplier) {
         T value = supplier.get();
         try {

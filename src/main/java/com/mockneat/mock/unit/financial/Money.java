@@ -31,13 +31,13 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Money implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
     private NumberFormat formatter = getCurrencyInstance(US);
     public static final double DEFAULT_LOWER = 0.0;
     public static final double DEFAULT_UPPER = 10000.0;
 
-    public Money(MockNeat rand) {
-        this.rand = rand;
+    public Money(MockNeat mock) {
+        this.mock = mock;
     }
 
     public Money locale(Locale locale) {
@@ -47,13 +47,13 @@ public class Money implements MockUnitString {
     }
 
     public MockUnitString range(double lowerBound, double upperBound) {
-        return () -> rand.doubles()
+        return () -> mock.doubles()
                          .range(lowerBound, upperBound)
                          .mapToString(formatter::format)::val;
     }
 
     public MockUnitString bound(double bound) {
-        return () -> rand.doubles()
+        return () -> mock.doubles()
                             .bound(bound)
                             .mapToString(formatter::format)::val;
     }

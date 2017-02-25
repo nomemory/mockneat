@@ -26,21 +26,21 @@ import static com.mockneat.types.enums.DictType.DOMAIN_EMAIL;
 
 public class Emails implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Emails(MockNeat rand) {
-        this.rand = rand;
+    public Emails(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
     public Supplier<String> supplier() {
-        return () -> rand.users().val() + "@" + rand.dicts().type(DOMAIN_EMAIL).val();
+        return () -> mock.users().val() + "@" + mock.dicts().type(DOMAIN_EMAIL).val();
     }
 
     public MockUnit<String> withDomains(String... domains) {
         Supplier<String> supp = () -> {
-            String user = rand.users().val();
-            String domain = rand.from(domains).val();
+            String user = mock.users().val();
+            String domain = mock.from(domains).val();
             return user + "@" + domain;
         };
         return () -> supp;

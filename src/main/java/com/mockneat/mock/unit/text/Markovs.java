@@ -40,22 +40,22 @@ public class Markovs implements MockUnitString {
 
     private Map<MarkovChainType, MarkovUnit> markovUnits =  new EnumMap<>(MarkovChainType.class);
 
-    private MockNeat rand;
+    private MockNeat mock;
     private int size = 512;
 
-    public Markovs(MockNeat rand) {
-        this.rand = rand;
+    public Markovs(MockNeat mock) {
+        this.mock = mock;
     }
 
     protected MarkovUnit get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {
-            markovUnits.put(markovChainType, new MarkovUnit(rand, markovChainType.getPath(), 2));
+            markovUnits.put(markovChainType, new MarkovUnit(mock, markovChainType.getPath(), 2));
         }
         return markovUnits.get(markovChainType);
     }
 
     public Markovs size(int size) {
-        Markovs markovs = new Markovs(rand);
+        Markovs markovs = new Markovs(mock);
         markovs.size = size;
         return markovs;
     }
@@ -67,7 +67,7 @@ public class Markovs implements MockUnitString {
 
     public MockUnitString types(MarkovChainType... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        MarkovChainType type = rand.from(types).val();
+        MarkovChainType type = mock.from(types).val();
         return type(type);
     }
 

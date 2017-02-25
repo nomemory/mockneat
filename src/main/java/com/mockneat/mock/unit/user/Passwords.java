@@ -38,15 +38,15 @@ import static org.apache.commons.lang3.Validate.notNull;
  */
 public class Passwords implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Passwords(MockNeat rand) {
-        this.rand = rand;
+    public Passwords(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
     public Supplier<String> supplier() {
-        PassStrengthType passStrengthType = rand.from(PassStrengthType.class).val();
+        PassStrengthType passStrengthType = mock.from(PassStrengthType.class).val();
         return () -> nextPassword(passStrengthType);
     }
 
@@ -58,7 +58,7 @@ public class Passwords implements MockUnitString {
 
     public MockUnitString types(PassStrengthType... passStrengthTypes) {
         notEmpty(passStrengthTypes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "passStrengthTypes");
-        PassStrengthType passStrengthType = rand.from(passStrengthTypes).val();
+        PassStrengthType passStrengthType = mock.from(passStrengthTypes).val();
         return type(passStrengthType);
     }
 
@@ -77,8 +77,8 @@ public class Passwords implements MockUnitString {
     protected String nextWeakPassword() {
         Integer minLength = WEAK.getLength().getLowerBound();
         Integer maxLength = WEAK.getLength().getUpperBound();
-        DictType dictType = rand.from(EN_NOUN_2SYLL, EN_NOUN_1SYLL).val();
-        String noun = rand.dicts().type(dictType).val();
+        DictType dictType = mock.from(EN_NOUN_2SYLL, EN_NOUN_1SYLL).val();
+        String noun = mock.dicts().type(dictType).val();
         if (noun.length()>maxLength) {
             noun = noun.substring(0, maxLength);
         }
@@ -89,7 +89,7 @@ public class Passwords implements MockUnitString {
             // is shorted than the minLength
             int diff = minLength - noun.length();
             while (diff-- > 0)
-                resultBuff.append(rand.ints().range(0, 10).val());
+                resultBuff.append(mock.ints().range(0, 10).val());
         }
 
         return resultBuff.toString();
@@ -98,7 +98,7 @@ public class Passwords implements MockUnitString {
     protected String nextMediumPassword() {
         Integer minLength = MEDIUM.getLength().getLowerBound();
         Integer maxLength = MEDIUM.getLength().getUpperBound();
-        String noun = rand.dicts().type(EN_NOUN_3SYLL).val();
+        String noun = mock.dicts().type(EN_NOUN_3SYLL).val();
         if (noun.length()>maxLength) {
             noun = noun.substring(0, maxLength);
         }
@@ -107,17 +107,17 @@ public class Passwords implements MockUnitString {
         if (noun.length() < minLength) {
             int diff = minLength - noun.length();
             while (diff-- > 0)
-                resultBuff.append(rand.chars().digits().val());
+                resultBuff.append(mock.chars().digits().val());
         }
 
         // Create a objs uppercase character
-        int randUpperCaseIdx = rand.ints().range(0, noun.length() - 1).val();
+        int randUpperCaseIdx = mock.ints().range(0, noun.length() - 1).val();
         char replChar = resultBuff.charAt(randUpperCaseIdx);
         resultBuff.setCharAt(randUpperCaseIdx, Character.toUpperCase(replChar));
 
         // Insert / Replace with a objs special character
-        int randSpecialChrIdx = rand.ints().range(0, resultBuff.length()).val();
-        char specialChar = rand.from(SPECIAL_CHARACTERS).val();
+        int randSpecialChrIdx = mock.ints().range(0, resultBuff.length()).val();
+        char specialChar = mock.from(SPECIAL_CHARACTERS).val();
         if (resultBuff.length() < maxLength) {
             resultBuff.insert(randSpecialChrIdx, specialChar);
         } else {
@@ -131,16 +131,16 @@ public class Passwords implements MockUnitString {
     protected String nextStrongPassword() {
         Integer minLength = STRONG.getLength().getLowerBound();
         Integer maxLength = STRONG.getLength().getUpperBound();
-        int passLength = rand.ints().range(minLength, maxLength).val();
+        int passLength = mock.ints().range(minLength, maxLength).val();
         StringBuilder buff = new StringBuilder();
         List<Character> cAlph;
         while (passLength-- > 1) {
-            cAlph = rand.from(SPECIAL_CHARACTERS, DIGITS, LETTERS).val();
-            buff.append(rand.from(cAlph).val());
+            cAlph = mock.from(SPECIAL_CHARACTERS, DIGITS, LETTERS).val();
+            buff.append(mock.from(cAlph).val());
         }
         // Insert a special character to be 100% confident it exists
-        int randSpecialChrIdx = rand.ints().range(0, buff.length()).val();
-        buff.insert(randSpecialChrIdx, rand.from(SPECIAL_CHARACTERS).val());
+        int randSpecialChrIdx = mock.ints().range(0, buff.length()).val();
+        buff.insert(randSpecialChrIdx, mock.from(SPECIAL_CHARACTERS).val());
         return buff.toString();
     }
 }

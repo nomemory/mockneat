@@ -2,8 +2,8 @@ package com.mockneat.mock.unit.types;
 
 import org.junit.Test;
 
-import static com.mockneat.mock.RandTestConstants.*;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.*;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

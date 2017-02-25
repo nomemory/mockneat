@@ -18,9 +18,12 @@ package com.mockneat.mock;
  */
 
 import com.mockneat.mock.interfaces.*;
+import com.mockneat.mock.unit.companies.Departments;
 import com.mockneat.mock.unit.financial.CVVS;
 import com.mockneat.mock.unit.networking.*;
 import com.mockneat.mock.unit.objects.Objs;
+import com.mockneat.mock.unit.seq.IntSeq;
+import com.mockneat.mock.unit.seq.LongSeq;
 import com.mockneat.mock.unit.text.Files;
 import com.mockneat.mock.unit.text.Markovs;
 import com.mockneat.mock.unit.time.LocalDates;
@@ -29,7 +32,7 @@ import com.mockneat.mock.unit.user.Passwords;
 import com.mockneat.mock.unit.user.Users;
 import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.unit.address.Countries;
-import com.mockneat.mock.unit.financial.CCS;
+import com.mockneat.mock.unit.financial.CreditCards;
 import com.mockneat.mock.unit.financial.Currencies;
 import com.mockneat.mock.unit.financial.Money;
 import com.mockneat.mock.unit.id.UUIDs;
@@ -39,11 +42,10 @@ import com.mockneat.mock.unit.time.Days;
 import com.mockneat.mock.unit.time.Months;
 import com.mockneat.mock.unit.user.Emails;
 import com.mockneat.mock.unit.user.Names;
-import com.mockneat.types.enums.RandType;
+import com.mockneat.types.enums.RandomType;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.function.Supplier;
 
 import static org.apache.commons.lang3.Validate.notEmpty;
@@ -52,15 +54,20 @@ import static org.apache.commons.lang3.Validate.notNull;
 @SuppressWarnings("unchecked")
 public class MockNeat {
 
-    private Random random;
+    private static final MockNeat THREAD_LOCAL = new MockNeat(RandomType.THREAD_LOCAL);
+    private static final MockNeat SECURE = new MockNeat(RandomType.SECURE);
+    private static final MockNeat OLD = new MockNeat(RandomType.OLD);
+
+    private java.util.Random random;
 
     private Bools rBools;
     private Countries rCountries;
-    private CCS rCCS;
+    private CreditCards rCCS;
     private Chars rChars;
     private Currencies rCurrencies;
     private CVVS rCVVS;
     private Days rDays;
+    private Departments rDepartments;
     private Dicts rDicts;
     private Domains rDomains;
     private Doubles rDoubles;
@@ -81,16 +88,17 @@ public class MockNeat {
     private UUIDs rUUIDs;
     private Users rUsers;
 
-    protected MockNeat(RandType randomType) {
-        this.random = randomType.getRandom();
+    protected MockNeat(RandomType randomTypeType) {
+        this.random = randomTypeType.getRandom();
 
         this.rChars = new Chars(this);
         this.rBools = new Bools(this);
         this.rCountries = new Countries(this);
-        this.rCCS = new CCS(this);
+        this.rCCS = new CreditCards(this);
         this.rCurrencies = new Currencies(this);
         this.rCVVS = new CVVS(this);
         this.rDays = new Days(this);
+        this.rDepartments = new Departments(this);
         this.rDomains = new Domains(this);
         this.rDicts = new Dicts(this);
         this.rDoubles = new Doubles(this);
@@ -113,27 +121,27 @@ public class MockNeat {
     }
 
     protected MockNeat() {
-        this(RandType.THREAD_LOCAL_RANDOM);
+        this(RandomType.THREAD_LOCAL);
     }
 
-    protected MockNeat(RandType randomType, Long seed) {
-        this(randomType);
+    public MockNeat(RandomType randomTypeType, Long seed) {
+        this(randomTypeType);
         random.setSeed(seed);
     }
 
-    public static MockNeat threadLocal() { return new MockNeat(RandType.THREAD_LOCAL_RANDOM); }
-    public static MockNeat secure() { return new MockNeat(RandType.SECURE_RANDOM); }
-    public static MockNeat old() { return new MockNeat(RandType.RANDOM); }
+    public static MockNeat threadLocal() { return THREAD_LOCAL; }
+    public static MockNeat secure() { return SECURE; }
+    public static MockNeat old() { return OLD; }
 
     public Bools bools() {
         return this.rBools;
     }
 
-    public CCS ccs() {
+    public Chars chars() { return this.rChars; }
+
+    public CreditCards creditCards() {
         return this.rCCS;
     }
-
-    public Chars chars() { return this.rChars; }
 
     public Countries countries() {
         return this.rCountries;
@@ -149,6 +157,8 @@ public class MockNeat {
 
     public Days days() { return this.rDays; }
 
+    public Departments departments() { return this.rDepartments; }
+
     public Domains domains() { return this.rDomains;}
 
     public Doubles doubles() {
@@ -163,6 +173,8 @@ public class MockNeat {
 
     public Ints ints() { return this.rInts; }
 
+    public IntSeq intSeq() { return new IntSeq(); }
+
     public IPv4s ipv4s() { return this.rIPv4s; }
 
     public IPv6s iPv6s() { return this.rIPv6s; }
@@ -170,6 +182,8 @@ public class MockNeat {
     public LocalDates localDates() { return this.rLocalDates; }
 
     public Longs longs() { return this.rLongs; }
+
+    public LongSeq longSeq() { return new LongSeq(); }
 
     public Macs macs() { return this.rMacs; }
 
@@ -193,7 +207,7 @@ public class MockNeat {
 
     public Users users() { return this.rUsers; }
 
-    public Random getRandom() {
+    public java.util.Random getRandom() {
         return random;
     }
 

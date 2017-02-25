@@ -2,9 +2,9 @@ package com.mockneat.mock.unit.address;
 
 import org.junit.Test;
 
-import static com.mockneat.mock.RandTestConstants.COUNTRIES_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RANDS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.Constants.COUNTRIES_CYCLES;
+import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static org.junit.Assert.assertTrue;

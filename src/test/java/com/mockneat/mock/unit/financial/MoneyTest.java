@@ -6,10 +6,10 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import static com.mockneat.mock.RandTestConstants.*;
+import static com.mockneat.mock.Constants.*;
 import static com.mockneat.mock.unit.financial.Money.DEFAULT_LOWER;
 import static com.mockneat.mock.unit.financial.Money.DEFAULT_UPPER;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.text.NumberFormat.getCurrencyInstance;
 import static java.util.Locale.*;
 import static org.junit.Assert.assertTrue;

@@ -26,7 +26,7 @@ public class Example01 {
         // Generate a list of 10 credit card numbers.
         // Limit the types of credit cards to AMEX and MasterCard.
         List<String> creditCards =
-                m.ccs()
+                m.creditCards()
                     .types(AMERICAN_EXPRESS, MASTERCARD)
                     .list(10)
                     .val();

@@ -7,7 +7,9 @@ import com.mockneat.types.enums.DomainSuffixType;
 
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.types.enums.DomainSuffixType.POPULAR;
+import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -16,10 +18,10 @@ import static org.apache.commons.lang3.Validate.notNull;
  */
 public class Domains implements MockUnitString {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Domains(MockNeat rand) {
-        this.rand = rand;
+    public Domains(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -29,12 +31,14 @@ public class Domains implements MockUnitString {
 
     public MockUnitString type(DomainSuffixType type) {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "type");
-        return () -> rand.dicts().type(type.getDictType())::val;
+        return () -> mock.dicts().type(type.getDictType())::val;
     }
 
     public MockUnitString types(DomainSuffixType... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        DomainSuffixType type = rand.from(types).val();
+        range(0, types.length).forEach(i ->
+                notNull(types[i], INPUT_PARAMETER_NOT_NULL, "types[" + i + "]"));
+        DomainSuffixType type = mock.from(types).val();
         return type(type);
     }
 }

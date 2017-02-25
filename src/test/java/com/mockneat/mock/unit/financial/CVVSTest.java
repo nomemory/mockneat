@@ -2,12 +2,12 @@ package com.mockneat.mock.unit.financial;
 
 import org.junit.Test;
 
-import static com.mockneat.mock.RandTestConstants.CVVS_CYCLES;
-import static com.mockneat.mock.RandTestConstants.RAND;
-import static com.mockneat.mock.RandTestConstants.RANDS;
+import static com.mockneat.mock.Constants.CVVS_CYCLES;
+import static com.mockneat.mock.Constants.RAND;
+import static com.mockneat.mock.Constants.RANDS;
 import static com.mockneat.types.enums.CVVType.CVV3;
 import static com.mockneat.types.enums.CVVType.CVV4;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static junit.framework.Assert.assertTrue;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;

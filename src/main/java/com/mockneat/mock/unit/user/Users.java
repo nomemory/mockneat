@@ -20,10 +20,10 @@ public class Users implements MockUnitString {
 
     private static final Double UNDERSCORE = 0.15;
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Users(MockNeat rand) {
-        this.rand = rand;
+    public Users(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
@@ -39,19 +39,19 @@ public class Users implements MockUnitString {
 
     public MockUnitString types(UserNameType... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        UserNameType type = rand.from(types).val();
+        UserNameType type = mock.from(types).val();
         return type(type);
     }
 
     protected String generateUserName(UserNameType type) {
-        Pair<DictType, DictType> pair = rand.from(type.getDictCombos()).val();
+        Pair<DictType, DictType> pair = mock.from(type.getDictCombos()).val();
 
         String part1 =
-                rand.dicts().type(pair.getFirst()).format(LOWER_CASE).val();
+                mock.dicts().type(pair.getFirst()).format(LOWER_CASE).val();
         String part2 =
-                rand.dicts().type(pair.getSecond()).format(LOWER_CASE).val();
+                mock.dicts().type(pair.getSecond()).format(LOWER_CASE).val();
 
-        if (rand.bools().probability(UNDERSCORE).val()) {
+        if (mock.bools().probability(UNDERSCORE).val()) {
             part1 += "_";
         }
         return part1 + part2;

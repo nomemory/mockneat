@@ -29,15 +29,15 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Days implements MockUnitDays {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Days(MockNeat rand) {
-        this.rand = rand;
+    public Days(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
     public Supplier<DayOfWeek> supplier() {
-        return rand.from(DayOfWeek.class)::val;
+        return mock.from(DayOfWeek.class)::val;
     }
 
     public MockUnitDays rangeClosed(DayOfWeek lower, DayOfWeek upper) {
@@ -45,7 +45,7 @@ public class Days implements MockUnitDays {
         notNull(upper, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue()<upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = rand.ints().range(lower.getValue()-1, upper.getValue()).val();
+            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;
@@ -56,7 +56,7 @@ public class Days implements MockUnitDays {
         notNull(upper, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue()<upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = rand.ints().range(lower.getValue()-1, upper.getValue()-1).val();
+            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()-1).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;
@@ -72,7 +72,7 @@ public class Days implements MockUnitDays {
         notNull(after, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "after");
         isTrue(after.getValue()-1<DayOfWeek.values().length-1, ValidationUtils.AFTER_DAY_DIFFERENT_THAN_SUNDAY);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = rand.ints().range(after.getValue(), DayOfWeek.values().length).val();
+            int idx = mock.ints().range(after.getValue(), DayOfWeek.values().length).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;

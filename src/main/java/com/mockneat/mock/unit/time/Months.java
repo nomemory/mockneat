@@ -29,15 +29,15 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Months implements MockUnitMonth {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Months(MockNeat rand) {
-        this.rand = rand;
+    public Months(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
     public Supplier<Month> supplier() {
-        return rand.from(Month.class)::val;
+        return mock.from(Month.class)::val;
     }
 
     public MockUnitMonth rangeClosed(Month lower, Month upper) {
@@ -45,7 +45,7 @@ public class Months implements MockUnitMonth {
         notNull(upper, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue() < upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<Month> supp = () -> {
-            int idx = rand.ints().range(lower.getValue()-1, upper.getValue()).val();
+            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()).val();
             return Month.values()[idx];
         };
         return () -> supp;
@@ -56,7 +56,7 @@ public class Months implements MockUnitMonth {
         notNull(upper, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue() < upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<Month> supp = () -> {
-            int idx = rand.ints().range(lower.getValue()-1, upper.getValue()-1).val();
+            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()-1).val();
             return Month.values()[idx];
         };
         return () -> supp;
@@ -72,7 +72,7 @@ public class Months implements MockUnitMonth {
         notNull(after, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "after");
         isTrue(after.getValue()<Month.values().length-1, ValidationUtils.AFTER_MONTH_DIFFERENT_TNAN_DECEMBER);
         Supplier<Month> supp = () -> {
-            int idx = rand.ints().range(after.getValue(), Month.values().length).val();
+            int idx = mock.ints().range(after.getValue(), Month.values().length).val();
             return Month.values()[idx];
         };
         return () -> supp;

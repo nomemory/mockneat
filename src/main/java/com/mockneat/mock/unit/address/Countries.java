@@ -27,17 +27,17 @@ import static com.mockneat.types.enums.DictType.COUNTRY_NAME;
  */
 public class Countries {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Countries(MockNeat rand) {
-        this.rand = rand;
+    public Countries(MockNeat mock) {
+        this.mock = mock;
     }
 
     public MockUnitString names() {
-        return rand.dicts().type(COUNTRY_NAME);
+        return mock.dicts().type(COUNTRY_NAME);
     }
 
     public MockUnitString iso2() {
-        return rand.dicts().type(COUNTRY_ISO_CODE_2);
+        return mock.dicts().type(COUNTRY_ISO_CODE_2);
     }
 }

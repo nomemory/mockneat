@@ -10,9 +10,9 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.mockneat.mock.RandTestConstants.*;
+import static com.mockneat.mock.Constants.*;
 import static com.mockneat.mock.unit.networking.URLs.COMMON_HTTP_PORTS;
-import static com.mockneat.mock.utils.FunctUtils.loop;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static com.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static com.mockneat.types.enums.HostNameType.ADJECTIVE_FIRST_NAME;
 import static com.mockneat.types.enums.HostNameType.NOUN_FIRST_NAME;

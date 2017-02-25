@@ -29,8 +29,8 @@ import static org.apache.commons.lang3.Validate.notNaN;
 public class Floats implements MockUnit<Float> {
     private Random random;
 
-    public Floats(MockNeat rand) {
-        this.random = rand.getRandom();
+    public Floats(MockNeat mock) {
+        this.random = mock.getRandom();
     }
 
     @Override

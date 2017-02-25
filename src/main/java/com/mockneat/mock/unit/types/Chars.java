@@ -30,34 +30,34 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Chars implements MockUnit<Character> {
 
-    private MockNeat rand;
+    private MockNeat mock;
 
-    public Chars(MockNeat rand) {
-        this.rand = rand;
+    public Chars(MockNeat mock) {
+        this.mock = mock;
     }
 
     @Override
     public Supplier<Character> supplier() {
-        return rand.from(Alphabets.ALPHA_NUMERIC)::val;
+        return mock.from(Alphabets.ALPHA_NUMERIC)::val;
     }
 
     public MockUnit<Character> digits() {
-        return rand.from(DIGITS);
+        return mock.from(DIGITS);
     }
 
     public MockUnit<Character> lowerLetters() {
-        return rand.from(LETTERS_LOWERCASE);
+        return mock.from(LETTERS_LOWERCASE);
     }
 
     public MockUnit<Character> upperLetters() {
-        return rand.from(LETTERS_UPPERCASE);
+        return mock.from(LETTERS_UPPERCASE);
     }
 
     public MockUnit<Character> letters() {
-        return rand.from(LETTERS);
+        return mock.from(LETTERS);
     }
 
-    public MockUnit<Character> hex() { return rand.from(HEXA); }
+    public MockUnit<Character> hex() { return mock.from(HEXA); }
 
     public MockUnit<Character> type(CharsType type) {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
@@ -73,14 +73,14 @@ public class Chars implements MockUnit<Character> {
 
     public MockUnit<Character> types(CharsType... types) {
         notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        CharsType type = rand.from(types).val();
+        CharsType type = mock.from(types).val();
         return type(type);
     }
 
     public MockUnit<Character> from(String alphabet) {
         Validate.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Character> supp = () -> {
-            int idx = rand.getRandom().nextInt(alphabet.length());
+            int idx = mock.getRandom().nextInt(alphabet.length());
             return alphabet.charAt(idx);
         };
         return () -> supp;
@@ -89,7 +89,7 @@ public class Chars implements MockUnit<Character> {
     public MockUnit<Character> from(char[] alphabet) {
         ValidationUtils.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "alphabet");
         Supplier<Character> supp = () -> {
-            int idx = rand.getRandom().nextInt(alphabet.length);
+            int idx = mock.getRandom().nextInt(alphabet.length);
             return alphabet[idx];
         };
         return () -> supp;
