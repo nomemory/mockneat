@@ -1,7 +1,6 @@
 package com.mockneat.readmegithub;
 
 import com.mockneat.mock.MockNeat;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import static com.mockneat.types.enums.StringType.HEX;
  * Created by andreinicolinciobanu on 22/02/2017.
  */
 public class Example01 {
-    @Test
+
     public void Example01() {
 
         // Create a instance of the mocking object
