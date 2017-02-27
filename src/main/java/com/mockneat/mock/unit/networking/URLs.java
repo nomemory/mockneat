@@ -2,7 +2,6 @@ package com.mockneat.mock.unit.networking;
 
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.types.Pair;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.DomainSuffixType;
@@ -12,6 +11,8 @@ import com.mockneat.types.enums.URLSchemeType;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static com.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static com.mockneat.types.enums.URLSchemeType.HTTP;
@@ -102,29 +103,29 @@ public class URLs implements MockUnitString {
     }
 
     public URLs schemes(String... schemes) {
-        notEmpty(schemes, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "schemes");
+        notEmpty(schemes, INPUT_PARAMETER_NOT_NULL, "schemes");
         range(0, schemes.length).forEach(i ->
-                notEmpty(schemes[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "schemes[" + i + "]"));
+                notEmpty(schemes[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "schemes[" + i + "]"));
         this.schemeSupplier = schemeSupplier(schemes);
         return this;
     }
 
     public URLs scheme(String scheme) {
-        notNull(scheme, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "scheme");
+        notNull(scheme, INPUT_PARAMETER_NOT_NULL, "scheme");
         this.schemeSupplier = schemeSupplier(scheme);
         return this;
     }
 
     public URLs schemes(URLSchemeType... schemes) {
-        notEmpty(schemes, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "schemes");
+        notEmpty(schemes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "schemes");
         range(0, schemes.length).forEach(i ->
-            notNull(schemes[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL, "schemes[" + i + "]"));
+            notNull(schemes[i], INPUT_PARAMETER_NOT_NULL, "schemes[" + i + "]"));
         this.schemeSupplier = schemeSupplier(schemes);
         return this;
     }
 
     public URLs scheme(URLSchemeType scheme) {
-        notNull(scheme, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "scheme");
+        notNull(scheme, INPUT_PARAMETER_NOT_NULL, "scheme");
         this.schemeSupplier = schemeSupplier(scheme);
         return this;
     }
@@ -191,30 +192,30 @@ public class URLs implements MockUnitString {
     }
 
     public URLs hosts(String... hosts) {
-        notEmpty(hosts, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "hosts");
+        notEmpty(hosts, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "hosts");
         range(0, hosts.length).forEach(i ->
-                        notEmpty(hosts[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY,
+                        notEmpty(hosts[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY,
                                 "hosts[" + i + "]"));
         this.hostSupplier = hostSupplier(hosts);
         return this;
     }
 
     public URLs host(String host) {
-        notEmpty(host, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "host");
+        notEmpty(host, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "host");
         this.hostSupplier = hostSupplier(host);
         return this;
     }
 
     public URLs hosts(HostNameType... hostNameTypes) {
-        notEmpty(hostNameTypes, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "hostNameTypes");
+        notEmpty(hostNameTypes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "hostNameTypes");
         range(0, hostNameTypes.length).forEach(i ->
-                notNull(hostNameTypes[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL,  "hostNameTypes[" + i + "]"));
+                notNull(hostNameTypes[i], INPUT_PARAMETER_NOT_NULL,  "hostNameTypes[" + i + "]"));
         this.hostSupplier = hostSupplier(hostNameTypes);
         return this;
     }
 
     public URLs host(HostNameType hostNameType) {
-        notNull(hostNameType, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "hostNameType");
+        notNull(hostNameType, INPUT_PARAMETER_NOT_NULL, "hostNameType");
         this.hostSupplier = hostSupplier(hostNameType);
         return this;
     }
@@ -240,29 +241,29 @@ public class URLs implements MockUnitString {
     }
 
     public URLs domains(DomainSuffixType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "types");
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL, "types");
         range(0, types.length).forEach(i ->
-                notNull(types[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types[" + i + "]"));
+                notNull(types[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types[" + i + "]"));
         this.domainSupplier = domainSupplier(types);
         return this;
     }
 
     public URLs domain(DomainSuffixType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "types");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "types");
         this.domainSupplier = domainSupplier(type);
         return this;
     }
 
     public URLs domains(String... domains) {
-        notEmpty(domains, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "domains");
+        notEmpty(domains, INPUT_PARAMETER_NOT_NULL, "domains");
         range(0, domains.length).forEach(i ->
-                notEmpty(domains[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "domains[" + i + "]"));
+                notEmpty(domains[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "domains[" + i + "]"));
         this.domainSupplier = domainSupplier(domains);
         return this;
     }
 
     public URLs domain(String domain) {
-        notEmpty(domain, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "domain");
+        notEmpty(domain, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "domain");
         this.domainSupplier = domainSupplier(domain);
         return this;
     }
@@ -289,15 +290,15 @@ public class URLs implements MockUnitString {
     }
 
     public URLs ports(Integer... array) {
-        notEmpty(array, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "array");
+        notEmpty(array, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "array");
         range(0, array.length).forEach(i ->
-            notNull(array[i], ValidationUtils.INPUT_PARAMETER_NOT_NULL, "array[" + i + "]"));
+            notNull(array[i], INPUT_PARAMETER_NOT_NULL, "array[" + i + "]"));
         this.portSupplier = portSupplier(array);
         return this;
     }
 
     public URLs port(Integer port) {
-        notNull(port, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "port");
+        notNull(port, INPUT_PARAMETER_NOT_NULL, "port");
         this.portSupplier = portSupplier(port);
         return this;
     }

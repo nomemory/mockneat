@@ -1,7 +1,6 @@
 package com.mockneat.mock.unit.objects;
 
 import com.mockneat.mock.interfaces.MockUnit;
-import com.mockneat.mock.utils.ValidationUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -9,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.*;
 import static java.lang.String.format;
 import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.reflect.ConstructorUtils.invokeConstructor;
@@ -54,7 +54,7 @@ public class Objs<T> implements MockUnit<T> {
         try {
             return cls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            String fmt = format(ValidationUtils.CANNOT_INSTANTIATE_OBJECT_OF_CLASS,
+            String fmt = format(CANNOT_INSTANTIATE_OBJECT_OF_CLASS,
                     cls.getSimpleName(),
                     cls.getSimpleName());
             throw new IllegalArgumentException(fmt, e);
@@ -67,7 +67,10 @@ public class Objs<T> implements MockUnit<T> {
             try {
                 writeField(object, key, cVal, val.isForced());
             } catch (IllegalAccessException e) {
-                String fmt = format(ValidationUtils.CANNOT_SET_FIELD_WITH_VALUE, cls.getSimpleName(), key, cVal);
+                String fmt = format(CANNOT_SET_FIELD_WITH_VALUE,
+                        cls.getSimpleName(),
+                        key,
+                        cVal);
                throw new IllegalArgumentException(fmt, e);
             }
         });
@@ -95,7 +98,7 @@ public class Objs<T> implements MockUnit<T> {
             try {
                 return invokeConstructor(cls, args);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                String fmt = format(ValidationUtils.CANNOT_INFER_CONSTRUCTOR, cls.getName(), listTypes(args));
+                String fmt = format(CANNOT_INFER_CONSTRUCTOR, cls.getName(), listTypes(args));
                 throw new IllegalArgumentException(fmt, e);
             }
         };

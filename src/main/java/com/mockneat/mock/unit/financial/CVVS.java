@@ -17,13 +17,14 @@ package com.mockneat.mock.unit.financial;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import com.mockneat.mock.utils.LoopsUtils;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
+import com.mockneat.mock.utils.LoopsUtils;
 import com.mockneat.types.enums.CVVType;
 
 import java.util.function.Supplier;
+
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.types.enums.CVVType.CVV3;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -41,7 +42,7 @@ public class CVVS implements MockUnitString {
     }
 
     public MockUnitString type(CVVType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
             LoopsUtils.loop(type.getLength(), () ->

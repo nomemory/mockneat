@@ -18,11 +18,11 @@ package com.mockneat.mock.unit.text;
  */
 
 import com.mockneat.mock.MockNeat;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.mock.utils.file.FileManager;
 import com.mockneat.types.enums.DictType;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Dicts {
@@ -35,7 +35,7 @@ public class Dicts {
     }
 
     public MockUnitString type(DictType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         return () -> mock.fromStrings(fm.getLines(type))::val;
     }
 }

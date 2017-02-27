@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -34,6 +34,9 @@ public enum NameType {
     }),
     FIRST_NAME_FEMALE_AMERICAN(new DictType[]{
             DictType.FIRST_NAME_FEMALE_AMERICAN
+    }),
+    LAST_NAME(new DictType[]{
+            DictType.LAST_NAME_AMERICAN
     });
 
     private DictType[] dictionaries;

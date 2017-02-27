@@ -2,7 +2,6 @@ package com.mockneat.mock.unit.text;
 
 
 import com.mockneat.mock.MockNeat;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.types.enums.StringType;
 
@@ -11,6 +10,7 @@ import java.util.function.Supplier;
 
 import static com.mockneat.alphabets.Alphabets.HEXA_STR;
 import static com.mockneat.alphabets.Alphabets.SPECIAL_CHARACTERS_STR;
+import static com.mockneat.mock.utils.ValidationUtils.*;
 import static java.util.stream.Collectors.joining;
 import static org.apache.commons.lang3.RandomStringUtils.random;
 import static org.apache.commons.lang3.Validate.*;
@@ -28,13 +28,13 @@ public class Strings implements MockUnitString {
     }
 
     public Strings size(int size) {
-        isTrue(size>0, ValidationUtils.SIZE_BIGGER_THAN_ZERO_STRICT);
+        isTrue(size>0, SIZE_BIGGER_THAN_ZERO_STRICT);
         this.size = size;
         return this;
     }
 
     public MockUnitString type(StringType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         switch (type) {
             case HEX: return this::hex;
             case NUMBERS: return this::numbers;
@@ -47,7 +47,7 @@ public class Strings implements MockUnitString {
     }
 
     public MockUnitString types(StringType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
         StringType type = mock.from(types).val();
         return type(type);
     }

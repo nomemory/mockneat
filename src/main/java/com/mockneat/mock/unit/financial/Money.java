@@ -49,7 +49,7 @@ public class Money implements MockUnitString {
     public MockUnitString range(double lowerBound, double upperBound) {
         return () -> mock.doubles()
                          .range(lowerBound, upperBound)
-                         .mapToString(formatter::format)::val;
+                         .mapToString(formatter::format).supplier();
     }
 
     public MockUnitString bound(double bound) {
@@ -60,6 +60,6 @@ public class Money implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return range(DEFAULT_LOWER, DEFAULT_UPPER)::val;
+        return range(DEFAULT_LOWER, DEFAULT_UPPER).supplier();
     }
 }

@@ -23,6 +23,7 @@ import com.mockneat.mock.interfaces.MockUnit;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.Validate.notNaN;
 
@@ -39,15 +40,15 @@ public class Floats implements MockUnit<Float> {
     }
 
     public MockUnit<Float> range(float lowerBound, float upperBound) {
-        notNull(lowerBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upperBound");
+        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
+        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
         finite(lowerBound);
         finite(upperBound);
         notNaN(lowerBound);
         notNaN(upperBound);
-        isTrue(lowerBound>=0.0f, ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>0.0f, ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>lowerBound, ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND);
+        isTrue(lowerBound>=0.0f, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>0.0f, UPPER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
 
         Supplier<Float> supp = () -> random.nextFloat() * (upperBound - lowerBound) + lowerBound;
         return () -> supp;
@@ -58,7 +59,7 @@ public class Floats implements MockUnit<Float> {
     }
 
     public MockUnit<Float> from(float[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Float> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

@@ -19,13 +19,14 @@ package com.mockneat.mock.unit.financial;
 
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.types.enums.CreditCardType;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static com.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
 import static com.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
 import static org.apache.commons.lang3.Validate.notEmpty;
@@ -49,13 +50,13 @@ public class CreditCards implements MockUnitString {
     }
 
     public MockUnitString type(CreditCardType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> generateCreditCard(type);
         return () -> supplier;
     }
 
     public MockUnitString types(CreditCardType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
         CreditCardType creditCardType = mock.from(types).val();
         return type(creditCardType);
     }

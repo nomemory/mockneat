@@ -24,6 +24,9 @@ import com.mockneat.mock.utils.ValidationUtils;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.*;
+import static java.lang.Double.doubleToLongBits;
+import static java.lang.Double.longBitsToDouble;
 import static org.apache.commons.lang3.Validate.*;
 
 public class Doubles implements MockUnitDouble {
@@ -46,15 +49,15 @@ public class Doubles implements MockUnitDouble {
     }
 
     public MockUnitDouble range(double lowerBound, double upperBound) {
-        notNull(lowerBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upperBound");
+        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
+        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
         finite(lowerBound);
         finite(upperBound);
         notNaN(lowerBound);
         notNaN(upperBound);
-        isTrue(lowerBound>=0.0, ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>0.0, ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>lowerBound, ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND);
+        isTrue(lowerBound>=0.0, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>0.0, UPPER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
 
         Supplier<Double> supp = () -> {
             // Algorithm implementation from the Java API
@@ -62,7 +65,7 @@ public class Doubles implements MockUnitDouble {
             if (lowerBound < upperBound) {
                 result = result * (upperBound - lowerBound) + lowerBound;
                 if (result >= upperBound)
-                    result = Double.longBitsToDouble(Double.doubleToLongBits(upperBound) - 1);
+                    result = longBitsToDouble(doubleToLongBits(upperBound) - 1);
             }
             return result;
         };
@@ -74,7 +77,7 @@ public class Doubles implements MockUnitDouble {
     }
 
     public MockUnitDouble from(double[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Double> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

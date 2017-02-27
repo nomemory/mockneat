@@ -23,6 +23,7 @@ import com.mockneat.mock.interfaces.MockUnitInt;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -40,23 +41,23 @@ public class Ints implements MockUnitInt {
     }
 
     public MockUnitInt bound(int bound) {
-        isTrue(bound>=0, ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(bound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         Supplier<Integer> supp = () -> random.nextInt(bound);
         return () -> supp;
     }
 
     public MockUnitInt range(int lowerBound, int upperBound) {
-        notNull(lowerBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upperBound");
-        isTrue(lowerBound>=0, ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>0, ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>lowerBound, ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND);
+        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
+        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
+        isTrue(lowerBound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>0, UPPER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
         Supplier<Integer> supp = () -> random.nextInt(upperBound - lowerBound) + lowerBound;
         return () -> supp;
     }
 
     public MockUnitInt from(int[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Integer> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

@@ -48,6 +48,13 @@ public enum UserNameType {
             )
     ),
 
+    ADJECTIVE_LAST_NAME(
+            asList(
+                    new Pair<>(DictType.EN_ADJECTIVE_1SYLL, DictType.LAST_NAME_AMERICAN),
+                    new Pair<>(DictType.EN_ADJECTIVE_2SYLL, DictType.LAST_NAME_AMERICAN)
+            )
+    ),
+
     ADJECTIVE_FIRST_NAME_MALE(
             asList(
                     new Pair<>(DictType.EN_ADJECTIVE_1SYLL, DictType.FIRST_NAME_MALE_AMERICAN)

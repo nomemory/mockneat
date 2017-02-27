@@ -24,6 +24,7 @@ import com.mockneat.mock.utils.ValidationUtils;
 import java.time.DayOfWeek;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -41,8 +42,8 @@ public class Days implements MockUnitDays {
     }
 
     public MockUnitDays rangeClosed(DayOfWeek lower, DayOfWeek upper) {
-        notNull(lower, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "lower");
-        notNull(upper, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upper");
+        notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
+        notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue()<upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
             int idx = mock.ints().range(lower.getValue()-1, upper.getValue()).val();
@@ -52,8 +53,8 @@ public class Days implements MockUnitDays {
     }
 
     public MockUnitDays range(DayOfWeek lower, DayOfWeek upper) {
-        notNull(lower, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "lower");
-        notNull(upper, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upper");
+        notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
+        notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
         isTrue(lower.getValue()<upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
             int idx = mock.ints().range(lower.getValue()-1, upper.getValue()-1).val();
@@ -63,13 +64,13 @@ public class Days implements MockUnitDays {
     }
 
     public MockUnitDays before(DayOfWeek before) {
-        notNull(before, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "before");
+        notNull(before, INPUT_PARAMETER_NOT_NULL, "before");
         isTrue(before.getValue()-1>0, ValidationUtils.BEFORE_DAY_DIFFERENT_THAN_MONDAY);
         return range(DayOfWeek.values()[0], before);
     }
 
     public MockUnitDays after(DayOfWeek after) {
-        notNull(after, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "after");
+        notNull(after, INPUT_PARAMETER_NOT_NULL, "after");
         isTrue(after.getValue()-1<DayOfWeek.values().length-1, ValidationUtils.AFTER_DAY_DIFFERENT_THAN_SUNDAY);
         Supplier<DayOfWeek> supp = () -> {
             int idx = mock.ints().range(after.getValue(), DayOfWeek.values().length).val();

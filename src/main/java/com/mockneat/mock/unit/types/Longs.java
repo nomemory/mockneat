@@ -24,6 +24,9 @@ import com.mockneat.mock.utils.ValidationUtils;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.mock.utils.ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -43,7 +46,7 @@ public class Longs implements MockUnitLong {
     }
 
     public MockUnitLong bound(long bound) {
-        isTrue(bound>=0, ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(bound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         Supplier<Long> supplier = () -> {
             long b;
             long result;
@@ -58,9 +61,9 @@ public class Longs implements MockUnitLong {
     }
 
     public MockUnitLong range(long lowerBound, long upperBound) {
-        notNull(lowerBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "upperBound");
-        isTrue(lowerBound>=0, ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO);
+        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
+        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
+        isTrue(lowerBound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>0, ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>lowerBound, ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND);
         Supplier<Long> supplier = () ->
@@ -69,7 +72,7 @@ public class Longs implements MockUnitLong {
     }
 
     public MockUnitLong from(long[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
         Supplier<Long> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

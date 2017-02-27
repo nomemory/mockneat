@@ -17,7 +17,6 @@ package com.mockneat.mock.unit.text;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.mock.utils.markov.MarkovUnit;
@@ -30,6 +29,8 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static com.mockneat.types.enums.MarkovChainType.KAFKA;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -66,13 +67,13 @@ public class Markovs implements MockUnitString {
     }
 
     public MockUnitString types(MarkovChainType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
         MarkovChainType type = mock.from(types).val();
         return type(type);
     }
 
     public MockUnitString type(MarkovChainType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supp = () -> {
             MarkovUnit unit = null;
             try {

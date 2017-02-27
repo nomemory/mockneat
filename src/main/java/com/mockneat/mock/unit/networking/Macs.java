@@ -18,13 +18,13 @@ package com.mockneat.mock.unit.networking;
  */
 
 import com.mockneat.mock.MockNeat;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.types.enums.MACAddressFormatType;
 
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.types.enums.MACAddressFormatType.COLON_EVERY_2_DIGITS;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -42,7 +42,7 @@ public class Macs implements MockUnitString {
     }
 
     public MockUnitString type(MACAddressFormatType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> {
             StringBuilder buff = new StringBuilder();
             IntStream.range(0, 12).forEach(i -> type.getConsumer().consume(i, buff, this.mock));

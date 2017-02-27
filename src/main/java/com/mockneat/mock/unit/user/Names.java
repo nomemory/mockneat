@@ -19,14 +19,16 @@ package com.mockneat.mock.unit.user;
 
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.types.enums.DictType;
 import com.mockneat.types.enums.NameType;
 
 import java.util.function.Supplier;
 
-import static org.apache.commons.lang3.Validate.notEmpty;
-import static org.apache.commons.lang3.Validate.notNull;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.types.enums.NameType.FIRST_NAME;
+import static com.mockneat.types.enums.NameType.LAST_NAME;
+import static org.apache.commons.lang3.Validate.*;
 
 public class Names implements MockUnitString {
 
@@ -38,17 +40,36 @@ public class Names implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return type(NameType.FIRST_NAME)::val;
+        return type(FIRST_NAME).supplier();
+    }
+
+    public MockUnitString first() { return type(FIRST_NAME); }
+
+    public MockUnitString last() { return type(LAST_NAME); }
+
+    public MockUnitString full() {
+        Supplier<String> supp = () -> first().val() + " " + last().val();
+        return () -> supp;
+    }
+
+    public MockUnitString full(double middleInitialProbability) {
+        inclusiveBetween(0.0, 100.0, middleInitialProbability);
+        Supplier<String> supp = () -> {
+            boolean middleName = mock.bools().probability(middleInitialProbability).val();
+            String initial = (middleName) ? " " + mock.chars().upperLetters() + "." : "";
+            return first().val() + initial + " " + last().val();
+        };
+        return () -> supp;
     }
 
     public MockUnitString types(NameType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
         NameType nameType = mock.from(types).val();
         return type(nameType);
     }
 
     public MockUnitString type(NameType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         DictType dictType = mock.from(type.getDictionaries()).val();
         return () -> mock.dicts().type(dictType)::val;
     }

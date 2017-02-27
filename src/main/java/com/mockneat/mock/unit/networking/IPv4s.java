@@ -19,11 +19,14 @@ package com.mockneat.mock.unit.networking;
 
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.types.Range;
 import com.mockneat.types.enums.IPv4Type;
+
 import java.util.Arrays;
 import java.util.function.Supplier;
+
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static com.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -42,13 +45,13 @@ public class IPv4s implements MockUnitString {
     }
 
     public MockUnitString types(IPv4Type... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
         IPv4Type type = mock.from(types).val();
         return type(type);
     }
 
     public MockUnitString type(IPv4Type type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Range<Integer>[] oc = type.getOctets();
         Supplier<String> supp = () -> {
             StringBuilder buff = new StringBuilder();
