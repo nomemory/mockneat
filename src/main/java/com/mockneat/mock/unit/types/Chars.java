@@ -1,6 +1,6 @@
 package com.mockneat.mock.unit.types;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -67,7 +67,7 @@ public class Chars implements MockUnit<Character> {
             case LOWER_LETTERS: return lowerLetters();
             case UPPER_LETTERS: return upperLetters();
             case LETTERS: return letters();
-            default: return letters();
+            default: throw new IllegalArgumentException("Invalid CharsType");
         }
     }
 

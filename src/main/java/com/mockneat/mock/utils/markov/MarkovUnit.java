@@ -1,6 +1,6 @@
 package com.mockneat.mock.utils.markov;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -23,7 +23,10 @@ import com.mockneat.mock.interfaces.MockUnit;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
@@ -53,9 +56,9 @@ public class MarkovUnit {
         this.randState = this.mock.fromKeys(chain);
     }
 
-    protected List<String> getWords(List<String> lines) {
+    private List<String> getWords(List<String> lines) {
         List<String> words = new ArrayList<>();
-        lines.stream().forEach(line -> {
+        lines.forEach(line -> {
             line = line.replaceAll("\""," ");
             stream(line.split(" ")).forEach(word -> {
                 String trimmed = lowerCase(word.trim());
@@ -66,13 +69,13 @@ public class MarkovUnit {
         return words;
     }
 
-    protected Map<WordState, Map<String, Integer>> getRawChain(List<String> words) {
+    private Map<WordState, Map<String, Integer>> getRawChain(List<String> words) {
         Map<WordState, Map<String, Integer>> result = new HashMap<>();
         WordState currentState;
         Map<String, Integer> currentRawValue;
         Integer currentCount;
         int stop = words.size() - stateSize;
-        String nextWord = null;
+        String nextWord;
         for(int i = 0; i < stop; i++) {
             nextWord = words.get(i+stateSize);
             currentState = WordState.fromWords(words, stateSize, i);
@@ -81,7 +84,6 @@ public class MarkovUnit {
             if (null==currentRawValue) {
                 currentRawValue = new HashMap<>();
                 result.put(currentState, currentRawValue);
-                //System.out.println(currentState);
             }
 
             currentCount = currentRawValue.get(nextWord);
@@ -90,7 +92,6 @@ public class MarkovUnit {
             }
 
             currentRawValue.put(nextWord, ++currentCount);
-            //System.out.printf("\t %s : %d\n", nextWord, currentCount);
         }
         return result;
     }
@@ -99,13 +100,11 @@ public class MarkovUnit {
         return rawChain
                         .entrySet()
                         .stream()
-                        .collect(Collectors.toMap(e -> e.getKey(),
+                        .collect(Collectors.toMap(Map.Entry::getKey,
                                                   e -> new WordStatistic(e.getValue())));
     }
 
     public String  generateText(Integer maxLength) {
-        //TODO validate mock, minLength, maxLength
-
         // Obtain a objs state from the existing states
         StringBuilder buff = new StringBuilder();
         WordState state = randState.val();

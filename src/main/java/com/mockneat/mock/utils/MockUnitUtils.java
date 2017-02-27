@@ -1,6 +1,6 @@
 package com.mockneat.mock.utils;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -25,6 +25,9 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public class MockUnitUtils {
+
+    private MockUnitUtils() {}
+
     public static <T> void add(Class<? extends Collection> collectionClass, Collection<T> result, Supplier<T> supplier) {
         T value = supplier.get();
         try {

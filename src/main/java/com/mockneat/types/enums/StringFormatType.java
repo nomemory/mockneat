@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -29,11 +29,12 @@ public enum StringFormatType {
 
     private Function<String, String> formatter;
 
+    StringFormatType(Function<String, String> formatter) {
+        this.formatter = formatter;
+    }
+
     public Function<String, String> getFormatter() {
         return formatter;
     }
 
-    StringFormatType(Function<String, String> formatter) {
-        this.formatter = formatter;
-    }
 }

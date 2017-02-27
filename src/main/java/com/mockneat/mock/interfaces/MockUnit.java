@@ -1,6 +1,6 @@
 package com.mockneat.mock.interfaces;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -20,22 +20,19 @@ package com.mockneat.mock.interfaces;
 import com.mockneat.mock.utils.LoopsUtils;
 import com.mockneat.mock.utils.MockUnitUtils;
 import com.mockneat.mock.utils.ValidationUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static com.mockneat.mock.interfaces.MockUnitLogger.logger;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
 @FunctionalInterface
 @SuppressWarnings("unchecked")
 public interface MockUnit<T> {
-
-    Logger logger = LoggerFactory.getLogger(MockUnit.class);
 
     // Functional Method
     Supplier<T> supplier();

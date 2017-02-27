@@ -36,11 +36,11 @@ public enum NameType {
             DictType.FIRST_NAME_FEMALE_AMERICAN
     });
 
+    private DictType[] dictionaries;
+
     NameType(DictType[] dictionaries) {
         this.dictionaries = dictionaries;
     }
-
-    private DictType[] dictionaries;
 
     public DictType[] getDictionaries() {
         return dictionaries;

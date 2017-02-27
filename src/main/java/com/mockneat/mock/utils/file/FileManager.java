@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static java.lang.ClassLoader.getSystemResource;
 import static java.nio.file.Paths.get;
 import static java.util.stream.Collectors.toList;
 
@@ -22,7 +23,7 @@ public class FileManager {
 
     private static final String DICT_FOLDER = "./resources/dicts/";
 
-    private final static FileManager fileManager = new FileManager();
+    private static final FileManager fileManager = new FileManager();
 
     private static final Map<String, List<String>> JAR_INTERNAL =
             new HashMap<>();
@@ -30,7 +31,7 @@ public class FileManager {
     private static final Map<String, List<String>> JAR_EXTERNAL =
             new HashMap<>();
 
-    public static final FileManager getInstance() {
+    public static FileManager getInstance() {
         return fileManager;
     }
 
@@ -71,7 +72,7 @@ public class FileManager {
     private List<String> read(DictType key) throws URISyntaxException, IOException {
         String internal = interalDictPath(key);
         Path path = isRunningFromJar() ?
-                get(ClassLoader.getSystemClassLoader().getSystemResource(internal).toURI()) :
+                get(getSystemResource(internal).toURI()) :
                 get(internal);
         try (Stream<String> stream = Files.lines(path)) {
             return stream.collect(toList());
@@ -80,6 +81,6 @@ public class FileManager {
 
     private boolean isRunningFromJar() {
         URL path = FileManager.class.getResource("FileManager.class");
-        return path.getProtocol().equals("jar");
+        return "jar".equals(path.getProtocol());
     }
 }

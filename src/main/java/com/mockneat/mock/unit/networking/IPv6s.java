@@ -19,7 +19,7 @@ public class IPv6s implements MockUnitString {
     }
     @Override
     public Supplier<String> supplier() {
-        return () -> ip();
+        return this::ip;
     }
     protected String group() {
         String result = mock.from(HEXA_STR)

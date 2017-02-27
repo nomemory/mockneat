@@ -36,13 +36,13 @@ public class Strings implements MockUnitString {
     public MockUnitString type(StringType type) {
         notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
         switch (type) {
-            case HEX: return () -> hex();
-            case NUMBERS: return () ->  numbers();
-            case LETTERS: return () -> letters();
-            case NUMBERS_LETTERS: return () -> numbersAndLetters();
-            case SPECIAL_CHARACTERS: return () -> specialChars();
+            case HEX: return this::hex;
+            case NUMBERS: return this::numbers;
+            case LETTERS: return this::letters;
+            case NUMBERS_LETTERS: return this::numbersAndLetters;
+            case SPECIAL_CHARACTERS: return this::specialChars;
             // Should never reach this
-            default: return () -> numbersAndLetters();
+            default: throw new IllegalArgumentException("Invalid StringType");
         }
     }
 
@@ -52,26 +52,26 @@ public class Strings implements MockUnitString {
         return type(type);
     }
 
-    protected Supplier<String> numbers() {
+    private Supplier<String> numbers() {
         return () -> random(size, 0, 0, false, true, null, random);
     }
 
-    protected Supplier<String> letters() {
+    private Supplier<String> letters() {
         return () -> random(size, 0, 0, true, false, null, random);
     }
 
-    protected Supplier<String> numbersAndLetters() {
+    private Supplier<String> numbersAndLetters() {
         return () -> random(size, 0, 0, true, true, null, random);
     }
 
-    protected Supplier<String> hex() {
+    private Supplier<String> hex() {
         return () -> mock.fromStrings(HEXA_STR)
                             .stream().val()
                             .limit(size)
                             .collect(joining());
     }
 
-    protected Supplier<String> specialChars() {
+    private Supplier<String> specialChars() {
         return () -> mock.fromStrings(SPECIAL_CHARACTERS_STR)
                             .stream().val()
                             .limit(size)

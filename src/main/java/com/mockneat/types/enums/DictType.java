@@ -59,11 +59,12 @@ public enum DictType {
 
     private String fileName;
 
+    DictType(String fileName) {
+        this.fileName = fileName;
+    }
+
     public String getFileName() {
         return fileName;
     }
 
-    DictType(String fileName) {
-        this.fileName = fileName;
-    }
 }

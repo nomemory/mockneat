@@ -22,11 +22,11 @@ public enum CVVType {
 
     private Integer length;
 
-    public Integer getLength() {
-        return length;
-    }
-
     CVVType(Integer length) {
         this.length = length;
+    }
+
+    public Integer getLength() {
+        return length;
     }
 }

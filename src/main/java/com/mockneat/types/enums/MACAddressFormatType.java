@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -28,16 +28,17 @@ public enum MACAddressFormatType {
 
     private TriConsumer<Integer, StringBuilder, MockNeat> consumer;
 
-    public TriConsumer<Integer, StringBuilder, MockNeat> getConsumer() {
-        return consumer;
-    }
-
     MACAddressFormatType(TriConsumer<Integer, StringBuilder, MockNeat> consumer) {
         this.consumer = consumer;
     }
 
+    public TriConsumer<Integer, StringBuilder, MockNeat> getConsumer() {
+        return consumer;
+    }
+
     private static void everyDigits(Integer i, StringBuilder buff, MockNeat rand, String chr, Integer digits) {
-        if (i % digits == 0) buff.append(chr);
+        if (i % digits == 0)
+            buff.append(chr);
         buff.append(Integer.toHexString(rand.ints().range(0, 16).val()));
     }
 

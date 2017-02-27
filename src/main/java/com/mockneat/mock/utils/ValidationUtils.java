@@ -46,6 +46,7 @@ public class ValidationUtils {
     public static final String LONG_SEQ_OVERFLOW = "LongSeq overflow. Values are generated inside the interval: [%d, %d]. Cannot increment any further.";
     public static final String SEQ_INVALID_RANGE = "The min value (%d) should be lower than the maximum (%d) value of the sequence.";
 
+    private ValidationUtils() {}
 
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)

@@ -17,6 +17,7 @@ package com.mockneat.types;
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+@FunctionalInterface
 public interface TriConsumer<T, U, R> {
     void consume(T t, U u, R r);
 }

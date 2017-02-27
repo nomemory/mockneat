@@ -1,6 +1,6 @@
 package com.mockneat.mock.utils;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -19,6 +19,8 @@ package com.mockneat.mock.utils;
 
 import com.mockneat.mock.MockNeat;
 import com.mockneat.types.CallBack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -26,27 +28,31 @@ import java.util.function.Function;
 
 public class LoopsUtils {
 
-    public static final void loop(int cycles, CallBack callBack) {
+    private static final Logger logger = LoggerFactory.getLogger(LoopsUtils.class);
+
+    private LoopsUtils() {}
+
+    public static void loop(int cycles, CallBack callBack) {
         for (int i = 0; i < cycles; i++) {
             callBack.call();
         }
     }
 
-    public static final void loop(int cycles, MockNeat[] array, Consumer<MockNeat> consumer) {
+    public static void loop(int cycles, MockNeat[] array, Consumer<MockNeat> consumer) {
         loop(cycles, () -> Arrays.stream(array).forEach(consumer::accept));
     }
 
-    public static final <T> void loop(int cycles, MockNeat[] array, Function<MockNeat, T> map, Consumer<T> consume) {
+    public static <T> void loop(int cycles, MockNeat[] array, Function<MockNeat, T> map, Consumer<T> consume) {
         loop(cycles, () -> Arrays.stream(array).map(map::apply).forEach(consume::accept));
     }
 
-    public static final <T> void loop(boolean dbg, int cycles, MockNeat[] array, Function<MockNeat, T> map, Consumer<T> consume) {
+    public static <T> void loop(boolean dbg, int cycles, MockNeat[] array, Function<MockNeat, T> map, Consumer<T> consume) {
         loop(cycles,
                 () -> Arrays.stream(array)
                         .map(r -> {
                             T o = map.apply(r);
                             if (dbg)
-                                System.out.println(o);
+                                logger.info(null == o ? "" : o.toString());
                             return o;
                         })
                         .forEach(consume::accept));

@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -69,10 +69,11 @@ public enum CreditCardType {
 
     protected ArrayList<Integer> fromNumber(int num) {
         List<Integer> list = new LinkedList<>();
-        while(num!=0) {
-            list.add(0, num%10);
-            num/=10;
+        int tmp = num;
+        while(tmp!=0) {
+            list.add(0, tmp%10);
+            tmp/=10;
         }
-        return new ArrayList(list);
+        return new ArrayList<>(list);
     }
 }
