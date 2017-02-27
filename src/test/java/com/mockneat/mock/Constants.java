@@ -15,6 +15,7 @@ public class Constants {
     public static final int CHARS_CYCLES = 1000;
     public static final int COMPOSE_CYCLES = 1000;
     public static final int CVVS_CYCLES= 1000;
+    public static final int DEP_CYCLES = 1000;
     public static final int COUNTRIES_CYCLES = 1000;
     public static final int CURRENCIES_CYCLES = 1000;
     public static final int DAYS_CYCLES = 1000;

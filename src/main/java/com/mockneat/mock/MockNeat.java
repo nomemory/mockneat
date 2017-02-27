@@ -189,7 +189,7 @@ public class MockNeat {
 
     public Markovs markovs() { return this.rMarkovs; }
 
-    public <T> Objs<T> objs(Class<T> cls) { return new Objs<>(this, cls); }
+    public <T> Objs<T> objs(Class<T> cls) { return new Objs<>(cls); }
 
     public Months months() { return this.rMonths; }
 

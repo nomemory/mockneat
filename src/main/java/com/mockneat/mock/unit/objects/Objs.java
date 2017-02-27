@@ -1,6 +1,5 @@
 package com.mockneat.mock.unit.objects;
 
-import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnit;
 import com.mockneat.mock.utils.ValidationUtils;
 
@@ -17,20 +16,13 @@ import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 public class Objs<T> implements MockUnit<T> {
 
-    private MockNeat mock = MockNeat.threadLocal();
     private Map<String, MockValue> fields = new LinkedHashMap<>();
     private Class<T> cls;
 
-    public Objs() {}
+    private Objs() {}
 
-    public Objs(MockNeat mock, Class<T> cls) {
-        this.mock = mock;
+    public Objs(Class<T> cls) {
         this.cls = cls;
-    }
-
-
-    public static final <T1> Supplier<T1> CONST(T1 object) {
-        return () -> object;
     }
 
     public Objs type(Class<T> cls) {
@@ -38,13 +30,23 @@ public class Objs<T> implements MockUnit<T> {
         return this;
     }
 
-    public <T1> Objs<T> field(String fieldName, MockUnit<T1> ru) {
-        this.fields.put(fieldName, new MockRandUnitValue(ru));
+    public <T1> Objs<T> field(String fieldName, MockUnit<T1> mockUnit) {
+        this.fields.put(fieldName, new MockRandUnitValue(mockUnit));
+        return this;
+    }
+
+    public <T1> Objs<T> field(String fieldName, MockUnit<T1> mockUnit, boolean forced) {
+        this.fields.put(fieldName, new MockRandUnitValue(mockUnit, forced));
         return this;
     }
 
     public Objs<T> field(String fieldName, Object value) {
         this.fields.put(fieldName, new MockConstValue(value));
+        return this;
+    }
+
+    public Objs<T> field(String fieldName, Object value, boolean forced) {
+        this.fields.put(fieldName, new MockConstValue(value, forced));
         return this;
     }
 
@@ -63,7 +65,7 @@ public class Objs<T> implements MockUnit<T> {
         fields.forEach((key, val) -> {
             Object cVal = val.get();
             try {
-                writeField(object, key, cVal, true);
+                writeField(object, key, cVal, val.isForced());
             } catch (IllegalAccessException e) {
                 String fmt = format(ValidationUtils.CANNOT_SET_FIELD_WITH_VALUE, cls.getSimpleName(), key, cVal);
                throw new IllegalArgumentException(fmt, e);
@@ -99,6 +101,7 @@ public class Objs<T> implements MockUnit<T> {
         };
         return () -> supp;
     }
+
 
     @Override
     public Supplier<T> supplier() {

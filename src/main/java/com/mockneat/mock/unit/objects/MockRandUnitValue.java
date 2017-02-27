@@ -6,12 +6,24 @@ public class MockRandUnitValue implements MockValue {
 
     private MockUnit mockUnit;
 
-    public MockRandUnitValue(MockUnit ru) {
-        this.mockUnit = ru;
+    private boolean forced = false;
+
+    public MockRandUnitValue(MockUnit mockUnit) {
+        this.mockUnit = mockUnit;
+    }
+
+    public MockRandUnitValue(MockUnit mockUnit, boolean forced) {
+        this(mockUnit);
+        this.forced = forced;
     }
 
     @Override
     public Object get() {
         return mockUnit.val();
+    }
+
+    @Override
+    public Boolean isForced() {
+        return forced;
     }
 }
