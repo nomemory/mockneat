@@ -9,17 +9,17 @@ import static com.mockneat.mock.Constants.RAND;
 import static java.util.Arrays.stream;
 
 import static com.mockneat.mock.Constants.RANDS;
-import static com.mockneat.mock.Constants.RU_CYCLES;
+import static com.mockneat.mock.Constants.MOCK_CYCLES;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by andreinicolinciobanu on 13/02/2017.
  */
-public class RandUnitMapFunct {
+public class MockUnitMapMethodTest {
     @Test
     public void testMapToIntInts() {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                     r.ints()
                         .range(0, 5)
@@ -36,7 +36,7 @@ public class RandUnitMapFunct {
 
     @Test
     public void testMapToLong() {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
             stream(RANDS).forEach(r ->
                     r.longs()
                         .range(0, 5)
@@ -53,7 +53,7 @@ public class RandUnitMapFunct {
 
     @Test
     public void testMapToDoubleDoubles() {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
             stream(RANDS).forEach( r ->
                         r.doubles()
                             .range(0.5, 5.0)

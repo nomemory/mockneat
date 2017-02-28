@@ -30,9 +30,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.mock.utils.ValidationUtils.notEmptyTypes;
 import static com.mockneat.types.enums.MarkovChainType.KAFKA;
-import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Markovs implements MockUnitString {
@@ -67,7 +66,7 @@ public class Markovs implements MockUnitString {
     }
 
     public MockUnitString types(MarkovChainType... types) {
-        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmptyTypes(types);
         MarkovChainType type = mock.from(types).val();
         return type(type);
     }

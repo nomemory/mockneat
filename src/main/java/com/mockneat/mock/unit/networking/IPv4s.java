@@ -26,9 +26,8 @@ import java.util.Arrays;
 import java.util.function.Supplier;
 
 import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.mock.utils.ValidationUtils.notEmptyTypes;
 import static com.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
-import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class IPv4s implements MockUnitString {
@@ -45,7 +44,7 @@ public class IPv4s implements MockUnitString {
     }
 
     public MockUnitString types(IPv4Type... types) {
-        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmptyTypes(types);
         IPv4Type type = mock.from(types).val();
         return type(type);
     }

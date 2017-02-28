@@ -38,4 +38,5 @@ public class Dicts {
         notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         return () -> mock.fromStrings(fm.getLines(type))::val;
     }
+
 }

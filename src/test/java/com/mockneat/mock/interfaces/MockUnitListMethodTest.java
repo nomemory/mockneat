@@ -6,7 +6,7 @@ import java.util.*;
 
 import static com.mockneat.mock.Constants.RAND;
 import static com.mockneat.mock.Constants.RANDS;
-import static com.mockneat.mock.Constants.RU_CYCLES;
+import static com.mockneat.mock.Constants.MOCK_CYCLES;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by andreinicolinciobanu on 10/02/2017.
  */
-public class RandUnitList {
+public class MockUnitListMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testListNullType() throws Exception {
@@ -33,21 +33,21 @@ public class RandUnitList {
 
     @Test
     public void testListCorrectSize0() throws Exception {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                         assertTrue(r.ints().list(0).list(0).val().isEmpty())));
     }
 
     @Test
     public void testListCorrectSize0_1() throws Exception {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                         assertTrue(r.ints().list(5000).list(0).val().isEmpty())));
     }
 
     @Test
     public void testListCorrectSize0_2() throws Exception {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
                     List<List<Integer>> result = r.ints().list(10).list(5).val();
                     assertTrue(result.size()==5);
@@ -57,7 +57,7 @@ public class RandUnitList {
 
     @Test
     public void testListCorrectValues() throws Exception {
-        loop(RU_CYCLES, () -> stream(RANDS).forEach(r -> {
+        loop(MOCK_CYCLES, () -> stream(RANDS).forEach(r -> {
             List<List<List<Integer>>> result =
                 r.ints().range(100, 200)
                         .list(LinkedList.class, 5)
@@ -105,7 +105,7 @@ public class RandUnitList {
     @Test
     public void testListOfNulls() {
         List<Integer> integers = Arrays.asList(null, null, null, null);
-        loop(RU_CYCLES, () -> {
+        loop(MOCK_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 List<Integer> list = r.from(integers).list(LinkedList.class, 100).val();
                 assertTrue(list instanceof LinkedList);
@@ -113,4 +113,5 @@ public class RandUnitList {
             });
         });
     }
+
 }

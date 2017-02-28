@@ -1,5 +1,10 @@
 package com.mockneat.mock.utils;
 
+import org.apache.commons.lang3.Validate;
+
+import static java.util.stream.IntStream.range;
+import static org.apache.commons.lang3.Validate.notNull;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -32,11 +37,14 @@ public class ValidationUtils {
     public static final String CANNOT_ADD_VALUE_TO_LIST = "Cannot add value '%s' to List('%s')";
     public static final String CANNOT_ADD_VALUE_TO_SET = "Cannot add value '%s' to Set('%s')";
     public static final String CANNOT_PUT_VALUES_TO_MAP = "Cannot put values {'%s' : '%s'} to Map('%s')";
+    // Time
     public static final String BEFORE_DAY_DIFFERENT_THAN_MONDAY = "Cannot use 'Monday' as 'before'. 'Monday' is considered to be the first day of the week.";
     public static final String AFTER_DAY_DIFFERENT_THAN_SUNDAY = "Cannot use 'Sunday' as 'after'. 'Sunday' is considered to be the last day of the week.";
     public static final String BEFORE_MONTH_DIFFERENT_THAN_JANUARY = "Cannot use 'January' as 'before'. 'January' is considered to be the first month of the year.";
     public static final String AFTER_MONTH_DIFFERENT_TNAN_DECEMBER = "Cannot use 'December' as 'after'. 'December' is considered to be the last month of the year.";
     public static final String CANNOT_URL_ENCODE_UTF_8 = "Cannot URL encode the following string: '%s'.";
+    public static final String LOWER_DATE_SMALLER_THAN_UPPER_DATE = "lowerDate '%s' should be < than upperDate '%s'.";
+    public static final String LOCAL_DATE_IN_INTERVAL = "%s(%s) should be in in the interval [%s, %s].";
     // MOCK
     public static final String CANNOT_INSTANTIATE_OBJECT_OF_CLASS = "Cannot create an instance of '%s'. Please verify if the class has a public 'No Arguments' constructor: %s().";
     public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field %s.%s with value '%s'. Is the supplied value correct ?";
@@ -48,6 +56,12 @@ public class ValidationUtils {
 
     private ValidationUtils() {}
 
+    public static <T> T[] notEmptyTypes(T... types) {
+        Validate.notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, types);
+        range(0, types.length).forEach(i ->
+            notNull(types[i], INPUT_PARAMETER_NOT_NULL, "types[" + i + "]"));
+        return types;
+    }
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));

@@ -27,10 +27,9 @@ import java.util.function.Supplier;
 
 import static com.mockneat.alphabets.Alphabets.*;
 import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.mock.utils.ValidationUtils.notEmptyTypes;
 import static com.mockneat.types.enums.DictType.*;
 import static com.mockneat.types.enums.PassStrengthType.*;
-import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -56,9 +55,9 @@ public class Passwords implements MockUnitString {
         return () -> supplier;
     }
 
-    public MockUnitString types(PassStrengthType... passStrengthTypes) {
-        notEmpty(passStrengthTypes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "passStrengthTypes");
-        PassStrengthType passStrengthType = mock.from(passStrengthTypes).val();
+    public MockUnitString types(PassStrengthType... types) {
+        notEmptyTypes(types);
+        PassStrengthType passStrengthType = mock.from(types).val();
         return type(passStrengthType);
     }
 

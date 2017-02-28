@@ -25,10 +25,11 @@ import com.mockneat.types.enums.NameType;
 import java.util.function.Supplier;
 
 import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.mock.utils.ValidationUtils.notEmptyTypes;
 import static com.mockneat.types.enums.NameType.FIRST_NAME;
 import static com.mockneat.types.enums.NameType.LAST_NAME;
-import static org.apache.commons.lang3.Validate.*;
+import static org.apache.commons.lang3.Validate.inclusiveBetween;
+import static org.apache.commons.lang3.Validate.notNull;
 
 public class Names implements MockUnitString {
 
@@ -40,7 +41,7 @@ public class Names implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return type(FIRST_NAME).supplier();
+        return full().supplier();
     }
 
     public MockUnitString first() { return type(FIRST_NAME); }
@@ -56,14 +57,14 @@ public class Names implements MockUnitString {
         inclusiveBetween(0.0, 100.0, middleInitialProbability);
         Supplier<String> supp = () -> {
             boolean middleName = mock.bools().probability(middleInitialProbability).val();
-            String initial = (middleName) ? " " + mock.chars().upperLetters() + "." : "";
+            String initial = (middleName) ? " " + mock.chars().upperLetters().val() + "." : "";
             return first().val() + initial + " " + last().val();
         };
         return () -> supp;
     }
 
     public MockUnitString types(NameType... types) {
-        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmptyTypes(types);
         NameType nameType = mock.from(types).val();
         return type(nameType);
     }

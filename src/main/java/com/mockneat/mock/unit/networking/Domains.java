@@ -6,11 +6,9 @@ import com.mockneat.types.enums.DomainSuffixType;
 
 import java.util.function.Supplier;
 
-import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static com.mockneat.mock.utils.ValidationUtils.notEmptyTypes;
 import static com.mockneat.types.enums.DomainSuffixType.POPULAR;
-import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -35,9 +33,7 @@ public class Domains implements MockUnitString {
     }
 
     public MockUnitString types(DomainSuffixType... types) {
-        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
-        range(0, types.length).forEach(i ->
-                notNull(types[i], INPUT_PARAMETER_NOT_NULL, "types[" + i + "]"));
+        notEmptyTypes(types);
         DomainSuffixType type = mock.from(types).val();
         return type(type);
     }

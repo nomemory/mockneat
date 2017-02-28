@@ -7,7 +7,7 @@ import java.util.*;
 
 import static com.mockneat.mock.Constants.RAND;
 import static com.mockneat.mock.Constants.RANDS;
-import static com.mockneat.mock.Constants.RU_CYCLES;
+import static com.mockneat.mock.Constants.MOCK_CYCLES;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by andreinicolinciobanu on 10/02/2017.
  */
-public class RandUnitCollection {
+public class MockUnitCollectionMethodTest {
     @Test(expected = NullPointerException.class)
     public void testCollectionNulLType() throws Exception {
         RAND.ints().collection(null, 10).val();
@@ -34,21 +34,21 @@ public class RandUnitCollection {
 
     @Test
     public void testCollectionCorrectSize0() throws Exception {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                         assertTrue(r.ints().list(0).collection(0).val().isEmpty())));
     }
 
     @Test
     public void testLCollectionCorrectSize0_1() throws Exception {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r ->
                         assertTrue(r.ints().collection(5000).collection(0).val().isEmpty())));
     }
 
     @Test
     public void testCollectionCorrectSize0_2() throws Exception {
-        loop(RU_CYCLES, () ->
+        loop(MOCK_CYCLES, () ->
                 stream(RANDS).forEach(r -> {
                     Collection<Collection<Integer>> result = r.ints().collection(10).collection(5).val();
                     assertTrue(result.size()==5);
@@ -58,7 +58,7 @@ public class RandUnitCollection {
 
     @Test
     public void testCollectionCorrectValues() throws Exception {
-        loop(RU_CYCLES, () -> stream(RANDS).forEach(r -> {
+        loop(MOCK_CYCLES, () -> stream(RANDS).forEach(r -> {
             Collection<Collection<Collection<Integer>>> result =
                     r.ints().range(100, 200)
                             .collection(LinkedList.class, 5)
@@ -108,7 +108,7 @@ public class RandUnitCollection {
     @Test(expected = IllegalArgumentException.class)
     public void testCollectionTreeSetWithNulls() {
         List<Integer> list = Arrays.asList(null, null);
-        loop(RU_CYCLES, () -> {
+        loop(MOCK_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 Collection c = r.from(list).collection(TreeSet.class, 100).val();
                 c.forEach(e -> assertTrue(null==e));
@@ -119,7 +119,7 @@ public class RandUnitCollection {
     @Test
     public void testCollectionHashSetWithNulls() {
         List<Integer> list = Arrays.asList(null, null);
-        loop(RU_CYCLES, () -> {
+        loop(MOCK_CYCLES, () -> {
             stream(RANDS).forEach(r -> {
                 Collection c = r.from(list).collection(HashSet.class, 100).val();
                 c.forEach(e -> assertTrue(null==e));

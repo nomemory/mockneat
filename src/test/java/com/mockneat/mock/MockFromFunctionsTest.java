@@ -151,7 +151,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromKeys() throws Exception {
         Map<Integer, Integer> map = RAND.ints().mapKeys(25, RAND.ints()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromKeys(map).val(),
                 x -> map.containsKey(x));
@@ -172,7 +172,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromValues() throws Exception {
         Map<Integer, Integer> map = RAND.ints().mapKeys(25, RAND.ints()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
@@ -198,7 +198,7 @@ public class MockFromFunctionsTest {
     public void testFromIntsInteger() throws Exception {
         Integer[] array = RAND.ints().array(25).val();
         Set<Integer> arrayValues = new HashSet<>(asList(array));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromInts(array).val(),
                 x -> arrayValues.contains(x));
@@ -221,7 +221,7 @@ public class MockFromFunctionsTest {
     public void testFromIntsInt() throws Exception {
         int[] array = RAND.ints().arrayPrimitive(25).val();
         Set<Integer> arrayValues = new HashSet<>(asList(toObject(array)));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromInts(array).val(),
                 x -> arrayValues.contains(x));
@@ -244,7 +244,7 @@ public class MockFromFunctionsTest {
     public void testFromIntsList() throws Exception {
         List<Integer> list = RAND.ints().range(0,5).list(10).val();
         Set<Integer> listValues = new HashSet<>(list);
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromInts(list).val(),
                 x -> assertTrue(listValues.contains(x)));
@@ -266,7 +266,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromIntsValues() {
         Map<Character, Integer> map = RAND.chars().letters().mapVals(25, RAND.ints()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromIntsValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
@@ -288,7 +288,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromIntsKeys() {
         Map<Integer, Character> map = RAND.chars().letters().mapKeys(25, RAND.ints()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromIntsKeys(map).val(),
                 x -> assertTrue(map.containsKey(x)));
@@ -315,7 +315,7 @@ public class MockFromFunctionsTest {
     public void testFromDoublesDouble() throws Exception {
         Double[] array = RAND.doubles().array(25).val();
         Set<Double> arrayValues = new HashSet<>(asList(array));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromDoubles(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
@@ -338,7 +338,7 @@ public class MockFromFunctionsTest {
     public void testFromDoublesDoublePrim() throws Exception {
         double[] array = RAND.doubles().arrayPrimitive(25).val();
         Set<Double> arrayValues = new HashSet<>(asList(toObject(array)));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromDoubles(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
@@ -361,7 +361,7 @@ public class MockFromFunctionsTest {
     public void testFromDoubleList() throws Exception {
         List<Double> list = RAND.doubles().range(0,5).list(10).val();
         Set<Double> listValues = new HashSet<>(list);
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromDoubles(list).val(),
                 x -> assertTrue(listValues.contains(x)));
@@ -383,7 +383,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromDoublesValues() {
         Map<Character, Double> map = RAND.chars().letters().mapVals(25, RAND.doubles()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromDoublesValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
@@ -405,7 +405,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromDoublesKeys() {
         Map<Double, Character> map = RAND.chars().letters().mapKeys(25, RAND.doubles()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromDoublesKeys(map).val(),
                 x -> assertTrue(map.containsKey(x)));
@@ -432,7 +432,7 @@ public class MockFromFunctionsTest {
     public void testFromLongsLong() throws Exception {
         Long[] array = RAND.longs().array(25).val();
         Set<Long> arrayValues = new HashSet<>(asList(array));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromLongs(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
@@ -455,7 +455,7 @@ public class MockFromFunctionsTest {
     public void testFromLongsLongPrim() throws Exception {
         long[] array = RAND.longs().arrayPrimitive(25).val();
         Set<Long> arrayValues = new HashSet<>(asList(toObject(array)));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromLongs(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
@@ -478,7 +478,7 @@ public class MockFromFunctionsTest {
     public void testFromLongsList() throws Exception {
         List<Long> list = RAND.longs().range(0,5).list(10).val();
         Set<Long> listValues = new HashSet<>(list);
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromLongs(list).val(),
                 x -> listValues.contains(x));
@@ -500,7 +500,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromLongsValues() {
         Map<Character, Long> map = RAND.chars().letters().mapVals(25, RAND.longs()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromLongsValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
@@ -522,7 +522,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromLongsKeys() {
         Map<Long, Character> map = RAND.chars().letters().mapKeys(25, RAND.longs()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromLongsKeys(map).val(),
                 x -> assertTrue(map.containsKey(x)));
@@ -550,7 +550,7 @@ public class MockFromFunctionsTest {
     public void testFromStrings() throws Exception {
         String[] array = {"a", "b", "c"};
         Set<String> arrayValues = new HashSet<>(asList(array));
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromStrings(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
@@ -573,7 +573,7 @@ public class MockFromFunctionsTest {
     public void testFromStringList() throws Exception {
         List<String> list = new ArrayList<>(asList(new String[]{"a","b","c"}));
         Set<String> listValues = new HashSet<>(list);
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromStrings(list).val(),
                 x -> assertTrue(listValues.contains(x)));
@@ -595,7 +595,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromStringValues() {
         Map<Character, String> map = RAND.chars().letters().mapVals(25, RAND.names()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromStringsValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
@@ -617,7 +617,7 @@ public class MockFromFunctionsTest {
     @Test
     public void testFromStringKeys() {
         Map<String, Character> map = RAND.chars().letters().mapKeys(25, RAND.names()::val).val();
-        loop(RU_CYCLES,
+        loop(MOCK_CYCLES,
                 RANDS,
                 r -> r.fromStringsKeys(map).val(),
                 x -> map.containsKey(x));

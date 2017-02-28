@@ -1,6 +1,5 @@
 package com.mockneat.mock.unit.user;
 
-import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.types.Pair;
@@ -9,8 +8,9 @@ import com.mockneat.types.enums.UserNameType;
 
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static com.mockneat.mock.utils.ValidationUtils.notEmptyTypes;
 import static com.mockneat.types.enums.StringFormatType.LOWER_CASE;
-import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
 /**
@@ -32,13 +32,13 @@ public class Users implements MockUnitString {
     }
 
     public MockUnitString type(UserNameType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
         Supplier<String> supplier = () -> generateUserName(type);
         return () -> supplier;
     }
 
     public MockUnitString types(UserNameType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmptyTypes(types);
         UserNameType type = mock.from(types).val();
         return type(type);
     }
