@@ -12,17 +12,19 @@ package com.mockneat.mock.utils.markov;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnit;
+import com.mockneat.mock.utils.file.FileManager;
+import com.mockneat.types.enums.MarkovChainType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,28 +37,33 @@ import static org.apache.commons.lang3.text.WordUtils.capitalize;
 
 public class MarkovUnit {
 
+    private static final FileManager fm = FileManager.getInstance();
+    private static final Logger logger = LoggerFactory.getLogger(MarkovUnit.class);
+
+    private String path;
     private Map<WordState, WordStatistic> chain;
     private MockUnit<WordState> randState;
     private Integer stateSize = 2;
     private MockNeat mock = MockNeat.threadLocal();
 
-    public MarkovUnit(MockNeat mock, List<String> lines, Integer stateSize) {
+    private MarkovUnit(MockNeat mock, List<String> lines, String path, Integer stateSize) {
+        this.path = path;
         this.stateSize = stateSize;
         this.chain = getChain(getRawChain(getWords(lines)));
         this.mock = mock;
         this.randState = this.mock.fromKeys(chain);
     }
 
-    public MarkovUnit(MockNeat mock, String textFile, Integer stateSize) throws IOException {
-        this.stateSize = stateSize;
-        this.mock = mock;
+    public static MarkovUnit internal(MockNeat mock, MarkovChainType chainType, int stateSize) throws IOException {
+        return new MarkovUnit(mock, fm.read(chainType), chainType.getFile(), stateSize);
+    }
 
-        List<String> lines = Files.readAllLines(Paths.get(textFile));
-        this.chain = getChain(getRawChain(getWords(lines)));
-        this.randState = this.mock.fromKeys(chain);
+    public static MarkovUnit external(MockNeat mock, String path, int stateSize) throws IOException {
+        return new MarkovUnit(mock, fm.read(path), path, stateSize);
     }
 
     private List<String> getWords(List<String> lines) {
+        logger.info("Obtaining the list of words from: '{}'.", this.path);
         List<String> words = new ArrayList<>();
         lines.forEach(line -> {
             line = line.replaceAll("\""," ");
@@ -66,10 +73,12 @@ public class MarkovUnit {
                     words.add(trimmed);
             });
         });
+        logger.info("{} words detected in '{}'.", words.size(), path);
         return words;
     }
 
     private Map<WordState, Map<String, Integer>> getRawChain(List<String> words) {
+        logger.info("Building WordState(s) from the words found in '{}'.", path);
         Map<WordState, Map<String, Integer>> result = new HashMap<>();
         WordState currentState;
         Map<String, Integer> currentRawValue;
@@ -93,6 +102,7 @@ public class MarkovUnit {
 
             currentRawValue.put(nextWord, ++currentCount);
         }
+        logger.info("{} WordState(s) detected in '{}'.", result.keySet().size(), path);
         return result;
     }
 

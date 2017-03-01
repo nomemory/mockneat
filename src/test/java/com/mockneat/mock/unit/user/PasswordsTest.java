@@ -8,8 +8,8 @@ import java.util.Set;
 
 import static com.mockneat.alphabets.Alphabets.SPECIAL_CHARACTERS;
 import static com.mockneat.mock.Constants.PASS_CYCLES;
-import static com.mockneat.mock.Constants.RAND;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.M;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static com.mockneat.types.enums.PassStrengthType.STRONG;
@@ -23,18 +23,18 @@ public class PasswordsTest {
 
     @Test(expected = NullPointerException.class)
     public void testPasswordNullType() throws Exception {
-        RAND.passwords().type(null).val();
+        M.passwords().type(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testPasswordEmptyTypes() throws Exception {
-        RAND.passwords().types().val();
+        M.passwords().types().val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testPasswordNullTypes() throws Exception {
         PassStrengthType[] types = null;
-        RAND.passwords().types(types).val();
+        M.passwords().types(types).val();
     }
 
     protected Boolean hasCorrectLength(String genPass, PassStrengthType type) {
@@ -58,14 +58,14 @@ public class PasswordsTest {
 
     protected void testPassLength(PassStrengthType type) throws Exception {
         loop(PASS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.passwords().type(type).val(),
                 p -> assertTrue(hasCorrectLength(p, type)));
     }
 
     protected void testPassContainsSpecialChr(PassStrengthType type) throws Exception {
         loop(PASS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.passwords().type(type).val(),
                 p -> assertTrue(containsSpecial(p)));
     }

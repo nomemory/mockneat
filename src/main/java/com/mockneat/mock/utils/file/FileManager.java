@@ -1,10 +1,14 @@
 package com.mockneat.mock.utils.file;
 
 import com.mockneat.types.enums.DictType;
+import com.mockneat.types.enums.MarkovChainType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -12,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static java.lang.ClassLoader.getSystemResource;
 import static java.nio.file.Paths.get;
 import static java.util.stream.Collectors.toList;
 
@@ -21,9 +24,15 @@ import static java.util.stream.Collectors.toList;
  */
 public class FileManager {
 
-    private static final String DICT_FOLDER = "./resources/dicts/";
+    private static final Logger logger = LoggerFactory.getLogger(FileManager.class);
+
+    private static final String DICT_FOLDER = "dicts/";
+
+    private static final String MARKOV_FOLDER = "markov/";
 
     private static final FileManager fileManager = new FileManager();
+
+    private static final ClassLoader loader = FileManager.getInstance().getClass().getClassLoader();
 
     private static final Map<String, List<String>> JAR_INTERNAL =
             new HashMap<>();
@@ -38,8 +47,11 @@ public class FileManager {
     public List<String> getLines(String path) {
         if (!JAR_EXTERNAL.containsKey(path)) {
             try {
-                JAR_EXTERNAL.put(path, read(path));
+                List<String> lines = read(path);
+                logger.info("Loaded file '{}' in memory. The file contains {} lines.", path, lines.size());
+                JAR_EXTERNAL.put(path, lines);
             } catch (IOException e) {
+                logger.error("Cannot read file '{}' in memory.", e);
                throw new IllegalArgumentException(e);
             }
         }
@@ -47,40 +59,52 @@ public class FileManager {
     }
 
     public List<String> getLines(DictType dictType) {
-        String internal = interalDictPath(dictType);
+        String internal = getDictPath(dictType);
         if (!JAR_INTERNAL.containsKey(internal)) {
             try {
-                JAR_INTERNAL.put(internal, read(dictType));
-            } catch (URISyntaxException | IOException e) {
-                throw new IllegalArgumentException(e);
+                List<String> lines = read(dictType);
+                logger.info("Loading internal dictionary '{}' in memory. The dictionary contains {} lines",
+                        dictType.getFile(),
+                        lines.size());
+                JAR_INTERNAL.put(internal, lines);
+            } catch (IOException e) {
+                logger.error("Cannot read internal dictionary '{}' in memory. Something is terribly wrong.");
+                throw new UncheckedIOException(e);
             }
         }
         return JAR_INTERNAL.get(internal);
     }
 
-    private List<String> read(String key) throws IOException {
+    private String getDictPath(DictType dictType) {
+        return DICT_FOLDER + dictType.getFile();
+    }
+
+    private String getMarkovPath(MarkovChainType markovChainType) {
+        return MARKOV_FOLDER + markovChainType.getFile();
+    }
+
+    protected List<String> readInternal(String internal) throws IOException {
+        try (BufferedReader buff =
+                     new BufferedReader(
+                             new InputStreamReader(
+                                     loader.getResourceAsStream(
+                                             internal)))) {
+            return buff.lines().collect(toList());
+        }
+    }
+
+    public List<String> read(MarkovChainType markovChainType) throws IOException {
+        return readInternal(getMarkovPath(markovChainType));
+    }
+
+    public List<String> read(DictType dictType) throws IOException {
+        return readInternal(getDictPath(dictType));
+    }
+
+    public List<String> read(String key) throws IOException {
         Path p = get(key);
         try (Stream<String> stream = Files.lines(p)) {
             return stream.collect(toList());
         }
-    }
-
-    private String interalDictPath(DictType dictType) {
-        return DICT_FOLDER + dictType.getFileName();
-    }
-
-    private List<String> read(DictType key) throws URISyntaxException, IOException {
-        String internal = interalDictPath(key);
-        Path path = isRunningFromJar() ?
-                get(getSystemResource(internal).toURI()) :
-                get(internal);
-        try (Stream<String> stream = Files.lines(path)) {
-            return stream.collect(toList());
-        }
-    }
-
-    private boolean isRunningFromJar() {
-        URL path = FileManager.class.getResource("FileManager.class");
-        return "jar".equals(path.getProtocol());
     }
 }

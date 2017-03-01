@@ -1,6 +1,6 @@
 package com.mockneat.mock.unit.text;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -12,9 +12,9 @@ package com.mockneat.mock.unit.text;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.MockNeat;
@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -49,7 +50,8 @@ public class Markovs implements MockUnitString {
 
     protected MarkovUnit get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {
-            markovUnits.put(markovChainType, new MarkovUnit(mock, markovChainType.getPath(), 2));
+            logger.info("Loading MarkovUnit in memory '{}'." , markovChainType.getFile());
+            markovUnits.put(markovChainType, MarkovUnit.internal(mock, markovChainType, 2));
         }
         return markovUnits.get(markovChainType);
     }
@@ -79,9 +81,9 @@ public class Markovs implements MockUnitString {
                 unit = get(type);
                 return unit.generateText(size);
             } catch (IOException e) {
-                logger.error("Cannot get Markov chain of type {}. Empty String will be returned instead.", type.name(), e);
+                logger.error("Cannot load MarkovUnit chain of type '{}'.", type.name(), e);
+                throw new UncheckedIOException(e);
             }
-            return "";
         };
         return () -> supp;
     }

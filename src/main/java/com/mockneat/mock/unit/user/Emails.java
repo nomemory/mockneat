@@ -14,7 +14,7 @@ package com.mockneat.mock.unit.user;
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.MockNeat;
@@ -37,7 +37,7 @@ public class Emails implements MockUnitString {
         return () -> mock.users().val() + "@" + mock.dicts().type(DOMAIN_EMAIL).val();
     }
 
-    public MockUnit<String> withDomains(String... domains) {
+    public MockUnit<String> domains(String... domains) {
         Supplier<String> supp = () -> {
             String user = mock.users().val();
             String domain = mock.from(domains).val();
@@ -46,7 +46,7 @@ public class Emails implements MockUnitString {
         return () -> supp;
     }
 
-    public MockUnit<String> withDomain(String domain) {
-        return withDomains(domain);
+    public MockUnit<String> domain(String domain) {
+        return domains(domain);
     }
 }

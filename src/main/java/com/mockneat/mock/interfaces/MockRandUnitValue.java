@@ -1,6 +1,4 @@
-package com.mockneat.mock.unit.objects;
-
-import com.mockneat.mock.interfaces.MockUnit;
+package com.mockneat.mock.interfaces;
 
 public class MockRandUnitValue implements MockValue {
 
@@ -19,11 +17,6 @@ public class MockRandUnitValue implements MockValue {
 
     @Override
     public Object get() {
-        return mockUnit.val();
-    }
-
-    @Override
-    public Boolean isForced() {
-        return forced;
+        return mockUnit.supplier().get();
     }
 }

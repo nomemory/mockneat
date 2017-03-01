@@ -7,7 +7,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import static com.mockneat.mock.Constants.DAYS_CYCLES;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.time.Month.DECEMBER;
 import static java.time.Month.NOVEMBER;
@@ -21,7 +21,7 @@ public class MonthsTest {
 
     @Test
     public void testMonths() throws Exception {
-        loop(DAYS_CYCLES, RANDS, r ->
+        loop(DAYS_CYCLES, MOCKS, r ->
                 assertTrue((r.months().val()) instanceof Month));
     }
 
@@ -31,7 +31,7 @@ public class MonthsTest {
         Month upper = DECEMBER;
         Set<Month> monthSet = EnumSet.of(OCTOBER, NOVEMBER);
         loop(DAYS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.months().range(lower, upper).val(),
                 m -> assertTrue(monthSet.contains(m)));
     }

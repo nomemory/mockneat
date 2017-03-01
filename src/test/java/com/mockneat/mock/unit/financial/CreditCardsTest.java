@@ -21,19 +21,19 @@ public class CreditCardsTest {
     @Test(expected = NullPointerException.class)
     public void testCreditCardTypeNotNull() throws Exception {
         CreditCardType type = null;
-        RAND.creditCards().type(type).val();
+        M.creditCards().type(type).val();
 
     }
 
     @Test(expected = NullPointerException.class)
     public void testCreditCardTypesNotNull() throws Exception {
         CreditCardType[] types = null;
-        RAND.creditCards().types(types).val();
+        M.creditCards().types(types).val();
     }
 
     @Test
     public void testCreditCardCorrectLength() throws Exception {
-        loop(CCS_CYCLES, RANDS, r -> {
+        loop(CCS_CYCLES, MOCKS, r -> {
             CreditCardType creditCardType = r.from(CreditCardType.class).val();
             String cc =  r.creditCards().type(creditCardType).val();
             assertTrue(cc.length() == creditCardType.getLength());
@@ -42,7 +42,7 @@ public class CreditCardsTest {
 
     @Test
     public void testCreditCardHasCorrectPrefix() throws Exception {
-        loop(CCS_CYCLES, RANDS, r -> {
+        loop(CCS_CYCLES, MOCKS, r -> {
                     CreditCardType creditCardType = r.from(CreditCardType.class).val();
                     // Obtain the set of prefixes associated with the credit card type
                     Set<String> prefixes = creditCardType
@@ -70,7 +70,7 @@ public class CreditCardsTest {
     @Test
     public void testCreditCardAreValidLuhn() throws Exception {
         loop(CCS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> {
                     CreditCardType c = r.from(CreditCardType.class).val();
                     return r.creditCards().type(c).val();
@@ -81,7 +81,7 @@ public class CreditCardsTest {
     @Test
     public void testCreditCardNames() throws Exception {
         Set<String> set = new HashSet<>(FM.getLines(CREDIT_CARD_NAMES));
-        loop(CCS_CYCLES, RANDS, r -> r.creditCards().names().val(), cn ->
+        loop(CCS_CYCLES, MOCKS, r -> r.creditCards().names().val(), cn ->
             assertTrue(set.contains(cn)));
     }
 }

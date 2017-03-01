@@ -4,7 +4,7 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 import org.junit.Test;
 
 import static com.mockneat.mock.Constants.IPV6S_CYCLES;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
@@ -16,6 +16,6 @@ public class IPv6sTest {
 
     @Test
     public void testIPv6AddressesWithINetValidator() {
-        loop(IPV6S_CYCLES, RANDS, r -> r.iPv6s().val(), i -> assertTrue(IAV.isValidInet6Address(i)));
+        loop(IPV6S_CYCLES, MOCKS, r -> r.iPv6s().val(), i -> assertTrue(IAV.isValidInet6Address(i)));
     }
 }

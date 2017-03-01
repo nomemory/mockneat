@@ -18,7 +18,7 @@ public class LongsTest {
     public void testNextLongInCorrectRange() throws Exception {
         long upperBound = 100;
         loop(FLOATS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().bound(upperBound).val(),
                 num -> assertTrue(num >= 0 && num < upperBound));
     }
@@ -26,20 +26,20 @@ public class LongsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextLongNegativeNotBound() throws Exception {
         long upperBound = -100;
-        RAND.longs().bound(upperBound).val();
+        M.longs().bound(upperBound).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound() throws Exception {
         Long bound = null;
-        RAND.longs().bound(bound).val();
+        M.longs().bound(bound).val();
     }
 
     @Test
     public void testNextLongInCorrectRange2() throws Exception {
         long upperBound = 1L;
         loop(LONGS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().bound(upperBound).val(),
                 num -> assertTrue(num.equals(0L)));
     }
@@ -48,7 +48,7 @@ public class LongsTest {
     public void testNextLongInCorrectRange3() throws Exception {
         Long upperBound = Long.MAX_VALUE;
         loop(LONGS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().bound(upperBound).val(),
                 num -> assertTrue(num < upperBound));
     }
@@ -57,26 +57,26 @@ public class LongsTest {
     public void testNextLongNegativeNotBound2() throws Exception {
         long lowerBound = -1;
         long upperBound = 100;
-        RAND.longs().range(lowerBound, upperBound).val();
+        M.longs().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextLongNegativeNotBound3() throws Exception {
         long lowerBound = 100;
         long upperBound = -5;
-        RAND.longs().range(lowerBound, upperBound).val();
+        M.longs().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound2() throws Exception {
         Long l = null;
-        RAND.longs().range(l, 10L).val();
+        M.longs().range(l, 10L).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound3() throws Exception {
         Long l = null;
-        RAND.longs().range(10L, l).val();
+        M.longs().range(10L, l).val();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class LongsTest {
         long lowerBound = 5;
         long upperBound = 8;
         loop(LONGS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().range(lowerBound, upperBound).val(),
                 num -> assertTrue((num >= lowerBound) && (num < upperBound)));
     }
@@ -92,14 +92,14 @@ public class LongsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextLongNonEqualBounds() throws Exception {
         long lowerBound = 10, upperBound = 10;
-        RAND.longs().range(lowerBound, upperBound).val();
+        M.longs().range(lowerBound, upperBound).val();
     }
 
     @Test
     public void testNextLongCorrectValues() throws Exception {
         long lowerBound = 10, upperBound = lowerBound + 1;
         loop(LONGS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().range(lowerBound, upperBound).val(),
                 num -> num.equals(lowerBound));
     }
@@ -109,7 +109,7 @@ public class LongsTest {
         long lowerBound = 0;
         long upperBound = Long.MAX_VALUE;
         loop(LONGS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().range(lowerBound, upperBound).val(),
                 num -> assertTrue(num >= lowerBound && num < upperBound));
     }
@@ -119,7 +119,7 @@ public class LongsTest {
         long[] alphabet = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
         Set<Long> helperSet = new HashSet<>(asList(ArrayUtils.toObject(alphabet)));
         loop(LONGS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.longs().from(alphabet).val(),
                 num -> assertTrue(helperSet.contains(num)));
     }
@@ -127,12 +127,12 @@ public class LongsTest {
     @Test(expected = NullPointerException.class)
     public void testNextNulLNotAlphabet() throws Exception {
         long[] alphabet = null;
-        RAND.longs().from(alphabet).val();
+        M.longs().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextEmptyArrayNotAlphabet() throws Exception {
         long[] alphabet = new long[]{};
-        RAND.longs().from(alphabet).val();
+        M.longs().from(alphabet).val();
     }
 }

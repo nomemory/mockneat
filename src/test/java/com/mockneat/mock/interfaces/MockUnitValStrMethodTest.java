@@ -2,7 +2,7 @@ package com.mockneat.mock.interfaces;
 
 import org.junit.Test;
 
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.Constants.MOCK_CYCLES;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.lang.Character.isDigit;
@@ -14,14 +14,14 @@ public class MockUnitValStrMethodTest {
 
     @Test
     public void testValStrNulls() throws Exception {
-        loop(MOCK_CYCLES, RANDS, m -> m.from(new Integer[]{ null, null, null }).valStr(),
+        loop(MOCK_CYCLES, MOCKS, m -> m.from(new Integer[]{ null, null, null }).valStr(),
                 s -> assertTrue("".equals(s)));
     }
 
     @Test
     public void testStrValBools() throws Exception {
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 String b = r.bools().valStr();
                 assertTrue(b.equals("false") || b.equals("true"));
             });
@@ -31,7 +31,7 @@ public class MockUnitValStrMethodTest {
     @Test
     public void testStrValChars() throws Exception {
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 String c = r.chars().digits().valStr();
                 assertTrue(c.length()==1 && isDigit(c.charAt(0)));
             });
@@ -41,7 +41,7 @@ public class MockUnitValStrMethodTest {
     @Test
     public void testStrValDoubles() throws Exception {
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 String d = r.doubles().valStr();
                 try { Double.valueOf(d); }
                 catch (NumberFormatException e) { fail(); }
@@ -52,7 +52,7 @@ public class MockUnitValStrMethodTest {
     @Test
     public void testStrValInts() throws Exception {
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 String i = r.ints().valStr();
                 try { Integer.valueOf(i); }
                 catch (NumberFormatException e) { fail(); }
@@ -63,7 +63,7 @@ public class MockUnitValStrMethodTest {
     @Test
     public void testStrValLongs() throws Exception {
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 String l = r.longs().valStr();
                 try { Long.valueOf(l); }
                 catch (NumberFormatException e) { fail(); }
@@ -74,7 +74,7 @@ public class MockUnitValStrMethodTest {
     @Test
     public void testStrValFloats() throws Exception {
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 String f = r.floats().valStr();
                 try { Float.valueOf(f); }
                 catch (NumberFormatException e) { fail(); }

@@ -14,11 +14,12 @@ package com.mockneat.mock.interfaces;
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.types.enums.StringFormatType;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.function.Supplier;
@@ -106,4 +107,12 @@ public interface MockUnitString extends MockUnit<String> {
     default MockUnitString noSpecialChars() {
         return () -> () -> supplier().get().replaceAll("[^\\dA-Za-z ]", "");
     }
+
+    default MockUnitString escapeCsv() { return () -> () -> StringEscapeUtils.escapeCsv(supplier().get()); }
+
+    default MockUnitString escapeEcmaScript() { return () -> () -> StringEscapeUtils.escapeEcmaScript(supplier().get()); }
+
+    default MockUnitString escapeHtml() { return () -> () -> StringEscapeUtils.escapeHtml4(supplier().get()); }
+
+    default MockUnitString escapeXml() { return() -> () -> StringEscapeUtils.escapeXml11(supplier().get()); }
 }

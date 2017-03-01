@@ -12,9 +12,9 @@ package com.mockneat.mock.unit.user;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.MockNeat;
@@ -76,7 +76,7 @@ public class Passwords implements MockUnitString {
     protected String nextWeakPassword() {
         Integer minLength = WEAK.getLength().getLowerBound();
         Integer maxLength = WEAK.getLength().getUpperBound();
-        DictType dictType = mock.from(EN_NOUN_2SYLL, EN_NOUN_1SYLL).val();
+        DictType dictType = mock.from(new DictType[]{EN_NOUN_2SYLL, EN_NOUN_1SYLL}).val();
         String noun = mock.dicts().type(dictType).val();
         if (noun.length()>maxLength) {
             noun = noun.substring(0, maxLength);
@@ -134,7 +134,7 @@ public class Passwords implements MockUnitString {
         StringBuilder buff = new StringBuilder();
         List<Character> cAlph;
         while (passLength-- > 1) {
-            cAlph = mock.from(SPECIAL_CHARACTERS, DIGITS, LETTERS).val();
+            cAlph = mock.from(new List[]{SPECIAL_CHARACTERS, DIGITS, LETTERS}).val();
             buff.append(mock.from(cAlph).val());
         }
         // Insert a special character to be 100% confident it exists

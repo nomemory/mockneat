@@ -1,20 +1,31 @@
 package com.mockneat.mock.unit.objects;
 
+import com.mockneat.mock.interfaces.MockConstValue;
+import com.mockneat.mock.interfaces.MockRandUnitValue;
 import com.mockneat.mock.interfaces.MockUnit;
+import com.mockneat.mock.interfaces.MockValue;
+import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 import static com.mockneat.mock.utils.ValidationUtils.*;
 import static java.lang.String.format;
+import static java.util.regex.Pattern.compile;
 import static java.util.stream.IntStream.range;
+import static org.apache.commons.lang3.Validate.isTrue;
+import static org.apache.commons.lang3.Validate.notNull;
 import static org.apache.commons.lang3.reflect.ConstructorUtils.invokeConstructor;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 public class Objs<T> implements MockUnit<T> {
+
+    private final static Pattern JAVA_FIELD_REGEX =
+            compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private Map<String, MockValue> fields = new LinkedHashMap<>();
     private Class<T> cls;
@@ -31,22 +42,17 @@ public class Objs<T> implements MockUnit<T> {
     }
 
     public <T1> Objs<T> field(String fieldName, MockUnit<T1> mockUnit) {
+        notNull(mockUnit, INPUT_PARAMETER_NOT_NULL, "mockUnit");
+        Validate.notEmpty(fieldName, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "fieldName");
+        isTrue(JAVA_FIELD_REGEX.matcher(fieldName).matches(), JAVA_FIELD_REGEX_MATCH, fieldName);
         this.fields.put(fieldName, new MockRandUnitValue(mockUnit));
         return this;
     }
 
-    public <T1> Objs<T> field(String fieldName, MockUnit<T1> mockUnit, boolean forced) {
-        this.fields.put(fieldName, new MockRandUnitValue(mockUnit, forced));
-        return this;
-    }
-
     public Objs<T> field(String fieldName, Object value) {
-        this.fields.put(fieldName, new MockConstValue(value));
-        return this;
-    }
-
-    public Objs<T> field(String fieldName, Object value, boolean forced) {
-        this.fields.put(fieldName, new MockConstValue(value, forced));
+        Validate.notEmpty(fieldName, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "fieldName");
+        isTrue(JAVA_FIELD_REGEX.matcher(fieldName).matches(), JAVA_FIELD_REGEX_MATCH, fieldName);
+        this.fields.put(fieldName, MockConstValue.val(value));
         return this;
     }
 
@@ -65,7 +71,7 @@ public class Objs<T> implements MockUnit<T> {
         fields.forEach((key, val) -> {
             Object cVal = val.get();
             try {
-                writeField(object, key, cVal, val.isForced());
+                writeField(object, key, cVal, true);
             } catch (IllegalAccessException e) {
                 String fmt = format(CANNOT_SET_FIELD_WITH_VALUE,
                         cls.getSimpleName(),
