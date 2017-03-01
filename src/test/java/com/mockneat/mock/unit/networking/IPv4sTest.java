@@ -46,7 +46,7 @@ public class IPv4sTest {
     }
 
     protected void testIpCycle(IPv4Type t) {
-        loop(IPV4S_CYCLES, RANDS, r -> r.ipv4s().type(t).val(), ip -> testIp(ip, t));
+        loop(IPV4S_CYCLES, MOCKS, r -> r.ipv4s().type(t).val(), ip -> testIp(ip, t));
     }
 
     @Test
@@ -101,23 +101,23 @@ public class IPv4sTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextIPv4AddressTypeNotNull() throws Exception {
-        RAND.ipv4s().type(null).val();
+        M.ipv4s().type(null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextIPv4AddressTypesNotNull() throws Exception {
         IPv4Type[] types = null;
-        RAND.ipv4s().types(types).val();
+        M.ipv4s().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIPv4AddressTypesNotEmpty() throws Exception {
-        RAND.ipv4s().types().val();
+        M.ipv4s().types().val();
     }
 
     @Test
     public void testIPv4AddressesWithINetValidator() {
-        loop(IPV4S_CYCLES, RANDS,
+        loop(IPV4S_CYCLES, MOCKS,
             r -> {
                 IPv4Type type = r.from(IPv4Type.class).val();
                 return r.ipv4s().type(type).val();

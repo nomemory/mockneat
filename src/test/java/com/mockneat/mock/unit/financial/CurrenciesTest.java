@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.mockneat.mock.Constants.CURRENCIES_CYCLES;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
@@ -27,22 +27,22 @@ public class CurrenciesTest {
 
     @Test
     public void testCodes() throws Exception {
-        loop(CURRENCIES_CYCLES, RANDS, r -> r.currencies().code().val(), c -> assertTrue(CODES.contains(c)));
+        loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().code().val(), c -> assertTrue(CODES.contains(c)));
     }
 
     @Test
     public void testSymbol() throws Exception {
-        loop(CURRENCIES_CYCLES, RANDS, r -> r.currencies().symbol().val(), c -> assertTrue(SYMBOLS.contains(c)));
+        loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().symbol().val(), c -> assertTrue(SYMBOLS.contains(c)));
     }
 
     @Test
     public void testName() throws Exception {
-        loop(CURRENCIES_CYCLES, RANDS, r -> r.currencies().name().val(), c -> assertTrue(NAMES.contains(c)));
+        loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().name().val(), c -> assertTrue(NAMES.contains(c)));
     }
 
     @Test
     public void testForexPair() throws Exception {
-        loop(CURRENCIES_CYCLES, RANDS, r -> r.currencies().forexPair().val(), c -> {
+        loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().forexPair().val(), c -> {
             String[] pairs = c.split("/");
             assertTrue(CODES.contains(pairs[0]));
             assertTrue(CODES.contains(pairs[1]));

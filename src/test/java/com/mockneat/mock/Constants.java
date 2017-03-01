@@ -7,8 +7,8 @@ import com.mockneat.types.enums.RandomType;
  */
 public class Constants {
 
-    public static final MockNeat[] RANDS = { new MockNeat(RandomType.OLD), new MockNeat(RandomType.SECURE), new MockNeat(RandomType.THREAD_LOCAL) };
-    public static final MockNeat RAND = RANDS[0];
+    public static final MockNeat[] MOCKS = { new MockNeat(RandomType.OLD), new MockNeat(RandomType.SECURE), new MockNeat(RandomType.THREAD_LOCAL) };
+    public static final MockNeat M = MOCKS[0];
 
     public static final int BOOLS_CYCLES = 10000;
     public static final int CCS_CYCLES = 10000;
@@ -23,6 +23,7 @@ public class Constants {
     public static final int DOUBLES_CYCLES = 10000;
     public static final int EMAILS_CYCLES = 10000;
     public static final int FLOATS_CYCLES = 10000;
+    public static final int FMT_CYCLES = 10000;
     public static final int INTS_CYCLES = 10000;
     public static final int IPV4S_CYCLES = 10000;
     public static final int IPV6S_CYCLES = 10000;

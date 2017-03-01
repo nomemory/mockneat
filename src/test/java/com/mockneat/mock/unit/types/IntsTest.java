@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.mockneat.mock.Constants.INTS_CYCLES;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.MOCKS;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
@@ -20,7 +20,7 @@ public class IntsTest {
     public void testNextIntegerInCorrectRange() throws Exception {
         int upperBound = 100;
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().bound(upperBound).val(),
                 num -> assertTrue(num < 100 && num >= 0));
     }
@@ -28,20 +28,20 @@ public class IntsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNegativeNotBound() throws Exception {
         int upperBound = -100;
-        Constants.RAND.ints().bound(upperBound).val();
+        Constants.M.ints().bound(upperBound).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound() throws Exception {
         Integer bound = null;
-        Constants.RAND.ints().bound(bound).val();
+        Constants.M.ints().bound(bound).val();
     }
 
     @Test
     public void testNextIntegerInCorrectRange2() throws Exception {
         int upperBound = 1;
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().bound(upperBound).val(),
                 num -> assertTrue(num.equals(0)));
     }
@@ -50,7 +50,7 @@ public class IntsTest {
     public void testNextIntegerInCorrectRange3() throws Exception {
         Integer upperBound = Integer.MAX_VALUE;
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().bound(upperBound).val(),
                 num -> assertTrue(num < upperBound));
     }
@@ -59,26 +59,26 @@ public class IntsTest {
     public void testNextIntegerNegativeNotBound2() throws Exception {
         int lowerBound = -1;
         int upperBound = 100;
-        Constants.RAND.ints().range(lowerBound, upperBound).val();
+        Constants.M.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNegativeNotBound3() throws Exception {
         int lowerBound = 100;
         int upperBound = -5;
-        Constants.RAND.ints().range(lowerBound, upperBound).val();
+        Constants.M.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound2() throws Exception {
         Integer x = null;
-        Constants.RAND.ints().range(x, 10).val();
+        Constants.M.ints().range(x, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound3() throws Exception {
         Integer x = null;
-        Constants.RAND.ints().range(10, x).val();
+        Constants.M.ints().range(10, x).val();
     }
 
     @Test
@@ -86,7 +86,7 @@ public class IntsTest {
         int lowerBound = 5;
         int upperBound = 8;
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().range(lowerBound, upperBound).val(),
                 num -> assertTrue((num >= lowerBound) && (num < upperBound)));
     }
@@ -94,14 +94,14 @@ public class IntsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextIntegerNonEqualBounds() throws Exception {
         int lowerBound = 10, upperBound = 10;
-        Constants.RAND.ints().range(lowerBound, upperBound).val();
+        Constants.M.ints().range(lowerBound, upperBound).val();
     }
 
     @Test
     public void testNextIntegerCorrectValues() throws Exception {
         int lowerBound = 10, upperBound = lowerBound + 1;
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().range(lowerBound, upperBound).val(),
                 num -> num.equals(lowerBound));
     }
@@ -111,7 +111,7 @@ public class IntsTest {
         int lowerBound = 0;
         int upperBound = Integer.MAX_VALUE;
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().range(lowerBound, upperBound).val(),
                 num -> assertTrue(num >= lowerBound && num < upperBound));
     }
@@ -121,7 +121,7 @@ public class IntsTest {
         int[] alphabet = { 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000 };
         Set<Integer> helperSet = new HashSet<>(asList(toObject(alphabet)));
         loop(INTS_CYCLES,
-                RANDS,
+                MOCKS,
                 r -> r.ints().from(alphabet).val(),
                 num -> assertTrue(helperSet.contains(num)));
     }
@@ -129,12 +129,12 @@ public class IntsTest {
     @Test(expected = NullPointerException.class)
     public void testNextNulLNotAlphabet() throws Exception {
         int[] alphabet = null;
-        Constants.RAND.ints().from(alphabet).val();
+        Constants.M.ints().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNextEmptyArrayNotAlphabet() throws Exception {
         int[] alphabet = new int[]{};
-        Constants.RAND.ints().from(alphabet).val();
+        Constants.M.ints().from(alphabet).val();
     }
 }

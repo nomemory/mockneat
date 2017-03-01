@@ -17,9 +17,9 @@ import static org.apache.commons.lang3.Validate.notNull;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 public class ValidationUtils {
@@ -45,14 +45,24 @@ public class ValidationUtils {
     public static final String CANNOT_URL_ENCODE_UTF_8 = "Cannot URL encode the following string: '%s'.";
     public static final String LOWER_DATE_SMALLER_THAN_UPPER_DATE = "lowerDate '%s' should be < than upperDate '%s'.";
     public static final String LOCAL_DATE_IN_INTERVAL = "%s(%s) should be in in the interval [%s, %s].";
+    public static final String MAX_DATE_NOT_BIGGER_THAN = "'maxDate' (%s)  should be < than '%s' (LocalDates.MAX)";
+    public static final String MIN_DATE_BIGGER_THAN = "'minDate' (%s) should be > than '%s' (LocalDate.MIN)";
+    public static final String MAX_DATE_DIFFERENT_THAN_NOW = "'maxDate' (%s) should be > than now() (%s).";
+    public static final String MIN_DATE_DIFFERENT_THAN_NOW = "'minDate' (%s) should be < than now() (%s).";
     // MOCK
     public static final String CANNOT_INSTANTIATE_OBJECT_OF_CLASS = "Cannot create an instance of '%s'. Please verify if the class has a public 'No Arguments' constructor: %s().";
     public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field %s.%s with value '%s'. Is the supplied value correct ?";
     public static final String CANNOT_INFER_CONSTRUCTOR = "Cannot infer %s%s. Are you sure the constructor exists and it's public ?";
+    public static final String JAVA_FIELD_REGEX_MATCH = "Field '%s' doesn't match the Java Naming Conventions for fields.";
+    // FORMATTER
+    public static final String INPUT_PARAM_ALPHANUMERIC = "Input param '%s' should be AlphaNumeric.";
     // SEQ
     public static final String INT_SEQ_OVERFLOW = "IntSeq overflow. Values are generated inside the interval: [%d, %d]. Cannot increment any further.";
     public static final String LONG_SEQ_OVERFLOW = "LongSeq overflow. Values are generated inside the interval: [%d, %d]. Cannot increment any further.";
     public static final String SEQ_INVALID_RANGE = "The min value (%d) should be lower than the maximum (%d) value of the sequence.";
+    // UTILS
+    public static final String INVALID_PARAM_NAME_LENGTH_0 = "Named param should have a length!=0.";
+    public static final String CANNOT_FIND_PARAM_IN_ARGS = "Cannot find param: '%s' in the map of arguments.";
 
     private ValidationUtils() {}
 

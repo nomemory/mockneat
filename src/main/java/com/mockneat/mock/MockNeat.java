@@ -12,9 +12,9 @@ package com.mockneat.mock;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.interfaces.*;
@@ -24,8 +24,7 @@ import com.mockneat.mock.unit.networking.*;
 import com.mockneat.mock.unit.objects.Objs;
 import com.mockneat.mock.unit.seq.IntSeq;
 import com.mockneat.mock.unit.seq.LongSeq;
-import com.mockneat.mock.unit.text.Files;
-import com.mockneat.mock.unit.text.Markovs;
+import com.mockneat.mock.unit.text.*;
 import com.mockneat.mock.unit.time.LocalDates;
 import com.mockneat.mock.unit.types.*;
 import com.mockneat.mock.unit.user.Passwords;
@@ -36,8 +35,6 @@ import com.mockneat.mock.unit.financial.CreditCards;
 import com.mockneat.mock.unit.financial.Currencies;
 import com.mockneat.mock.unit.financial.Money;
 import com.mockneat.mock.unit.id.UUIDs;
-import com.mockneat.mock.unit.text.Dicts;
-import com.mockneat.mock.unit.text.Strings;
 import com.mockneat.mock.unit.time.Days;
 import com.mockneat.mock.unit.time.Months;
 import com.mockneat.mock.unit.user.Emails;
@@ -48,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.unit.text.Formatter.formatter;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -170,6 +168,8 @@ public class MockNeat {
     public Files files() { return this.rFiles; }
 
     public Floats floats() { return this.rFloats; }
+
+    public Formatter fmt(String fmt) { return formatter(fmt); }
 
     public Ints ints() { return this.rInts; }
 

@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static com.mockneat.mock.Constants.RAND;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.M;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.Constants.MOCK_CYCLES;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
@@ -18,37 +18,37 @@ public class MockUnitListMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testListNullType() throws Exception {
-        RAND.ints().list(null, 10).val();
+        M.ints().list(null, 10).val();
     }
 
     @Test
     public void testList0Size() throws Exception {
-        RAND.ints().list(LinkedList.class, 0).val();
+        M.ints().list(LinkedList.class, 0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testListNegativeSize() throws Exception {
-        RAND.ints().list(LinkedList.class, -1).val();
+        M.ints().list(LinkedList.class, -1).val();
     }
 
     @Test
     public void testListCorrectSize0() throws Exception {
         loop(MOCK_CYCLES, () ->
-                stream(RANDS).forEach(r ->
+                stream(MOCKS).forEach(r ->
                         assertTrue(r.ints().list(0).list(0).val().isEmpty())));
     }
 
     @Test
     public void testListCorrectSize0_1() throws Exception {
         loop(MOCK_CYCLES, () ->
-                stream(RANDS).forEach(r ->
+                stream(MOCKS).forEach(r ->
                         assertTrue(r.ints().list(5000).list(0).val().isEmpty())));
     }
 
     @Test
     public void testListCorrectSize0_2() throws Exception {
         loop(MOCK_CYCLES, () ->
-                stream(RANDS).forEach(r -> {
+                stream(MOCKS).forEach(r -> {
                     List<List<Integer>> result = r.ints().list(10).list(5).val();
                     assertTrue(result.size()==5);
                     result.forEach(sub -> assertTrue(sub.size()==10));
@@ -57,7 +57,7 @@ public class MockUnitListMethodTest {
 
     @Test
     public void testListCorrectValues() throws Exception {
-        loop(MOCK_CYCLES, () -> stream(RANDS).forEach(r -> {
+        loop(MOCK_CYCLES, () -> stream(MOCKS).forEach(r -> {
             List<List<List<Integer>>> result =
                 r.ints().range(100, 200)
                         .list(LinkedList.class, 5)
@@ -83,13 +83,13 @@ public class MockUnitListMethodTest {
     protected MockUnit getRecursiveRandUnitList(MockUnit ru, int stop) {
         Class[] listsImpls = new Class[] { ArrayList.class, LinkedList.class, Stack.class };
         while(stop-->0) {
-            ru = ru.list(RAND.from(listsImpls).val(), 1);
+            ru = ru.list(M.from(listsImpls).val(), 1);
         }
         return ru;
     }
 
     protected List getRecursiveList() {
-        MockUnit l = RAND.ints().list(1);
+        MockUnit l = M.ints().list(1);
         return (List) getRecursiveRandUnitList(l, 1000).val();
     }
 
@@ -106,7 +106,7 @@ public class MockUnitListMethodTest {
     public void testListOfNulls() {
         List<Integer> integers = Arrays.asList(null, null, null, null);
         loop(MOCK_CYCLES, () -> {
-            stream(RANDS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 List<Integer> list = r.from(integers).list(LinkedList.class, 100).val();
                 assertTrue(list instanceof LinkedList);
                 list.forEach(i -> assertTrue(null==i));

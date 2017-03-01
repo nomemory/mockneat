@@ -10,8 +10,8 @@ import java.util.function.Supplier;
 
 import static com.mockneat.alphabets.Alphabets.*;
 import static com.mockneat.mock.Constants.CHARS_CYCLES;
-import static com.mockneat.mock.Constants.RAND;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.M;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 
@@ -27,61 +27,61 @@ public class CharsTest {
 
     @Test
     public void testAlphaNumeric() throws Exception {
-        stream(RANDS).forEach(rand ->
+        stream(MOCKS).forEach(rand ->
                 inAlpabet(ALPHA_NUMERIC, rand.chars()::val));
     }
 
     @Test
     public void testDigits() throws Exception {
-        stream(RANDS).forEach(rand ->
+        stream(MOCKS).forEach(rand ->
                 inAlpabet(DIGITS, rand.chars().digits()::val));
     }
 
     @Test
     public void testLowerLetters() throws Exception {
-        stream(RANDS).forEach(rand ->
+        stream(MOCKS).forEach(rand ->
                 inAlpabet(LETTERS_LOWERCASE, rand.chars().lowerLetters()::val));
     }
 
     @Test
     public void testUpperLetters() throws Exception {
-        stream(RANDS).forEach(rand ->
+        stream(MOCKS).forEach(rand ->
                 inAlpabet(LETTERS_UPPERCASE, rand.chars().upperLetters()::val));
     }
 
     @Test
     public void testLetters() throws Exception {
-        stream(RANDS).forEach(rand ->
+        stream(MOCKS).forEach(rand ->
                 inAlpabet(LETTERS, rand.chars().letters()::val));
     }
 
     @Test
     public void testHexa() throws Exception {
-        stream(RANDS).forEach(rand ->
+        stream(MOCKS).forEach(rand ->
                 inAlpabet(HEXA, rand.chars().hex()::val));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testFromStringEmptyAlphabet() throws Exception {
         String alphabet = "";
-        RAND.chars().from(alphabet).val();
+        M.chars().from(alphabet).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testFromStringNullAlphabet() throws Exception {
         String alphabet = null;
-        RAND.chars().from(alphabet).val();
+        M.chars().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testFromArrayEmpty() throws Exception {
         char[] alphabet = {};
-        RAND.chars().from(alphabet).val();
+        M.chars().from(alphabet).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testFromArrayNull() throws Exception {
         char[] alphabet = null;
-        RAND.chars().from(alphabet).val();
+        M.chars().from(alphabet).val();
     }
 }

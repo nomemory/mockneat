@@ -7,8 +7,8 @@ import org.junit.Test;
 import java.util.*;
 
 import static com.mockneat.mock.Constants.NAMES_CYCLES;
-import static com.mockneat.mock.Constants.RAND;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.M;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static com.mockneat.types.enums.NameType.FIRST_NAME;
 import static com.mockneat.types.enums.NameType.LAST_NAME;
@@ -39,7 +39,7 @@ public class NamesTest {
 
     @Test
     public void testNames() throws Exception {
-        loop(NAMES_CYCLES, RANDS, m -> m.names().val(), n -> {
+        loop(NAMES_CYCLES, MOCKS, m -> m.names().val(), n -> {
             String[] split = n.split(" ");
             String firstName = split[0];
             String lastName = split[1];
@@ -51,31 +51,31 @@ public class NamesTest {
 
     @Test
     public void testNamesFirst() throws Exception {
-       loop(NAMES_CYCLES, RANDS, r -> r.names().first().val(),
+       loop(NAMES_CYCLES, MOCKS, r -> r.names().first().val(),
                n -> assertTrue(isInSets(n, NAMES.get(FIRST_NAME))));
     }
 
     @Test
     public void testNamesFirstNotEmpty() throws Exception {
-        loop(NAMES_CYCLES, RANDS, r -> r.names().first().val(),
+        loop(NAMES_CYCLES, MOCKS, r -> r.names().first().val(),
                 n -> assertTrue(isNotEmpty(n)));
     }
 
     @Test
     public void testNamesLast() throws Exception {
-        loop(NAMES_CYCLES, RANDS, r -> r.names().last().val(),
+        loop(NAMES_CYCLES, MOCKS, r -> r.names().last().val(),
                 n -> assertTrue(isInSets(n, NAMES.get(LAST_NAME))));
     }
 
     @Test
     public void testNamesLastNotEmpty() throws Exception {
-        loop(NAMES_CYCLES, RANDS, r -> r.names().last().val(),
+        loop(NAMES_CYCLES, MOCKS, r -> r.names().last().val(),
                 n -> assertTrue(isNotEmpty(n)));
     }
 
     @Test
     public void testFullAlwaysMidName() throws Exception {
-        loop(NAMES_CYCLES, RANDS, r -> r.names().full(100.0).val(), n -> {
+        loop(NAMES_CYCLES, MOCKS, r -> r.names().full(100.0).val(), n -> {
             String[] split = n.split(" ");
             String first = split[0];
             String middle = split[1];
@@ -96,7 +96,7 @@ public class NamesTest {
 
     @Test
     public void testNamesFullNeverMid() throws Exception {
-        loop(NAMES_CYCLES, RANDS, r -> r.names().full(0.0).val(), n -> {
+        loop(NAMES_CYCLES, MOCKS, r -> r.names().full(0.0).val(), n -> {
             String[] split = n.split(" ");
             assertTrue(split.length==2);
             assertTrue(!split[0].endsWith(" "));
@@ -106,12 +106,12 @@ public class NamesTest {
 
     @Test(expected = NullPointerException.class)
     public void testNamesTypeIsNull() throws Exception {
-        RAND.names().type(null).val();
+        M.names().type(null).val();
     }
 
     @Test
     public void testNamesType() throws Exception {
-        loop(NAMES_CYCLES, RANDS, m -> {
+        loop(NAMES_CYCLES, MOCKS, m -> {
             NameType type = m.from(NameType.class).val();
             String name = m.names().type(type).val();
             assertTrue(isInSets(name, NAMES.get(type)));
@@ -121,17 +121,17 @@ public class NamesTest {
     @Test(expected = NullPointerException.class)
     public void testNamesTypesNulL() throws Exception {
         NameType[] types = null;
-        RAND.names().types(types).val();
+        M.names().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNamesTypesEmptyArray() throws Exception {
-        RAND.names().types(new NameType[]{}).val();
+        M.names().types(new NameType[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNamesEmptyElementInArray() throws Exception {
         NameType[] types = {FIRST_NAME, null, LAST_NAME};
-        RAND.names().types(types).val();
+        M.names().types(types).val();
     }
 }

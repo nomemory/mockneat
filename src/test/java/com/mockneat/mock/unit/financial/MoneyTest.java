@@ -23,7 +23,7 @@ public class MoneyTest {
     @Test
     public void testMoney() throws Exception {
         NumberFormat nf = getCurrencyInstance(US);
-        loop(MONEY_CYCLES, RANDS, r -> r.money().val(), m -> {
+        loop(MONEY_CYCLES, MOCKS, r -> r.money().val(), m -> {
             try {
                 Number n = nf.parse(m);
                 Double d = n.doubleValue();
@@ -38,7 +38,7 @@ public class MoneyTest {
     public void testMoneyBound() throws Exception {
         double bound = 100000.00;
         NumberFormat nf = getCurrencyInstance(US);
-        loop(MONEY_CYCLES, RANDS, r -> r.money().bound(bound).val(), m -> {
+        loop(MONEY_CYCLES, MOCKS, r -> r.money().bound(bound).val(), m -> {
             try {
                 double d = nf.parse(m).doubleValue();
                 assertTrue(d >= 0.0 && d <= bound);
@@ -53,7 +53,7 @@ public class MoneyTest {
         double lower = 10.0;
         double upper = 20.0;
         NumberFormat nf = getCurrencyInstance(US);
-        loop(MONEY_CYCLES, RANDS, r -> r.money().range(lower, upper).val(), m -> {
+        loop(MONEY_CYCLES, MOCKS, r -> r.money().range(lower, upper).val(), m -> {
             try {
                 double d = nf.parse(m).doubleValue();
                 assertTrue(d >= lower && d <= upper);
@@ -66,7 +66,7 @@ public class MoneyTest {
     @Test
     public void testMoneyLocale() throws Exception {
         Locale[] locales = {FRANCE, GERMANY, ITALY, JAPAN, KOREA, CHINA, US, UK, CANADA};
-        loop(MONEY_CYCLES, RANDS, r -> {
+        loop(MONEY_CYCLES, MOCKS, r -> {
             Locale locale = r.from(locales).val();
             String money = r.money().locale(locale).val();
             NumberFormat nf = getCurrencyInstance(locale);
@@ -85,26 +85,26 @@ public class MoneyTest {
 
     @Test(expected = NullPointerException.class)
     public void testMoneyNullLocale() throws Exception {
-        RAND.money().locale(null).val();
+        M.money().locale(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMoneyNegativeBound() throws Exception {
-        RAND.money().bound(-5.0).val();
+        M.money().bound(-5.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMoneyIncorrectRange() throws Exception {
-        RAND.money().range(-1.5, 10).val();
+        M.money().range(-1.5, 10).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMoneyIncorrectRange2() throws Exception {
-        RAND.money().range(10, -1.5).val();
+        M.money().range(10, -1.5).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testMoneyIncorrectRange3() throws Exception {
-        RAND.money().range(10, 10).val();
+        M.money().range(10, 10).val();
     }
 }

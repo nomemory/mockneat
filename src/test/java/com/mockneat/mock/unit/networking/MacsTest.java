@@ -5,8 +5,8 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import static com.mockneat.mock.Constants.IPV4S_CYCLES;
-import static com.mockneat.mock.Constants.RAND;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.M;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static java.util.stream.IntStream.range;
@@ -19,14 +19,14 @@ public class MacsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextMACAddressTypeNotNull() throws Exception {
-        RAND.macs().type(null).val();
+        M.macs().type(null).val();
     }
 
     protected void testNextMACAddress(MACAddressFormatType type,
                                       String separator,
                                       Integer macNumLength,
                                       Integer sectionLength) {
-        loop(IPV4S_CYCLES, RANDS, r -> r.macs().type(type).val().split(separator), macNum -> {
+        loop(IPV4S_CYCLES, MOCKS, r -> r.macs().type(type).val().split(separator), macNum -> {
             assertTrue(macNum.length==macNumLength);
             stream(macNum).forEach(s -> {
                 assertTrue(sectionLength == s.length());

@@ -12,9 +12,9 @@ package com.mockneat.mock.unit.time;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
 import com.mockneat.mock.MockNeat;
@@ -22,13 +22,10 @@ import com.mockneat.mock.interfaces.MockUnitLocalDate;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.function.Supplier;
 
-import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static com.mockneat.mock.utils.ValidationUtils.LOWER_DATE_SMALLER_THAN_UPPER_DATE;
+import static com.mockneat.mock.utils.ValidationUtils.*;
 import static java.time.LocalDate.*;
-import static java.time.temporal.ChronoUnit.DAYS;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -87,41 +84,17 @@ public class LocalDates implements MockUnitLocalDate {
         return ()-> supp;
     }
 
-    public MockUnitLocalDate future(LocalDate max) {
-        return between(now(), max);
+    public MockUnitLocalDate future(LocalDate maxDate) {
+        notNull(maxDate, INPUT_PARAMETER_NOT_NULL, "maxDate");
+        isTrue(maxDate.compareTo(MAX.minusDays(1))<=0, MAX_DATE_NOT_BIGGER_THAN, maxDate, MAX.minusDays(1));
+        isTrue(maxDate.plusDays(1).compareTo(now())>0, MAX_DATE_DIFFERENT_THAN_NOW, maxDate, now());
+        return between(now().plusDays(1), maxDate.plusDays(1));
     }
 
-    public MockUnitLocalDate past(LocalDate min) {
-        return between(min, now());
-    }
-
-    public MockUnitLocalDate around(LocalDate date, long days) {
-        //TODO
-        notNull(date, INPUT_PARAMETER_NOT_NULL, "date");
-        return null;
-    }
-
-    public MockUnitLocalDate around(LocalDate date, ChronoUnit unit, long unitsBefore, long unitsAfter) {
-        notNull(date, INPUT_PARAMETER_NOT_NULL, "date");
-        isTrue(unit.getDuration().compareTo(DAYS.getDuration())>=0);
-        isTrue(date.minus(unitsBefore, unit).compareTo(MIN)>=0);
-        isTrue(date.plus(unitsAfter + 1, unit).compareTo(MAX)<=0);
-
-        LocalDate lower = date.minus(unitsBefore, unit);
-        LocalDate upper = date.minus(unitsAfter + 1, unit);
-
-        return between(lower, upper);
-    }
-
-    public MockUnitLocalDate around(LocalDate date, long daysBefore, long daysAfter) {
-        return around(date, DAYS, daysBefore, daysAfter);
-    }
-
-    public MockUnitLocalDate around(LocalDate date) {
-        return around(date, DAYS, DEFAULT_DAYS_BEFORE, DEFAULT_DAYS_AFTER);
-    }
-
-    public MockUnitLocalDate aroundToday() {
-        return around(now());
+    public MockUnitLocalDate past(LocalDate minDate) {
+        notNull(minDate, INPUT_PARAMETER_NOT_NULL, "minDate");
+        isTrue(minDate.compareTo(MIN)>0, MIN_DATE_BIGGER_THAN, minDate, MIN);
+        isTrue(minDate.minusDays(1).compareTo(now())<0, MIN_DATE_DIFFERENT_THAN_NOW, minDate, now());
+        return between(minDate, now());
     }
 }

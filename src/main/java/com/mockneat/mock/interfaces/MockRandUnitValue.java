@@ -1,6 +1,4 @@
-package com.mockneat.mock.unit.objects;
-
-import com.mockneat.mock.interfaces.MockUnit;
+package com.mockneat.mock.interfaces;
 
 public class MockRandUnitValue implements MockValue {
 

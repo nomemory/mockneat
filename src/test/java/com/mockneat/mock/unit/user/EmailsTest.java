@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.regex.Pattern;
 
 import static com.mockneat.mock.Constants.EMAILS_CYCLES;
-import static com.mockneat.mock.Constants.RANDS;
+import static com.mockneat.mock.Constants.MOCKS;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
@@ -21,7 +21,7 @@ public class EmailsTest {
 
     @Test
     public void testEmails() throws Exception {
-        loop(EMAILS_CYCLES, RANDS, r ->
+        loop(EMAILS_CYCLES, MOCKS, r ->
                 assertTrue(EMAIL_PATTERN.matcher(r.emails().val()).matches()));
     }
 }
