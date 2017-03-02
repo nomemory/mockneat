@@ -8,13 +8,13 @@ The good:
 
 Still a lot of work:
 - The test coverage is far from being complete. At this moment there are around 380 Unit Tests that cover most of the functionality, but a lot of "corner-cases" are still not tested;
-- There is no Maven Central / JCenter repository yet. The only way you can the library is through github and build it yourself using gradle;
+- There is no Maven Central / JCenter repository yet. The only way you can test the library is by downloading it from github and build it using gradle;
 
 The bad:
-- The library makes heavy use of Java 8 features. At this moment it only supports Java 8+, and there are no plans for supporting previous Java versions;
-- The documentation is lacking;
+- The library makes heavy use of Java 8 features (Streams, Functional Interfaces, etc.), thus it only supports Java 8+ with no plans for supporting previous Java versions;
 
 Plans for the future:
+- Document the API;
 - Add new random generators (IBAN, SSC, Lorem Ipsum, etc.);
 - Add functionality to help the developer generate SQL Inserts directly;
 - Improve the MockUnit<T> API;
@@ -40,7 +40,10 @@ List<String> creditCards =
 ```
 ### Sneak-Peak 2 - Complex Use
 
-We can generate advanced structures of data. For example we can generate a ``List<Map<String, Map<List<String>, Set<Integer>>>>``:sweat: writing a few Lines of code:
+We can generate advanced structures of data. For example we can generate a:
+``List<Map<String, Map<List<String>, Set<Integer>>>>``:sweat: 
+writing only a few Lines of code:
+
 ```java
 List<Map<String, Map<List<String>, Set<Integer>>>> complexStructure
                      = m.ints().bound(10)
@@ -55,7 +58,7 @@ List<Map<String, Map<List<String>, Set<Integer>>>> complexStructure
                         .val();
 ```                        
 
-### Sneak-Peak 3 - Literature
+### Sneak-Peak 3 - Literature :)
 
 We can generate random (Markov) text from the opera of the famous writer Franz Kafka (just for fun, of course):
 
@@ -67,7 +70,7 @@ The results are not spectacular, but they can pass as a better form of giberish.
 ```
 Only when the clock struck again, seven o'clock already, he shouted as he swang himself with anger, into the room on the beds and slipped out again and even felt much hungrier than usual. (...)
 ```
-### Sneak-Peak 4 - Mocking Objects
+### Sneak-Peak 4 - Mocking Real-World Objects
 
 Mocking objects with "realistic" data is easy:
 
