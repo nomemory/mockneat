@@ -4,13 +4,21 @@
 
 The good:
 - The first stable "alpha" release is going to come soon;
+- There is a small amount of documentation that can be found [here](https://github.com/nomemory/mockneat/wiki). Documenting the library is going to become one of the priorities;
 
 Still a lot of work:
 - The test coverage is far from being complete. At this moment there are around 380 Unit Tests that cover most of the functionality, but a lot of "corner-cases" are still not tested;
 - There is no Maven Central / JCenter repository yet. The only way you can the library is through github and build it yourself using gradle;
 
 The bad:
-- The library makes heavy use of Java 8 features. At this moment it only supports Java 8+, and there are no plans for supporting previous Java versions.
+- The library makes heavy use of Java 8 features. At this moment it only supports Java 8+, and there are no plans for supporting previous Java versions;
+- The documentation is lacking;
+
+Plans for the future:
+- Add new random generators (IBAN, SSC, Lorem Ipsum, etc.);
+- Add functionality to help the developer generate SQL Inserts directly;
+- Improve the MockUnit<T> API;
+- Drastically improve code quality;
 
 ## Sneak-Peek
 
