@@ -57,7 +57,7 @@ List<Map<String, Map<List<String>, Set<Integer>>>> complexStructure
 
 ### Sneak-Peak 3 - Literature
 
-We can generate Markov text from the opera of the Famous writer Franz Kafka (just for fun, of course):
+We can generate random (Markov) text from the opera of the famous writer Franz Kafka (just for fun, of course):
 
 ```java
 String literature = m.markovs().size(1024).type(KAFKA).val();
@@ -69,7 +69,7 @@ Only when the clock struck again, seven o'clock already, he shouted as he swang 
 ```
 ### Sneak-Peak 4 - Mocking Objects
 
-Scenario:
+Mocking objects with "realistic" data is easy:
 
 > Generate a List<Employee> of 1000 random employees of a fictional company "company.com":
 
