@@ -3,11 +3,14 @@
 **MockNeat** is a Java 8+ library that facilitates the generation of random data for your applications. 
 
 The good:
-- In it's current state is very close to an alpha release;
+- The first stable "alpha" release is going to come soon;
+
+Still a lot of work:
+- The test coverage is far from being complete. At this moment there are around 380 Unit Tests that cover most of the functionality, but a lot of "corner-cases" are still not tested;
+- There is no Maven Central / JCenter repository yet. The only way you can the library is through github and build it yourself using gradle;
 
 The bad:
-- It's not quite stable and requires more work and more unit-testing;
-- I wouldn't recommend it for anything serious;
+- The library makes heavy use of Java 8 features. At this moment it only supports Java 8+, and there are no plans for supporting previous Java versions.
 
 ## Sneak-Peek
 
