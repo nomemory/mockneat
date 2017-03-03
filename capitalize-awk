@@ -1,1 +1,4 @@
+# This script can be used to capitalize all the lines from
+# a text file.
+
 awk '{print toupper(substr($0,1,1)) tolower(substr($0,2)) }'
