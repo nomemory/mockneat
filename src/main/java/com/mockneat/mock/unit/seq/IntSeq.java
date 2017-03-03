@@ -96,8 +96,8 @@ public class IntSeq implements MockUnitInt {
     }
 
     protected boolean nextValueOverflows() {
-        return (internal.get()==max && increment>0) ||
-                (internal.get()==min && increment<0);
+        return (increment>0) ? internal.get() > max :
+                               internal.get() < min;
     }
 
     protected void fail() {
