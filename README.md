@@ -73,13 +73,15 @@ List<String> mastercards = m.creditCards()
 // is a valic credit card number
 Stream<String> creditCards = m.creditCards()
 			      .stream()
-    			      .val();
+			      .val();
 ```
 
 ## Example 2 - Complex Use
 
 We can generate advanced structures of data. For example we can generate a:
-``List<Map<String, Map<List<String>, Set<Integer>>>>``:sweat: 
+
+`List<Map<String, Map<List<String>, Set<Integer>>>>`
+
 writing only a few Lines of code:
 
 ```java
@@ -105,12 +107,15 @@ String literature = m.markovs().size(1024).type(KAFKA).val();
 ```
 
 The results are not spectacular, but they can pass as a better form of giberish.
+
+Possible output:
 ```
 Only when the clock struck again, seven o'clock already, he shouted as he swang himself with anger, into the room on the beds and slipped out again and even felt much hungrier than usual. (...)
 ```
+
 ## Example 4 - Mocking Real-World Objects
 
-Mocking objects with "realistic" data is easy:
+Mocking objects with arbitrary data is easy:
 
 > Generate a List<Employee> of 1000 random employees of a fictional company "company.com":
 
