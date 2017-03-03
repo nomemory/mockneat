@@ -1,3 +1,5 @@
+// MOCKNEAT BUILD FILE
+
 group 'com.mockneat'
 version '0.1-snapshot'
 
