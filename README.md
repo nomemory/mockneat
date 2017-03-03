@@ -2,9 +2,10 @@
 
 **MockNeat** is a Java 8+ library that facilitates the generation of arbitrary data for your applications. 
 
+For the project documentation please visit the **[wiki](https://github.com/nomemory/mockneat/wiki)**.
+
 The good:
 - The first stable "alpha" release is going to come soon;
-- There is a small amount of documentation that can be found [here](https://github.com/nomemory/mockneat/wiki). Documenting the library is going to become one of the priorities;
 
 Still a lot of work:
 - The test coverage is far from being complete. At this moment there are around 380 Unit Tests that cover most of the functionality, but a lot of "corner-cases" are still not tested;
