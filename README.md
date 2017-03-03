@@ -1,6 +1,6 @@
 # mockneat
 
-**MockNeat** is a Java 8+ library that facilitates the generation of random data for your applications. 
+**MockNeat** is a Java 8+ library that facilitates the generation of arbitrary data for your applications. 
 
 The good:
 - The first stable "alpha" release is going to come soon;
@@ -20,7 +20,7 @@ Plans for the future:
 - Improve the MockUnit<T> API;
 - Drastically improve code quality;
 
-## Sneak-Peek
+# Examples
 
 ```java
 // Create a instance of the mocking object
@@ -29,19 +29,59 @@ MockNeat m = MockNeat.threadLocal();
 
 Afterwards we can play the ``m`` objects in ways "unimaginable":
 
-### Sneak-Peek 1 - Money
-We can generate a list of 10 Credit Card numbers and limit the type of the cards to AMEX and MasterCard.
+## Example 1 - Money
+
+> "Generating money has never been easier." (Guy Rich)
+
+We can chose the type of the Credit Card Number we want:
+
 ```java
-List<String> creditCards =
-                m.ccs()
-                 .types(AMERICAN_EXPRESS, MASTERCARD)
-                 .list(10)
-                 .val();
+// Generates a single valid credit card number (AMEX)
+String amex = m.creditCards()
+                .type(AMERICAN_EXPRESS)
+                .val();
 ```
-### Sneak-Peak 2 - Complex Use
+
+```java
+// Generates a single valid credit card number (MASTERCARD)
+String mastercard = m.creditCards()
+                     .type(MASTERCARD)
+                     .val();
+```
+
+We can randomize the types of the Credit Cards we are going to use for mocking the data:
+
+```java
+// Generates a single Mastercard or AMEX credit card number
+String amexOrMastercard = m.creditCards()
+                           .types(AMERICAN_EXPRESS, MASTERCARD)
+                           .val();
+```
+
+Instead of calling `val()` directly to get a single value, we can return a Lists, Sets and basically any collection. Streams are also an option.
+
+```java
+// Generates a a list of credit card numbers
+List<String> mastercards = m.creditCards()
+			    .type(MASTERCARD)
+			    .list(LinkedList.class, 10)
+			    .val();
+```
+
+```java
+// Generates an infinite stream of strings, each String
+// is a valic credit card number
+Stream<String> creditCards = m.creditCards()
+			      .stream()
+			      .val();
+```
+
+## Example 2 - Complex Use
 
 We can generate advanced structures of data. For example we can generate a:
-``List<Map<String, Map<List<String>, Set<Integer>>>>``:sweat: 
+
+`List<Map<String, Map<List<String>, Set<Integer>>>>`
+
 writing only a few Lines of code:
 
 ```java
@@ -58,7 +98,7 @@ List<Map<String, Map<List<String>, Set<Integer>>>> complexStructure
                         .val();
 ```                        
 
-### Sneak-Peak 3 - Literature :)
+## Example 3 - Literature :)
 
 We can generate random (Markov) text from the opera of the famous writer Franz Kafka (just for fun, of course):
 
@@ -67,12 +107,15 @@ String literature = m.markovs().size(1024).type(KAFKA).val();
 ```
 
 The results are not spectacular, but they can pass as a better form of giberish.
+
+Possible output:
 ```
 Only when the clock struck again, seven o'clock already, he shouted as he swang himself with anger, into the room on the beds and slipped out again and even felt much hungrier than usual. (...)
 ```
-### Sneak-Peak 4 - Mocking Real-World Objects
 
-Mocking objects with "realistic" data is easy:
+## Example 4 - Mocking Real-World Objects
+
+Mocking objects with arbitrary data is easy:
 
 > Generate a List<Employee> of 1000 random employees of a fictional company "company.com":
 
