@@ -17,14 +17,15 @@ import static com.mockneat.mock.utils.ValidationUtils.*;
 import static java.lang.String.format;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
+import static org.apache.commons.lang3.Validate.*;
+import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.reflect.ConstructorUtils.invokeConstructor;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
+import static org.apache.commons.lang3.reflect.MethodUtils.invokeExactStaticMethod;
 
 public class Objs<T> implements MockUnit<T> {
 
-    private final static Pattern JAVA_FIELD_REGEX =
+    private static final Pattern JAVA_FIELD_REGEX =
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private Map<String, MockValue> fields = new LinkedHashMap<>();
@@ -95,6 +96,7 @@ public class Objs<T> implements MockUnit<T> {
     }
 
     public MockUnit<T> constructor(MockUnit... mockUnits) {
+        notNull(mockUnits, INPUT_PARAMETER_NOT_NULL, "mockUnits");
         Supplier<T> supp = () -> {
             Object[] args = new Object[mockUnits.length];
             range(0, mockUnits.length).forEach(i -> {
@@ -105,6 +107,31 @@ public class Objs<T> implements MockUnit<T> {
                 return invokeConstructor(cls, args);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
                 String fmt = format(CANNOT_INFER_CONSTRUCTOR, cls.getName(), listTypes(args));
+                throw new IllegalArgumentException(fmt, e);
+            }
+        };
+        return () -> supp;
+    }
+
+    //TODO document and test this
+    public <T1> MockUnit<T> factory(Class<T1> factory, String method, MockUnit... mockUnits) {
+        notNull(factory, INPUT_PARAMETER_NOT_NULL, "factory");
+        notEmpty(method, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "method");
+        notNull(mockUnits, INPUT_PARAMETER_NOT_NULL, "mockUnits");
+        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(), JAVA_METHOD_REGEX_MATCH, method);
+        Supplier<T> supp = () -> {
+            Object[] args = new Object[mockUnits.length];
+            range(0, mockUnits.length).forEach(i -> {
+                if (mockUnits[i]==null) { args[i] = null; }
+                else { args[i] = mockUnits[i].val(); }
+            });
+            try {
+                return (T) invokeExactStaticMethod(factory, method, args);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                String fmt = format(CANNOT_INVOKE_STATIC_FACTORY_METHOD,
+                                    factory.getClass(),
+                                    method,
+                                    listTypes(args));
                 throw new IllegalArgumentException(fmt, e);
             }
         };

@@ -53,7 +53,9 @@ public class ValidationUtils {
     public static final String CANNOT_INSTANTIATE_OBJECT_OF_CLASS = "Cannot create an instance of '%s'. Please verify if the class has a public 'No Arguments' constructor: %s().";
     public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field %s.%s with value '%s'. Is the supplied value correct ?";
     public static final String CANNOT_INFER_CONSTRUCTOR = "Cannot infer %s%s. Are you sure the constructor exists and it's public ?";
+    public static final String CANNOT_INVOKE_STATIC_FACTORY_METHOD = "Cannot invoke %s.%s with params: %s.";
     public static final String JAVA_FIELD_REGEX_MATCH = "Field '%s' doesn't match the Java Naming Conventions for fields.";
+    public static final String JAVA_METHOD_REGEX_MATCH = "Method '%s' doesn't match the Java Naming Conventions for methods.";
     // FORMATTER
     public static final String INPUT_PARAM_ALPHANUMERIC = "Input param '%s' should be AlphaNumeric.";
     // SEQ
