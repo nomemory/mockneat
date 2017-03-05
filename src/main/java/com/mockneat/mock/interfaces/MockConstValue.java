@@ -20,22 +20,13 @@ public class MockConstValue implements MockValue {
 
     private Object value;
 
-    private boolean forced = false;
-
     protected MockConstValue(Object value) {
         this.value = value;
-    }
-
-    protected MockConstValue(Object value, boolean forced) {
-        this(value);
-        this.forced = forced;
     }
 
     public static MockConstValue val(Object value) {
         return new MockConstValue(value);
     }
-
-    public static MockConstValue val(Object value, boolean forced) { return new MockConstValue(value, forced); }
 
     @Override
     public Object get() {
