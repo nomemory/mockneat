@@ -1,6 +1,6 @@
 package com.mockneat.mock.unit.seq;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated

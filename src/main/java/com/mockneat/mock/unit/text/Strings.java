@@ -57,9 +57,8 @@ public class Strings implements MockUnitString {
             case LETTERS: return this::letters;
             case ALPHA_NUMBERIC: return this::alphaNumeric;
             case SPECIAL_CHARACTERS: return this::specialChars;
-            // Should never reach this
-            default: throw new IllegalArgumentException("Invalid StringType");
         }
+        throw new IllegalArgumentException("Invalid StringType");
     }
 
     public MockUnitString types(StringType... types) {
