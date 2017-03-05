@@ -39,7 +39,7 @@ public interface MockUnit<T> {
 
     default T val() { return supplier().get(); }
 
-    default <R> R val(Function<T, R> funct) { return funct.apply(supplier().get()); }
+    default <R> R val(Function<T, R> function) { return function.apply(supplier().get()); }
 
     default String valStr() {
         Object val = supplier().get();
@@ -49,15 +49,15 @@ public interface MockUnit<T> {
         return supplier().get().toString();
     }
 
-    default <R> MockUnit<R> map(Function<T, R> funct) {
-        notNull(funct, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
-        Supplier<R> supp = () -> funct.apply(supplier().get());
+    default <R> MockUnit<R> map(Function<T, R> function) {
+        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
+        Supplier<R> supp = () -> function.apply(supplier().get());
         return () -> supp;
     }
 
-    default MockUnitInt mapToInt(Function<T, Integer> funct) {
-        notNull(funct, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
-        Supplier<Integer> supp = () -> funct.apply(val());
+    default MockUnitInt mapToInt(Function<T, Integer> function) {
+        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "function");
+        Supplier<Integer> supp = () -> function.apply(val());
         return () -> supp;
     }
 
