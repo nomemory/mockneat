@@ -1,7 +1,7 @@
 package com.mockneat.mock.unit.objects;
 
 import com.mockneat.mock.interfaces.MockConstValue;
-import com.mockneat.mock.interfaces.MockRandUnitValue;
+import com.mockneat.mock.interfaces.MockUnitValue;
 import com.mockneat.mock.interfaces.MockUnit;
 import com.mockneat.mock.interfaces.MockValue;
 import org.apache.commons.lang3.Validate;
@@ -46,7 +46,7 @@ public class Objs<T> implements MockUnit<T> {
         notNull(mockUnit, INPUT_PARAMETER_NOT_NULL, "mockUnit");
         Validate.notEmpty(fieldName, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "fieldName");
         isTrue(JAVA_FIELD_REGEX.matcher(fieldName).matches(), JAVA_FIELD_REGEX_MATCH, fieldName);
-        this.fields.put(fieldName, new MockRandUnitValue(mockUnit));
+        this.fields.put(fieldName, new MockUnitValue(mockUnit));
         return this;
     }
 

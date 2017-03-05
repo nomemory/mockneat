@@ -17,7 +17,7 @@ package com.mockneat.mock.unit.text;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import com.mockneat.mock.interfaces.MockRandUnitValue;
+import com.mockneat.mock.interfaces.MockUnitValue;
 import com.mockneat.mock.interfaces.MockUnit;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.mock.interfaces.MockValue;
@@ -54,7 +54,7 @@ public class Formatter implements MockUnitString {
         notEmpty(param, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "param");
         notNull(mock, INPUT_PARAMETER_NOT_NULL, "mock");
         isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, param);
-        this.fields.put(param, new MockRandUnitValue(mock));
+        this.fields.put(param, new MockUnitValue(mock));
         return this;
     }
 
