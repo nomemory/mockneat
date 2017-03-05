@@ -201,9 +201,9 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
-                logger.error("Cannot instantiate map.", e);
+                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                throw new IllegalArgumentException(fmt, e);
             }
-            return new HashMap<>();
         };
         return () -> supp;
     }
