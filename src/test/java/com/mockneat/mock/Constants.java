@@ -29,6 +29,7 @@ public class Constants {
     public static final int IPV6S_CYCLES = 10000;
     public static final int LONGS_CYCLES = 10000;
     public static final int LOCAL_DATES_CYCLES = 10000;
+    public static final int MAC_CYCLES = 10000;
     public static final int MONEY_CYCLES = 10000;
     public static final int NAMES_CYCLES = 10000;
     public static final int OBJS_CYCLES = 10000;
