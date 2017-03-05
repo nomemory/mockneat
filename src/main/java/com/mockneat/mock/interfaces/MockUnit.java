@@ -50,7 +50,7 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<R> map(Function<T, R> function) {
-        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
+        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "function");
         Supplier<R> supp = () -> function.apply(supplier().get());
         return () -> supp;
     }
@@ -61,29 +61,27 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
-    default MockUnitDouble mapToDouble(Function<T, Double> funct) {
-        notNull(funct, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
-        Supplier<Double> supp = () -> funct.apply(val());
+    default MockUnitDouble mapToDouble(Function<T, Double> function) {
+        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "function");
+        Supplier<Double> supp = () -> function.apply(val());
         return () -> supp;
     }
 
-    default MockUnitLong mapToLong(Function<T, Long> funct) {
-        notNull(funct, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
-        Supplier<Long> supp = () -> funct.apply(val());
+    default MockUnitLong mapToLong(Function<T, Long> function) {
+        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "function");
+        Supplier<Long> supp = () -> function.apply(val());
         return () -> supp;
     }
 
-    default MockUnitString mapToString(Function<T, String> funct) {
-        notNull(funct, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "funct");
-        Supplier<String> supp = () -> funct.apply(val());
+    default MockUnitString mapToString(Function<T, String> function) {
+        notNull(function, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "function");
+        Supplier<String> supp = () -> function.apply(val());
         return () -> supp;
     }
 
     default MockUnitString mapToString() {
         return () -> val()::toString;
     }
-
-    default MockUnitString str() { return () -> supplier().get()::toString; }
 
     default MockUnit<Stream<T>> stream() {
         Supplier<Stream<T>> supp = () -> Stream.generate(supplier());
