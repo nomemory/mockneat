@@ -17,7 +17,6 @@ package com.mockneat.mock.interfaces;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import com.mockneat.mock.utils.LoopsUtils;
 import com.mockneat.mock.utils.MockUnitUtils;
 import com.mockneat.mock.utils.ValidationUtils;
 
@@ -27,6 +26,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.mockneat.mock.interfaces.MockUnitLogger.logger;
+import static com.mockneat.mock.utils.LoopsUtils.loop;
+import static com.mockneat.mock.utils.MockUnitUtils.put;
+import static java.lang.String.format;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -94,12 +96,12 @@ public interface MockUnit<T> {
         Supplier<List<T>> supp = () -> {
             try {
                 List<T> result = listClass.newInstance();
-                LoopsUtils.loop(size, () -> MockUnitUtils.add(listClass, result, supplier()));
+                loop(size, () -> MockUnitUtils.add(listClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                logger.error("Cannot instantiate list.", e);
+                String fmt = format("Cannot instantiate list '%s'.", listClass.getName());
+                throw new IllegalArgumentException(fmt, e);
             }
-            return new ArrayList<>();
         };
         return () -> supp;
     }
@@ -114,12 +116,12 @@ public interface MockUnit<T> {
         Supplier<Set<T>> supp = () -> {
             try {
                 Set<T> result = setClass.newInstance();
-                LoopsUtils.loop(size, () -> MockUnitUtils.add(setClass, result, supplier()));
+                loop(size, () -> MockUnitUtils.add(setClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                logger.error("Cannot instantiate set.", e);
+                String fmt = format("Cannot instantiate set: '%s'.", setClass.getName());
+                throw new IllegalArgumentException(fmt, e);
             }
-            return new HashSet<>();
         };
         return () -> supp;
     }
@@ -134,12 +136,12 @@ public interface MockUnit<T> {
         Supplier<Collection<T>> supp = () -> {
             try {
                 Collection<T> result = collectionClass.newInstance();
-                LoopsUtils.loop(size, () -> MockUnitUtils.add(collectionClass, result, supplier()));
+                loop(size, () -> MockUnitUtils.add(collectionClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                logger.error("Cannot instantiate collection.", e);
+                String fmt = format("Cannot instantiate collection: '%s'.", collectionClass.getName());
+                throw new IllegalArgumentException(fmt, e);
             }
-            return new ArrayList<>();
         };
         return () -> supp;
     }
@@ -155,12 +157,12 @@ public interface MockUnit<T> {
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                LoopsUtils.loop(size, () -> MockUnitUtils.put(mapClass, result, keysSupplier, supplier()));
+                loop(size, () -> put(mapClass, result, keysSupplier, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                logger.error("Cannot instantiate map.", e);
+                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                throw new IllegalArgumentException(fmt, e);
             }
-            return new HashMap<>();
         };
         return () -> supp;
     }
@@ -175,12 +177,12 @@ public interface MockUnit<T> {
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                keys.forEach(key -> MockUnitUtils.put(mapClass, result, key, supplier().get()));
+                keys.forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                logger.error("Cannot instantiate map.", e);
+                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                throw new IllegalArgumentException(fmt, e);
             }
-            return new HashMap<>();
         };
         return () -> supp;
     }
@@ -195,7 +197,7 @@ public interface MockUnit<T> {
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key -> MockUnitUtils.put(mapClass, result, key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -216,7 +218,7 @@ public interface MockUnit<T> {
         Supplier<Map<Integer, T>> supp = () -> {
             try {
                 Map<Integer, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key -> MockUnitUtils.put(mapClass, result, key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -237,7 +239,7 @@ public interface MockUnit<T> {
         Supplier<Map<Long, T>> supp = () -> {
             try {
                 Map<Long, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key -> MockUnitUtils.put(mapClass, result, key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -258,7 +260,7 @@ public interface MockUnit<T> {
         Supplier<Map<Double, T>> supp = () -> {
             try {
                 Map<Double, T> result = mapClass.newInstance();
-                Arrays.stream(keys).forEach(key -> MockUnitUtils.put(mapClass, result, key, supplier().get()));
+                Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
@@ -280,7 +282,7 @@ public interface MockUnit<T> {
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                LoopsUtils.loop(size, () -> MockUnitUtils.put(mapClass, result, supplier(), valuesSupplier));
+                loop(size, () -> put(mapClass, result, supplier(), valuesSupplier));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -300,7 +302,7 @@ public interface MockUnit<T> {
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                values.forEach(value -> MockUnitUtils.put(mapClass, result, supplier().get(), value));
+                values.forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -320,7 +322,7 @@ public interface MockUnit<T> {
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> MockUnitUtils.put(mapClass, result, supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -340,7 +342,7 @@ public interface MockUnit<T> {
         Supplier<Map<T, Integer>> supp = () -> {
             try {
                 Map<T, Integer> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> MockUnitUtils.put(mapClass, result, supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -360,7 +362,7 @@ public interface MockUnit<T> {
         Supplier<Map<T, Long>> supp = () -> {
             try {
                 Map<T, Long> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> MockUnitUtils.put(mapClass, result, supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);
@@ -380,7 +382,7 @@ public interface MockUnit<T> {
         Supplier<Map<T, Double>> supp = () -> {
             try {
                 Map<T, Double> result = mapClass.newInstance();
-                Arrays.stream(values).forEach(value -> MockUnitUtils.put(mapClass, result, supplier().get(), value));
+                Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("Cannot instantiate map.", e);

@@ -1,5 +1,6 @@
 package com.mockneat.mock.interfaces;
 
+import com.mockneat.mock.interfaces.models.AbstractListNoInstance;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,6 +31,11 @@ public class MockUnitCollectionMethodTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCollectionNegativeSize() throws Exception {
         M.ints().collection(LinkedList.class, -1).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCannotImplementList() throws Exception {
+        M.ints().collection(AbstractListNoInstance.class, 10).val();
     }
 
     @Test

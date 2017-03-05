@@ -1,13 +1,16 @@
 package com.mockneat.mock.interfaces;
 
+import com.mockneat.mock.interfaces.models.AbstractListNoInstance;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
-import static com.mockneat.mock.Constants.M;
-import static com.mockneat.mock.Constants.MOCKS;
-import static com.mockneat.mock.Constants.MOCK_CYCLES;
+import static com.mockneat.mock.Constants.*;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
+import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static org.junit.Assert.assertTrue;
 
@@ -15,6 +18,8 @@ import static org.junit.Assert.assertTrue;
  * Created by andreinicolinciobanu on 10/02/2017.
  */
 public class MockUnitListMethodTest {
+
+
 
     @Test(expected = NullPointerException.class)
     public void testListNullType() throws Exception {
@@ -29,6 +34,11 @@ public class MockUnitListMethodTest {
     @Test(expected = IllegalArgumentException.class)
     public void testListNegativeSize() throws Exception {
         M.ints().list(LinkedList.class, -1).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCannotImplementList() throws Exception {
+        M.ints().list(AbstractListNoInstance.class, 10).val();
     }
 
     @Test
@@ -104,7 +114,7 @@ public class MockUnitListMethodTest {
 
     @Test
     public void testListOfNulls() {
-        List<Integer> integers = Arrays.asList(null, null, null, null);
+        List<Integer> integers = asList(null, null, null, null);
         loop(MOCK_CYCLES, () -> {
             stream(MOCKS).forEach(r -> {
                 List<Integer> list = r.from(integers).list(LinkedList.class, 100).val();
