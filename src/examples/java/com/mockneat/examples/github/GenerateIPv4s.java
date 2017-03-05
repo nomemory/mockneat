@@ -2,6 +2,8 @@ package com.mockneat.examples.github;
 
 import com.mockneat.mock.MockNeat;
 
+import java.util.List;
+
 import static com.mockneat.types.enums.IPv4Type.CLASS_A;
 import static com.mockneat.types.enums.IPv4Type.CLASS_B;
 
@@ -20,5 +22,8 @@ public class GenerateIPv4s {
 
         String classAorB = mock.ipv4s().types(CLASS_A, CLASS_B).val();
         System.out.println(classAorB);
+
+        List<String> ip4s = mock.ipv4s().list(10).val();
+        System.out.println(ip4s);
     }
 }
