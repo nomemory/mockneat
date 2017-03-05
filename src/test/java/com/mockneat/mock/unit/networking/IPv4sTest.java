@@ -11,6 +11,8 @@ import java.util.stream.IntStream;
 
 import static com.mockneat.mock.Constants.*;
 import static com.mockneat.mock.utils.LoopsUtils.loop;
+import static com.mockneat.types.enums.IPv4Type.CLASS_A;
+import static com.mockneat.types.enums.IPv4Type.CLASS_B;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertTrue;
@@ -50,8 +52,21 @@ public class IPv4sTest {
     }
 
     @Test
+    public void testIPv4TypesMethod() throws Exception {
+        loop(
+                IPV4S_CYCLES,
+                MOCKS,
+                m -> {
+                    IPv4Type[] types = { CLASS_A, CLASS_B };
+                    String ip = m.ipv4s().types(types).val();
+                    assertTrue(IAV.isValidInet4Address(ip));
+                }
+        );
+    }
+
+    @Test
     public void testNextIPv4AddressClassA() throws Exception {
-        testIpCycle(IPv4Type.CLASS_A);
+        testIpCycle(CLASS_A);
     }
 
     @Test
