@@ -21,6 +21,7 @@ import com.mockneat.mock.utils.MockUnitUtils;
 import com.mockneat.mock.utils.ValidationUtils;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -42,6 +43,11 @@ public interface MockUnit<T> {
     default T val() { return supplier().get(); }
 
     default <R> R val(Function<T, R> function) { return function.apply(supplier().get()); }
+
+    //TODO document and test
+    default void consume(Consumer<T> consumer) {
+        consumer.accept(val());
+    }
 
     default String valStr() {
         Object val = supplier().get();

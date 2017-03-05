@@ -1,14 +1,16 @@
 package com.mockneat.mock;
 
-import com.mockneat.types.enums.RandomType;
+import static com.mockneat.mock.MockNeat.old;
+import static com.mockneat.mock.MockNeat.secure;
+import static com.mockneat.mock.MockNeat.threadLocal;
 
 /**
  * Created by andreinicolinciobanu on 30/12/2016.
  */
 public class Constants {
 
-    public static final MockNeat[] MOCKS = { new MockNeat(RandomType.OLD), new MockNeat(RandomType.SECURE), new MockNeat(RandomType.THREAD_LOCAL) };
-    public static final MockNeat M = MOCKS[0];
+    public static final MockNeat[] MOCKS = { old(), secure(), threadLocal() };
+    public static final MockNeat M = threadLocal();
 
     public static final int BOOLS_CYCLES = 100;
     public static final int CCS_CYCLES = 100;
@@ -22,6 +24,7 @@ public class Constants {
     public static final int DOMAIN_CYCLES = 100;
     public static final int DOUBLES_CYCLES = 100;
     public static final int EMAILS_CYCLES = 100;
+    public static final int FILES_CYCLES = 100;
     public static final int FLOATS_CYCLES = 100;
     public static final int FMT_CYCLES = 100;
     public static final int INTS_CYCLES = 100;

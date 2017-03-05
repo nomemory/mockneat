@@ -70,7 +70,7 @@ public class MockNeat {
     private Domains rDomains;
     private Doubles rDoubles;
     private Emails rEmails;
-    private Files rFiles;
+    private FromFiles rFiles;
     private Floats rFloats;
     private Ints rInts;
     private IPv4s rIPv4s;
@@ -101,7 +101,7 @@ public class MockNeat {
         this.rDicts = new Dicts(this);
         this.rDoubles = new Doubles(this);
         this.rEmails = new Emails(this);
-        this.rFiles = new Files(this);
+        this.rFiles = new FromFiles(this);
         this.rFloats = new Floats(this);
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
@@ -165,7 +165,7 @@ public class MockNeat {
 
     public Emails emails() { return this.rEmails; }
 
-    public Files files() { return this.rFiles; }
+    public FromFiles files() { return this.rFiles; }
 
     public Floats floats() { return this.rFloats; }
 
