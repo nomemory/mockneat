@@ -39,7 +39,7 @@ public enum NameType {
             DictType.LAST_NAME_AMERICAN
     });
 
-    private DictType[] dictionaries;
+    private final DictType[] dictionaries;
 
     NameType(DictType[] dictionaries) {
         this.dictionaries = dictionaries;

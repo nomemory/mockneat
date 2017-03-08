@@ -18,31 +18,34 @@ package com.mockneat.mock;
  */
 
 import com.mockneat.mock.interfaces.*;
+import com.mockneat.mock.unit.address.Countries;
 import com.mockneat.mock.unit.companies.Departments;
 import com.mockneat.mock.unit.financial.CVVS;
-import com.mockneat.mock.unit.networking.*;
-import com.mockneat.mock.unit.objects.Objs;
-import com.mockneat.mock.unit.seq.IntSeq;
-import com.mockneat.mock.unit.seq.LongSeq;
-import com.mockneat.mock.unit.text.*;
-import com.mockneat.mock.unit.time.LocalDates;
-import com.mockneat.mock.unit.types.*;
-import com.mockneat.mock.unit.user.Passwords;
-import com.mockneat.mock.unit.user.Users;
-import com.mockneat.mock.utils.ValidationUtils;
-import com.mockneat.mock.unit.address.Countries;
 import com.mockneat.mock.unit.financial.CreditCards;
 import com.mockneat.mock.unit.financial.Currencies;
 import com.mockneat.mock.unit.financial.Money;
 import com.mockneat.mock.unit.id.UUIDs;
+import com.mockneat.mock.unit.networking.*;
+import com.mockneat.mock.unit.objects.Constructor;
+import com.mockneat.mock.unit.objects.Factory;
+import com.mockneat.mock.unit.objects.Reflect;
+import com.mockneat.mock.unit.seq.IntSeq;
+import com.mockneat.mock.unit.seq.LongSeq;
+import com.mockneat.mock.unit.text.*;
 import com.mockneat.mock.unit.time.Days;
+import com.mockneat.mock.unit.time.LocalDates;
 import com.mockneat.mock.unit.time.Months;
+import com.mockneat.mock.unit.types.*;
 import com.mockneat.mock.unit.user.Emails;
 import com.mockneat.mock.unit.user.Names;
+import com.mockneat.mock.unit.user.Passwords;
+import com.mockneat.mock.unit.user.Users;
+import com.mockneat.mock.utils.ValidationUtils;
 import com.mockneat.types.enums.RandomType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.function.Supplier;
 
 import static com.mockneat.mock.unit.text.Formatter.formatter;
@@ -56,37 +59,37 @@ public class MockNeat {
     private static final MockNeat SECURE = new MockNeat(RandomType.SECURE);
     private static final MockNeat OLD = new MockNeat(RandomType.OLD);
 
-    private java.util.Random random;
+    private final Random random;
 
-    private Bools rBools;
-    private Countries rCountries;
-    private CreditCards rCCS;
-    private Chars rChars;
-    private Currencies rCurrencies;
-    private CVVS rCVVS;
-    private Days rDays;
-    private Departments rDepartments;
-    private Dicts rDicts;
-    private Domains rDomains;
-    private Doubles rDoubles;
-    private Emails rEmails;
-    private FromFiles rFiles;
-    private Floats rFloats;
-    private Ints rInts;
-    private IPv4s rIPv4s;
-    private IPv6s rIPv6s;
-    private LocalDates rLocalDates;
-    private Longs rLongs;
-    private Macs rMacs;
-    private Markovs rMarkovs;
-    private Money rMoney;
-    private Months rMonths;
-    private Names rNames;
-    private Passwords rPasswords;
-    private UUIDs rUUIDs;
-    private Users rUsers;
+    private final Bools rBools;
+    private final Countries rCountries;
+    private final CreditCards rCCS;
+    private final Chars rChars;
+    private final Currencies rCurrencies;
+    private final CVVS rCVVS;
+    private final Days rDays;
+    private final Departments rDepartments;
+    private final Dicts rDicts;
+    private final Domains rDomains;
+    private final Doubles rDoubles;
+    private final Emails rEmails;
+    private final FromFiles rFiles;
+    private final Floats rFloats;
+    private final Ints rInts;
+    private final IPv4s rIPv4s;
+    private final IPv6s rIPv6s;
+    private final LocalDates rLocalDates;
+    private final Longs rLongs;
+    private final Macs rMacs;
+    private final Markovs rMarkovs;
+    private final Money rMoney;
+    private final Months rMonths;
+    private final Names rNames;
+    private final Passwords rPasswords;
+    private final UUIDs rUUIDs;
+    private final Users rUsers;
 
-    protected MockNeat(RandomType randomTypeType) {
+    public MockNeat(RandomType randomTypeType) {
         this.random = randomTypeType.getRandom();
 
         this.rChars = new Chars(this);
@@ -141,6 +144,8 @@ public class MockNeat {
         return this.rCCS;
     }
 
+    public <T> Constructor<T> constructor(Class<T> cls) { return new Constructor<>(cls); }
+
     public Countries countries() {
         return this.rCountries;
     }
@@ -164,6 +169,10 @@ public class MockNeat {
     }
 
     public Emails emails() { return this.rEmails; }
+
+    public <T, FT> Factory<T, FT> factory(Class<T> targetCls, Class<FT> factoryCls) {
+        return new Factory<>(targetCls, factoryCls);
+    }
 
     public FromFiles files() { return this.rFiles; }
 
@@ -189,8 +198,6 @@ public class MockNeat {
 
     public Markovs markovs() { return this.rMarkovs; }
 
-    public <T> Objs<T> objs(Class<T> cls) { return new Objs<>(cls); }
-
     public Months months() { return this.rMonths; }
 
     public Money money() { return this.rMoney; }
@@ -198,6 +205,8 @@ public class MockNeat {
     public Names names() { return this.rNames; }
 
     public Passwords passwords() { return this.rPasswords; }
+
+    public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(cls);}
 
     public Strings strings() { return new Strings(this); }
 

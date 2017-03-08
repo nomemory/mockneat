@@ -40,9 +40,9 @@ public class MarkovUnit {
     private static final FileManager fm = FileManager.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(MarkovUnit.class);
 
-    private String path;
-    private Map<WordState, WordStatistic> chain;
-    private MockUnit<WordState> randState;
+    private final String path;
+    private final Map<WordState, WordStatistic> chain;
+    private final MockUnit<WordState> randState;
     private Integer stateSize = 2;
     private MockNeat mock = MockNeat.threadLocal();
 
@@ -106,7 +106,7 @@ public class MarkovUnit {
         return result;
     }
 
-    protected Map<WordState, WordStatistic> getChain(Map<WordState, Map<String, Integer>> rawChain) {
+    private Map<WordState, WordStatistic> getChain(Map<WordState, Map<String, Integer>> rawChain) {
         return rawChain
                         .entrySet()
                         .stream()

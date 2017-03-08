@@ -1,6 +1,6 @@
 package com.mockneat.mock.interfaces;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -115,4 +115,8 @@ public interface MockUnitString extends MockUnit<String> {
     default MockUnitString escapeHtml() { return () -> () -> StringEscapeUtils.escapeHtml4(supplier().get()); }
 
     default MockUnitString escapeXml() { return() -> () -> StringEscapeUtils.escapeXml11(supplier().get()); }
+
+    default MockUnit<String[]> array(int size) {
+        return array(String.class, size);
+    }
 }

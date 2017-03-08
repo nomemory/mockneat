@@ -20,7 +20,7 @@ package com.mockneat.types.enums;
 public enum CVVType {
     CVV3(3), CVV4(4);
 
-    private Integer length;
+    private final Integer length;
 
     CVVType(Integer length) {
         this.length = length;

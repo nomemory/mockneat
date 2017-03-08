@@ -1,5 +1,6 @@
-package com.mockneat.mock.interfaces;
+package com.mockneat.mock.interfaces.mockunitgeneric;
 
+import com.mockneat.mock.interfaces.MockUnit;
 import com.mockneat.mock.interfaces.models.AbstractSetNoInstance;
 import org.junit.Test;
 

@@ -17,10 +17,9 @@ package com.mockneat.mock.utils;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.mockneat.mock.interfaces.MockUnit;
+
+import java.util.*;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
@@ -77,5 +76,25 @@ public class MockUnitUtils {
                     key, value, mapClass.getSimpleName());
             throw new IllegalArgumentException(msg, e);
         }
+    }
+    public static Object mockOrObject(Object obj) {
+        if (null == obj) {
+            return null;
+        }
+        if (obj instanceof MockUnit) {
+            return ((MockUnit) obj).val();
+        }
+        return obj;
+    }
+    public static String listTypes(Object[] objs) {
+        final StringBuilder buff = new StringBuilder("(");
+        Arrays.stream(objs).forEach(obj -> {
+            if (null != obj) { buff.append(obj.getClass().getName()); }
+            else { buff.append("null"); }
+            buff.append(",");
+        });
+        buff.deleteCharAt(buff.length()-1);
+        buff.append(")");
+        return buff.toString();
     }
 }

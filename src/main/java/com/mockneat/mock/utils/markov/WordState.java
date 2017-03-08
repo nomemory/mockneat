@@ -21,9 +21,9 @@ import java.util.*;
 
 public class WordState {
 
-    private String[] state;
+    private final String[] state;
 
-    public WordState(String... strings) {
+    private WordState(String... strings) {
         this.state = strings;
     }
 
@@ -59,12 +59,5 @@ public class WordState {
     @Override
     public int hashCode() {
         return Arrays.hashCode(state);
-    }
-
-    @Override
-    public String toString() {
-        return "WordState{" +
-                "state=" + state +
-                '}';
     }
 }

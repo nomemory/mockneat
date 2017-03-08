@@ -1,4 +1,4 @@
-package com.mockneat.mock.interfaces;
+package com.mockneat.mock.interfaces.mockunitgeneric;
 
 import org.junit.Test;
 

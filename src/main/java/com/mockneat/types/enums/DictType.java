@@ -58,7 +58,7 @@ public enum DictType {
     //COMPANIES
     DEPARTMENTS("departments");
 
-    private String fileName;
+    private final String fileName;
 
     DictType(String fileName) {
         this.fileName = fileName;

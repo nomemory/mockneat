@@ -1,11 +1,25 @@
 package com.mockneat.types.enums;
 
-/**
- * Created by andreinicolinciobanu on 20/02/2017.
+/*
+ * Copyright 2017, Andrei N. Ciobanu
+
+ Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
+ documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
+
 public enum CurrencySymbolType {
     ALBANIA_LEK("Lek", "ALL", "Lek"),
-    AFGHANINISTAN_AFGGANI("Afghani", "AFN", "؋"),
+    AFGHANISTAN_AFGHANI("Afghani", "AFN", "؋"),
     ARGENTINA_PESO("Peso", "ARS", "$"),
     ARUBA_GUILDER("Guilder", "AWG", "ƒ"),
     AUSTRALIA_DOLLAR("Dollar", "AUD", "$"),
@@ -116,9 +130,9 @@ public enum CurrencySymbolType {
     YEMEN_RIAL("Rial", "YER", "﷼"),
     ZIMBABWE_DOLLAR("Dollar", "ZWD", "Z$");
 
-    private String name;
-    private String code;
-    private String symbol;
+    private final String name;
+    private final String code;
+    private final String symbol;
 
     CurrencySymbolType(String name, String code, String symbol) {
         this.name = name;

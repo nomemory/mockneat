@@ -53,9 +53,12 @@ public class ValidationUtils {
     public static final String CANNOT_INSTANTIATE_OBJECT_OF_CLASS = "Cannot create an instance of '%s'. Please verify if the class has a public 'No Arguments' constructor: %s().";
     public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field %s.%s with value '%s'. Is the supplied value correct ?";
     public static final String CANNOT_INFER_CONSTRUCTOR = "Cannot infer %s%s. Are you sure the constructor exists and it's public ?";
-    public static final String CANNOT_INVOKE_STATIC_FACTORY_METHOD = "Cannot invoke %s.%s with params: %s.";
+    public static final String CANNOT_INVOKE_STATIC_FACTORY_METHOD = "Cannot invoke '%s.%s' with params: '%s'.";
+    public static final String CANNOT_INVOKE_STATIC_FACTORY_METHOD_RETURN = "Cannot invoke '%s.%s' with params: '%s'. The return type doesn't match the expected return type.'";
     public static final String JAVA_FIELD_REGEX_MATCH = "Field '%s' doesn't match the Java Naming Conventions for fields.";
     public static final String JAVA_METHOD_REGEX_MATCH = "Method '%s' doesn't match the Java Naming Conventions for methods.";
+    public static final String JAVA_FIELD_IS_FINAL = "Field '%s' is marked as FINAL. It cannot be modified. Please remove it from the fields list.";
+    public static final String JAVA_FIELD_DOESNT_EXIST_ON_CLASS = "Cannot access field: '%s'.";
     // FORMATTER
     public static final String INPUT_PARAM_ALPHANUMERIC = "Input param '%s' should be AlphaNumeric.";
     // SEQ
@@ -65,6 +68,8 @@ public class ValidationUtils {
     // UTILS
     public static final String INVALID_PARAM_NAME_LENGTH_0 = "Named param should have a length!=0.";
     public static final String CANNOT_FIND_PARAM_IN_ARGS = "Cannot find param: '%s' in the map of arguments.";
+    // ARRAY
+    public static final String ARRAY_CANNOT_BE_INSTANTIED = "Array couldn't be instantiated. MockUnit<T> returned a NULL value when calling val() internally. We cannot infer the type of the array.";
 
     private ValidationUtils() {}
 

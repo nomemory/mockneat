@@ -25,8 +25,8 @@ import java.util.*;
 public class WordStatistic {
 
     private Double total = 0.0;
-    private Pair<Double, String>[] associatedWords;
-    private MockNeat rand;
+    private final Pair<Double, String>[] associatedWords;
+    private final MockNeat rand;
 
     public WordStatistic(Map<String, Integer> rawWordCount) {
         this.associatedWords = new Pair[rawWordCount.size()];

@@ -34,8 +34,8 @@ import static org.apache.commons.lang3.Validate.notEmpty;
 
 public class Strings implements MockUnitString {
 
-    private MockNeat mock;
-    private Random random;
+    private final MockNeat mock;
+    private final Random random;
     private int size = 64;
 
     public Strings(MockNeat mock) {
@@ -55,7 +55,7 @@ public class Strings implements MockUnitString {
             case HEX: return this::hex;
             case NUMBERS: return this::numbers;
             case LETTERS: return this::letters;
-            case ALPHA_NUMBERIC: return this::alphaNumeric;
+            case ALPHA_NUMERIC: return this::alphaNumeric;
             case SPECIAL_CHARACTERS: return this::specialChars;
         }
         throw new IllegalArgumentException("Invalid StringType");

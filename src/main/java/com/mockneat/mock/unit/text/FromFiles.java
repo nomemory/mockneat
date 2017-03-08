@@ -27,8 +27,8 @@ import static org.apache.commons.lang3.Validate.notEmpty;
 
 //TODO update documentation (file was renamed from 'Files' -> 'FromFiles')
 public class FromFiles {
-    private MockNeat rand;
-    private FileManager fm = FileManager.getInstance();
+    private final MockNeat rand;
+    private final FileManager fm = FileManager.getInstance();
 
     public FromFiles(MockNeat mock) {
         this.rand = mock;

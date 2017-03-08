@@ -24,7 +24,7 @@ public enum DomainSuffixType {
 
     ALL(DOMAIN_TOP_LEVEL_ALL), POPULAR(DOMAIN_TOP_LEVEL_POPULAR);
 
-    private DictType dictType;
+    private final DictType dictType;
 
     DomainSuffixType(DictType dictType) {
         this.dictType = dictType;

@@ -37,18 +37,18 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Markovs implements MockUnitString {
 
-    private static Logger logger = LoggerFactory.getLogger(Markovs.class);
+    private static final Logger logger = LoggerFactory.getLogger(Markovs.class);
 
-    private Map<MarkovChainType, MarkovUnit> markovUnits =  new EnumMap<>(MarkovChainType.class);
+    private final Map<MarkovChainType, MarkovUnit> markovUnits =  new EnumMap<>(MarkovChainType.class);
 
-    private MockNeat mock;
+    private final MockNeat mock;
     private int size = 512;
 
     public Markovs(MockNeat mock) {
         this.mock = mock;
     }
 
-    protected MarkovUnit get(MarkovChainType markovChainType) throws IOException {
+    private MarkovUnit get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {
             logger.info("Loading MarkovUnit in memory '{}'." , markovChainType.getFile());
             markovUnits.put(markovChainType, MarkovUnit.internal(mock, markovChainType, 2));

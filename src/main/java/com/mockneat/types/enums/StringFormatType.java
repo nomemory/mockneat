@@ -27,7 +27,7 @@ public enum StringFormatType {
     LOWER_CASE(StringUtils::lowerCase),
     CAPITALIZED(StringUtils::capitalize);
 
-    private Function<String, String> formatter;
+    private final Function<String, String> formatter;
 
     StringFormatType(Function<String, String> formatter) {
         this.formatter = formatter;

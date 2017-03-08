@@ -18,9 +18,9 @@ package com.mockneat.mock.interfaces;
  */
 public class MockConstValue implements MockValue {
 
-    private Object value;
+    private final Object value;
 
-    protected MockConstValue(Object value) {
+    private MockConstValue(Object value) {
         this.value = value;
     }
 

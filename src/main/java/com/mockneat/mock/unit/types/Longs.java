@@ -32,8 +32,8 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Longs implements MockUnitLong {
 
-    private MockNeat mock;
-    private Random random;
+    private final MockNeat mock;
+    private final Random random;
 
     public Longs(MockNeat mock) {
         this.mock = mock;

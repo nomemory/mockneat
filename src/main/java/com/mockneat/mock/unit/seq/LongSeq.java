@@ -27,9 +27,6 @@ import static com.mockneat.mock.utils.ValidationUtils.SEQ_INVALID_RANGE;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.Validate.isTrue;
 
-/**
- * Created by andreinicolinciobanu on 23/02/2017.
- */
 public class LongSeq implements MockUnitLong {
 
     private long increment = 1;
@@ -95,7 +92,7 @@ public class LongSeq implements MockUnitLong {
         return this;
     }
 
-    protected boolean nextValueOverflows() {
+    private boolean nextValueOverflows() {
         return (increment>0) ? internal.get() > max :
                                internal.get() < min;
     }

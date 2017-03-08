@@ -33,7 +33,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class CreditCards implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public CreditCards(MockNeat mock) {
         this.mock = mock;

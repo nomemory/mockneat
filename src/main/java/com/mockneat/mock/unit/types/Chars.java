@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Chars implements MockUnit<Character> {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Chars(MockNeat mock) {
         this.mock = mock;

@@ -2,7 +2,7 @@ package com.mockneat.mock.interfaces;
 
 public class MockUnitValue implements MockValue {
 
-    private MockUnit mockUnit;
+    private final MockUnit mockUnit;
 
     public MockUnitValue(MockUnit mockUnit) {
         this.mockUnit = mockUnit;

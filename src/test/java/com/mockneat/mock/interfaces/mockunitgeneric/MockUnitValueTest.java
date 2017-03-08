@@ -1,5 +1,8 @@
-package com.mockneat.mock.interfaces;
+package com.mockneat.mock.interfaces.mockunitgeneric;
 
+import com.mockneat.mock.interfaces.MockUnitDays;
+import com.mockneat.mock.interfaces.MockUnitInt;
+import com.mockneat.mock.interfaces.MockUnitValue;
 import org.junit.Test;
 
 import static com.mockneat.mock.Constants.M;

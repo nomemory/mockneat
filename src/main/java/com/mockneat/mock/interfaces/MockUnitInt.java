@@ -50,19 +50,4 @@ public interface MockUnitInt extends MockUnit<Integer> {
         };
         return () -> supp;
     }
-    default MockUnit<Integer[][]> matrix(int rows, int cols) {
-        isTrue(rows>0, ValidationUtils.SIZE_BIGGER_THAN_ZERO);
-        isTrue(cols>0, ValidationUtils.SIZE_BIGGER_THAN_ZERO);
-        Supplier<Integer[][]> supp = () -> {
-            final Integer[][] result = new Integer[rows][];
-            for (int i = 0; i < rows; i++) {
-                result[i] = new Integer[cols];
-                for(int j = 0; j < cols; j++) {
-                    result[i][j] = supplier().get();
-                }
-            }
-            return result;
-        };
-        return () -> supp;
-    }
 }

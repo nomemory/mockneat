@@ -31,7 +31,7 @@ public class URLs implements MockUnitString {
 
     // <schemes://><user:password@><host><.domain><:port></.../...>
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     // Scheme
     private Supplier<String> schemeSupplier;
@@ -72,7 +72,7 @@ public class URLs implements MockUnitString {
         return buff.toString();
     }
 
-    protected void initializeSuppliers() {
+    private void initializeSuppliers() {
         this.schemeSupplier = defaultSchemesSupplier();
         this.authSupplier = defaultAuthSupplier();
         this.hostSupplier = defaultHostSupplier();
@@ -80,25 +80,25 @@ public class URLs implements MockUnitString {
         this.portSupplier = defaultPortSupplier();
     }
 
-    protected Supplier<String> defaultSchemesSupplier() {
+    private Supplier<String> defaultSchemesSupplier() {
         return schemeSupplier(HTTP);
     }
 
-    protected Supplier<String> schemeSupplier(String... schemes) {
+    private Supplier<String> schemeSupplier(String... schemes) {
         return mock.fromStrings(schemes).append("://")::val;
     }
 
-    protected Supplier<String> schemeSupplier(String scheme) {
+    private Supplier<String> schemeSupplier(String scheme) {
         if ("".equals(scheme))
             return () -> "";
         return () -> scheme.concat("://");
     }
 
-    protected Supplier<String> schemeSupplier(URLSchemeType scheme) {
+    private Supplier<String> schemeSupplier(URLSchemeType scheme) {
         return schemeSupplier(scheme.getStr());
     }
 
-    protected Supplier<String> schemeSupplier(URLSchemeType... schemes) {
+    private Supplier<String> schemeSupplier(URLSchemeType... schemes) {
         return mock.from(schemes).mapToString().append("://")::val;
     }
 
@@ -130,11 +130,11 @@ public class URLs implements MockUnitString {
         return this;
     }
 
-    protected Supplier<String> defaultAuthSupplier() {
+    private Supplier<String> defaultAuthSupplier() {
         return () -> "";
     }
 
-    protected Supplier<String> authSupplier() {
+    private Supplier<String> authSupplier() {
         return () -> String.format("%s:%s@",
                                     this.userNameSupplier.get(),
                                     this.passWordSupplier.get());
@@ -152,7 +152,7 @@ public class URLs implements MockUnitString {
         return this;
     }
 
-    protected Supplier<String> defaultHostSupplier() {
+    private Supplier<String> defaultHostSupplier() {
         return () -> {
             List<Pair<DictType, DictType>> comboList =
                     mock.from(HostNameType.class).val().getDictCombos();
@@ -166,20 +166,20 @@ public class URLs implements MockUnitString {
         };
     }
 
-    protected Supplier<String> hostSupplier(String... hosts) {
+    private Supplier<String> hostSupplier(String... hosts) {
         return mock.fromStrings(hosts).prepend(www ? "www." : "")::val;
     }
 
-    protected Supplier<String> hostSupplier(String host) {
+    private Supplier<String> hostSupplier(String host) {
         return () -> www ? "www.".concat(host) : host;
     }
 
-    protected Supplier<String> hostSupplier(HostNameType... types) {
+    private Supplier<String> hostSupplier(HostNameType... types) {
         HostNameType type = mock.from(types).val();
         return hostSupplier(type);
     }
 
-    protected Supplier<String> hostSupplier(HostNameType hostNameType) {
+    private Supplier<String> hostSupplier(HostNameType hostNameType) {
        return () -> {
             List<Pair<DictType, DictType>> comboList = hostNameType.getDictCombos();
             Pair<DictType, DictType> combo = mock.from(comboList).val();
@@ -220,23 +220,23 @@ public class URLs implements MockUnitString {
         return this;
     }
 
-    protected Supplier<String> defaultDomainSupplier() {
+    private Supplier<String> defaultDomainSupplier() {
         return domainSupplier(POPULAR);
     }
 
-    protected Supplier<String> domainSupplier(DomainSuffixType... types) {
+    private Supplier<String> domainSupplier(DomainSuffixType... types) {
         return mock.domains().types(types).prepend(".")::val;
     }
 
-    protected Supplier<String> domainSupplier(DomainSuffixType type) {
+    private Supplier<String> domainSupplier(DomainSuffixType type) {
         return mock.domains().types(type).prepend(".")::val;
     }
 
-    protected Supplier<String> domainSupplier(String... domains) {
+    private Supplier<String> domainSupplier(String... domains) {
         return mock.fromStrings(domains).prepend(".")::val;
     }
 
-    protected Supplier<String> domainSupplier(String domain) {
+    private Supplier<String> domainSupplier(String domain) {
         return () -> "." + domain;
     }
 
@@ -268,19 +268,19 @@ public class URLs implements MockUnitString {
         return this;
     }
 
-    protected Supplier<String> defaultPortSupplier() {
+    private Supplier<String> defaultPortSupplier() {
         return () -> "";
     }
 
-    protected Supplier<String> portsSupplier() {
+    private Supplier<String> portsSupplier() {
         return portSupplier(COMMON_HTTP_PORTS);
     }
 
-    protected Supplier<String> portSupplier(Integer... array) {
+    private Supplier<String> portSupplier(Integer... array) {
         return mock.fromInts(array).mapToString().prepend(":")::val;
     }
 
-    protected Supplier<String> portSupplier(Integer port) {
+    private Supplier<String> portSupplier(Integer port) {
         return () -> ":" + port;
     }
 
@@ -306,13 +306,6 @@ public class URLs implements MockUnitString {
     public URLs www(boolean hasWWW) {
         this.www = hasWWW;
         return this;
-    }
-
-    protected String emptyIfNullSupplier(Supplier<String> supplier) {
-        if (null==supplier)
-            return "";
-        else
-            return supplier.get();
     }
 
     @Override

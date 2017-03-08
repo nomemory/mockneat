@@ -21,7 +21,7 @@ public enum MarkovChainType {
 
     KAFKA("kafka");
 
-    private String path;
+    private final String path;
 
     MarkovChainType(String path) {
         this.path = path;

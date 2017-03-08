@@ -25,10 +25,10 @@ import java.util.function.Supplier;
 
 import static com.mockneat.mock.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.Validate.*;
-import static org.apache.commons.lang3.Validate.notNaN;
 
 public class Floats implements MockUnit<Float> {
-    private Random random;
+
+    private final Random random;
 
     public Floats(MockNeat mock) {
         this.random = mock.getRandom();

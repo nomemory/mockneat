@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class CVVS implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public CVVS(MockNeat mock) {
         this.mock = mock;

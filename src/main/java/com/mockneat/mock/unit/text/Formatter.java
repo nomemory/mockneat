@@ -33,15 +33,12 @@ import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.Validate.notEmpty;
 
-/**
- * Created by andreinicolinciobanu on 01/03/2017.
- */
 public class Formatter implements MockUnitString {
 
-    private Map<String, MockValue> fields = new HashMap<>();
-    private String fmt;
+    private final Map<String, MockValue> fields = new HashMap<>();
+    private final String fmt;
 
-    protected Formatter(String fmt) {
+    private Formatter(String fmt) {
         this.fmt = fmt;
     }
 

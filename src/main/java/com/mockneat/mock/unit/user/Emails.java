@@ -26,7 +26,7 @@ import static com.mockneat.types.enums.DictType.DOMAIN_EMAIL;
 
 public class Emails implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Emails(MockNeat mock) {
         this.mock = mock;

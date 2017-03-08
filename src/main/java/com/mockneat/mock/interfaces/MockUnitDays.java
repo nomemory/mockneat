@@ -22,14 +22,21 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static org.apache.commons.lang3.Validate.notNull;
+
 public interface MockUnitDays extends MockUnit<DayOfWeek> {
 
     default MockUnitString display(TextStyle textStyle, Locale locale) {
-        Supplier<String> supp = () -> supplier().get().getDisplayName(textStyle, locale);
+        notNull(textStyle, INPUT_PARAMETER_NOT_NULL, "textStyle");
+        notNull(locale, INPUT_PARAMETER_NOT_NULL, "locale");
+        Supplier<String> supp =
+                () -> supplier().get().getDisplayName(textStyle, locale);
         return () -> supp;
     }
 
     default MockUnitString display(TextStyle textStyle) {
+        notNull(textStyle, INPUT_PARAMETER_NOT_NULL, "textStyle");
         return display(textStyle, Locale.getDefault());
     }
 

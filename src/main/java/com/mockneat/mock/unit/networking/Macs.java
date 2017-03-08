@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Macs implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Macs(MockNeat mock) {
         this.mock = mock;

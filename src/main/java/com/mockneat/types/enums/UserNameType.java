@@ -67,7 +67,7 @@ public enum UserNameType {
             )
     );
 
-    private List<Pair<DictType, DictType>> dictCombos;
+    private final List<Pair<DictType, DictType>> dictCombos;
 
     UserNameType(List<Pair<DictType, DictType>> dictCombos) {
         this.dictCombos = dictCombos;

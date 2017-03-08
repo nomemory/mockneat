@@ -1,6 +1,6 @@
 package com.mockneat.mock.unit.address;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -22,12 +22,9 @@ import com.mockneat.mock.interfaces.MockUnitString;
 import static com.mockneat.types.enums.DictType.COUNTRY_ISO_CODE_2;
 import static com.mockneat.types.enums.DictType.COUNTRY_NAME;
 
-/**
- * Created by andreinicolinciobanu on 16/01/2017.
- */
 public class Countries {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Countries(MockNeat mock) {
         this.mock = mock;

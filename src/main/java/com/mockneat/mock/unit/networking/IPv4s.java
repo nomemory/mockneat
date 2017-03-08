@@ -32,7 +32,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class IPv4s implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public IPv4s(MockNeat mock) {
         this.mock = mock;

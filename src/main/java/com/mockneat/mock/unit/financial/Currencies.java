@@ -24,7 +24,7 @@ import com.mockneat.types.enums.CurrencySymbolType;
 import static com.mockneat.types.enums.DictType.FOREX_PAIRS;
 
 public class Currencies {
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Currencies(MockNeat mock) {
         this.mock = mock;

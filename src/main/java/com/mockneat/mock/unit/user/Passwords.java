@@ -1,6 +1,6 @@
 package com.mockneat.mock.unit.user;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -32,12 +32,9 @@ import static com.mockneat.types.enums.DictType.*;
 import static com.mockneat.types.enums.PassStrengthType.*;
 import static org.apache.commons.lang3.Validate.notNull;
 
-/**
- * Created by andreinicolinciobanu on 31/01/2017.
- */
 public class Passwords implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Passwords(MockNeat mock) {
         this.mock = mock;
@@ -61,7 +58,7 @@ public class Passwords implements MockUnitString {
         return type(passStrengthType);
     }
 
-    protected String nextPassword(PassStrengthType passStrengthType) {
+    private String nextPassword(PassStrengthType passStrengthType) {
         switch (passStrengthType) {
             case WEAK:
                 return nextWeakPassword();
@@ -73,7 +70,7 @@ public class Passwords implements MockUnitString {
         return "123456";
     }
 
-    protected String nextWeakPassword() {
+    private String nextWeakPassword() {
         Integer minLength = WEAK.getLength().getLowerBound();
         Integer maxLength = WEAK.getLength().getUpperBound();
         DictType dictType = mock.from(new DictType[]{EN_NOUN_2SYLL, EN_NOUN_1SYLL}).val();
@@ -94,7 +91,7 @@ public class Passwords implements MockUnitString {
         return resultBuff.toString();
     }
 
-    protected String nextMediumPassword() {
+    private String nextMediumPassword() {
         Integer minLength = MEDIUM.getLength().getLowerBound();
         Integer maxLength = MEDIUM.getLength().getUpperBound();
         String noun = mock.dicts().type(EN_NOUN_3SYLL).val();
@@ -127,7 +124,8 @@ public class Passwords implements MockUnitString {
         return resultBuff.toString();
     }
 
-    protected String nextStrongPassword() {
+    @SuppressWarnings("unchecked")
+    private String nextStrongPassword() {
         Integer minLength = STRONG.getLength().getLowerBound();
         Integer maxLength = STRONG.getLength().getUpperBound();
         int passLength = mock.ints().range(minLength, maxLength).val();

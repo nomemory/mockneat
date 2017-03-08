@@ -33,7 +33,7 @@ public class Doubles implements MockUnitDouble {
 
     private static final double DOUBLE_UNIT = 0x1.0p-53;
 
-    private Random random;
+    private final Random random;
 
     public Doubles(MockNeat mock) {
         this.random = mock.getRandom();

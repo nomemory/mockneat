@@ -26,7 +26,7 @@ public enum MACAddressFormatType {
     DOT_EVERY_2_DIGITS(MACAddressFormatType::point2Digits),
     DOT_EVERY_4_DIGITS(MACAddressFormatType::point4Digits);
 
-    private TriConsumer<Integer, StringBuilder, MockNeat> consumer;
+    private final TriConsumer<Integer, StringBuilder, MockNeat> consumer;
 
     MACAddressFormatType(TriConsumer<Integer, StringBuilder, MockNeat> consumer) {
         this.consumer = consumer;

@@ -31,7 +31,7 @@ public enum IPv4Type {
     CLASS_E (new Range<>(240, 254), new Range<>(0, 255), new Range<>(0, 255), new Range<>(0, 255)),
     NO_CONSTRAINT(new Range<>(0, 255), new Range<>(0, 255), new Range<>(0, 255), new Range<>(0, 255));
 
-    private Range<Integer>[] octets;
+    private final Range<Integer>[] octets;
 
     IPv4Type(Range<Integer> o1, Range<Integer> o2, Range<Integer> o3, Range<Integer> o4) {
         this.octets = new Range[4];

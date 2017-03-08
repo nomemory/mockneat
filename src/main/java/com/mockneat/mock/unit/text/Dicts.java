@@ -27,8 +27,8 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Dicts {
 
-    private MockNeat mock;
-    private FileManager fm = FileManager.getInstance();
+    private final MockNeat mock;
+    private final FileManager fm = FileManager.getInstance();
 
     public Dicts(MockNeat mock) {
         this.mock = mock;

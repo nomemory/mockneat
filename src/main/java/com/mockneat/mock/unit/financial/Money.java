@@ -31,7 +31,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Money implements MockUnitString {
 
-    private MockNeat mock;
+    private final MockNeat mock;
     private NumberFormat formatter = getCurrencyInstance(US);
     public static final double DEFAULT_LOWER = 0.0;
     public static final double DEFAULT_UPPER = 10000.0;

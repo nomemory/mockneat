@@ -30,7 +30,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Months implements MockUnitMonth {
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public Months(MockNeat mock) {
         this.mock = mock;

@@ -35,7 +35,7 @@ public class LocalDates implements MockUnitLocalDate {
     private static final long DEFAULT_DAYS_AFTER = 10;
     public static final LocalDate EPOCH_START = ofEpochDay(0);
 
-    private MockNeat mock;
+    private final MockNeat mock;
 
     public LocalDates(MockNeat mock) {
         this.mock = mock;

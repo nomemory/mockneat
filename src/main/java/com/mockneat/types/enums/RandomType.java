@@ -1,6 +1,6 @@
 package com.mockneat.types.enums;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -18,6 +18,7 @@ package com.mockneat.types.enums;
  */
 
 import java.security.SecureRandom;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum RandomType {
@@ -26,13 +27,13 @@ public enum RandomType {
     SECURE(new SecureRandom()),
     THREAD_LOCAL(ThreadLocalRandom.current());
 
-    private java.util.Random random;
+    private final Random random;
 
-    RandomType(java.util.Random random) {
+    RandomType(Random random) {
         this.random = random;
     }
 
-    public java.util.Random getRandom() {
+    public Random getRandom() {
         return random;
     }
 }

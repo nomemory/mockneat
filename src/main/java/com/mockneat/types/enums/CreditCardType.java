@@ -51,9 +51,9 @@ public enum CreditCardType {
     VISA_16(16, 4),
     VISA_19(19, 4);
 
-    private Integer length;
+    private final Integer length;
 
-    private List<List<Integer>> prefixes;
+    private final List<List<Integer>> prefixes;
 
     CreditCardType(Integer length, Integer... prefixes) {
         this.length = length;
@@ -67,7 +67,7 @@ public enum CreditCardType {
 
     public Integer getLength() { return length; }
 
-    protected ArrayList<Integer> fromNumber(int num) {
+    private ArrayList<Integer> fromNumber(int num) {
         List<Integer> list = new LinkedList<>();
         int tmp = num;
         while(tmp!=0) {

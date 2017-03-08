@@ -2,7 +2,7 @@ package com.mockneat.types;
 
 import java.util.function.Supplier;
 
-/**
+/*
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -21,8 +21,8 @@ import java.util.function.Supplier;
 
 public class Pair <T1,T2> {
 
-    private T1 first;
-    private T2 second;
+    private final T1 first;
+    private final T2 second;
 
     public Pair(T1 first, T2 second) {
         this.first = first;

@@ -1,6 +1,7 @@
-package com.mockneat.mock.interfaces;
+package com.mockneat.mock.interfaces.mockunitgeneric;
 
 
+import com.mockneat.mock.interfaces.MockUnit;
 import org.junit.Test;
 
 import java.util.function.Function;

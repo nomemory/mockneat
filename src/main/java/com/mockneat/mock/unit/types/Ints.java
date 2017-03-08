@@ -29,7 +29,7 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Ints implements MockUnitInt {
 
-    private Random random;
+    private final Random random;
 
     public Ints(MockNeat mock) {
         this.random = mock.getRandom();
