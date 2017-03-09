@@ -4,6 +4,8 @@
 
 For the project documentation please visit the **[wiki](https://github.com/nomemory/mockneat/wiki)**.
 
+Contributions, observations, ideeas are highly appreciated.
+
 The good:
 - The first stable "alpha" release is going to come soon;
 - The library unit test coverage is 88% for classes and 81% for lines of the code.
