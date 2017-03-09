@@ -6,7 +6,7 @@ For the project documentation please visit the **[wiki](https://github.com/nomem
 
 The good:
 - The first stable "alpha" release is going to come soon;
-- The library unit test coverage is 88% for classes and 81% lines of the code.
+- The library unit test coverage is 88% for classes and 81% for lines of the code.
 
 Still a lot of work:
 - There is no Maven Central / JCenter repository yet. The only way you can test the library is by downloading it from github and build it using gradle;
