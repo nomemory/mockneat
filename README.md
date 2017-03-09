@@ -148,7 +148,7 @@ List<Employee> companyEmployees =
                  .field("birthDate",
                         m.localDates().between(of(1950, 1, 1), of(1994, 1, 1)))
                  .field("pcs",
-                        m.objs(EmployeePC.class)
+                        m.reflect(EmployeePC.class)
                          .field("uuid",
                                 m.uuids())
                          .field("username",
