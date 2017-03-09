@@ -29,7 +29,7 @@ import static java.text.NumberFormat.getCurrencyInstance;
 import static java.util.Locale.US;
 import static org.apache.commons.lang3.Validate.notNull;
 
-public class Money implements MockUnitString {
+public class    Money implements MockUnitString {
 
     private final MockNeat mock;
     private NumberFormat formatter = getCurrencyInstance(US);

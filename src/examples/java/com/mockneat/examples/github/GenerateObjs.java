@@ -1,6 +1,7 @@
 package com.mockneat.examples.github;
 
 import com.mockneat.examples.github.model.Test;
+import com.mockneat.examples.github.model.TestFactory;
 import com.mockneat.mock.MockNeat;
 
 /**
@@ -27,5 +28,12 @@ public class GenerateObjs {
                         .val();
 
         System.out.println(t2);
+
+        Test t3 = mock.factory(Test.class, TestFactory.class)
+                      .method("buildTest")
+                      .params(mock.strings(), 1, true)
+                      .val();
+
+        System.out.println(t3);
     }
 }
