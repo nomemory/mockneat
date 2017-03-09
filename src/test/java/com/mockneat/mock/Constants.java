@@ -38,6 +38,7 @@ public class Constants {
     public static final int NAMES_CYCLES = 100;
     public static final int OBJS_CYCLES = 100;
     public static final int PASS_CYCLES = 100;
+    public static final int SEQ_CYCLES = 100;
     public static final int STRING_CYCLES = 100;
     public static final int URL_CYCLES = 100;
 }

@@ -11,8 +11,8 @@ public class GenerateMockUnitArray {
     public static void main(String[] args) {
         MockNeat m = MockNeat.threadLocal();
         MockUnit<Test> mockUnit = m
-                                        .objs(Test.class)
-                                        .constructor(
+                                        .constructor(Test.class)
+                                        .params(
                                             m.strings(),
                                             m.ints(),
                                             m.bools()

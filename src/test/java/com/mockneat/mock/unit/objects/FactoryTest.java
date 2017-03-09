@@ -66,6 +66,14 @@ public class FactoryTest {
         System.out.println(val);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFactoryBuilderInvalidMethod() throws Exception {
+        M.factory(StringBuilder.class, FactoryMethods.class)
+                      .method("xxx")
+                      .params("ABC")
+                      .val();
+    }
+
     @Test
     public void testFactoryBuilderConstantParam() throws Exception {
         StringBuilder buff = M.factory(StringBuilder.class, FactoryMethods.class)

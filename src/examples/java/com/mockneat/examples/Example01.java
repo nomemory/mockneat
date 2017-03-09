@@ -23,7 +23,7 @@ public class Example01 {
         // Generates the list of employees for
         // an imaginary comapny "company.com"
         List<Employee> companyEmployees =
-                m.objs(Employee.class)
+                m.reflect(Employee.class)
                     .field("uniqueId",
                             m.uuids())
                     .field("id",
@@ -43,7 +43,7 @@ public class Example01 {
                     .field("birthDate",
                             m.localDates().between(of(1950, 1, 1), of(1994, 1, 1)))
                     .field("pcs",
-                            m.objs(EmployeePC.class)
+                            m.reflect(EmployeePC.class)
                                 .field("uuid",
                                      m.uuids())
                                 .field("username",

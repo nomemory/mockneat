@@ -10,7 +10,7 @@ public class GenerateObjs {
     public static void main(String[] args) {
         MockNeat mock = MockNeat.threadLocal();
 
-        Test t = mock.objs(Test.class)
+        Test t = mock.reflect(Test.class)
                         .field("x", mock.strings().size(10))
                         .field("y", mock.ints().range(100, 200))
                         .field("z", mock.bools())
@@ -18,12 +18,13 @@ public class GenerateObjs {
 
         System.out.println(t);
 
-        Test t2 = mock.objs(Test.class)
-                      .constructor(
-                        mock.strings().size(10),
-                        mock.ints().range(0, 10),
-                        mock.bools())
-                      .val();
+        Test t2 = mock.constructor(Test.class)
+                        .params(
+                            mock.strings().size(10),
+                            mock.ints().range(0, 10),
+                            mock.bools()
+                        )
+                        .val();
 
         System.out.println(t2);
     }
