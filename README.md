@@ -126,7 +126,7 @@ Mocking objects with arbitrary data is easy:
 MockNeat m = MockNeat.threadLocal();
 
 List<Employee> companyEmployees =
-                m.objs(Employee.class)
+                m.reflect(Employee.class)
                  .field("uniqueId",
                         m.uuids())
                  .field("id",
