@@ -31,12 +31,12 @@ public enum Colors {
     AIR_FORCE_BLUE_USAF("Air Force Blue (USAF)", "#00308F", 0, 19, 56, 220);
     //TODO complete the rest
 
-    private String name;
-    private String hex;
-    private int r;
-    private int g;
-    private int b;
-    private int hue;
+    private final String name;
+    private final String hex;
+    private final int r;
+    private final int g;
+    private final int b;
+    private final int hue;
 
     Colors(String name, String hex, int r, int g, int b, int hue) {
         this.name = name;

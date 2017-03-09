@@ -34,7 +34,7 @@ public enum IPv4Type {
     private final Range<Integer>[] octets;
 
     IPv4Type(Range<Integer> o1, Range<Integer> o2, Range<Integer> o3, Range<Integer> o4) {
-        this.octets = new Range[4];
+        this.octets = (Range<Integer>[]) new Range[4];
         this.octets[0] = o1;
         this.octets[1] = o2;
         this.octets[2] = o3;

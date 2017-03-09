@@ -60,7 +60,7 @@ public class CreditCards implements MockUnitString {
         return type(creditCardType);
     }
 
-    protected String generateCreditCard(CreditCardType creditCardType) {
+    private String generateCreditCard(CreditCardType creditCardType) {
         int arraySize = creditCardType.getLength();
         int cnt = arraySize - 1;
 

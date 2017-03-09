@@ -24,6 +24,8 @@ import java.util.function.Supplier;
 
 import static com.mockneat.mock.utils.ValidationUtils.INT_SEQ_OVERFLOW;
 import static com.mockneat.mock.utils.ValidationUtils.SEQ_INVALID_RANGE;
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
 import static java.lang.String.format;
 import static org.apache.commons.lang3.Validate.isTrue;
 
@@ -32,8 +34,8 @@ public class IntSeq implements MockUnitInt {
     private int increment = 1;
     private int start = 0;
     private boolean cycle = true;
-    private int max = Integer.MAX_VALUE;
-    private int min = Integer.MIN_VALUE;
+    private int max = MAX_VALUE;
+    private int min = MIN_VALUE;
     private AtomicInteger internal;
 
     public IntSeq(int start, int increment, int max, int min, boolean cycle) {
@@ -47,20 +49,15 @@ public class IntSeq implements MockUnitInt {
     }
 
     public IntSeq(int start, int increment) {
-        isTrue(min<max, SEQ_INVALID_RANGE, min, max);
-        this.start = start;
-        this.increment = increment;
-        this.internal = new AtomicInteger(start);
+        this(start, increment, MAX_VALUE, MIN_VALUE, true);
     }
 
     public IntSeq(int increment) {
-        isTrue(min<max, SEQ_INVALID_RANGE, min, max);
-        this.increment = increment;
-        this.internal = new AtomicInteger(start);
+        this(0, increment, MAX_VALUE, MIN_VALUE, true);
     }
 
     public IntSeq() {
-        this.internal = new AtomicInteger(start);
+        this(0, 1, MAX_VALUE, MIN_VALUE, true);
     }
 
     public IntSeq start(int start) {

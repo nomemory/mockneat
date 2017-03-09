@@ -22,6 +22,8 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import static java.time.format.TextStyle.FULL_STANDALONE;
+
 public interface MockUnitMonth extends MockUnit<Month> {
 
     default MockUnitString display(TextStyle textStyle, Locale locale) {
@@ -34,6 +36,6 @@ public interface MockUnitMonth extends MockUnit<Month> {
     }
 
     default MockUnitString display() {
-        return display(TextStyle.FULL_STANDALONE);
+        return display(FULL_STANDALONE);
     }
 }

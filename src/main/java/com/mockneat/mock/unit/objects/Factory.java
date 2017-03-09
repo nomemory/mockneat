@@ -16,14 +16,13 @@ import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.Validate.notEmpty;
 import static org.apache.commons.lang3.reflect.MethodUtils.invokeExactStaticMethod;
 
-//TODO document this
 public class Factory<T, FT> implements MockUnit<T> {
 
     private static final Pattern JAVA_FIELD_REGEX =
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Class<T> targetClass;
-    private Class<FT> factoryClass;
+    private final Class<FT> factoryClass;
     private String method;
     private Object[] params;
 
@@ -43,6 +42,7 @@ public class Factory<T, FT> implements MockUnit<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Supplier<T> supplier() {
         notNull(targetClass, INPUT_PARAMETER_NOT_NULL, "targetClass");
         notNull(factoryClass, INPUT_PARAMETER_NOT_NULL, "factoryClass");
@@ -61,12 +61,6 @@ public class Factory<T, FT> implements MockUnit<T> {
                         method,
                         listTypes(args));
                 throw new IllegalArgumentException(fmt, e);
-            } catch (ClassCastException cce) {
-                String fmt = format(CANNOT_INVOKE_STATIC_FACTORY_METHOD_RETURN,
-                        targetClass.getClass().getName(),
-                        method,
-                        listTypes(args));
-                throw new IllegalArgumentException(fmt, cce);
             }
             return result;
         };

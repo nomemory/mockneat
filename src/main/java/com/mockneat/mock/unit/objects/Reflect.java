@@ -28,7 +28,7 @@ public class Reflect<T> implements MockUnit<T> {
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Map<String, MockValue> fields = new LinkedHashMap<>();
-    private Class<T> cls;
+    private final Class<T> cls;
 
     public Reflect(Class<T> cls) {
         this.cls = cls;

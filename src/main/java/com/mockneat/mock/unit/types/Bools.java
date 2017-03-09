@@ -36,7 +36,7 @@ public class Bools implements MockUnit<Boolean> {
         inclusiveBetween(0.0, 100.0, probability);
         Supplier<Boolean> supp = () -> mock.doubles()
                                             .range(0.0, 100.0)
-                                            .val() < probability;;
+                                            .val() < probability;
         return () -> supp;
     }
 

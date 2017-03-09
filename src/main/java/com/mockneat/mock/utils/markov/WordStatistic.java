@@ -29,7 +29,8 @@ public class WordStatistic {
     private final MockNeat rand;
 
     public WordStatistic(Map<String, Integer> rawWordCount) {
-        this.associatedWords = new Pair[rawWordCount.size()];
+        this.associatedWords =
+                (Pair<Double, String>[]) new Pair[rawWordCount.size()];
         this.rand = MockNeat.threadLocal();
         processRawWordCount(rawWordCount);
     }
