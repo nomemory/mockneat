@@ -4,11 +4,13 @@
 
 For the project documentation please visit the **[wiki](https://github.com/nomemory/mockneat/wiki)**.
 
+Contributions, observations, ideeas are highly appreciated.
+
 The good:
 - The first stable "alpha" release is going to come soon;
+- The library unit test coverage is 88% for classes and 81% for lines of the code.
 
 Still a lot of work:
-- The test coverage is far from being complete. At this moment there are around 380 Unit Tests that cover most of the functionality, but a lot of "corner-cases" are still not tested;
 - There is no Maven Central / JCenter repository yet. The only way you can test the library is by downloading it from github and build it using gradle;
 
 The bad:
@@ -126,7 +128,7 @@ Mocking objects with arbitrary data is easy:
 MockNeat m = MockNeat.threadLocal();
 
 List<Employee> companyEmployees =
-                m.objs(Employee.class)
+                m.reflect(Employee.class)
                  .field("uniqueId",
                         m.uuids())
                  .field("id",
@@ -146,7 +148,7 @@ List<Employee> companyEmployees =
                  .field("birthDate",
                         m.localDates().between(of(1950, 1, 1), of(1994, 1, 1)))
                  .field("pcs",
-                        m.objs(EmployeePC.class)
+                        m.reflect(EmployeePC.class)
                          .field("uuid",
                                 m.uuids())
                          .field("username",
