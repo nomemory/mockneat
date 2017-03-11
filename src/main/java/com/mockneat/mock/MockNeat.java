@@ -134,9 +134,7 @@ public class MockNeat {
     public static MockNeat secure() { return SECURE; }
     public static MockNeat old() { return OLD; }
 
-    public Bools bools() {
-        return this.rBools;
-    }
+    public Bools bools() { return this.rBools; }
 
     public Chars chars() { return this.rChars; }
 

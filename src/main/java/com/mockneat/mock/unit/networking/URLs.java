@@ -3,10 +3,7 @@ package com.mockneat.mock.unit.networking;
 import com.mockneat.mock.MockNeat;
 import com.mockneat.mock.interfaces.MockUnitString;
 import com.mockneat.types.Pair;
-import com.mockneat.types.enums.DictType;
-import com.mockneat.types.enums.DomainSuffixType;
-import com.mockneat.types.enums.HostNameType;
-import com.mockneat.types.enums.URLSchemeType;
+import com.mockneat.types.enums.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -15,6 +12,7 @@ import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static com.mockneat.mock.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static com.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static com.mockneat.types.enums.PassStrengthType.MEDIUM;
+import static com.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static com.mockneat.types.enums.URLSchemeType.HTTP;
 import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.Validate.notEmpty;
@@ -159,8 +157,8 @@ public class URLs implements MockUnitString {
             Pair<DictType, DictType> combo =
                     mock.from(comboList).val();
             String result =
-                    mock.dicts().type(combo.getFirst()).noSpecialChars().val() +
-                    mock.dicts().type(combo.getSecond()).noSpecialChars().val();
+                    mock.dicts().type(combo.getFirst()).noSpecialChars().format(LOWER_CASE).val() +
+                    mock.dicts().type(combo.getSecond()).noSpecialChars().format(LOWER_CASE).val();
             if (www) { result = "www.".concat(result); }
             return result;
         };
