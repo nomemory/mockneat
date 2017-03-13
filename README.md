@@ -9,6 +9,7 @@ For extensive documentation please visit the **[wiki](https://github.com/nomemor
 
 Quick links: 
 
+- [Creating MockNeat Objects](https://github.com/nomemory/mockneat/wiki/Creating--a-MockNeat-object)
 - [The MockNeat Class](https://github.com/nomemory/mockneat/wiki/MockNeat);
 - [The MockUnit Interface](https://github.com/nomemory/mockneat/wiki/MockUnits)
 
