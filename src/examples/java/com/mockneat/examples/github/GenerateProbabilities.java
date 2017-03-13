@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class GenerateProbabilities {
     public static void main(String[] args) {
-        MockNeat mockNeat = MockNeat.threadLocal();
+        MockNeat m = MockNeat.threadLocal();
 
         Map<String, Integer> mp = new HashMap<>();
         mp.put("A", 0);
@@ -20,7 +20,7 @@ public class GenerateProbabilities {
 
         for (int i = 0; i < 1000000; i++) {
 
-            String s = mockNeat.probabilites(String.class)
+            String s = m.probabilites(String.class)
                     .add(0.1, "A")
                     .add(0.2, "B")
                     .add(0.5, "C")
@@ -30,5 +30,13 @@ public class GenerateProbabilities {
         }
 
         System.out.println(mp);
+
+        Integer x = m.probabilites(Integer.class)
+                            .add(0.2, m.ints().range(0, 100))
+                            .add(0.5, m.ints().range(100, 200))
+                            .add(0.3, m.ints().range(200, 300))
+                            .val();
+
+        System.out.println(x);
     }
 }

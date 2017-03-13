@@ -36,7 +36,7 @@ public class Probabilities<T> implements MockUnit<T> {
     public Probabilities<T> add(Double prob, MockUnit<T> mock) {
         double lastVal = lastVal();
         double toAdd = lastVal + prob;
-        isTrue(lastVal + prob > 1.0, PROBABILITIES_SUM_BIGGER);
+        isTrue(!(lastVal + prob > 1.0), PROBABILITIES_SUM_BIGGER);
         probs.add(Pair.of(toAdd, value(mock)));
         return this;
     }
