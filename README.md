@@ -1,126 +1,26 @@
-# mockneat
+# MockNeat
 
 **MockNeat** is a Java 8+ library that facilitates the generation of arbitrary data for your applications. 
 
+
+## Documentation 
+
 For extensive documentation please visit the **[wiki](https://github.com/nomemory/mockneat/wiki)**. 
 
-Contributions, observations, ideeas are highly appreciated.
+Quick links: 
 
-The good:
-- The first stable "alpha" release is going to come soon;
-- The library unit test coverage is 88% for the classes and 81% for the lines of the code. More unit tests are on the go.
+- [The MockNeat Class](https://github.com/nomemory/mockneat/wiki/MockNeat);
+- [The MockUnit Interface](https://github.com/nomemory/mockneat/wiki/MockUnits)
 
-Still a lot of work:
-- There is no Maven Central / JCenter repository yet. The only way you can test the library is by downloading it from github and build it using gradle;
+## Contributions
 
-The bad:
-- The library makes heavy use of Java 8 features (Streams, Functional Interfaces, etc.), thus it only supports Java 8+ with no plans for supporting previous Java versions;
+If you want to contribute please take a look at the [Project Page](https://github.com/nomemory/mockneat/projects/1).
 
-Plans for the future:
-- Document the API;
-- Add new random generators (IBAN, SSC, Lorem Ipsum, etc.);
-- Add functionality to help the developer generate SQL Inserts directly;
-- Improve the MockUnit<T> API;
-- Drastically improve code quality;
+## Examples
 
-# Examples
+### Mocking Real-World Objects
 
-```java
-// Create a instance of the mocking object
-MockNeat m = MockNeat.threadLocal();
-```
-
-Afterwards we can play the ``m`` objects in ways "unimaginable":
-
-## Example 1 - Money
-
-> "Generating money has never been easier." (Guy Rich)
-
-We can chose the type of the Credit Card Number we want:
-
-```java
-// Generates a single valid credit card number (AMEX)
-String amex = m.creditCards()
-                .type(AMERICAN_EXPRESS)
-                .val();
-```
-
-```java
-// Generates a single valid credit card number (MASTERCARD)
-String mastercard = m.creditCards()
-                     .type(MASTERCARD)
-                     .val();
-```
-
-We can randomize the types of the Credit Cards we are going to use for mocking the data:
-
-```java
-// Generates a single Mastercard or AMEX credit card number
-String amexOrMastercard = m.creditCards()
-                           .types(AMERICAN_EXPRESS, MASTERCARD)
-                           .val();
-```
-
-Instead of calling `val()` directly to get a single value, we can return a Lists, Sets and basically any collection. Streams are also an option.
-
-```java
-// Generates a a list of credit card numbers
-List<String> mastercards = m.creditCards()
-			    .type(MASTERCARD)
-			    .list(LinkedList.class, 10)
-			    .val();
-```
-
-```java
-// Generates an infinite stream of strings, each String
-// is a valic credit card number
-Stream<String> creditCards = m.creditCards()
-			      .stream()
-			      .val();
-```
-
-## Example 2 - Complex Use
-
-We can generate advanced structures of data. For example we can generate a:
-
-`List<Map<String, Map<List<String>, Set<Integer>>>>`
-
-writing only a few Lines of code:
-
-```java
-List<Map<String, Map<List<String>, Set<Integer>>>> complexStructure
-                     = m.ints().bound(10)
-                        // Create a Set<Integer>
-                        .set(10)
-                        // Create a Map<List<String>, Set<Integer>>
-                        .mapKeys(20, m.strings().size(3).list(10)::val)
-                        // Creates a Map<String, Map<List<String>, Set<Integer>>>
-                        .mapKeys(10, m.strings().size(5).type(HEX)::val) //
-                        // Creates a List<Map<String, Map<List<String>, Set<Integer>>>>
-                        .list(ArrayList.class, 100)
-                        .val();
-```                        
-
-## Example 3 - Literature :)
-
-We can generate random (Markov) text from the opera of the famous writer Franz Kafka (just for fun, of course):
-
-```java
-String literature = m.markovs().size(1024).type(KAFKA).val();
-```
-
-The results are not spectacular, but they can pass as a better form of giberish.
-
-Possible output:
-```
-Only when the clock struck again, seven o'clock already, he shouted as he swang himself with anger, into the room on the beds and slipped out again and even felt much hungrier than usual. (...)
-```
-
-## Example 4 - Mocking Real-World Objects
-
-Mocking objects with arbitrary data is easy:
-
-> Generate a List<Employee> of 1000 random employees of a fictional company "company.com":
+Example for Generating a List<Employee> of 1000 arbitrary employees that work for a fictional company called "Company.com":
 
 ```java
 // Creates a MockNeat object that internally uses
@@ -190,50 +90,32 @@ Employee id: 1
 		 macAddress: 00:23:c0:cd:d0:f6
 		-
 ------------------------------
-Employee id: 2
-	 uuid: 3429a900-1e31-4cfe-bae3-83637a7bcb41
-	 fullName: Ellyn Chisum
-	 companyEmail: stagedlatoyia@company.com
-	 personalEmail: scantspeans@msn.com
-	 salaryCreditCard: 348088614035992
-	 external: false
-	 hireDate: 2007-12-24
-	 birthDate: 1991-10-25
-	 pcs: 2
-		 uuid: 5e7198fd-93c7-4817-819d-6e7ea910c4ce
-		 username: blestmauricio
-		 operatingSystem: Linux
-		 ipAddress: 171.234.134.207
-		 macAddress: 23:7a:5b:44:99:8a
-		-
-		 uuid: 77c6532d-82e3-4293-9e1a-c40651c6a7e2
-		 username: tradsunny
-		 operatingSystem: Windows 10
-		 ipAddress: 159.152.113.70
-		 macAddress: 48:3b:10:e8:31:7b
-		-
-.........
-------------------------------
-Employee id: 999
-	 uuid: 4bc3a718-37b8-4dd6-bcf5-33acac32f3db
-	 fullName: Fredrick Apuzzo
-	 companyEmail: spryemil@company.com
-	 personalEmail: feattherese@gmail.com
-	 salaryCreditCard: 376770913061234
-	 external: false
-	 hireDate: 2003-01-03
-	 birthDate: 1967-04-07
-	 pcs: 2
-		 uuid: 21653ab6-c183-41f9-89c6-914d82f8742d
-		 username: shoalvince
-		 operatingSystem: Linux
-		 ipAddress: 178.195.251.36
-		 macAddress: 38:86:f8:89:a0:ee
-		-
-		 uuid: 03e0a722-cd4a-44e6-aeed-bcaa718a0625
-		 username: jadehennagir
-		 operatingSystem: Linux
-		 ipAddress: 149.247.39.157
-		 macAddress: 27:8d:63:da:3f:3b
-		-
+...
+// and so on
+```
+
+
+### Writing CSV files
+
+Example for creating a CSV file with arbitrary data that has the following structure:
+
+`id, firstName, lastName, email, salary (euro)`
+
+The file should contain 1000 lines.
+
+```java
+MockNeat m = MockNeat.threadLocal();
+final Path path = Paths.get("./test.csv");
+
+m.fmt("#{id},#{first},#{last},#{email},#{salary}")
+ .param("id", m.longSeq())
+ .param("first", m.names().first())
+ .param("last", m.names().last())
+ .param("email", m.emails())
+ .param("salary", m.money().locale(GERMANY).range(2000, 5000))
+ .list(1000)
+ .consume(list -> {
+            try { Files.write(path, list, CREATE, WRITE); }
+            catch (IOException e) { e.printStackTrace(); }
+ });
 ```
