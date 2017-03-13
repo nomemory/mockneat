@@ -89,3 +89,19 @@ m.fmt("#{id},#{first},#{last},#{email},#{salary}")
             catch (IOException e) { e.printStackTrace(); }
  });
 ```
+
+### 3. Probabilities
+
+Example for generating numbers in intervals based on probabilities: 
+- Generating a number in interval [0, 100) - 20% chance;
+- Generating a number in interval [100, 200) - 50% chance;
+- Generating a number in interval [200, 300) - 30% chance;
+
+```java
+Integer x = m.probabilites(Integer.class)
+             .add(0.2, m.ints().range(0, 100))
+             .add(0.5, m.ints().range(100, 200))
+             .add(0.3, m.ints().range(200, 300))
+             .val();
+```
+
