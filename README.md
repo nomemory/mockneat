@@ -18,7 +18,7 @@ If you want to contribute please take a look at the [Project Page](https://githu
 
 ## Examples
 
-### Mocking Real-World Objects
+### 1. Mocking Real-World Objects
 
 Example for Generating a List<Employee> of 1000 arbitrary employees that work for a fictional company called "Company.com":
 
@@ -64,38 +64,7 @@ List<Employee> companyEmployees =
                  .val();
 ```
 
-Possible Output:
-```
-------------------------------
-Employee id: 1
-	 uuid: 6d7ac78d-5e9c-4e6f-83cd-22d7acfa6239
-	 fullName: Jessenia Houdek
-	 companyEmail: spiralmise@company.com
-	 personalEmail: quickerace@hotmail.co.uk
-	 salaryCreditCard: 341198734420730
-	 external: false
-	 hireDate: 2000-07-26
-	 birthDate: 1964-01-18
-	 pcs: 2
-		 uuid: 7f4366b7-2311-445e-afbc-705aa32f2bf8
-		 username: fledgedzlotys
-		 operatingSystem: Windows 8
-		 ipAddress: 175.153.40.147
-		 macAddress: 95:ea:54:a3:92:e3
-		-
-		 uuid: ee908321-4038-4caa-8eac-e30aa1a6eec0
-		 username: wellcleopatra
-		 operatingSystem: Windows 8
-		 ipAddress: 151.55.102.66
-		 macAddress: 00:23:c0:cd:d0:f6
-		-
-------------------------------
-...
-// and so on
-```
-
-
-### Writing CSV files
+### 2. Writing CSV files
 
 Example for creating a CSV file with arbitrary data that has the following structure:
 
