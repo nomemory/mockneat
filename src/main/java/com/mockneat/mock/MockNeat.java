@@ -28,6 +28,7 @@ import com.mockneat.mock.unit.id.UUIDs;
 import com.mockneat.mock.unit.networking.*;
 import com.mockneat.mock.unit.objects.Constructor;
 import com.mockneat.mock.unit.objects.Factory;
+import com.mockneat.mock.unit.objects.Probabilities;
 import com.mockneat.mock.unit.objects.Reflect;
 import com.mockneat.mock.unit.seq.IntSeq;
 import com.mockneat.mock.unit.seq.LongSeq;
@@ -203,6 +204,8 @@ public class MockNeat {
     public Names names() { return this.rNames; }
 
     public Passwords passwords() { return this.rPasswords; }
+
+    public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(cls);}
 

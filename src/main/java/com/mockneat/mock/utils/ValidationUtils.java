@@ -70,6 +70,9 @@ public class ValidationUtils {
     public static final String CANNOT_FIND_PARAM_IN_ARGS = "Cannot find param: '%s' in the map of arguments.";
     // ARRAY
     public static final String ARRAY_CANNOT_BE_INSTANTIED = "Array couldn't be instantiated. MockUnit<T> returned a NULL value when calling val() internally. We cannot infer the type of the array.";
+    // PROBABILITIES
+    public static final String PROBABILITIES_SUM_BIGGER = "Probabilities sum cannot be bigger (>) than '1.0'.";
+    public static final String PROBABILITIES_SUM_NOT_1 = "Probabilities sum must be exactly (=) 1.0 when generating values.";
 
     private ValidationUtils() {}
 
