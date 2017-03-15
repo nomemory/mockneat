@@ -2,6 +2,15 @@
 
 **MockNeat** is a Java 8+ library that facilitates the generation of arbitrary data for your applications. 
 
+## Using the library
+
+Please check the [releases](https://github.com/nomemory/mockneat/releases) page. 
+
+Or build the library on your own:
+
+`gradle build` - for generating the jar of the library;
+
+`gradle shadowJar`- for generating the jar of the library with all the dependecies included. (fatJar)
 
 ## Documentation 
 
