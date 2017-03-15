@@ -1,5 +1,9 @@
 // MOCKNEAT BUILD FILE
 
+plugins {
+    id "com.github.johnrengelman.shadow" version "1.2.4"
+}
+
 group 'com.mockneat'
 version '0.1-snapshot'
 
