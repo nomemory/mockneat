@@ -1,0 +1,39 @@
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.antoniocappiello.library' // CREATE A GROUP ID FOR YOUR LIBRARY
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                groupId 'com.antoniocappiello.library' // CREATE A GROUP ID FOR YOUR LIBRARY
+                artifactId 'date-utils' // THE NAME OF YOUR MODULE
+
+                name 'DateUtils' // YOUR LIBRARY NAME
+                description 'A collections of methods to work with Date objects.' // YOUR LIBRARY DESCRIPTION
+                url 'https://github.com/AntonioCappiello/date-utils' // YOUR SITE
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'AntonioCappiello' //YOUR ID
+                        name 'Antonio Cappiello' //YOUR NAME
+                        email 'antoniocappiello1@gmail.com' //YOUR EMAIL
+                    }
+                }
+                scm {
+                    connection 'https://github.com/AntonioCappiello/date-utils.git' // YOUR GIT REPO
+                    developerConnection 'https://github.com/AntonioCappiello/date-utils.git' // YOUR GIT REPO
+                    url 'https://github.com/AntonioCappiello/date-utils' // YOUR SITE
+
+                }
+            }
+        }
+    }
+}

@@ -2,10 +2,11 @@
 
 plugins {
     id "com.github.johnrengelman.shadow" version "1.2.4"
+    id "com.jfrog.bintray" version "1.7.3"
 }
 
-group 'com.mockneat'
-version '0.1-snapshot'
+group 'net.andreinc'
+version '0.1'
 
 apply plugin: 'java'
 
