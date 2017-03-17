@@ -1,16 +1,26 @@
 // MOCKNEAT BUILD FILE
 
+buildscript() {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+    }
+}
+
 plugins {
     id "com.github.johnrengelman.shadow" version "1.2.4"
     id "com.jfrog.bintray" version "1.7.3"
 }
 
+apply plugin: 'java'
+
 group 'net.andreinc'
 version '0.1'
 
-apply plugin: 'java'
-
 sourceCompatibility = 1.8
+
 
 repositories {
     mavenCentral()
@@ -24,3 +34,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.4'
     testCompile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 }
+
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'

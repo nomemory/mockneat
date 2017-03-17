@@ -1,18 +1,18 @@
-apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven'
 
-group = 'com.antoniocappiello.library' // CREATE A GROUP ID FOR YOUR LIBRARY
+group = 'net.andreinc.mockneat'
 
 install {
     repositories.mavenInstaller {
         pom {
             project {
-                packaging 'aar'
-                groupId 'com.antoniocappiello.library' // CREATE A GROUP ID FOR YOUR LIBRARY
-                artifactId 'date-utils' // THE NAME OF YOUR MODULE
+                packaging 'jar'
+                groupId 'net.andreinc.mockneat'
+                artifactId 'mockneat'
 
-                name 'DateUtils' // YOUR LIBRARY NAME
-                description 'A collections of methods to work with Date objects.' // YOUR LIBRARY DESCRIPTION
-                url 'https://github.com/AntonioCappiello/date-utils' // YOUR SITE
+                name 'MockNeat' // YOUR LIBRARY NAME
+                description 'MockNeat is a Java 8+ library that facilitates the generation of arbitrary data for your applications.'
+                url 'https://github.com/nomemory/mockneat' // YOUR SITE
 
                 licenses {
                     license {
@@ -22,15 +22,15 @@ install {
                 }
                 developers {
                     developer {
-                        id 'AntonioCappiello' //YOUR ID
-                        name 'Antonio Cappiello' //YOUR NAME
-                        email 'antoniocappiello1@gmail.com' //YOUR EMAIL
+                        id 'nomemory' //YOUR ID
+                        name 'Andrei N. Ciobanu' //YOUR NAME
+                        email 'n@n.com' //YOUR EMAIL
                     }
                 }
                 scm {
-                    connection 'https://github.com/AntonioCappiello/date-utils.git' // YOUR GIT REPO
-                    developerConnection 'https://github.com/AntonioCappiello/date-utils.git' // YOUR GIT REPO
-                    url 'https://github.com/AntonioCappiello/date-utils' // YOUR SITE
+                    connection 'https://https://github.com/nomemory/mockneat.git' // YOUR GIT REPO
+                    developerConnection 'https://github.com/nomemory/mockneat.git' // YOUR GIT REPO
+                    url 'https://github.com/nomemory/mockneat.git' // YOUR SITE
 
                 }
             }

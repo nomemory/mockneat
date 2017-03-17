@@ -1,21 +1,17 @@
 apply plugin: 'com.jfrog.bintray'
 
-version = '0.0.1' //YOUR LIBRARY VERSION
+version = '0.0.1'
 
 task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
+    classifier 'javadoc'
     from javadoc.destinationDir
 }
+
 artifacts {
     archives javadocJar
     archives sourcesJar
@@ -32,11 +28,11 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = 'maven'
-        name = 'date-utils' //YOUR PACKAGE NAME
-        desc = 'A collections of methods to work with Date objects.' // YOUR LIBRARY DESCRIPTION
-        websiteUrl = 'https://github.com/AntonioCappiello/date-utils' // YOUR SITE
-        vcsUrl = 'https://github.com/AntonioCappiello/date-utils.git' // YOUR GIT REPO
-        licenses = ["Apache-2.0"] // A LIST OF YOUR LICENCES
+        name = 'mockneat'
+        desc = 'MockNeat is a Java 8+ library that facilitates the generation of arbitrary data for your applications.'
+        websiteUrl = 'https://github.com/nomemory/mockneat.git'
+        vcsUrl = 'https://github.com/nomemory/mockneat.git'
+        licenses = ["Apache-2.0"]
         publish = true
         publicDownloadNumbers = true
     }
