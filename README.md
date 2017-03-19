@@ -4,9 +4,9 @@
 
 ## Installing
 
-Please check the [releases](https://github.com/nomemory/mockneat/releases) page. 
-
 The library is available in [jcenter](https://bintray.com/nomemory/maven/mockneat) as a maven or gradle dependency.
+
+For detailed information on how you can include **MockNeat** in your projects please check the **[wiki page](https://github.com/nomemory/mockneat/wiki/Installing)**.
 
 ## Documentation 
 
@@ -14,6 +14,7 @@ For extensive documentation please visit the **[wiki](https://github.com/nomemor
 
 Quick links: 
 
+- [Using the library in your applications](https://github.com/nomemory/mockneat/wiki/Installing)
 - [Creating MockNeat Objects](https://github.com/nomemory/mockneat/wiki/Creating--a-MockNeat-object)
 - [The MockNeat Class](https://github.com/nomemory/mockneat/wiki/MockNeat);
 - [The MockUnit Interface](https://github.com/nomemory/mockneat/wiki/MockUnits)
