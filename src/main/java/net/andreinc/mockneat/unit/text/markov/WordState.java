@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.utils.markov;
+package net.andreinc.mockneat.unit.text.markov;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
