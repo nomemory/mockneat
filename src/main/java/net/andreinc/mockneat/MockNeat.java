@@ -18,6 +18,7 @@ package net.andreinc.mockneat;
  */
 
 import net.andreinc.mockneat.interfaces.*;
+import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.companies.Departments;
 import net.andreinc.mockneat.unit.financial.CVVS;
@@ -25,6 +26,7 @@ import net.andreinc.mockneat.unit.financial.CreditCards;
 import net.andreinc.mockneat.unit.financial.Currencies;
 import net.andreinc.mockneat.unit.financial.Money;
 import net.andreinc.mockneat.unit.id.UUIDs;
+import net.andreinc.mockneat.unit.misc.SSCs;
 import net.andreinc.mockneat.unit.networking.*;
 import net.andreinc.mockneat.unit.objects.Constructor;
 import net.andreinc.mockneat.unit.objects.Factory;
@@ -36,13 +38,12 @@ import net.andreinc.mockneat.unit.text.*;
 import net.andreinc.mockneat.unit.time.Days;
 import net.andreinc.mockneat.unit.time.LocalDates;
 import net.andreinc.mockneat.unit.time.Months;
+import net.andreinc.mockneat.unit.types.*;
 import net.andreinc.mockneat.unit.user.Emails;
 import net.andreinc.mockneat.unit.user.Names;
 import net.andreinc.mockneat.unit.user.Passwords;
 import net.andreinc.mockneat.unit.user.Users;
 import net.andreinc.mockneat.utils.ValidationUtils;
-import net.andreinc.mockneat.types.enums.RandomType;
-import net.andreinc.mockneat.unit.types.*;
 
 import java.util.List;
 import java.util.Map;
@@ -86,6 +87,7 @@ public class MockNeat {
     private final Months rMonths;
     private final Names rNames;
     private final Passwords rPasswords;
+    private final SSCs rSSCs;
     private final UUIDs rUUIDs;
     private final Users rUsers;
 
@@ -117,6 +119,7 @@ public class MockNeat {
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
         this.rPasswords = new Passwords(this);
+        this.rSSCs = new SSCs(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
     }
@@ -209,6 +212,8 @@ public class MockNeat {
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(cls);}
 
     public Strings strings() { return new Strings(this); }
+
+    public SSCs sccs() { return this.rSSCs; }
 
     public URLs urls() { return new URLs(this); }
 
