@@ -40,10 +40,7 @@ import net.andreinc.mockneat.unit.time.Days;
 import net.andreinc.mockneat.unit.time.LocalDates;
 import net.andreinc.mockneat.unit.time.Months;
 import net.andreinc.mockneat.unit.types.*;
-import net.andreinc.mockneat.unit.user.Emails;
-import net.andreinc.mockneat.unit.user.Names;
-import net.andreinc.mockneat.unit.user.Passwords;
-import net.andreinc.mockneat.unit.user.Users;
+import net.andreinc.mockneat.unit.user.*;
 import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.List;
@@ -77,6 +74,7 @@ public class MockNeat {
     private final Emails rEmails;
     private final FromFiles rFiles;
     private final Floats rFloats;
+    private final Genders rGenders;
     private final Hashes rHashes;
     private final Ints rInts;
     private final IPv4s rIPv4s;
@@ -110,6 +108,7 @@ public class MockNeat {
         this.rEmails = new Emails(this);
         this.rFiles = new FromFiles(this);
         this.rFloats = new Floats(this);
+        this.rGenders = new Genders(this);
         this.rHashes = new Hashes(this);
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
@@ -183,6 +182,8 @@ public class MockNeat {
     public Floats floats() { return this.rFloats; }
 
     public Formatter fmt(String fmt) { return Formatter.formatter(fmt); }
+
+    public Genders genders() { return this.rGenders; }
 
     public Hashes hashes() { return this.rHashes; }
 
