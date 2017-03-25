@@ -20,11 +20,11 @@ public class MD5s implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return () -> mock.strings().size(32).map(this::md5Diggest).val();
+        return () -> mock.strings().size(32).map(this::md5Digest).val();
     }
 
     // http://stackoverflow.com/questions/5470219/get-md5-string-from-message-digest
-    private String md5Diggest(String initialString) {
+    private String md5Digest(String initialString) {
         StringBuilder hexString = new StringBuilder();
         MessageDigest md;
         try {
