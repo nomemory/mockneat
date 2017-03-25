@@ -9,14 +9,12 @@ import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NU
 import static net.andreinc.mockneat.utils.ValidationUtils.validRegex;
 import static org.apache.commons.lang3.Validate.notNull;
 
-/**
- * Created by andreinicolinciobanu on 25/03/17.
- */
-public class FromRegex implements MockUnitString {
+//TODO add documentation
+public class Regex implements MockUnitString {
 
     private String regex;
 
-    public FromRegex(String regex) {
+    public Regex(String regex) {
         this.regex = regex;
     }
 
