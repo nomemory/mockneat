@@ -10,14 +10,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by andreinicolinciobanu on 25/03/17.
  */
-public class MD5sTest {
+public class MD2sTest {
     @Test
-    public void testMD5sHash() throws Exception {
+    public void testMD2sHash() throws Exception {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.md5s().val(),
-                md5 -> assertTrue(md5.matches("^[0-9a-f]+$"))
+                m -> m.md2s().val(),
+                md2 ->assertTrue(md2.matches("^[0-9a-f]+$"))
         );
     }
 }

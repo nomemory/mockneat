@@ -34,7 +34,7 @@ public class Constants {
     public static final int LONGS_CYCLES = 1000;
     public static final int LOCAL_DATES_CYCLES = 1000;
     public static final int MAC_CYCLES = 1000;
-    public static final int MD5_CYCLES = 1000;
+    public static final int HASH_CYCLES = 1000;
     public static final int MOCK_CYCLES = 1000;
     public static final int MONEY_CYCLES = 1000;
     public static final int NAMES_CYCLES = 1000;

@@ -9,16 +9,16 @@ import java.util.function.Supplier;
 /**
  * Created by andreinicolinciobanu on 25/03/17.
  */
-public class MD5s implements MockUnitString {
+public class SHA1s implements MockUnitString {
 
     private MockNeat mock;
 
-    public MD5s(MockNeat mock) {
+    public SHA1s(MockNeat mock) {
         this.mock = mock;
     }
 
     @Override
     public Supplier<String> supplier() {
-        return mock.strings().size(32).map(DigestUtils::md5Hex).supplier();
+        return mock.strings().size(32).map(DigestUtils::sha1Hex).supplier();
     }
 }

@@ -21,8 +21,11 @@ import net.andreinc.mockneat.interfaces.*;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.companies.Departments;
-import net.andreinc.mockneat.unit.financial.*;
-import net.andreinc.mockneat.unit.hashes.MD5s;
+import net.andreinc.mockneat.unit.financial.CVVS;
+import net.andreinc.mockneat.unit.financial.CreditCards;
+import net.andreinc.mockneat.unit.financial.Currencies;
+import net.andreinc.mockneat.unit.financial.Money;
+import net.andreinc.mockneat.unit.hashes.*;
 import net.andreinc.mockneat.unit.id.UUIDs;
 import net.andreinc.mockneat.unit.misc.SSCs;
 import net.andreinc.mockneat.unit.networking.*;
@@ -81,11 +84,16 @@ public class MockNeat {
     private final Longs rLongs;
     private final Macs rMacs;
     private final Markovs rMarkovs;
+    private final MD2s rMD2s;
     private final MD5s rMD5s;
     private final Money rMoney;
     private final Months rMonths;
     private final Names rNames;
     private final Passwords rPasswords;
+    private final SHA1s rSHA1s;
+    private final SHA256s rSHA256s;
+    private final SHA384s rSHA384s;
+    private final SHA512s rSHA512s;
     private final SSCs rSSCs;
     private final UUIDs rUUIDs;
     private final Users rUsers;
@@ -114,11 +122,16 @@ public class MockNeat {
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
         this.rMarkovs = new Markovs(this);
+        this.rMD2s = new MD2s(this);
         this.rMD5s = new MD5s(this);
         this.rMoney = new Money(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
         this.rPasswords = new Passwords(this);
+        this.rSHA1s = new SHA1s(this);
+        this.rSHA256s = new SHA256s(this);
+        this.rSHA384s = new SHA384s(this);
+        this.rSHA512s = new SHA512s(this);
         this.rSSCs = new SSCs(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
@@ -199,6 +212,8 @@ public class MockNeat {
 
     public Markovs markovs() { return this.rMarkovs; }
 
+    public MD2s md2s() { return this.rMD2s; }
+
     public MD5s md5s() { return this.rMD5s; }
 
     public Months months() { return this.rMonths; }
@@ -212,6 +227,14 @@ public class MockNeat {
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(cls);}
+
+    public SHA1s sha1s() { return this.rSHA1s; }
+
+    public SHA256s sha256s() { return this.rSHA256s; }
+
+    public SHA384s sha384s() { return this.rSHA384s; }
+
+    public SHA512s sha512s() { return this.rSHA512s; }
 
     public Strings strings() { return new Strings(this); }
 
