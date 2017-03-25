@@ -20,8 +20,6 @@ public class SSCs implements MockUnitString {
 
     /**
      * AAA-GG-SSSS
-     *
-     * @return
      */
     @Override
     public Supplier<String> supplier() {
