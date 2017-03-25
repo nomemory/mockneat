@@ -21,10 +21,8 @@ import net.andreinc.mockneat.interfaces.*;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.companies.Departments;
-import net.andreinc.mockneat.unit.financial.CVVS;
-import net.andreinc.mockneat.unit.financial.CreditCards;
-import net.andreinc.mockneat.unit.financial.Currencies;
-import net.andreinc.mockneat.unit.financial.Money;
+import net.andreinc.mockneat.unit.financial.*;
+import net.andreinc.mockneat.unit.hashes.MD5s;
 import net.andreinc.mockneat.unit.id.UUIDs;
 import net.andreinc.mockneat.unit.misc.SSCs;
 import net.andreinc.mockneat.unit.networking.*;
@@ -83,6 +81,7 @@ public class MockNeat {
     private final Longs rLongs;
     private final Macs rMacs;
     private final Markovs rMarkovs;
+    private final MD5s rMD5s;
     private final Money rMoney;
     private final Months rMonths;
     private final Names rNames;
@@ -115,6 +114,7 @@ public class MockNeat {
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
         this.rMarkovs = new Markovs(this);
+        this.rMD5s = new MD5s(this);
         this.rMoney = new Money(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
@@ -198,6 +198,8 @@ public class MockNeat {
     public Macs macs() { return this.rMacs; }
 
     public Markovs markovs() { return this.rMarkovs; }
+
+    public MD5s md5s() { return this.rMD5s; }
 
     public Months months() { return this.rMonths; }
 

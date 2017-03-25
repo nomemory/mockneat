@@ -27,12 +27,14 @@ public class Constants {
     public static final int FILES_CYCLES = 1000;
     public static final int FLOATS_CYCLES = 1000;
     public static final int FMT_CYCLES = 1000;
+    public static final int IBANS_CYCLES = 1000;
     public static final int INTS_CYCLES = 1000;
     public static final int IPV4S_CYCLES = 1000;
     public static final int IPV6S_CYCLES = 1000;
     public static final int LONGS_CYCLES = 1000;
     public static final int LOCAL_DATES_CYCLES = 1000;
     public static final int MAC_CYCLES = 1000;
+    public static final int MD5_CYCLES = 1000;
     public static final int MOCK_CYCLES = 1000;
     public static final int MONEY_CYCLES = 1000;
     public static final int NAMES_CYCLES = 1000;
