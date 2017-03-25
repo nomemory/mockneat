@@ -9,7 +9,6 @@ import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NU
 import static net.andreinc.mockneat.utils.ValidationUtils.validRegex;
 import static org.apache.commons.lang3.Validate.notNull;
 
-//TODO add documentation
 public class Regex implements MockUnitString {
 
     private String regex;

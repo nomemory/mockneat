@@ -25,7 +25,6 @@ import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NU
 import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static org.apache.commons.lang3.Validate.notEmpty;
 
-//TODO update documentation (file was renamed from 'Files' -> 'FromFiles')
 public class FromFiles {
     private final MockNeat rand;
     private final FileManager fm = FileManager.getInstance();
