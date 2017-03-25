@@ -33,6 +33,7 @@ import net.andreinc.mockneat.unit.objects.Constructor;
 import net.andreinc.mockneat.unit.objects.Factory;
 import net.andreinc.mockneat.unit.objects.Probabilities;
 import net.andreinc.mockneat.unit.objects.Reflect;
+import net.andreinc.mockneat.unit.regex.FromRegex;
 import net.andreinc.mockneat.unit.seq.IntSeq;
 import net.andreinc.mockneat.unit.seq.LongSeq;
 import net.andreinc.mockneat.unit.text.*;
@@ -230,6 +231,8 @@ public class MockNeat {
     public java.util.Random getRandom() {
         return random;
     }
+
+    public FromRegex fromRegex(String regex) { return new FromRegex(regex); }
 
     public <T> MockUnit<T> from(List<T> alphabet) {
         notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");

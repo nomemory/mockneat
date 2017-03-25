@@ -2,6 +2,9 @@ package net.andreinc.mockneat.utils;
 
 import org.apache.commons.lang3.Validate;
 
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -73,6 +76,8 @@ public class ValidationUtils {
     // PROBABILITIES
     public static final String PROBABILITIES_SUM_BIGGER = "Probabilities sum cannot be bigger (>) than '1.0'.";
     public static final String PROBABILITIES_SUM_NOT_1 = "Probabilities sum must be exactly (=) 1.0 when generating values.";
+    // REGEX
+    public static final String INVALID_REGEX_PATTERN = "Invalid regex pattern ('%s'): ";
 
     private ValidationUtils() {}
 
@@ -116,5 +121,14 @@ public class ValidationUtils {
         if (0==array.length)
             throw new IllegalArgumentException(String.format(fmt, params));
         return array;
+    }
+    public static String validRegex(String regex) {
+        try {
+            Pattern.compile(regex);
+        } catch (PatternSyntaxException pse) {
+            String fmt = String.format(INVALID_REGEX_PATTERN, regex);
+            throw new IllegalArgumentException(fmt, pse);
+        }
+        return regex;
     }
 }
