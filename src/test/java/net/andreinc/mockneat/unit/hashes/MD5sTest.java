@@ -16,7 +16,7 @@ public class MD5sTest {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.md5s().val(),
+                m -> m.hashes().md5().val(),
                 md5 -> assertTrue(md5.matches("^[0-9a-f]+$"))
         );
     }

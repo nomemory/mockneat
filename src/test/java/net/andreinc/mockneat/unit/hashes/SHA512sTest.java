@@ -17,7 +17,7 @@ public class SHA512sTest {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.sha512s().val(),
+                m -> m.hashes().sha512().val(),
                 sha512 -> Assert.assertTrue(sha512.matches("^[0-9a-f]+$"))
         );
     }

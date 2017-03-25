@@ -16,7 +16,7 @@ public class SHA1sTest {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.sha1s().val(),
+                m -> m.hashes().sha1().val(),
                 sha1 -> assertTrue(sha1.matches("^[0-9a-f]+$"))
         );
     }

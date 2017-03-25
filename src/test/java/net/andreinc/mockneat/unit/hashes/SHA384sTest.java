@@ -16,7 +16,7 @@ public class SHA384sTest {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.sha384s().val(),
+                m -> m.hashes().sha384().val(),
                 sha384 -> assertTrue(sha384.matches("^[0-9a-f]+$"))
         );
     }

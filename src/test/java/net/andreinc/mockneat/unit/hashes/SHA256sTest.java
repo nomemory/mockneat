@@ -16,7 +16,7 @@ public class SHA256sTest {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.sha256s().val(),
+                m -> m.hashes().sha256().val(),
                 sha256 -> assertTrue(sha256.matches("^[0-9a-f]+$"))
         );
     }

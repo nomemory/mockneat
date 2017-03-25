@@ -16,7 +16,7 @@ public class MD2sTest {
         loop(
                 HASH_CYCLES,
                 MOCKS,
-                m -> m.md2s().val(),
+                m -> m.hashes().md2().val(),
                 md2 ->assertTrue(md2.matches("^[0-9a-f]+$"))
         );
     }
