@@ -19,6 +19,8 @@ package net.andreinc.mockneat.interfaces;
 
 import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.types.enums.StringFormatType;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -115,6 +117,22 @@ public interface MockUnitString extends MockUnit<String> {
     default MockUnitString escapeHtml() { return () -> () -> StringEscapeUtils.escapeHtml4(supplier().get()); }
 
     default MockUnitString escapeXml() { return() -> () -> StringEscapeUtils.escapeXml11(supplier().get()); }
+
+    // TODO document methods
+
+    default MockUnitString md2() { return () -> () -> DigestUtils.md2Hex(supplier().get()); }
+
+    default MockUnitString md5() { return () -> () -> DigestUtils.md5Hex(supplier().get()); }
+
+    default MockUnitString sha1() { return () -> () -> DigestUtils.sha1Hex(supplier().get()); }
+
+    default MockUnitString sha256() { return () -> () -> DigestUtils.sha256Hex(supplier().get()); }
+
+    default MockUnitString sha384() { return () -> () -> DigestUtils.sha384Hex(supplier().get()); }
+
+    default MockUnitString sha512() { return () -> () -> DigestUtils.sha512Hex(supplier().get()); }
+
+    default MockUnitString base64() { return () -> () -> new Base64().encodeAsString(supplier().get().getBytes()); }
 
     default MockUnit<String[]> array(int size) {
         return array(String.class, size);
