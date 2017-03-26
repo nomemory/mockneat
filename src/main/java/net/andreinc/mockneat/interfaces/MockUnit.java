@@ -18,7 +18,12 @@ package net.andreinc.mockneat.interfaces;
  */
 
 import net.andreinc.mockneat.utils.MockUnitUtils;
+import org.apache.commons.lang3.SerializationUtils;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.Serializable;
+import java.io.UncheckedIOException;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Consumer;
@@ -26,12 +31,13 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static java.lang.String.format;
+import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static net.andreinc.mockneat.utils.MockUnitUtils.put;
 import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
+import static net.andreinc.mockneat.utils.ValidationUtils.OBJECT_NOT_SERIALIZABLE;
 import static net.andreinc.mockneat.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
-import static java.lang.String.format;
-import static java.util.stream.IntStream.range;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
 
@@ -43,6 +49,17 @@ public interface MockUnit<T> {
     Supplier<T> supplier();
 
     default T val() { return supplier().get(); }
+
+    // TODO Document
+    default void serialize(String strPath) {
+        T object = supplier().get();
+
+        isTrue(object instanceof Serializable, OBJECT_NOT_SERIALIZABLE);
+
+        Serializable sObj = (Serializable) object;
+        try { SerializationUtils.serialize(sObj, new FileOutputStream(strPath)); }
+        catch (FileNotFoundException e) { throw new UncheckedIOException(e); }
+    }
 
     default <R> R val(Function<T, R> function) {
         notNull(function, INPUT_PARAMETER_NOT_NULL, "function");

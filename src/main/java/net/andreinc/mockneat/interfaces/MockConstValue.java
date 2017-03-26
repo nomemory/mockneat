@@ -24,7 +24,7 @@ public class MockConstValue implements MockValue {
         this.value = value;
     }
 
-    public static MockConstValue val(Object value) {
+    public static MockConstValue constant(Object value) {
         return new MockConstValue(value);
     }
 

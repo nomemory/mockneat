@@ -17,7 +17,6 @@ package net.andreinc.mockneat.unit.text;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.interfaces.MockUnitValue;
 import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.interfaces.MockUnitString;
 import net.andreinc.mockneat.interfaces.MockValue;
@@ -28,9 +27,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toMap;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAM_ALPHANUMERIC;
+import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 import static org.apache.commons.lang3.Validate.*;
 import static org.apache.commons.lang3.Validate.notEmpty;
@@ -53,7 +51,7 @@ public class Formatter implements MockUnitString {
         notEmpty(param, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "param");
         notNull(mock, INPUT_PARAMETER_NOT_NULL, "mock");
         isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, param);
-        this.fields.put(param, new MockUnitValue(mock));
+        this.fields.put(param, unit(mock));
         return this;
     }
 

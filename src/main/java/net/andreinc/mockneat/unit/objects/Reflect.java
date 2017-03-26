@@ -2,7 +2,6 @@ package net.andreinc.mockneat.unit.objects;
 
 import net.andreinc.mockneat.interfaces.MockConstValue;
 import net.andreinc.mockneat.interfaces.MockUnit;
-import net.andreinc.mockneat.interfaces.MockUnitValue;
 import net.andreinc.mockneat.interfaces.MockValue;
 import org.apache.commons.lang3.Validate;
 
@@ -15,6 +14,7 @@ import java.util.regex.Pattern;
 import static java.lang.String.format;
 import static java.lang.reflect.Modifier.FINAL;
 import static java.util.regex.Pattern.compile;
+import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -47,12 +47,12 @@ public class Reflect<T> implements MockUnit<T> {
 
     public <T1> Reflect<T> field(String fieldName, MockUnit<T1> mockUnit) {
         notNull(mockUnit, INPUT_PARAMETER_NOT_NULL, "mockUnit");
-        this.fields.put(fieldName, new MockUnitValue(mockUnit));
+        this.fields.put(fieldName, unit(mockUnit));
         return this;
     }
 
     public Reflect<T> field(String fieldName, Object value) {
-        this.fields.put(fieldName, MockConstValue.val(value));
+        this.fields.put(fieldName, MockConstValue.constant(value));
         return this;
     }
 

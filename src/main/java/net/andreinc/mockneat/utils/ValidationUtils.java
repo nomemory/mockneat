@@ -72,12 +72,15 @@ public class ValidationUtils {
     public static final String INVALID_PARAM_NAME_LENGTH_0 = "Named param should have a length!=0.";
     public static final String CANNOT_FIND_PARAM_IN_ARGS = "Cannot find param: '%s' in the map of arguments.";
     // ARRAY
-    public static final String ARRAY_CANNOT_BE_INSTANTIED = "Array couldn't be instantiated. MockUnit<T> returned a NULL value when calling val() internally. We cannot infer the type of the array.";
+    public static final String ARRAY_CANNOT_BE_INSTANTIED = "Array couldn't be instantiated. MockUnit<T> returned a NULL value when calling constant() internally. We cannot infer the type of the array.";
     // PROBABILITIES
     public static final String PROBABILITIES_SUM_BIGGER = "Probabilities sum cannot be bigger (>) than '1.0'.";
     public static final String PROBABILITIES_SUM_NOT_1 = "Probabilities sum must be exactly (=) 1.0 when generating values.";
     // REGEX
     public static final String INVALID_REGEX_PATTERN = "Invalid regex pattern ('%s'): ";
+    // SERIALIZATION
+    public static final String OBJECT_NOT_SERIALIZABLE = "Object is not seriazable. Does the class extends 'java.io.Serializable' ?";
+    public static final String PATH_IS_NOT_WRITABLE = "Path '%s' is not writable. Please choose another path";
 
     private ValidationUtils() {}
 
