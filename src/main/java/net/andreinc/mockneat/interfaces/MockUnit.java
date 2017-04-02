@@ -66,7 +66,6 @@ public interface MockUnit<T> {
         return function.apply(supplier().get());
     }
 
-    //TODO document
     default void consume(Consumer<T> consumer) {
         notNull(consumer, INPUT_PARAMETER_NOT_NULL, "consumer");
         consumer.accept(val());

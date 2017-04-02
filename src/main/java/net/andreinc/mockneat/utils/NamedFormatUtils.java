@@ -25,8 +25,6 @@ import static net.andreinc.mockneat.utils.ValidationUtils.INVALID_PARAM_NAME_LEN
 
 public class NamedFormatUtils {
 
-    protected enum State { PARAM, PARAM_START, PARAM_END, FREE_TEXT }
-
     // fmt = "${param1}${param2}${param3}"
     public static String format(String fmt, Map<String, String> args) {
         int i = 0;
@@ -58,6 +56,8 @@ public class NamedFormatUtils {
         return result.toString();
     }
 
+
+    protected enum State { PARAM, PARAM_START, PARAM_END, FREE_TEXT }
     private static void appendParamValue(Map<String, String> args, StringBuilder param, StringBuilder result) {
         String paramStr = param.toString();
         validateParamLength(paramStr);

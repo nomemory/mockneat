@@ -27,6 +27,7 @@ import net.andreinc.mockneat.unit.financial.Currencies;
 import net.andreinc.mockneat.unit.financial.Money;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
+import net.andreinc.mockneat.unit.misc.ISSNS;
 import net.andreinc.mockneat.unit.misc.SSCs;
 import net.andreinc.mockneat.unit.networking.*;
 import net.andreinc.mockneat.unit.objects.Constructor;
@@ -78,6 +79,7 @@ public class MockNeat {
     private final Genders rGenders;
     private final Hashes rHashes;
     private final Ints rInts;
+    private final ISSNS rISSNS;
     private final IPv4s rIPv4s;
     private final IPv6s rIPv6s;
     private final LocalDates rLocalDates;
@@ -114,6 +116,7 @@ public class MockNeat {
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
         this.rIPv6s = new IPv6s(this);
+        this.rISSNS = new ISSNS(this);
         this.rLocalDates = new LocalDates(this);
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
@@ -195,6 +198,8 @@ public class MockNeat {
     public IPv4s ipv4s() { return this.rIPv4s; }
 
     public IPv6s iPv6s() { return this.rIPv6s; }
+
+    public ISSNS issns() { return this.rISSNS; }
 
     public LocalDates localDates() { return this.rLocalDates; }
 

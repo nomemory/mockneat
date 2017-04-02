@@ -30,6 +30,7 @@ public class Constants {
     public static final int FMT_CYCLES = 1000;
     public static final int GENDERS_CYCLES = 1000;
     public static final int IBANS_CYCLES = 1000;
+    public static final int ISSNS_CYCLES = 1000;
     public static final int INTS_CYCLES = 1000;
     public static final int IPV4S_CYCLES = 1000;
     public static final int IPV6S_CYCLES = 1000;

@@ -3,13 +3,17 @@ package net.andreinc.mockneat.github;
 
 import net.andreinc.mockneat.MockNeat;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
-import static net.andreinc.mockneat.types.enums.CreditCardType.MASTERCARD;
-import static net.andreinc.mockneat.types.enums.CreditCardType.VISA_16;
+import static java.nio.file.StandardOpenOption.CREATE;
+import static java.nio.file.StandardOpenOption.WRITE;
+import static net.andreinc.mockneat.types.enums.CreditCardType.*;
 
 /**
  * Created by andreinicolinciobanu on 03/03/2017.
@@ -18,6 +22,16 @@ public class GenerateCreditCards {
 
     public static void main(String[] args) {
         MockNeat m = MockNeat.threadLocal();
+        final Path path = Paths.get("cc.txt");
+
+        // Write in a file 1000 credit cards AMEX and Mastercard:
+        m.creditCards()
+                .types(MASTERCARD, AMERICAN_EXPRESS)
+                .list(1000)
+                .consume(list -> {
+                    try { Files.write(path, list, CREATE, WRITE); }
+                    catch (IOException e) { e.printStackTrace(); }
+                });
 
         // Generates a single valid credit card number (AMEX)
         String amex = m.creditCards()
@@ -59,5 +73,7 @@ public class GenerateCreditCards {
                                    .val();
 
         String ccName = m.creditCards().names().val();
+
+
     }
 }
