@@ -25,10 +25,9 @@ import net.andreinc.mockneat.types.enums.IPv4Type;
 import java.util.Arrays;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyTypes;
 import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class IPv4s implements MockUnitString {
 
@@ -44,13 +43,13 @@ public class IPv4s implements MockUnitString {
     }
 
     public MockUnitString types(IPv4Type... types) {
-        notEmptyTypes(types);
+        notEmptyOrNullValues(types, "types");
         IPv4Type type = mock.from(types).val();
         return type(type);
     }
 
     public MockUnitString type(IPv4Type type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, "type");
         Range<Integer>[] oc = type.getOctets();
         Supplier<String> supp = () -> {
             StringBuilder buff = new StringBuilder();

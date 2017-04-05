@@ -18,13 +18,14 @@ package net.andreinc.mockneat.unit.seq;
  */
 
 import net.andreinc.mockneat.interfaces.MockUnitLong;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;
 
-import static java.lang.String.format;
-import static org.apache.commons.lang3.Validate.isTrue;
+import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.utils.ValidationUtils.LONG_SEQ_OVERFLOW;
+import static net.andreinc.mockneat.utils.ValidationUtils.SEQ_INVALID_RANGE;
+import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
 public class LongSeq implements MockUnitLong {
 
@@ -36,7 +37,7 @@ public class LongSeq implements MockUnitLong {
     private AtomicLong internal;
 
     public LongSeq(long start, long increment, long max, long min, boolean cycle) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.increment = increment;
         this.start = start;
         this.cycle = cycle;
@@ -46,20 +47,20 @@ public class LongSeq implements MockUnitLong {
     }
 
     public LongSeq(long start, long increment) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.start = start;
         this.increment = increment;
         this.internal = new AtomicLong(start);
     }
 
     public LongSeq(long increment) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.increment = increment;
         this.internal = new AtomicLong(start);
     }
 
     public LongSeq() {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.internal = new AtomicLong(start);
     }
 
@@ -80,13 +81,13 @@ public class LongSeq implements MockUnitLong {
     }
 
     public LongSeq max(long max) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.max = max;
         return this;
     }
 
     public LongSeq min(long min) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.min = min;
         return this;
     }
@@ -97,7 +98,10 @@ public class LongSeq implements MockUnitLong {
     }
 
     protected void fail() {
-        String fmt = String.format(ValidationUtils.LONG_SEQ_OVERFLOW, min,  max);
+        String fmt = template(LONG_SEQ_OVERFLOW)
+                .arg("min", min)
+                .arg("max", max)
+                .fmt();
         throw new IllegalStateException(fmt);
     }
 

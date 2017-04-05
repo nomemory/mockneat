@@ -33,13 +33,10 @@ import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static java.util.stream.IntStream.range;
+import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static net.andreinc.mockneat.utils.MockUnitUtils.put;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.OBJECT_NOT_SERIALIZABLE;
-import static net.andreinc.mockneat.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @FunctionalInterface
 @SuppressWarnings("unchecked")
@@ -62,12 +59,12 @@ public interface MockUnit<T> {
     }
 
     default <R> R val(Function<T, R> function) {
-        notNull(function, INPUT_PARAMETER_NOT_NULL, "function");
+        notNull(function, "function");
         return function.apply(supplier().get());
     }
 
     default void consume(Consumer<T> consumer) {
-        notNull(consumer, INPUT_PARAMETER_NOT_NULL, "consumer");
+        notNull(consumer, "consumer");
         consumer.accept(val());
     }
 
@@ -84,31 +81,31 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<R> map(Function<T, R> function) {
-        notNull(function, INPUT_PARAMETER_NOT_NULL, "function");
+        notNull(function, "function");
         Supplier<R> supp = () -> function.apply(supplier().get());
         return () -> supp;
     }
 
     default MockUnitInt mapToInt(Function<T, Integer> function) {
-        notNull(function, INPUT_PARAMETER_NOT_NULL, "function");
+        notNull(function, "function");
         Supplier<Integer> supp = () -> function.apply(val());
         return () -> supp;
     }
 
     default MockUnitDouble mapToDouble(Function<T, Double> function) {
-        notNull(function, INPUT_PARAMETER_NOT_NULL, "function");
+        notNull(function, "function");
         Supplier<Double> supp = () -> function.apply(val());
         return () -> supp;
     }
 
     default MockUnitLong mapToLong(Function<T, Long> function) {
-        notNull(function, INPUT_PARAMETER_NOT_NULL, "function");
+        notNull(function, "function");
         Supplier<Long> supp = () -> function.apply(val());
         return () -> supp;
     }
 
     default MockUnitString mapToString(Function<T, String> function) {
-        notNull(function, INPUT_PARAMETER_NOT_NULL, "function");
+        notNull(function, "function");
         Supplier<String> supp = () -> function.apply(val());
         return () -> supp;
     }
@@ -123,7 +120,7 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<List<T>> list(Class<? extends List> listClass, int size) {
-        notNull(listClass, INPUT_PARAMETER_NOT_NULL, "listClass");
+        notNull(listClass, "listClass");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<List<T>> supp = () -> {
             try {
@@ -131,7 +128,9 @@ public interface MockUnit<T> {
                 loop(size, () -> MockUnitUtils.add(listClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate list '%s'.", listClass.getName());
+                String fmt = template("Cannot instantiate list '{l.Name}'.")
+                                .arg("l", listClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -143,7 +142,7 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Set<T>> set(Class<? extends Set> setClass, int size) {
-        notNull(setClass, INPUT_PARAMETER_NOT_NULL, "setClass");
+        notNull(setClass, "setClass");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Set<T>> supp = () -> {
             try {
@@ -163,7 +162,7 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, int size) {
-        notNull(collectionClass, INPUT_PARAMETER_NOT_NULL, "collectionClass");
+        notNull(collectionClass, "collectionClass");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Collection<T>> supp = () -> {
             try {
@@ -171,7 +170,9 @@ public interface MockUnit<T> {
                 loop(size, () -> MockUnitUtils.add(collectionClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate collection: '%s'.", collectionClass.getName());
+                String fmt = template("Cannot instantiate collection: '#{c.name}'.")
+                                .arg("c", collectionClass.getName())
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -183,8 +184,8 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, int size, Supplier<R> keysSupplier) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(keysSupplier, INPUT_PARAMETER_NOT_NULL, "keysSupplier");
+        notNull(mapClass, "mapClass");
+        notNull(keysSupplier, "keysSupplier");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<R, T>> supp = () -> {
             try {
@@ -192,7 +193,9 @@ public interface MockUnit<T> {
                 loop(size, () -> put(mapClass, result, keysSupplier, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -204,15 +207,17 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, Iterable<R> keys) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
+        notNull(mapClass, "mapClass");
+        notNull(keys, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
                 keys.forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -224,8 +229,8 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, R[] keys) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
+        notNull(mapClass, "mapClass");
+        notNull(keys, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
                 Map<R, T> result = mapClass.newInstance();
@@ -233,7 +238,9 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -245,8 +252,8 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Map<Integer, T>> mapKeys(Class<? extends Map> mapClass, int[] keys) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
+        notNull(mapClass, "mapClass");
+        notNull(keys, "keys");
         Supplier<Map<Integer, T>> supp = () -> {
             try {
                 Map<Integer, T> result = mapClass.newInstance();
@@ -254,7 +261,9 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -266,8 +275,8 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Map<Long, T>> mapKeys(Class<? extends Map> mapClass, long[] keys) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
+        notNull(mapClass, "mapClass");
+        notNull(keys, "keys");
         Supplier<Map<Long, T>> supp = () -> {
             try {
                 Map<Long, T> result = mapClass.newInstance();
@@ -275,7 +284,9 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -287,8 +298,8 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Map<Double, T>> mapKeys(Class<? extends Map> mapClass, double[] keys) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(keys, INPUT_PARAMETER_NOT_NULL, "keys");
+        notNull(mapClass, "mapClass");
+        notNull(keys, "keys");
         Supplier<Map<Double, T>> supp = () -> {
             try {
                 Map<Double, T> result = mapClass.newInstance();
@@ -296,7 +307,9 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -308,8 +321,8 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(valuesSupplier, INPUT_PARAMETER_NOT_NULL, "valuesSupplier");
+        notNull(mapClass, "mapClass");
+        notNull(valuesSupplier, "valuesSupplier");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<T, R>> supp = () -> {
             try {
@@ -317,7 +330,9 @@ public interface MockUnit<T> {
                 loop(size, () -> put(mapClass, result, supplier(), valuesSupplier));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -329,15 +344,17 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, Iterable<R> values) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
+        notNull(mapClass, "mapClass");
+        notNull(values, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
                 values.forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -349,15 +366,17 @@ public interface MockUnit<T> {
     }
 
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, R[] values) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
+        notNull(mapClass, "mapClass");
+        notNull(values, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
                 Map<T, R> result = mapClass.newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -369,15 +388,17 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Map<T, Integer>> mapVals(Class<? extends Map> mapClass, int[] values) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
+        notNull(mapClass, "mapClass");
+        notNull(values, "values");
         Supplier<Map<T, Integer>> supp = () -> {
             try {
                 Map<T, Integer> result = mapClass.newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -389,15 +410,17 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Map<T, Long>> mapVals(Class<? extends Map> mapClass, long[] values) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
+        notNull(mapClass, "mapClass");
+        notNull(values, "values");
         Supplier<Map<T, Long>> supp = () -> {
             try {
                 Map<T, Long> result = mapClass.newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -409,15 +432,17 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<Map<T, Double>> mapVals(Class<? extends Map> mapClass, double[] values) {
-        notNull(mapClass, INPUT_PARAMETER_NOT_NULL, "mapClass");
-        notNull(values, INPUT_PARAMETER_NOT_NULL, "values");
+        notNull(mapClass, "mapClass");
+        notNull(values, "values");
         Supplier<Map<T, Double>> supp = () -> {
             try {
                 Map<T, Double> result = mapClass.newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(InstantiationException | IllegalAccessException e) {
-                String fmt = format("Cannot instantiate map: '%s'.", mapClass.getName());
+                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                                .arg("m", mapClass)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         };
@@ -429,8 +454,8 @@ public interface MockUnit<T> {
     }
 
     default MockUnit<T[]> array(Class<T> cls, int size) {
+        notNull(cls, "cls");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
-        notNull(cls, INPUT_PARAMETER_NOT_NULL, "cls");
         Supplier<T[]> supp = () -> {
             T[] objs = (T[]) Array.newInstance(cls, size);
             range(0, size).forEach(i -> objs[i] = supplier().get());

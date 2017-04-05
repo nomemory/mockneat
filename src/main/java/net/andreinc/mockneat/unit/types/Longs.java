@@ -19,16 +19,11 @@ package net.andreinc.mockneat.unit.types;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitLong;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
-import static net.andreinc.mockneat.utils.ValidationUtils.LOWER_BOUND_BIGGER_THAN_ZERO;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Longs implements MockUnitLong {
 
@@ -61,18 +56,18 @@ public class Longs implements MockUnitLong {
     }
 
     public MockUnitLong range(long lowerBound, long upperBound) {
-        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
-        isTrue(lowerBound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>0, ValidationUtils.UPPER_BOUND_BIGGER_THAN_ZERO);
-        isTrue(upperBound>lowerBound, ValidationUtils.UPPER_BOUND_BIGGER_LOWER_BOUND);
+        notNull(lowerBound, "lowerBound");
+        notNull(upperBound, "upperBound");
+        isTrue(lowerBound >= 0, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound > 0, UPPER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound > lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
         Supplier<Long> supplier = () ->
                 mock.longs().bound(upperBound - lowerBound).val() + lowerBound;
         return () -> supplier;
     }
 
     public MockUnitLong from(long[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<Long> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

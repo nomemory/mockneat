@@ -20,18 +20,16 @@ package net.andreinc.mockneat.unit.text;
 import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.interfaces.MockUnitString;
 import net.andreinc.mockneat.interfaces.MockValue;
-import net.andreinc.mockneat.utils.NamedFormatUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toMap;
+import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
-import static org.apache.commons.lang3.Validate.*;
-import static org.apache.commons.lang3.Validate.notEmpty;
 
 public class Formatter implements MockUnitString {
 
@@ -43,14 +41,14 @@ public class Formatter implements MockUnitString {
     }
 
     public static Formatter formatter(String fmt) {
-        notEmpty(fmt, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "fmt");
+        notEmpty(fmt, "fmt");
         return new Formatter(fmt);
     }
 
     public <T> Formatter param(String param, MockUnit<T> mock) {
-        notEmpty(param, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "param");
-        notNull(mock, INPUT_PARAMETER_NOT_NULL, "mock");
-        isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, param);
+        notEmpty(param, "param");
+        notNull(mock, "mock");
+        isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, "input", param);
         this.fields.put(param, unit(mock));
         return this;
     }
@@ -58,11 +56,11 @@ public class Formatter implements MockUnitString {
     @Override
     public Supplier<String> supplier() {
         return () -> {
-            Map<String, String> args = fields.entrySet()
+            Map<String, Object> args = fields.entrySet()
                                              .stream()
                                              .collect(toMap(e -> e.getKey(),
                                                             e -> e.getValue().getStr()));
-            return NamedFormatUtils.format(fmt, args);
+            return template(fmt, args).fmt();
         };
     }
 }

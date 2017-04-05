@@ -22,6 +22,11 @@ import net.andreinc.mockneat.interfaces.MockUnit;
 import java.util.*;
 import java.util.function.Supplier;
 
+import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_ADD_VALUE_TO_COLLECTION;
+import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_ADD_VALUE_TO_LIST;
+import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_ADD_VALUE_TO_SET;
+
 @SuppressWarnings("unchecked")
 public class MockUnitUtils {
 
@@ -32,8 +37,10 @@ public class MockUnitUtils {
         try {
             result.add(value);
         } catch (Exception e) {
-            String msg = String.format(ValidationUtils.CANNOT_ADD_VALUE_TO_COLLECTION,
-                    value, collectionClass.getSimpleName());
+            String msg = template(CANNOT_ADD_VALUE_TO_COLLECTION)
+                            .arg("val", value)
+                            .arg("cls", collectionClass)
+                            .fmt();
             throw new IllegalArgumentException(msg, e);
         }
     }
@@ -42,8 +49,7 @@ public class MockUnitUtils {
         try {
             result.add(value);
         } catch (Exception e) {
-            String msg = String.format(ValidationUtils.CANNOT_ADD_VALUE_TO_LIST,
-                    value, listClass.getSimpleName());
+            String msg = template(CANNOT_ADD_VALUE_TO_LIST, "value", value, "cls", listClass).fmt();
             throw new IllegalArgumentException(msg, e);
         }
     }
@@ -52,8 +58,7 @@ public class MockUnitUtils {
         try {
             result.add(value);
         } catch (Exception e) {
-            String msg = String.format(ValidationUtils.CANNOT_ADD_VALUE_TO_SET,
-                    value, setClass.getSimpleName());
+            String msg = template(CANNOT_ADD_VALUE_TO_SET, "value", value, "cls", setClass).fmt();
             throw new IllegalArgumentException(msg, e);
         }
     }
@@ -63,8 +68,9 @@ public class MockUnitUtils {
         try {
             map.put(keyVal, valVal);
         } catch(Exception e ) {
-            String msg = String.format(ValidationUtils.CANNOT_PUT_VALUES_TO_MAP,
-                    keyVal, valVal, mapClass.getSimpleName());
+            String msg = template(ValidationUtils.CANNOT_PUT_VALUES_TO_MAP,
+                    "key", keyVal, "val", valVal, "cls", mapClass.getSimpleName())
+                    .fmt();
             throw new IllegalArgumentException(msg, e);
         }
     }
@@ -72,8 +78,9 @@ public class MockUnitUtils {
         try {
             map.put(key, value);
         } catch (Exception e) {
-            String msg = String.format(ValidationUtils.CANNOT_PUT_VALUES_TO_MAP,
-                    key, value, mapClass.getSimpleName());
+            String msg = template(ValidationUtils.CANNOT_PUT_VALUES_TO_MAP,
+                    "key", key, "val", value, "cls", mapClass.getSimpleName())
+                    .fmt();
             throw new IllegalArgumentException(msg, e);
         }
     }

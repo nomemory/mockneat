@@ -3,7 +3,6 @@ package net.andreinc.mockneat.unit.objects;
 import net.andreinc.mockneat.interfaces.MockConstValue;
 import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.interfaces.MockValue;
-import org.apache.commons.lang3.Validate;
 
 import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
@@ -11,13 +10,11 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
-import static java.lang.String.format;
 import static java.lang.reflect.Modifier.FINAL;
 import static java.util.regex.Pattern.compile;
+import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
 import static org.apache.commons.lang3.reflect.FieldUtils.getDeclaredField;
 import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
@@ -36,7 +33,7 @@ public class Reflect<T> implements MockUnit<T> {
 
     @Override
     public Supplier<T> supplier() {
-        notNull(cls, INPUT_PARAMETER_NOT_NULL, "cls");
+        notNull(cls, "cls");
         validateFields();
         return () -> {
             T instance = instance();
@@ -46,12 +43,14 @@ public class Reflect<T> implements MockUnit<T> {
     }
 
     public <T1> Reflect<T> field(String fieldName, MockUnit<T1> mockUnit) {
-        notNull(mockUnit, INPUT_PARAMETER_NOT_NULL, "mockUnit");
+        notEmpty(fieldName, "fieldName");
+        notNull(mockUnit, "mockUnit");
         this.fields.put(fieldName, unit(mockUnit));
         return this;
     }
 
     public Reflect<T> field(String fieldName, Object value) {
+        notEmpty(fieldName, "fieldName");
         this.fields.put(fieldName, MockConstValue.constant(value));
         return this;
     }
@@ -59,15 +58,15 @@ public class Reflect<T> implements MockUnit<T> {
     public void validateFields() {
         notNull(fields, INPUT_PARAMETER_NOT_NULL, "fields");
         fields.forEach((k, v) -> {
-            Validate.notEmpty(k, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "fieldName");
-            isTrue(JAVA_FIELD_REGEX.matcher(k).matches(), JAVA_FIELD_REGEX_MATCH, k);
+            notEmpty(k, INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "fieldName");
+            isTrue(JAVA_FIELD_REGEX.matcher(k).matches(), JAVA_FIELD_REGEX_MATCH, "field", k);
             Field field = getDeclaredField(cls, k, true);
             if (field==null) {
-                String fmt = format(JAVA_FIELD_DOESNT_EXIST_ON_CLASS, k);
+                String fmt = template(JAVA_FIELD_DOESNT_EXIST_ON_CLASS, "field", k).fmt();
                 throw new IllegalArgumentException(fmt);
             }
             boolean isFinal = (field.getModifiers() & FINAL) == FINAL;
-            isTrue(!isFinal, JAVA_FIELD_IS_FINAL, k);
+            isTrue(!isFinal, JAVA_FIELD_IS_FINAL, "field", k);
         });
     }
 
@@ -75,9 +74,9 @@ public class Reflect<T> implements MockUnit<T> {
         try {
             return cls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            String fmt = format(CANNOT_INSTANTIATE_OBJECT_OF_CLASS,
-                    cls.getSimpleName(),
-                    cls.getSimpleName());
+            String fmt = template(CANNOT_INSTANTIATE_OBJECT_OF_CLASS)
+                            .arg("cls", cls)
+                            .fmt();
             throw new IllegalArgumentException(fmt, e);
         }
     }
@@ -88,10 +87,11 @@ public class Reflect<T> implements MockUnit<T> {
             try {
                 writeField(object, key, cVal, true);
             } catch (IllegalAccessException e) {
-                String fmt = format(CANNOT_SET_FIELD_WITH_VALUE,
-                        cls.getSimpleName(),
-                        key,
-                        cVal);
+                String fmt = template(CANNOT_SET_FIELD_WITH_VALUE)
+                                .arg("cls", cls)
+                                .arg("field", key)
+                                .arg("val", cVal)
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         });

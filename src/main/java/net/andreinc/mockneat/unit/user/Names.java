@@ -21,13 +21,13 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.NameType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.types.enums.NameType.FIRST_NAME;
 import static net.andreinc.mockneat.types.enums.NameType.LAST_NAME;
-import static org.apache.commons.lang3.Validate.inclusiveBetween;
+import static net.andreinc.mockneat.utils.ValidationUtils.betweenClosed;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static org.apache.commons.lang3.Validate.notNull;
 
 public class Names implements MockUnitString {
@@ -53,7 +53,7 @@ public class Names implements MockUnitString {
     }
 
     public MockUnitString full(double middleInitialProbability) {
-        inclusiveBetween(0.0, 100.0, middleInitialProbability);
+        betweenClosed(middleInitialProbability, 0.0, 100.0);
         Supplier<String> supp = () -> {
             boolean middleName = mock.bools().probability(middleInitialProbability).val();
             String initial = (middleName) ? " " + mock.chars().upperLetters().val() + "." : "";
@@ -63,13 +63,13 @@ public class Names implements MockUnitString {
     }
 
     public MockUnitString types(NameType... types) {
-        ValidationUtils.notEmptyTypes(types);
+        notEmptyOrNullValues(types, "types");
         NameType nameType = mock.from(types).val();
         return type(nameType);
     }
 
     public MockUnitString type(NameType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, "type");
         DictType dictType = mock.from(type.getDictionaries()).val();
         return () -> mock.dicts().type(dictType)::val;
     }

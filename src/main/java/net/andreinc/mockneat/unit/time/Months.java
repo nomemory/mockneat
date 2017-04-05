@@ -19,14 +19,13 @@ package net.andreinc.mockneat.unit.time;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitMonth;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.time.Month;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
+
+;
 
 public class Months implements MockUnitMonth {
 
@@ -42,9 +41,9 @@ public class Months implements MockUnitMonth {
     }
 
     public MockUnitMonth rangeClosed(Month lower, Month upper) {
-        notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
-        notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
-        isTrue(lower.getValue() < upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
+        notNull(lower, "lower");
+        notNull(upper, "upper");
+        isTrue(lower.getValue() < upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<Month> supp = () -> {
             int idx = mock.ints().range(lower.getValue()-1, upper.getValue()).val();
             return Month.values()[idx];
@@ -53,9 +52,9 @@ public class Months implements MockUnitMonth {
     }
 
     public MockUnitMonth range(Month lower, Month upper) {
-        notNull(lower, INPUT_PARAMETER_NOT_NULL, "lower");
-        notNull(upper, INPUT_PARAMETER_NOT_NULL, "upper");
-        isTrue(lower.getValue() < upper.getValue(), ValidationUtils.UPPER_MONTH_BIGGER_THAN_LOWER);
+        notNull(lower, "lower");
+        notNull(upper, "upper");
+        isTrue(lower.getValue() < upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<Month> supp = () -> {
             int idx = mock.ints().range(lower.getValue()-1, upper.getValue()-1).val();
             return Month.values()[idx];
@@ -64,14 +63,14 @@ public class Months implements MockUnitMonth {
     }
 
     public MockUnitMonth before(Month before) {
-        notNull(before, INPUT_PARAMETER_NOT_NULL, "before");
-        isTrue(before.getValue()-1>0, ValidationUtils.BEFORE_MONTH_DIFFERENT_THAN_JANUARY);
+        notNull(before, "before");
+        isTrue(before.getValue()-1>0, BEFORE_MONTH_DIFFERENT_THAN_JANUARY);
         return range(Month.values()[0], before);
     }
 
     public MockUnitMonth after(Month after) {
-        notNull(after, INPUT_PARAMETER_NOT_NULL, "after");
-        isTrue(after.getValue()<Month.values().length-1, ValidationUtils.AFTER_MONTH_DIFFERENT_TNAN_DECEMBER);
+        notNull(after, "after");
+        isTrue(after.getValue()<Month.values().length-1, AFTER_MONTH_DIFFERENT_TNAN_DECEMBER);
         Supplier<Month> supp = () -> {
             int idx = mock.ints().range(after.getValue(), Month.values().length).val();
             return Month.values()[idx];

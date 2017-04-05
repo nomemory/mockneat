@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.interfaces.MockValueFactory.value;
-import static org.apache.commons.lang3.Validate.isTrue;
+import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
 public class Probabilities<T> implements MockUnit<T> {
 

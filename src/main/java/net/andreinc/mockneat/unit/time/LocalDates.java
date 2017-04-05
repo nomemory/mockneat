@@ -26,13 +26,9 @@ import java.util.function.Supplier;
 
 import static java.time.LocalDate.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
 
 public class LocalDates implements MockUnitLocalDate {
 
-    private static final long DEFAULT_DAYS_BEFORE = 10;
-    private static final long DEFAULT_DAYS_AFTER = 10;
     public static final LocalDate EPOCH_START = ofEpochDay(0);
 
     private final MockNeat mock;
@@ -68,12 +64,12 @@ public class LocalDates implements MockUnitLocalDate {
     }
 
     public MockUnitLocalDate between(LocalDate lowerDate, LocalDate upperDate) {
-        notNull(lowerDate, INPUT_PARAMETER_NOT_NULL, "lowerDate");
-        notNull(upperDate, INPUT_PARAMETER_NOT_NULL, "upperDate");
+        notNull(lowerDate, "lowerDate");
+        notNull(upperDate, "upperDate");
         isTrue(lowerDate.compareTo(upperDate)<0,
                 LOWER_DATE_SMALLER_THAN_UPPER_DATE,
-                lowerDate,
-                upperDate);
+                "lower", lowerDate,
+                "upper", upperDate);
         Supplier<LocalDate> supp = () -> {
             long lowerEpoch = lowerDate.toEpochDay();
             long upperEpoch = upperDate.toEpochDay();
@@ -85,16 +81,28 @@ public class LocalDates implements MockUnitLocalDate {
     }
 
     public MockUnitLocalDate future(LocalDate maxDate) {
-        notNull(maxDate, INPUT_PARAMETER_NOT_NULL, "maxDate");
-        isTrue(maxDate.compareTo(MAX.minusDays(1))<=0, MAX_DATE_NOT_BIGGER_THAN, maxDate, MAX.minusDays(1));
-        isTrue(maxDate.plusDays(1).compareTo(now())>0, MAX_DATE_DIFFERENT_THAN_NOW, maxDate, now());
+        notNull(maxDate, "maxDate");
+        isTrue(maxDate.compareTo(MAX.minusDays(1))<=0,
+                MAX_DATE_NOT_BIGGER_THAN,
+                "max", maxDate,
+                "date", MAX.minusDays(1));
+        isTrue(maxDate.plusDays(1).compareTo(now())>0,
+                MAX_DATE_DIFFERENT_THAN_NOW,
+                "max", maxDate,
+                "now", now());
         return between(now().plusDays(1), maxDate.plusDays(1));
     }
 
     public MockUnitLocalDate past(LocalDate minDate) {
-        notNull(minDate, INPUT_PARAMETER_NOT_NULL, "minDate");
-        isTrue(minDate.compareTo(MIN)>0, MIN_DATE_BIGGER_THAN, minDate, MIN);
-        isTrue(minDate.minusDays(1).compareTo(now())<0, MIN_DATE_DIFFERENT_THAN_NOW, minDate, now());
+        notNull(minDate,  "minDate");
+        isTrue(minDate.compareTo(MIN)>0,
+                MIN_DATE_BIGGER_THAN,
+                "min", minDate,
+                "date", MIN);
+        isTrue(minDate.minusDays(1).compareTo(now())<0,
+                MIN_DATE_DIFFERENT_THAN_NOW,
+                "min", minDate,
+                "now", now());
         return between(minDate, now());
     }
 }

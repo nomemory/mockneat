@@ -25,18 +25,11 @@ import net.andreinc.mockneat.types.enums.PassStrengthType;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.alphabets.Alphabets.DIGITS;
-import static net.andreinc.mockneat.alphabets.Alphabets.LETTERS;
-import static net.andreinc.mockneat.alphabets.Alphabets.SPECIAL_CHARACTERS;
-import static net.andreinc.mockneat.types.enums.DictType.EN_NOUN_1SYLL;
-import static net.andreinc.mockneat.types.enums.DictType.EN_NOUN_2SYLL;
-import static net.andreinc.mockneat.types.enums.DictType.EN_NOUN_3SYLL;
-import static net.andreinc.mockneat.types.enums.PassStrengthType.MEDIUM;
-import static net.andreinc.mockneat.types.enums.PassStrengthType.STRONG;
-import static net.andreinc.mockneat.types.enums.PassStrengthType.WEAK;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyTypes;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.alphabets.Alphabets.*;
+import static net.andreinc.mockneat.types.enums.DictType.*;
+import static net.andreinc.mockneat.types.enums.PassStrengthType.*;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Passwords implements MockUnitString {
 
@@ -53,13 +46,13 @@ public class Passwords implements MockUnitString {
     }
 
     public MockUnitString type(PassStrengthType passStrengthType) {
-        notNull(passStrengthType, INPUT_PARAMETER_NOT_NULL, "passStrengthType");
+        notNull(passStrengthType, "passStrengthType");
         Supplier<String> supplier = () -> nextPassword(passStrengthType);
         return () -> supplier;
     }
 
     public MockUnitString types(PassStrengthType... types) {
-        notEmptyTypes(types);
+        notEmptyOrNullValues(types, "types");
         PassStrengthType passStrengthType = mock.from(types).val();
         return type(passStrengthType);
     }

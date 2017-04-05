@@ -27,14 +27,15 @@ import java.io.UnsupportedEncodingException;
 import java.util.function.Supplier;
 
 import static java.net.URLEncoder.encode;
+import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 import static org.apache.commons.lang3.Validate.notEmpty;
-import static org.apache.commons.lang3.Validate.notNull;
 
 @FunctionalInterface
 public interface MockUnitString extends MockUnit<String> {
 
     default MockUnitString format(StringFormatType formatType) {
-        notNull(formatType, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "formatType");
+        notNull(formatType, "formatType");
         Supplier<String> supplier = () -> formatType.getFormatter().apply(supplier().get());
         return () -> supplier;
     }
@@ -49,7 +50,7 @@ public interface MockUnitString extends MockUnit<String> {
     }
 
     default MockUnitString append(String str) {
-        notEmpty(str);
+        notEmpty(str, "str");
         Supplier<String> supplier = () -> supplier().get().concat(str);
         return () -> supplier;
     }
@@ -95,7 +96,7 @@ public interface MockUnitString extends MockUnit<String> {
             try {
                 return encode(val, enc);
             } catch (UnsupportedEncodingException e) {
-                String msg = String.format(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, val);
+                String msg = template(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, "val", val).fmt();
                 throw new IllegalArgumentException(msg, e);
             }
         };

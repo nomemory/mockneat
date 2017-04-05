@@ -17,17 +17,15 @@ package net.andreinc.mockneat.unit.types;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.alphabets.Alphabets;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.MockNeat;
+import net.andreinc.mockneat.alphabets.Alphabets;
 import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.types.enums.CharsType;
-import org.apache.commons.lang3.Validate;
+
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.alphabets.Alphabets.*;
-import static org.apache.commons.lang3.Validate.notEmpty;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Chars implements MockUnit<Character> {
 
@@ -61,7 +59,7 @@ public class Chars implements MockUnit<Character> {
     public MockUnit<Character> hex() { return mock.from(HEXA); }
 
     public MockUnit<Character> type(CharsType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, "type");
         switch (type) {
             case DIGITS: return digits();
             case HEX: return hex();
@@ -73,13 +71,13 @@ public class Chars implements MockUnit<Character> {
     }
 
     public MockUnit<Character> types(CharsType... types) {
-        notEmpty(types, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmptyOrNullValues(types, "types");
         CharsType type = mock.from(types).val();
         return type(type);
     }
 
     public MockUnit<Character> from(String alphabet) {
-        Validate.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<Character> supp = () -> {
             int idx = mock.getRandom().nextInt(alphabet.length());
             return alphabet.charAt(idx);
@@ -88,7 +86,7 @@ public class Chars implements MockUnit<Character> {
     }
 
     public MockUnit<Character> from(char[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<Character> supp = () -> {
             int idx = mock.getRandom().nextInt(alphabet.length);
             return alphabet[idx];

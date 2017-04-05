@@ -19,14 +19,13 @@ package net.andreinc.mockneat.unit.financial;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitString;
-import net.andreinc.mockneat.utils.LoopsUtils;
 import net.andreinc.mockneat.types.enums.CVVType;
+import net.andreinc.mockneat.utils.LoopsUtils;
 
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
 import static net.andreinc.mockneat.types.enums.CVVType.CVV3;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class CVVS implements MockUnitString {
 
@@ -42,7 +41,7 @@ public class CVVS implements MockUnitString {
     }
 
     public MockUnitString type(CVVType type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
             LoopsUtils.loop(type.getLength(), () ->

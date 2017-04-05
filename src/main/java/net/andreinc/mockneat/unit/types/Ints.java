@@ -18,15 +18,12 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.interfaces.MockUnitInt;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
-import static org.apache.commons.lang3.Validate.isTrue;
-import static org.apache.commons.lang3.Validate.notNull;
 
 public class Ints implements MockUnitInt {
 
@@ -48,8 +45,8 @@ public class Ints implements MockUnitInt {
     }
 
     public MockUnitInt range(int lowerBound, int upperBound) {
-        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
+        notNull(lowerBound, "lowerBound");
+        notNull(upperBound, "upperBound");
         isTrue(lowerBound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>0, UPPER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
@@ -58,7 +55,7 @@ public class Ints implements MockUnitInt {
     }
 
     public MockUnitInt from(int[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<Integer> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

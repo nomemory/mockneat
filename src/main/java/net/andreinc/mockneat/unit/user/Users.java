@@ -25,10 +25,9 @@ import net.andreinc.mockneat.types.enums.UserNameType;
 
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyTypes;
 import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Users implements MockUnitString {
 
@@ -46,13 +45,13 @@ public class Users implements MockUnitString {
     }
 
     public MockUnitString type(UserNameType type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, "type");
         Supplier<String> supplier = () -> generateUserName(type);
         return () -> supplier;
     }
 
     public MockUnitString types(UserNameType... types) {
-        notEmptyTypes(types);
+        notEmptyOrNullValues(types, "types");
         UserNameType type = mock.from(types).val();
         return type(type);
     }

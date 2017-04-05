@@ -18,15 +18,16 @@ package net.andreinc.mockneat.unit.seq;
  */
 
 import net.andreinc.mockneat.interfaces.MockUnitInt;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
-import static java.lang.String.format;
-import static org.apache.commons.lang3.Validate.isTrue;
+import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.utils.ValidationUtils.INT_SEQ_OVERFLOW;
+import static net.andreinc.mockneat.utils.ValidationUtils.SEQ_INVALID_RANGE;
+import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
 public class IntSeq implements MockUnitInt {
 
@@ -38,7 +39,7 @@ public class IntSeq implements MockUnitInt {
     private AtomicInteger internal;
 
     public IntSeq(int start, int increment, int max, int min, boolean cycle) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.increment = increment;
         this.start = start;
         this.cycle = cycle;
@@ -60,7 +61,7 @@ public class IntSeq implements MockUnitInt {
     }
 
     public IntSeq start(int start) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.start = start;
         this.internal = new AtomicInteger(start);
         return this;
@@ -77,13 +78,13 @@ public class IntSeq implements MockUnitInt {
     }
 
     public IntSeq max(int max) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.max = max;
         return this;
     }
 
     public IntSeq min(int min) {
-        isTrue(min<max, ValidationUtils.SEQ_INVALID_RANGE, min, max);
+        isTrue(min<max, template(SEQ_INVALID_RANGE, "min", min, "max", max).fmt());
         this.min = min;
         return this;
     }
@@ -94,7 +95,10 @@ public class IntSeq implements MockUnitInt {
     }
 
     private void fail() {
-        String fmt = String.format(ValidationUtils.INT_SEQ_OVERFLOW, min,  max);
+        String fmt = template(INT_SEQ_OVERFLOW)
+                        .arg("min", min)
+                        .arg("max", max)
+                        .fmt();
         throw new IllegalStateException(fmt);
     }
 

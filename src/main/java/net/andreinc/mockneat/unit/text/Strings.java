@@ -27,12 +27,8 @@ import java.util.function.Supplier;
 import static net.andreinc.mockneat.alphabets.Alphabets.HEXA_STR;
 import static net.andreinc.mockneat.alphabets.Alphabets.SPECIAL_CHARACTERS_STR;
 import static java.util.stream.Collectors.joining;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
-import static net.andreinc.mockneat.utils.ValidationUtils.SIZE_BIGGER_THAN_ZERO_STRICT;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.RandomStringUtils.random;
-import static org.apache.commons.lang3.Validate.*;
-import static org.apache.commons.lang3.Validate.notEmpty;
 
 public class Strings implements MockUnitString {
 
@@ -64,7 +60,7 @@ public class Strings implements MockUnitString {
     }
 
     public MockUnitString types(StringType... types) {
-        notEmpty(types, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types");
+        notEmptyOrNullValues(types, "types");
         StringType type = mock.from(types).val();
         return type(type);
     }

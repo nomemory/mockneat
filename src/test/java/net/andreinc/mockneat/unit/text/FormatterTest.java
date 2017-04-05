@@ -1,5 +1,6 @@
 package net.andreinc.mockneat.unit.text;
 
+import net.andreinc.aleph.UncheckedFormatterException;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.*;
@@ -107,7 +108,7 @@ public class FormatterTest {
         );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = UncheckedFormatterException.class)
     public void testFmtInvalidFmt1() throws Exception {
         M.fmt("#{1#{2}}").val();
     }

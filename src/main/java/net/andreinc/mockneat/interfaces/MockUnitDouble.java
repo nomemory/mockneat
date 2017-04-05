@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
 
 import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang3.Validate.isTrue;
+import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
 public interface MockUnitDouble extends MockUnit<Double> {
     default MockUnit<DoubleStream> doubleStream() {

@@ -19,8 +19,8 @@ package net.andreinc.mockneat.unit.text;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitString;
-import net.andreinc.mockneat.unit.text.markov.MarkovUnit;
 import net.andreinc.mockneat.types.enums.MarkovChainType;
+import net.andreinc.mockneat.unit.text.markov.MarkovUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,10 +30,9 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyTypes;
 import static net.andreinc.mockneat.types.enums.MarkovChainType.KAFKA;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Markovs implements MockUnitString {
 
@@ -68,13 +67,13 @@ public class Markovs implements MockUnitString {
     }
 
     public MockUnitString types(MarkovChainType... types) {
-        notEmptyTypes(types);
+        notEmptyOrNullValues(types, "types");
         MarkovChainType type = mock.from(types).val();
         return type(type);
     }
 
     public MockUnitString type(MarkovChainType type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "type");
+        notNull(type, "type");
         Supplier<String> supp = () -> {
             MarkovUnit unit = null;
             try {

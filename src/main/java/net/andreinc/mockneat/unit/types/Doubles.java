@@ -19,7 +19,6 @@ package net.andreinc.mockneat.unit.types;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitDouble;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -27,7 +26,6 @@ import java.util.function.Supplier;
 import static java.lang.Double.doubleToLongBits;
 import static java.lang.Double.longBitsToDouble;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
-import static org.apache.commons.lang3.Validate.*;
 
 public class Doubles implements MockUnitDouble {
 
@@ -49,12 +47,10 @@ public class Doubles implements MockUnitDouble {
     }
 
     public MockUnitDouble range(double lowerBound, double upperBound) {
-        notNull(lowerBound, INPUT_PARAMETER_NOT_NULL, "lowerBound");
-        notNull(upperBound, INPUT_PARAMETER_NOT_NULL, "upperBound");
-        finite(lowerBound);
-        finite(upperBound);
-        notNaN(lowerBound);
-        notNaN(upperBound);
+        notNull(lowerBound, "lowerBound");
+        notNull(upperBound, "upperBound");
+        isFinite(lowerBound);
+        isFinite(upperBound);
         isTrue(lowerBound>=0.0, LOWER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>0.0, UPPER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
@@ -77,7 +73,7 @@ public class Doubles implements MockUnitDouble {
     }
 
     public MockUnitDouble from(double[] alphabet) {
-        ValidationUtils.notEmpty(alphabet, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<Double> supp = () -> {
             int idx = random.nextInt(alphabet.length);
             return alphabet[idx];

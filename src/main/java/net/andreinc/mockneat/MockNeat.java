@@ -50,8 +50,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 import static org.apache.commons.lang3.Validate.notEmpty;
-import static org.apache.commons.lang3.Validate.notNull;
 
 @SuppressWarnings("unchecked")
 public class MockNeat {
@@ -240,7 +240,7 @@ public class MockNeat {
     }
 
     public <T> MockUnit<T> from(List<T> alphabet) {
-        notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<T> supp = () -> {
             int idx = getRandom().nextInt(alphabet.size());
             return alphabet.get(idx);
@@ -249,7 +249,7 @@ public class MockNeat {
     }
 
     public <T> MockUnit<T> from(T[] alphabet) {
-        notEmpty(alphabet, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "alphabet");
+        notEmpty(alphabet, "alphabet");
         Supplier<T> supp = () -> {
             int idx = getRandom().nextInt(alphabet.length);
             return alphabet[idx];
@@ -258,13 +258,13 @@ public class MockNeat {
     }
 
     public <T extends Enum<?>> MockUnit<T> from(Class<T> enumClass) {
-        notNull(enumClass, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "enumClass");
+        notNull(enumClass, "enumClass");
         T[] arr = enumClass.getEnumConstants();
         return from(arr);
     }
 
     public <T> MockUnit<T> fromKeys(Map<T, ?> map) {
-        notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "map");
+        notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "map");
         Supplier<T> supp = () -> {
             T[] keys = (T[]) map.keySet().toArray();
             int idx = getRandom().nextInt(keys.length);
@@ -274,7 +274,7 @@ public class MockNeat {
     }
 
     public <T> MockUnit<T> fromValues(Map<?, T> map) {
-        notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "map");
+        notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "map");
         Supplier<T> supp = () -> {
             T[] values = (T[]) map.values().toArray();
             int idx = getRandom().nextInt(values.length);

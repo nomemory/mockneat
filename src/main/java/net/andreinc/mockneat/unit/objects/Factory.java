@@ -2,17 +2,16 @@ package net.andreinc.mockneat.unit.objects;
 
 import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.utils.MockUnitUtils;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
-import static java.lang.String.format;
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang3.Validate.*;
-import static org.apache.commons.lang3.Validate.notEmpty;
+import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.utils.MockUnitUtils.listTypes;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.reflect.MethodUtils.invokeExactStaticMethod;
 
 public class Factory<T, FT> implements MockUnit<T> {
@@ -43,11 +42,12 @@ public class Factory<T, FT> implements MockUnit<T> {
     @Override
     @SuppressWarnings("unchecked")
     public Supplier<T> supplier() {
-        notNull(targetClass, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "targetClass");
-        notNull(factoryClass, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "factoryClass");
-        notNull(params, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "params");
-        notEmpty(method, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "method");
-        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(), ValidationUtils.JAVA_METHOD_REGEX_MATCH, method);
+        notNull(targetClass,  "targetClass");
+        notNull(factoryClass,  "factoryClass");
+        notNull(params, "params");
+        notEmpty(method,  "method");
+        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(),
+                template(JAVA_METHOD_REGEX_MATCH, "method", method).fmt());
         final Object[] args = new Object[params.length];
         return () -> {
             T result = null;
@@ -55,10 +55,11 @@ public class Factory<T, FT> implements MockUnit<T> {
                 range(0, params.length).forEach(i -> args[i] = MockUnitUtils.mockOrObject(params[i]));
                 result = (T) invokeExactStaticMethod(factoryClass, method, args);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                String fmt = String.format(ValidationUtils.CANNOT_INVOKE_STATIC_FACTORY_METHOD,
-                        targetClass.getClass().getName(),
-                        method,
-                        MockUnitUtils.listTypes(args));
+                String fmt = template(CANNOT_INVOKE_STATIC_FACTORY_METHOD)
+                                .arg("cls", targetClass)
+                                .arg("method", method)
+                                .arg("types", listTypes(args))
+                                .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
             return result;

@@ -21,9 +21,8 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitString;
 import net.andreinc.mockneat.utils.file.FileManager;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
 import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
-import static org.apache.commons.lang3.Validate.notEmpty;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmpty;
 
 public class FromFiles {
     private final MockNeat rand;
@@ -34,7 +33,7 @@ public class FromFiles {
     }
 
     public MockUnitString from(String path) {
-        notEmpty(path, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "path");
+        notEmpty(path, "path");
         return () -> rand.fromStrings(fm.getLines(path)).format(LOWER_CASE)::val;
     }
 }

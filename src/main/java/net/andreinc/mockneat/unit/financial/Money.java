@@ -18,7 +18,6 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.interfaces.MockUnitString;
 
 import java.text.NumberFormat;
@@ -27,7 +26,7 @@ import java.util.function.Supplier;
 
 import static java.text.NumberFormat.getCurrencyInstance;
 import static java.util.Locale.US;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class    Money implements MockUnitString {
 
@@ -41,7 +40,7 @@ public class    Money implements MockUnitString {
     }
 
     public Money locale(Locale locale) {
-        notNull(locale, ValidationUtils.INPUT_PARAMETER_NOT_NULL, "locale");
+        notNull(locale, "locale");
         this.formatter = getCurrencyInstance(locale);
         return this;
     }

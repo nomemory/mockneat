@@ -11,15 +11,12 @@ import net.andreinc.mockneat.types.enums.URLSchemeType;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL;
-import static net.andreinc.mockneat.utils.ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY;
+import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static net.andreinc.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static net.andreinc.mockneat.types.enums.URLSchemeType.HTTP;
-import static java.util.stream.IntStream.range;
-import static org.apache.commons.lang3.Validate.notEmpty;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class URLs implements MockUnitString {
 
@@ -104,29 +101,25 @@ public class URLs implements MockUnitString {
     }
 
     public URLs schemes(String... schemes) {
-        notEmpty(schemes, INPUT_PARAMETER_NOT_NULL, "schemes");
-        range(0, schemes.length).forEach(i ->
-                notEmpty(schemes[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "schemes[" + i + "]"));
+        notEmptyOrNullValues(schemes, "schemes");
         this.schemeSupplier = schemeSupplier(schemes);
         return this;
     }
 
     public URLs scheme(String scheme) {
-        notNull(scheme, INPUT_PARAMETER_NOT_NULL, "scheme");
+        notNull(scheme, "scheme");
         this.schemeSupplier = schemeSupplier(scheme);
         return this;
     }
 
     public URLs schemes(URLSchemeType... schemes) {
-        notEmpty(schemes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "schemes");
-        range(0, schemes.length).forEach(i ->
-            notNull(schemes[i], INPUT_PARAMETER_NOT_NULL, "schemes[" + i + "]"));
+        notEmptyOrNullValues(schemes, "schemes");
         this.schemeSupplier = schemeSupplier(schemes);
         return this;
     }
 
     public URLs scheme(URLSchemeType scheme) {
-        notNull(scheme, INPUT_PARAMETER_NOT_NULL, "scheme");
+        notNull(scheme, "scheme");
         this.schemeSupplier = schemeSupplier(scheme);
         return this;
     }
@@ -136,9 +129,10 @@ public class URLs implements MockUnitString {
     }
 
     private Supplier<String> authSupplier() {
-        return () -> String.format("%s:%s@",
-                                    this.userNameSupplier.get(),
-                                    this.passWordSupplier.get());
+        return () -> template("#{userName}:#{passWord}")
+                        .arg("userName", this.userNameSupplier.get())
+                        .arg("passWord", this.passWordSupplier.get())
+                        .fmt();
     }
 
     public URLs auth() {
@@ -193,30 +187,25 @@ public class URLs implements MockUnitString {
     }
 
     public URLs hosts(String... hosts) {
-        notEmpty(hosts, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "hosts");
-        range(0, hosts.length).forEach(i ->
-                        notEmpty(hosts[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY,
-                                "hosts[" + i + "]"));
+        notEmptyOrNullValues(hosts, "hosts");
         this.hostSupplier = hostSupplier(hosts);
         return this;
     }
 
     public URLs host(String host) {
-        notEmpty(host, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "host");
+        notEmpty(host, "host");
         this.hostSupplier = hostSupplier(host);
         return this;
     }
 
     public URLs hosts(HostNameType... hostNameTypes) {
-        notEmpty(hostNameTypes, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "hostNameTypes");
-        range(0, hostNameTypes.length).forEach(i ->
-                notNull(hostNameTypes[i], INPUT_PARAMETER_NOT_NULL,  "hostNameTypes[" + i + "]"));
+        notEmptyOrNullValues(hostNameTypes, "hostNameTypes");
         this.hostSupplier = hostSupplier(hostNameTypes);
         return this;
     }
 
     public URLs host(HostNameType hostNameType) {
-        notNull(hostNameType, INPUT_PARAMETER_NOT_NULL, "hostNameType");
+        notNull(hostNameType, "hostNameType");
         this.hostSupplier = hostSupplier(hostNameType);
         return this;
     }
@@ -242,29 +231,25 @@ public class URLs implements MockUnitString {
     }
 
     public URLs domains(DomainSuffixType... types) {
-        notEmpty(types, INPUT_PARAMETER_NOT_NULL, "types");
-        range(0, types.length).forEach(i ->
-                notNull(types[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "types[" + i + "]"));
+        notEmptyOrNullValues(types, "types");
         this.domainSupplier = domainSupplier(types);
         return this;
     }
 
     public URLs domain(DomainSuffixType type) {
-        notNull(type, INPUT_PARAMETER_NOT_NULL, "types");
+        notNull(type, "types");
         this.domainSupplier = domainSupplier(type);
         return this;
     }
 
     public URLs domains(String... domains) {
-        notEmpty(domains, INPUT_PARAMETER_NOT_NULL, "domains");
-        range(0, domains.length).forEach(i ->
-                notEmpty(domains[i], INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "domains[" + i + "]"));
+        notEmptyOrNullValues(domains, "domains");
         this.domainSupplier = domainSupplier(domains);
         return this;
     }
 
     public URLs domain(String domain) {
-        notEmpty(domain, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "domain");
+        notEmpty(domain, "domain");
         this.domainSupplier = domainSupplier(domain);
         return this;
     }
@@ -291,15 +276,13 @@ public class URLs implements MockUnitString {
     }
 
     public URLs ports(Integer... array) {
-        notEmpty(array, INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "array");
-        range(0, array.length).forEach(i ->
-            notNull(array[i], INPUT_PARAMETER_NOT_NULL, "array[" + i + "]"));
+        notEmptyOrNullValues(array, "array");
         this.portSupplier = portSupplier(array);
         return this;
     }
 
     public URLs port(Integer port) {
-        notNull(port, INPUT_PARAMETER_NOT_NULL, "port");
+        notNull(port, "port");
         this.portSupplier = portSupplier(port);
         return this;
     }

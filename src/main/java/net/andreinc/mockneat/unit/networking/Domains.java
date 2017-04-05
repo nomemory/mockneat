@@ -20,12 +20,12 @@ package net.andreinc.mockneat.unit.networking;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnitString;
 import net.andreinc.mockneat.types.enums.DomainSuffixType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
-import static org.apache.commons.lang3.Validate.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Domains implements MockUnitString {
 
@@ -41,12 +41,12 @@ public class Domains implements MockUnitString {
     }
 
     public MockUnitString type(DomainSuffixType type) {
-        notNull(type, ValidationUtils.INPUT_PARAMETER_NOT_NULL_OR_EMPTY, "type");
+        notNull(type, "type");
         return () -> mock.dicts().type(type.getDictType())::val;
     }
 
     public MockUnitString types(DomainSuffixType... types) {
-        ValidationUtils.notEmptyTypes(types);
+        notEmptyOrNullValues(types, "types");
         DomainSuffixType type = mock.from(types).val();
         return type(type);
     }
