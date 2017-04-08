@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.22'
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.6.1'
+    //compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.6.1'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
     compile group: 'com.github.mifmif', name: 'generex', version: '1.0.2'

@@ -140,6 +140,7 @@ public class ValidationUtils {
         }
         return arr;
     }
+
     public static char[] notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
@@ -147,6 +148,7 @@ public class ValidationUtils {
             throw new IllegalArgumentException(String.format(fmt, params));
         return array;
     }
+
     public static double [] notEmpty(double[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
@@ -154,6 +156,7 @@ public class ValidationUtils {
             throw new IllegalArgumentException(String.format(fmt, params));
         return array;
     }
+
     public static float[] notEmpty(float[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
@@ -207,4 +210,5 @@ public class ValidationUtils {
                 "min", start,
                 "max", end);
     }
+
 }
