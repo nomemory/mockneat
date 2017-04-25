@@ -11,6 +11,9 @@ import java.util.function.Supplier;
  * Created by andreinicolinciobanu on 25/03/17.
  */
 public class Hashes {
+
+    private static final Integer HASHED_STRING_SIZE = 128;
+
     private MockNeat mock;
 
     public Hashes(MockNeat mock) {
@@ -18,7 +21,7 @@ public class Hashes {
     }
 
     private Supplier<String> supplier(Function<String, String> digester) {
-        return mock.strings().size(32).map(digester).supplier();
+        return mock.strings().size(HASHED_STRING_SIZE).map(digester).supplier();
     }
 
     public MockUnitString md2() {

@@ -214,6 +214,8 @@ public class MockNeat {
 
     public Markovs markovs() { return this.rMarkovs; }
 
+    public Mimes mimes() { return this.rMimes; }
+
     public Months months() { return this.rMonths; }
 
     public Money money() { return this.rMoney; }

@@ -5,6 +5,7 @@ import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.interfaces.MockValue;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -25,6 +26,7 @@ public class Reflect<T> implements MockUnit<T> {
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Map<String, MockValue> fields = new LinkedHashMap<>();
+    private final Map<Class<?>, MockValue> defaults = new HashMap<>();
     private final Class<T> cls;
 
     public Reflect(Class<T> cls) {
