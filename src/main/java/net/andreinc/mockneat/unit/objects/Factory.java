@@ -46,8 +46,7 @@ public class Factory<T, FT> implements MockUnit<T> {
         notNull(factoryClass,  "factoryClass");
         notNull(params, "params");
         notEmpty(method,  "method");
-        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(),
-                template(JAVA_METHOD_REGEX_MATCH, "method", method).fmt());
+        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(), template(JAVA_METHOD_REGEX_MATCH, "method", method).fmt());
         final Object[] args = new Object[params.length];
         return () -> {
             T result = null;

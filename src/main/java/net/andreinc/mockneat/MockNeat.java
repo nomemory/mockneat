@@ -28,6 +28,7 @@ import net.andreinc.mockneat.unit.financial.Money;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
 import net.andreinc.mockneat.unit.misc.ISSNS;
+import net.andreinc.mockneat.unit.misc.Mimes;
 import net.andreinc.mockneat.unit.misc.SSCs;
 import net.andreinc.mockneat.unit.networking.*;
 import net.andreinc.mockneat.unit.objects.Constructor;
@@ -86,6 +87,7 @@ public class MockNeat {
     private final Longs rLongs;
     private final Macs rMacs;
     private final Markovs rMarkovs;
+    private final Mimes rMimes;
     private final Money rMoney;
     private final Months rMonths;
     private final Names rNames;
@@ -121,6 +123,7 @@ public class MockNeat {
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
         this.rMarkovs = new Markovs(this);
+        this.rMimes = new Mimes(this);
         this.rMoney = new Money(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);

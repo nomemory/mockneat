@@ -28,6 +28,9 @@ public enum DictType {
     DOMAIN_TOP_LEVEL_ALL("domain-top-level-all"),
     DOMAIN_TOP_LEVEL_POPULAR("domain-top-level-popular"),
 
+    // MIME TYPES
+    MIME_TYPE("mimetypes"),
+
     //FINANCIAL
     FOREX_PAIRS("forex-pairs"),
     CREDIT_CARD_NAMES("credit-card-names"),
