@@ -134,7 +134,7 @@ public class Reflect<T> implements MockUnit<T> {
     private void setValues(T object) {
         getAllFieldsList(cls).forEach(field -> {
             String name = field.getName();
-            Class<?> cls = field.getDeclaringClass();
+            Class<?> cls = field.getType();
             Object val = null;
 
             if (fields.containsKey(name)) {
