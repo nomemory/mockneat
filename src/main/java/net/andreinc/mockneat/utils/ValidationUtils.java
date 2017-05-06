@@ -59,19 +59,15 @@ public class ValidationUtils {
     public static final String JAVA_METHOD_REGEX_MATCH = "Method '#{method}' doesn't match the Java Naming Conventions for methods.";
     public static final String JAVA_FIELD_IS_FINAL = "Field '#{field}' is marked as FINAL. It cannot be modified. Please remove it from the fields list.";
     public static final String JAVA_FIELD_DOESNT_EXIST_ON_CLASS = "Cannot access field: '#{field}'.";
-    // FORMATTER
     public static final String INPUT_PARAM_ALPHANUMERIC = "Input param '#{input}' should be alpha-numeric.";
-    // SEQ
     public static final String INT_SEQ_OVERFLOW = "IntSeq overflow. Values are generated inside the interval: [#{min}, #{max}]. Cannot increment any further.";
     public static final String LONG_SEQ_OVERFLOW = "LongSeq overflow. Values are generated inside the interval: [#{min}, #{max}]. Cannot increment any further.";
     public static final String SEQ_INVALID_RANGE = "The min value '#{min}' should be lower than the maximum '#{max}' value of the sequence.";
-    // PROBABILITIES
     public static final String PROBABILITIES_SUM_BIGGER = "Probabilities sum cannot be bigger (>) than '1.0'.";
     public static final String PROBABILITIES_SUM_NOT_1 = "Probabilities sum must be exactly (=) 1.0 when generating values.";
-    // REGEX
     public static final String INVALID_REGEX_PATTERN = "Invalid regex pattern ('#{pattern}'): ";
-    // SERIALIZATION
     public static final String OBJECT_NOT_SERIALIZABLE = "Object is not serializable. Does the object's class extends 'java.io.Serializable' ?";
+    public static final String PROBABILITY_NOT_NEGATIVE = "Probability '#{prob}' should be bigger than '0.0'.";
 
     private ValidationUtils() {}
 

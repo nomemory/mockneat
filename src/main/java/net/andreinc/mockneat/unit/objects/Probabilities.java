@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.interfaces.MockValueFactory.value;
-import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
+import static net.andreinc.mockneat.interfaces.MockConstValue.constant;
+import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Probabilities<T> implements MockUnit<T> {
 
@@ -33,18 +34,22 @@ public class Probabilities<T> implements MockUnit<T> {
     }
 
     public Probabilities<T> add(Double prob, MockUnit<T> mock) {
+        notNull(prob, "prob");
+        isTrue(prob.compareTo(0.0)>0, PROBABILITY_NOT_NEGATIVE, "prob", prob);
         double lastVal = lastVal();
         double toAdd = lastVal + prob;
-        isTrue(!(lastVal + prob > 1.0), ValidationUtils.PROBABILITIES_SUM_BIGGER);
-        probs.add(Pair.of(toAdd, value(mock)));
+        isTrue(!(lastVal + prob > 1.0), PROBABILITIES_SUM_BIGGER);
+        probs.add(Pair.of(toAdd, unit(mock)));
         return this;
     }
 
     public Probabilities<T> add(Double prob, T obj) {
+        notNull(prob, "prob");
+        isTrue(prob.compareTo(0.0)>0, PROBABILITY_NOT_NEGATIVE, "prob", prob);
         double lastVal = lastVal();
         double toAdd = lastVal + prob;
-        isTrue(!(lastVal + prob > 1.0), ValidationUtils.PROBABILITIES_SUM_BIGGER);
-        probs.add(Pair.of(toAdd, value(obj)));
+        isTrue(!(lastVal + prob > 1.0), PROBABILITIES_SUM_BIGGER);
+        probs.add(Pair.of(toAdd, constant(obj)));
         return this;
     }
 
