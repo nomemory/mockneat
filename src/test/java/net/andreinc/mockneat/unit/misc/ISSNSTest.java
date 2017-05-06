@@ -23,6 +23,5 @@ public class ISSNSTest {
                 m -> m.issns().val(),
                 issn -> assertTrue(validator.validate(issn)!=null)
         );
-        System.out.println(M.issns().val());
     }
 }

@@ -228,7 +228,7 @@ public class MockNeat {
 
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
 
-    public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(cls);}
+    public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
 
     public Strings strings() { return new Strings(this); }
 

@@ -1,6 +1,6 @@
 package net.andreinc.mockneat.unit.objects;
 
-import net.andreinc.mockneat.interfaces.MockConstValue;
+import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnit;
 import net.andreinc.mockneat.interfaces.MockValue;
 
@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
 import static java.lang.reflect.Modifier.FINAL;
 import static java.util.regex.Pattern.compile;
 import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.interfaces.MockConstValue.constant;
 import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
-import static org.apache.commons.lang3.reflect.FieldUtils.getDeclaredField;
-import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
+import static org.apache.commons.lang3.reflect.FieldUtils.*;
 
 //TODO document this
 public class Reflect<T> implements MockUnit<T> {
@@ -26,11 +26,41 @@ public class Reflect<T> implements MockUnit<T> {
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Map<String, MockValue> fields = new LinkedHashMap<>();
+    private boolean useDefaults = false;
     private final Map<Class<?>, MockValue> defaults = new HashMap<>();
     private final Class<T> cls;
+    private final MockNeat m;
 
-    public Reflect(Class<T> cls) {
+    public Reflect(MockNeat mockNeat, Class<T> cls) {
         this.cls = cls;
+        this.m = mockNeat;
+
+        initDefaults();
+    }
+
+    private void initDefaults() {
+        type(boolean.class, m.bools());
+        type(Boolean.class, m.bools());
+
+        type(char.class, m.chars().letters());
+        type(Character.class, m.chars().letters());
+
+        type(short.class, m.ints().bound(100).map(Integer::shortValue));
+        type(Short.class, m.ints().bound(100).map(Integer::shortValue));
+
+        type(int.class, m.ints().bound(100));
+        type(Integer.class, m.ints().bound(100));
+
+        type(long.class, m.longs().bound(100));
+        type(Long.class, m.longs().bound(100));
+
+        type(double.class, m.doubles().bound(10));
+        type(Double.class, m.doubles().bound(10));
+
+        type(float.class, m.floats().bound(10));
+        type(Float.class, m.floats().bound(10));
+
+        type(String.class, m.strings().size(32));
     }
 
     @Override
@@ -53,14 +83,32 @@ public class Reflect<T> implements MockUnit<T> {
 
     public Reflect<T> field(String fieldName, Object value) {
         notEmpty(fieldName, "fieldName");
-        this.fields.put(fieldName, MockConstValue.constant(value));
+        this.fields.put(fieldName, constant(value));
         return this;
     }
 
-    public void validateFields() {
-        notNull(fields, INPUT_PARAMETER_NOT_NULL, "fields");
+    public Reflect<T> useDefaults(boolean status) {
+        this.useDefaults = status;
+        return this;
+    }
+
+    public Reflect<T> type(Class<?> cls, Object value) {
+        notNull(cls, "cls");
+        this.defaults.put(cls, constant(value));
+        return this;
+    }
+
+    public <T1> Reflect<T> type(Class<T1> cls, MockUnit<T1> mockUnit) {
+        notNull(cls, "cls");
+        notNull(mockUnit, "mockUnit");
+        this.defaults.put(cls, unit(mockUnit));
+        return this;
+    }
+
+    private void validateFields() {
+        notNull(fields, "fields");
         fields.forEach((k, v) -> {
-            notEmpty(k, INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "fieldName");
+            notEmpty(k, "fieldName");
             isTrue(JAVA_FIELD_REGEX.matcher(k).matches(), JAVA_FIELD_REGEX_MATCH, "field", k);
             Field field = getDeclaredField(cls, k, true);
             if (field==null) {
@@ -84,19 +132,28 @@ public class Reflect<T> implements MockUnit<T> {
     }
 
     private void setValues(T object) {
-        fields.forEach((key, val) -> {
-            Object cVal = val.get();
+        getAllFieldsList(cls).forEach(field -> {
+            String name = field.getName();
+            Class<?> cls = field.getDeclaringClass();
+            Object val = null;
+
+            if (fields.containsKey(name)) {
+                val = fields.get(name).get();
+            } else if (defaults.containsKey(cls) && useDefaults) {
+                // Fallback to useDefaults
+                val = defaults.get(cls).get();
+            }
+
             try {
-                writeField(object, key, cVal, true);
+                writeField(object, name, val, true);
             } catch (IllegalAccessException e) {
                 String fmt = template(CANNOT_SET_FIELD_WITH_VALUE)
-                                .arg("cls", cls)
-                                .arg("field", key)
-                                .arg("val", cVal)
-                                .fmt();
+                        .arg("cls", cls)
+                        .arg("field", name)
+                        .arg("val", val)
+                        .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
         });
     }
-
 }

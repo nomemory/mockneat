@@ -28,13 +28,16 @@ import static net.andreinc.mockneat.alphabets.Alphabets.HEXA_STR;
 
 public class IPv6s implements MockUnitString {
     private final MockNeat mock;
+
     public IPv6s(MockNeat mock) {
         this.mock = mock;
     }
+
     @Override
     public Supplier<String> supplier() {
         return this::ip;
     }
+
     private String group() {
         String result = mock.from(HEXA_STR)
                             .stream().val()
@@ -43,6 +46,7 @@ public class IPv6s implements MockUnitString {
                             .replaceAll("([0])\\1", "");
         return result.length() == 0 ? "0" : result;
     }
+
     private String ip() {
         final StringBuilder buff = new StringBuilder("");
         LoopsUtils.loop(8, () -> buff.append(group()).append(":"));
