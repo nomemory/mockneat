@@ -288,11 +288,11 @@ public class MockNeat {
         return () -> supp;
     }
 
-    public MockUnitInt fromInts(Integer... alphabet) {
+    public MockUnitInt fromInts(Integer[] alphabet) {
         return () -> from(alphabet)::val;
     }
 
-    public MockUnitInt fromInts(int... alphabet) {
+    public MockUnitInt fromInts(int[] alphabet) {
         return () -> this.ints().from(alphabet)::val;
     }
 
@@ -308,11 +308,11 @@ public class MockNeat {
         return () -> fromKeys(map)::val;
     }
 
-    public MockUnitDouble fromDoubles(Double... alphabet) {
+    public MockUnitDouble fromDoubles(Double[] alphabet) {
         return () -> from(alphabet)::val;
     }
 
-    public MockUnitDouble fromDoubles(double... alphabet) {
+    public MockUnitDouble fromDoubles(double[] alphabet) {
         return () -> this.doubles().from(alphabet)::val;
     }
 
@@ -328,11 +328,11 @@ public class MockNeat {
         return () -> fromKeys(map)::val;
     }
 
-    public MockUnitLong fromLongs(Long... alphabet) {
+    public MockUnitLong fromLongs(Long[] alphabet) {
         return () -> from(alphabet)::val;
     }
 
-    public MockUnitLong fromLongs(long... alphabet) {
+    public MockUnitLong fromLongs(long[] alphabet) {
         return () -> this.longs().from(alphabet)::val;
     }
 
