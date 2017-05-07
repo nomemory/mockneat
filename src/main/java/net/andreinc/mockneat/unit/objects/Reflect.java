@@ -134,21 +134,21 @@ public class Reflect<T> implements MockUnit<T> {
     private void setValues(T object) {
         getAllFieldsList(cls).forEach(field -> {
             String name = field.getName();
-            Class<?> cls = field.getType();
+            Class<?> fieldCls = field.getType();
             Object val = null;
 
             if (fields.containsKey(name)) {
                 val = fields.get(name).get();
-            } else if (defaults.containsKey(cls) && useDefaults) {
+            } else if (defaults.containsKey(fieldCls) && useDefaults) {
                 // Fallback to useDefaults
-                val = defaults.get(cls).get();
+                val = defaults.get(fieldCls).get();
             }
 
             try {
                 writeField(object, name, val, true);
             } catch (IllegalAccessException e) {
                 String fmt = template(CANNOT_SET_FIELD_WITH_VALUE)
-                        .arg("cls", cls)
+                        .arg("cls", fieldCls)
                         .arg("field", name)
                         .arg("val", val)
                         .fmt();
