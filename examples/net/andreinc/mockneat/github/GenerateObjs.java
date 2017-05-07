@@ -2,7 +2,10 @@ package net.andreinc.mockneat.github;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.github.model.Test;
+import net.andreinc.mockneat.github.model.Test2;
 import net.andreinc.mockneat.github.model.TestFactory;
+
+import java.util.List;
 
 /**
  * Created by andreinicolinciobanu on 04/03/2017.
@@ -18,6 +21,13 @@ public class GenerateObjs {
                         .val();
 
         System.out.println(t);
+
+        List<Test> tR = mock.reflect(Test.class)
+                        .useDefaults(true)
+                        .list(5)
+                        .val();
+
+        System.out.println("tR: " + tR);
 
         Test t2 = mock.constructor(Test.class)
                         .params(
@@ -35,5 +45,14 @@ public class GenerateObjs {
                       .val();
 
         System.out.println(t3);
+
+        Test2 t4 = mock.reflect(Test2.class)
+                        .useDefaults(true)
+                        .type(String.class, mock.strings().size(5))
+                        .type(Short.class, (short) 5)
+                        .val();
+
+        System.out.println(t4);
     }
+
 }
