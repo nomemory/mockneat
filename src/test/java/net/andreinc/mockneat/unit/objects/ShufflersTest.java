@@ -3,6 +3,7 @@ package net.andreinc.mockneat.unit.objects;
 import net.andreinc.mockneat.unit.objects.model.SimpleBean;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -278,6 +279,60 @@ public class ShufflersTest {
                     assertTrue(newArr!=arr);
                     assertTrue(arr.length == newArr.length);
 
+                }
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testArrayListNullSource() throws Exception {
+        M.shufflers().arrayList(null).val();
+    }
+
+
+    @Test
+    public void testArrayListEmptySource() throws Exception {
+        ArrayList<Double> al = new ArrayList<>();
+        ArrayList<Double> newAl = M.shufflers().arrayList(al).val();
+
+        assertNotNull(newAl);
+        assertTrue(al!=newAl);
+        assertTrue(newAl.size()==0);
+    }
+
+    @Test
+    public void testArrayListOneElement() throws Exception {
+        ArrayList<Double> al = new ArrayList<>();
+        al.add(1.0);
+
+        ArrayList<Double> newAl = M.shufflers().arrayList(al).val();
+
+        assertNotNull(newAl);
+        assertTrue(newAl!=al);
+        assertTrue(newAl.size() == 1);
+        assertTrue(newAl.get(0).equals(1.0));
+    }
+
+    @Test
+    public void testArrayListArray() throws Exception {
+        loop(
+                SHUFFLED_CYCLES,
+                MOCKS,
+                m -> {
+                    ArrayList<Double> al = (ArrayList<Double>) m.doubles()
+                            .list(ArrayList.class, 50)
+                            .val();
+
+                    Set<Double> possibleValues = new HashSet<>(al);
+
+                    ArrayList<Double> newAl = m.shufflers()
+                            .arrayList(al)
+                            .val();
+
+                    assertTrue(newAl!=al);
+                    assertTrue(al.size() == newAl.size());
+
+                    range(0, newAl.size())
+                            .forEach(i -> assertTrue(possibleValues.contains(newAl.get(i))));
                 }
         );
     }

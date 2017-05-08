@@ -105,7 +105,6 @@ public class Shufflers {
         return () -> supplier;
     }
 
-    //TODO add tests
     public <T> MockUnit<ArrayList<T>> arrayList(ArrayList<T> source) {
         notNull(source, "source");
         Supplier<ArrayList<T>> supplier = () -> {
