@@ -51,8 +51,10 @@ public class LoopsUtils {
                 () -> Arrays.stream(array)
                         .map(r -> {
                             T o = map.apply(r);
-                            if (dbg)
+                            if (dbg) {
                                 logger.info(null == o ? "" : o.toString());
+                                System.out.println(null == o ? "" : o.toString());
+                            }
                             return o;
                         })
                         .forEach(consume::accept));

@@ -21,20 +21,14 @@ import net.andreinc.mockneat.interfaces.*;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.companies.Departments;
-import net.andreinc.mockneat.unit.financial.CVVS;
-import net.andreinc.mockneat.unit.financial.CreditCards;
-import net.andreinc.mockneat.unit.financial.Currencies;
-import net.andreinc.mockneat.unit.financial.Money;
+import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
 import net.andreinc.mockneat.unit.misc.ISSNS;
 import net.andreinc.mockneat.unit.misc.Mimes;
 import net.andreinc.mockneat.unit.misc.SSCs;
 import net.andreinc.mockneat.unit.networking.*;
-import net.andreinc.mockneat.unit.objects.Constructor;
-import net.andreinc.mockneat.unit.objects.Factory;
-import net.andreinc.mockneat.unit.objects.Probabilities;
-import net.andreinc.mockneat.unit.objects.Reflect;
+import net.andreinc.mockneat.unit.objects.*;
 import net.andreinc.mockneat.unit.regex.Regex;
 import net.andreinc.mockneat.unit.seq.IntSeq;
 import net.andreinc.mockneat.unit.seq.LongSeq;
@@ -79,6 +73,7 @@ public class MockNeat {
     private final Floats rFloats;
     private final Genders rGenders;
     private final Hashes rHashes;
+    private final IBANs rIbans;
     private final Ints rInts;
     private final ISSNS rISSNS;
     private final IPv4s rIPv4s;
@@ -92,6 +87,7 @@ public class MockNeat {
     private final Months rMonths;
     private final Names rNames;
     private final Passwords rPasswords;
+    private final Shufflers rShufflers;
     private final SSCs rSSCs;
     private final UUIDs rUUIDs;
     private final Users rUsers;
@@ -115,6 +111,7 @@ public class MockNeat {
         this.rFloats = new Floats(this);
         this.rGenders = new Genders(this);
         this.rHashes = new Hashes(this);
+        this.rIbans = new IBANs(this);
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
         this.rIPv6s = new IPv6s(this);
@@ -128,6 +125,7 @@ public class MockNeat {
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
         this.rPasswords = new Passwords(this);
+        this.rShufflers = new Shufflers(this);
         this.rSSCs = new SSCs(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
@@ -194,6 +192,8 @@ public class MockNeat {
 
     public Hashes hashes() { return this.rHashes; }
 
+    public IBANs ibans() { return this.rIbans; }
+
     public Ints ints() { return this.rInts; }
 
     public IntSeq intSeq() { return new IntSeq(); }
@@ -229,6 +229,8 @@ public class MockNeat {
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
+
+    public Shufflers shufflers() { return rShufflers; }
 
     public Strings strings() { return new Strings(this); }
 

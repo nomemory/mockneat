@@ -19,13 +19,14 @@ package net.andreinc.mockneat.unit.types;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.interfaces.MockUnitFloat;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class Floats implements MockUnit<Float> {
+public class Floats implements MockUnitFloat {
 
     private final Random random;
 

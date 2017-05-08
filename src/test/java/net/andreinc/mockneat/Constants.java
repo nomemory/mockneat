@@ -45,6 +45,7 @@ public class Constants {
     public static final int PASS_CYCLES = 1000;
     public static final int SEQ_CYCLES = 1000;
     public static final int SSC_CYCLES = 1000;
+    public static final int SHUFFLED_CYCLES = 1000;
     public static final int STRING_CYCLES = 1000;
     public static final int URL_CYCLES = 1000;
 }

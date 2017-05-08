@@ -1,6 +1,6 @@
 package net.andreinc.mockneat.types.enums;
 
-/*
+/**
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -18,5 +18,5 @@ package net.andreinc.mockneat.types.enums;
  */
 
 public enum CharsType {
-    DIGITS, LOWER_LETTERS, UPPER_LETTERS, LETTERS, HEX
+    DIGITS, LOWER_LETTERS, UPPER_LETTERS, LETTERS, HEX, ALPHA_NUMERIC
 }

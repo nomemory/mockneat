@@ -27,7 +27,6 @@ import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
 public interface MockUnitInt extends MockUnit<Integer> {
-
     default MockUnit<IntStream> intStream() {
         Supplier<IntStream> supp = () -> IntStream.generate(supplier()::get);
         return () -> supp;

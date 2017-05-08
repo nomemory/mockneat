@@ -58,6 +58,8 @@ public class Chars implements MockUnit<Character> {
 
     public MockUnit<Character> hex() { return mock.from(HEXA); }
 
+    public MockUnit<Character> alphaNumeric() { return mock.from(ALPHA_NUMERIC); }
+
     public MockUnit<Character> type(CharsType type) {
         notNull(type, "type");
         switch (type) {
@@ -66,6 +68,7 @@ public class Chars implements MockUnit<Character> {
             case LOWER_LETTERS: return lowerLetters();
             case UPPER_LETTERS: return upperLetters();
             case LETTERS: return letters();
+            case ALPHA_NUMERIC: return alphaNumeric();
             default: throw new IllegalArgumentException("Invalid CharsType");
         }
     }
