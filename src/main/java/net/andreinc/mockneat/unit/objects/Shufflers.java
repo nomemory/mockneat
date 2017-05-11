@@ -1,7 +1,25 @@
 package net.andreinc.mockneat.unit.objects;
 
+/**
+ * Copyright 2017, Andrei N. Ciobanu
+
+ Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
+ documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
+ */
+
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.interfaces.MockUnitString;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -14,14 +32,6 @@ public class Shufflers {
     private MockNeat mockNeat;
 
     public Shufflers(MockNeat mockNeat) {
-        this.mockNeat = mockNeat;
-    }
-
-    public MockNeat getMockNeat() {
-        return mockNeat;
-    }
-
-    public void setMockNeat(MockNeat mockNeat) {
         this.mockNeat = mockNeat;
     }
 
@@ -109,7 +119,7 @@ public class Shufflers {
         notNull(source, "source");
         Supplier<ArrayList<T>> supplier = () -> {
             ArrayList<T> result = (ArrayList<T>) source.clone();
-            T tmp = null;
+            T tmp;
             for(int j, i = 0; i < result.size() - 2; ++i) {
                 j = mockNeat.ints().range(i, result.size()).val();
                 tmp = result.get(i);
@@ -119,6 +129,22 @@ public class Shufflers {
             return result;
         };
 
+        return () -> supplier;
+    }
+
+    public MockUnitString string(String source) {
+        notNull(source, "source");
+        Supplier<String> supplier = () -> {
+            char[] chars = source.toCharArray();
+            char c;
+            for(int j, i = 0; i < chars.length; ++i) {
+                j  = mockNeat.ints().range(i, chars.length).val();
+                c = chars[i];
+                chars[i] = chars[j];
+                chars[j] = c;
+            }
+            return new String(chars);
+        };
         return () -> supplier;
     }
 }

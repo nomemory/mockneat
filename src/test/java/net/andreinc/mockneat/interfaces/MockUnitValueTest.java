@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.objects.model;
+package net.andreinc.mockneat.interfaces;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -17,13 +17,33 @@ package net.andreinc.mockneat.unit.objects.model;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class FactoryMethods {
+import net.andreinc.mockneat.Constants;
+import org.junit.Test;
 
-    public static StringBuilder buffBuilder(String val) {
-        return new StringBuilder(val);
+import static java.time.DayOfWeek.TUESDAY;
+import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
+import static org.junit.Assert.assertTrue;
+
+public class MockUnitValueTest {
+
+    @Test
+    public void testGet() throws Exception {
+        MockUnitInt m = Constants.M.ints().range(0, 5);
+        MockUnitValue muv = unit(m);
+
+        Object o = muv.get();
+        assertTrue(o instanceof Integer);
+
+        Integer i = (Integer) o;
+        assertTrue(0<=i && i < 5);
     }
 
-    public static StringBuffer buffBuffer(String val) {
-        return new StringBuffer(val);
+    @Test
+    public void testGetStr() throws Exception {
+        MockUnitDays m = Constants.M.days().before(TUESDAY);
+        MockUnitValue muv = unit(m);
+
+        String monday = muv.getStr();
+        assertTrue(monday.equals("MONDAY"));
     }
 }

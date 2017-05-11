@@ -20,8 +20,9 @@ package net.andreinc.mockneat.interfaces;
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import java.util.function.Supplier;
 
+import static java.time.format.TextStyle.FULL_STANDALONE;
+import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public interface MockUnitDays extends MockUnit<DayOfWeek> {
@@ -29,9 +30,8 @@ public interface MockUnitDays extends MockUnit<DayOfWeek> {
     default MockUnitString display(TextStyle textStyle, Locale locale) {
         notNull(textStyle, "textStyle");
         notNull(locale, "locale");
-        Supplier<String> supp =
-                () -> supplier().get().getDisplayName(textStyle, locale);
-        return () -> supp;
+        return () ->
+                ifSupplierNotNullDo(supplier(), s -> s.getDisplayName(textStyle, locale));
     }
 
     default MockUnitString display(TextStyle textStyle) {
@@ -40,6 +40,6 @@ public interface MockUnitDays extends MockUnit<DayOfWeek> {
     }
 
     default MockUnitString display() {
-        return display(TextStyle.FULL_STANDALONE);
+        return display(FULL_STANDALONE);
     }
 }

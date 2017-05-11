@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.objects.model;
+package net.andreinc.mockneat.interfaces;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -17,13 +17,24 @@ package net.andreinc.mockneat.unit.objects.model;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class FactoryMethods {
+import net.andreinc.mockneat.Constants;
+import org.junit.Test;
 
-    public static StringBuilder buffBuilder(String val) {
-        return new StringBuilder(val);
+import static org.junit.Assert.assertTrue;
+
+public class MockUnitGenericComposeTest {
+
+    @Test(expected = NullPointerException.class)
+    public void testConsumerNullConsumer() throws Exception {
+        Constants.M.ints().range(0, 100).consume(null);
     }
 
-    public static StringBuffer buffBuffer(String val) {
-        return new StringBuffer(val);
+    @Test
+    public void testConsume1() throws Exception {
+        final StringBuilder buff = new StringBuilder();
+        Constants.M.intSeq().list(10).consume(l ->
+                l.forEach(e -> buff.append(e)));
+        assertTrue("0123456789"
+                .equals(buff.toString()));
     }
 }

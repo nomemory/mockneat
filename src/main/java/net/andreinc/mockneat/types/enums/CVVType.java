@@ -18,7 +18,8 @@ package net.andreinc.mockneat.types.enums;
  */
 
 public enum CVVType {
-    CVV3(3), CVV4(4);
+    CVV3(3),
+    CVV4(4);
 
     private final Integer length;
 

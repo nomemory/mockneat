@@ -1,6 +1,6 @@
 package net.andreinc.mockneat.interfaces;
 
-/*
+/**
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -17,27 +17,25 @@ package net.andreinc.mockneat.interfaces;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.types.enums.StringFormatType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.util.function.Supplier;
 
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
-import static org.apache.commons.lang3.Validate.notEmpty;
 
 @FunctionalInterface
 public interface MockUnitString extends MockUnit<String> {
 
     default MockUnitString format(StringFormatType formatType) {
         notNull(formatType, "formatType");
-        Supplier<String> supplier = () -> formatType.getFormatter().apply(supplier().get());
-        return () -> supplier;
+        return () -> ifSupplierNotNullDo(supplier(), formatType.getFormatter()::apply);
     }
 
     default MockUnitString sub(int endIndex) {
@@ -45,62 +43,59 @@ public interface MockUnitString extends MockUnit<String> {
     }
 
     default MockUnitString sub(int beginIndex, int endIndex) {
-        Supplier<String> supplier = () -> supplier().get().substring(beginIndex, endIndex);
-        return () -> supplier;
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.substring(beginIndex, endIndex));
     }
 
     default MockUnitString append(String str) {
-        notEmpty(str, "str");
-        Supplier<String> supplier = () -> supplier().get().concat(str);
-        return () -> supplier;
+        notNull(str, "str");
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.concat(str));
     }
 
     default MockUnitString prepend(String str) {
-        notEmpty(str);
-        Supplier<String> supplier = () -> str.concat(supplier().get());
-        return () -> supplier;
+        notNull(str, "str");
+        return () -> ifSupplierNotNullDo(supplier(), str::concat);
     }
 
     default MockUnitString replace(char oldCHar, char newChar) {
-        Supplier<String> supplier = () -> supplier().get().replace(oldCHar, newChar);
-        return () -> supplier;
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.replace(oldCHar, newChar));
     }
 
     default MockUnitString replace(CharSequence target, CharSequence replacement) {
-        Supplier<String> supplier = () -> supplier().get().replace(target, replacement);
-        return () -> supplier;
+        notNull(target, "target");
+        notNull(replacement, "replacement");
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.replace(target, replacement));
     }
 
     default MockUnitString replaceAll(String regex, String replacement) {
-        Supplier<String > supplier = () -> supplier().get().replaceAll(regex, replacement);
-        return () -> supplier;
+        notNull(regex, "regex");
+        notNull(replacement, "replacement");
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.replaceAll(regex,replacement));
     }
 
     default MockUnitString replaceFirst(String regex, String replacement) {
-        Supplier<String> supplier = () -> supplier().get().replaceFirst(regex, replacement);
-        return () -> supplier;
+        notNull(regex, "regex");
+        notNull(replacement, "replacement");
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.replaceFirst(regex, replacement));
     }
 
     default MockUnit<String[]> split(String regex, int limit) {
-        Supplier<String[]> supplier = () -> supplier().get().split(regex, limit);
-        return () -> supplier;
+        notNull(regex, "regex");
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.split(regex, limit));
     }
 
     default MockUnit<String[]> split(String regex) {
         return split(regex, 0);
     }
 
-    default MockUnitString urlEncode(String enc) {
-        Supplier<String> supplier = () -> {
-            String val = supplier().get();
-            try {
-                return encode(val, enc);
-            } catch (UnsupportedEncodingException e) {
-                String msg = template(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, "val", val).fmt();
+    default MockUnitString urlEncode(String encoding) {
+        notNull(encoding, "encoding");
+        return () -> ifSupplierNotNullDo(supplier(), s -> {
+            try { return encode(s, encoding); }
+            catch (UnsupportedEncodingException e) {
+                String msg = template(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, "val", s).fmt();
                 throw new IllegalArgumentException(msg, e);
             }
-        };
-        return () -> supplier;
+        });
     }
 
     default MockUnitString urlEncode() {
@@ -108,32 +103,54 @@ public interface MockUnitString extends MockUnit<String> {
     }
 
     default MockUnitString noSpecialChars() {
-        return () -> () -> supplier().get().replaceAll("[^\\dA-Za-z ]", "");
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.replaceAll("[^\\dA-Za-z ]", ""));
     }
 
-    default MockUnitString escapeCsv() { return () -> () -> StringEscapeUtils.escapeCsv(supplier().get()); }
+    default MockUnitString escapeCsv() {
+        return () -> ifSupplierNotNullDo(supplier(), StringEscapeUtils::escapeCsv);
+    }
 
-    default MockUnitString escapeEcmaScript() { return () -> () -> StringEscapeUtils.escapeEcmaScript(supplier().get()); }
+    default MockUnitString escapeEcmaScript() {
+        return () -> ifSupplierNotNullDo(supplier(), StringEscapeUtils::escapeEcmaScript);
+    }
 
-    default MockUnitString escapeHtml() { return () -> () -> StringEscapeUtils.escapeHtml4(supplier().get()); }
+    default MockUnitString escapeHtml() {
+        return () -> ifSupplierNotNullDo(supplier(), StringEscapeUtils::escapeHtml4);
+    }
 
-    default MockUnitString escapeXml() { return() -> () -> StringEscapeUtils.escapeXml11(supplier().get()); }
+    default MockUnitString escapeXml() {
+        return () -> ifSupplierNotNullDo(supplier(), StringEscapeUtils::escapeXml11);
+    }
 
     // TODO document methods
 
-    default MockUnitString md2() { return () -> () -> DigestUtils.md2Hex(supplier().get()); }
+    default MockUnitString md2() {
+        return () -> ifSupplierNotNullDo(supplier(), DigestUtils::md2Hex);
+    }
 
-    default MockUnitString md5() { return () -> () -> DigestUtils.md5Hex(supplier().get()); }
+    default MockUnitString md5() {
+        return () -> ifSupplierNotNullDo(supplier(), DigestUtils::md5Hex);
+    }
 
-    default MockUnitString sha1() { return () -> () -> DigestUtils.sha1Hex(supplier().get()); }
+    default MockUnitString sha1() {
+        return () -> ifSupplierNotNullDo(supplier(), DigestUtils::sha1Hex);
+    }
 
-    default MockUnitString sha256() { return () -> () -> DigestUtils.sha256Hex(supplier().get()); }
+    default MockUnitString sha256() {
+        return () -> ifSupplierNotNullDo(supplier(), DigestUtils::sha256Hex);
+    }
 
-    default MockUnitString sha384() { return () -> () -> DigestUtils.sha384Hex(supplier().get()); }
+    default MockUnitString sha384() {
+        return () -> ifSupplierNotNullDo(supplier(), DigestUtils::sha384Hex);
+    }
 
-    default MockUnitString sha512() { return () -> () -> DigestUtils.sha512Hex(supplier().get()); }
+    default MockUnitString sha512() {
+        return () -> ifSupplierNotNullDo(supplier(), DigestUtils::sha512Hex);
+    }
 
-    default MockUnitString base64() { return () -> () -> new Base64().encodeAsString(supplier().get().getBytes()); }
+    default MockUnitString base64() {
+        return () -> ifSupplierNotNullDo(supplier(), (str) -> new Base64().encodeAsString(str.getBytes()));
+    }
 
     default MockUnit<String[]> array(int size) {
         return array(String.class, size);

@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.objects.model;
+package net.andreinc.mockneat.interfaces;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -17,13 +17,22 @@ package net.andreinc.mockneat.unit.objects.model;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class FactoryMethods {
+import net.andreinc.mockneat.Constants;
+import org.junit.Test;
 
-    public static StringBuilder buffBuilder(String val) {
-        return new StringBuilder(val);
+import static org.junit.Assert.assertTrue;
+
+public class MockUnitValMethodTest {
+
+    @Test(expected = NullPointerException.class)
+    public void testValFunctionNullFunction() throws Exception {
+        Constants.M.ints().val(null);
     }
 
-    public static StringBuffer buffBuffer(String val) {
-        return new StringBuffer(val);
+
+    @Test
+    public void testValFunction() throws Exception {
+        String zero = Constants.M.ints().range(0, 1).val(i -> i.toString());
+        assertTrue("0".equals(zero));
     }
 }

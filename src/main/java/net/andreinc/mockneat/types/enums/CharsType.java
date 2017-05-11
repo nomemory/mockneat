@@ -18,5 +18,10 @@ package net.andreinc.mockneat.types.enums;
  */
 
 public enum CharsType {
-    DIGITS, LOWER_LETTERS, UPPER_LETTERS, LETTERS, HEX, ALPHA_NUMERIC
+    DIGITS,
+    LOWER_LETTERS,
+    UPPER_LETTERS,
+    LETTERS,
+    HEX,
+    ALPHA_NUMERIC
 }

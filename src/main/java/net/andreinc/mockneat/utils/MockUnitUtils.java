@@ -1,6 +1,6 @@
 package net.andreinc.mockneat.utils;
 
-/*
+/**
  * Copyright 2017, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
@@ -20,12 +20,11 @@ package net.andreinc.mockneat.utils;
 import net.andreinc.mockneat.interfaces.MockUnit;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static net.andreinc.aleph.AlephFormatter.template;
-import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_ADD_VALUE_TO_COLLECTION;
-import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_ADD_VALUE_TO_LIST;
-import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_ADD_VALUE_TO_SET;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @SuppressWarnings("unchecked")
 public class MockUnitUtils {
@@ -104,4 +103,13 @@ public class MockUnitUtils {
         buff.append(")");
         return buff.toString();
     }
+
+    public static <T, R> Supplier<R> ifSupplierNotNullDo(Supplier<T> supplier, Function<T, R> function) {
+        return () -> {
+            T val = supplier.get();
+            if (null == val) return null;
+            return function.apply(val);
+        };
+    }
+
 }

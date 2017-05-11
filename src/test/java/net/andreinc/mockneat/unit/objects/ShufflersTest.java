@@ -1,14 +1,29 @@
 package net.andreinc.mockneat.unit.objects;
 
+/**
+ * Copyright 2017, Andrei N. Ciobanu
+
+ Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
+ documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ persons to whom the Software is furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
+ */
+
 import net.andreinc.mockneat.unit.objects.model.SimpleBean;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.Arrays.asList;
+import static java.util.Arrays.sort;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.Constants.*;
@@ -17,6 +32,19 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class ShufflersTest {
+
+    private static boolean areAnagrams(String s1, String s2) {
+        if (s1.length() != s2.length())
+            return false;
+
+        char[] s1c = s1.toCharArray();
+        char[] s2c = s2.toCharArray();
+
+        sort(s1c);
+        sort(s2c);
+
+        return Objects.deepEquals(s1c, s2c);
+    }
 
     @Test(expected = NullPointerException.class)
     public void testGenericArrayNullSource() throws Exception {
@@ -333,6 +361,36 @@ public class ShufflersTest {
 
                     range(0, newAl.size())
                             .forEach(i -> assertTrue(possibleValues.contains(newAl.get(i))));
+                }
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testStringNull() throws Exception {
+        M.shufflers().string(null).val();
+    }
+
+    @Test
+    public void testStringEmpty() throws Exception {
+        String s1 = "";
+        String s2 = M.shufflers().string(s1).val();
+        assertTrue(s2 != null);
+        assertTrue( s2.length() == 0);
+        assertTrue(s1.equals(s2));
+    }
+
+    @Test
+    public void testString() throws Exception {
+        loop(
+                SHUFFLED_CYCLES,
+                MOCKS,
+                m -> {
+                    String s = m.strings().size(32).val();
+                    String shuffled = m.shufflers().string(s).val();
+
+                    assertTrue(shuffled!=null);
+                    assertTrue(s.length() == shuffled.length());
+                    assertTrue(areAnagrams(s, shuffled));
                 }
         );
     }
