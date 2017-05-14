@@ -68,6 +68,7 @@ public class ValidationUtils {
     public static final String INVALID_REGEX_PATTERN = "Invalid regex pattern ('#{pattern}'): ";
     public static final String OBJECT_NOT_SERIALIZABLE = "Object is not serializable. Does the object's class extends 'java.io.Serializable' ?";
     public static final String PROBABILITY_NOT_NEGATIVE = "Probability '#{prob}' should be bigger than '0.0'.";
+    public static final String IMPOSSIBLE_TO_SEQ_OVER_EMPTY_COLLECTION = "Impossible to create a Seq from an empty Iterable<T>.";
 
     private ValidationUtils() {}
 

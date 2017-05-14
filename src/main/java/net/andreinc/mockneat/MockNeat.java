@@ -32,6 +32,7 @@ import net.andreinc.mockneat.unit.objects.*;
 import net.andreinc.mockneat.unit.regex.Regex;
 import net.andreinc.mockneat.unit.seq.IntSeq;
 import net.andreinc.mockneat.unit.seq.LongSeq;
+import net.andreinc.mockneat.unit.seq.Seq;
 import net.andreinc.mockneat.unit.text.*;
 import net.andreinc.mockneat.unit.time.Days;
 import net.andreinc.mockneat.unit.time.LocalDates;
@@ -229,6 +230,8 @@ public class MockNeat {
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
+
+    public <T> Seq<T> seq(Iterable<T> iterable) { return new Seq(this, iterable); }
 
     public Shufflers shufflers() { return rShufflers; }
 
