@@ -18,7 +18,7 @@ package net.andreinc.mockneat.unit.text.markov;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.utils.file.FileManager;
 import net.andreinc.mockneat.types.enums.MarkovChainType;
 import org.slf4j.Logger;

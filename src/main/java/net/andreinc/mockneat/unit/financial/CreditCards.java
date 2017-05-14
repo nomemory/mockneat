@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CreditCardType;
 
 import java.util.Arrays;
@@ -30,12 +31,10 @@ import static net.andreinc.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class CreditCards implements MockUnitString {
+public class CreditCards extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public CreditCards(MockNeat mock) {
-        this.mock = mock;
+    public CreditCards(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class CreditCards implements MockUnitString {
     }
 
     public MockUnitString names() {
-        return () -> mock.dicts().type(CREDIT_CARD_NAMES)::val;
+        return () -> mockNeat.dicts().type(CREDIT_CARD_NAMES)::val;
     }
 
     public MockUnitString type(CreditCardType type) {
@@ -55,7 +54,7 @@ public class CreditCards implements MockUnitString {
 
     public MockUnitString types(CreditCardType... types) {
         notEmptyOrNullValues(types, "types");
-        CreditCardType creditCardType = mock.from(types).val();
+        CreditCardType creditCardType = mockNeat.from(types).val();
         return type(creditCardType);
     }
 
@@ -66,13 +65,13 @@ public class CreditCards implements MockUnitString {
         int[] results = new int[arraySize];
 
         // Pick objs prefix
-        List<Integer> prefix = mock.from(creditCardType.getPrefixes()).val();
+        List<Integer> prefix = mockNeat.from(creditCardType.getPrefixes()).val();
 
         // Initialize the array with objs numbers
         // prefix + rest of the arrays
         for (int i = 0; i < cnt; i++)
             results[i] = (i < prefix.size()) ? prefix.get(i) :
-                    mock.ints().range(0, 10).val();
+                    mockNeat.ints().range(0, 10).val();
 
         // Computing sum
         boolean dblFlag = true;

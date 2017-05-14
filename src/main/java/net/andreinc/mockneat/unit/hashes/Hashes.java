@@ -18,24 +18,23 @@ package net.andreinc.mockneat.unit.hashes;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class Hashes {
+public class Hashes extends MockUnitBase {
 
     private static final Integer HASHED_STRING_SIZE = 128;
 
-    private MockNeat mock;
-
-    public Hashes(MockNeat mock) {
-        this.mock = mock;
+    public Hashes(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     private Supplier<String> supplier(Function<String, String> digester) {
-        return mock.strings().size(HASHED_STRING_SIZE).map(digester).supplier();
+        return mockNeat.strings().size(HASHED_STRING_SIZE).map(digester).supplier();
     }
 
     public MockUnitString md2() {

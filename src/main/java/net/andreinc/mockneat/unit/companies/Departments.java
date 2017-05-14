@@ -18,18 +18,17 @@ package net.andreinc.mockneat.unit.companies;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.types.enums.DictType.DEPARTMENTS;
 
-public class Departments implements MockUnitString {
-
-    private final MockNeat mockNeat;
+public class Departments extends MockUnitBase implements MockUnitString {
 
     public Departments(MockNeat mockNeat) {
-        this.mockNeat = mockNeat;
+        super(mockNeat);
     }
 
     @Override

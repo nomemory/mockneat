@@ -18,21 +18,21 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitLong;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitLong;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class Longs implements MockUnitLong {
+public class Longs extends MockUnitBase implements MockUnitLong {
 
-    private final MockNeat mock;
     private final Random random;
 
-    public Longs(MockNeat mock) {
-        this.mock = mock;
-        this.random = mock.getRandom();
+    public Longs(MockNeat mockNeat) {
+        super(mockNeat);
+        this.random = mockNeat.getRandom();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Longs implements MockUnitLong {
         isTrue(upperBound > 0, UPPER_BOUND_BIGGER_THAN_ZERO);
         isTrue(upperBound > lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
         Supplier<Long> supplier = () ->
-                mock.longs().bound(upperBound - lowerBound).val() + lowerBound;
+                mockNeat.longs().bound(upperBound - lowerBound).val() + lowerBound;
         return () -> supplier;
     }
 

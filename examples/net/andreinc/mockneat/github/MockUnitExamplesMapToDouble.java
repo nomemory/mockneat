@@ -1,7 +1,7 @@
 package net.andreinc.mockneat.github;
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitDouble;
+import net.andreinc.mockneat.abstraction.MockUnitDouble;
 
 /**
  * Created by andreinicolinciobanu on 11/03/2017.

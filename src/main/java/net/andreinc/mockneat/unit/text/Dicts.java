@@ -18,24 +18,24 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.utils.file.FileManager;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class Dicts {
+public class Dicts extends MockUnitBase {
 
-    private final MockNeat mock;
     private final FileManager fm = FileManager.getInstance();
 
-    public Dicts(MockNeat mock) {
-        this.mock = mock;
+    public Dicts(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     public MockUnitString type(DictType type) {
         notNull(type, "type");
-        return () -> mock.fromStrings(fm.getLines(type))::val;
+        return () -> mockNeat.fromStrings(fm.getLines(type))::val;
     }
 
 }

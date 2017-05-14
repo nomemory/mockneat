@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.time;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitDays;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitDays;
 import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.time.DayOfWeek;
@@ -28,17 +29,15 @@ import static net.andreinc.mockneat.utils.ValidationUtils.UPPER_MONTH_BIGGER_THA
 import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class Days implements MockUnitDays {
+public class Days extends MockUnitBase implements MockUnitDays {
 
-    private final MockNeat mock;
-
-    public Days(MockNeat mock) {
-        this.mock = mock;
+    public Days(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
     public Supplier<DayOfWeek> supplier() {
-        return mock.from(DayOfWeek.class)::val;
+        return mockNeat.from(DayOfWeek.class)::val;
     }
 
     public MockUnitDays rangeClosed(DayOfWeek lower, DayOfWeek upper) {
@@ -46,7 +45,7 @@ public class Days implements MockUnitDays {
         notNull(upper, "upper");
         isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()).val();
+            int idx = mockNeat.ints().range(lower.getValue()-1, upper.getValue()).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;
@@ -57,7 +56,7 @@ public class Days implements MockUnitDays {
         notNull(upper, "upper");
         isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()-1).val();
+            int idx = mockNeat.ints().range(lower.getValue()-1, upper.getValue()-1).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;
@@ -73,7 +72,7 @@ public class Days implements MockUnitDays {
         notNull(after, "after");
         isTrue(after.getValue()-1<DayOfWeek.values().length-1, ValidationUtils.AFTER_DAY_DIFFERENT_THAN_SUNDAY);
         Supplier<DayOfWeek> supp = () -> {
-            int idx = mock.ints().range(after.getValue(), DayOfWeek.values().length).val();
+            int idx = mockNeat.ints().range(after.getValue(), DayOfWeek.values().length).val();
             return DayOfWeek.values()[idx];
         };
         return () -> supp;

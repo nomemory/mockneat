@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.StringType;
 
 import java.util.Random;
@@ -30,15 +31,14 @@ import static java.util.stream.Collectors.joining;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.RandomStringUtils.random;
 
-public class Strings implements MockUnitString {
+public class Strings extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
     private final Random random;
     private int size = 64;
 
-    public Strings(MockNeat mock) {
-        this.mock = mock;
-        this.random = mock.getRandom();
+    public Strings(MockNeat mockNeat) {
+        super(mockNeat);
+        this.random = mockNeat.getRandom();
     }
 
     public Strings size(int size) {
@@ -61,7 +61,7 @@ public class Strings implements MockUnitString {
 
     public MockUnitString types(StringType... types) {
         notEmptyOrNullValues(types, "types");
-        StringType type = mock.from(types).val();
+        StringType type = mockNeat.from(types).val();
         return type(type);
     }
 
@@ -78,14 +78,14 @@ public class Strings implements MockUnitString {
     }
 
     private Supplier<String> hex() {
-        return () -> mock.fromStrings(HEXA_STR)
+        return () -> mockNeat.fromStrings(HEXA_STR)
                             .stream().val()
                             .limit(size)
                             .collect(joining());
     }
 
     private Supplier<String> specialChars() {
-        return () -> mock.fromStrings(SPECIAL_CHARACTERS_STR)
+        return () -> mockNeat.fromStrings(SPECIAL_CHARACTERS_STR)
                             .stream().val()
                             .limit(size)
                             .collect(joining());

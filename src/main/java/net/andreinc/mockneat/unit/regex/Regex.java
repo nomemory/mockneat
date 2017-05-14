@@ -18,7 +18,7 @@ package net.andreinc.mockneat.unit.regex;
  */
 
 import com.mifmif.common.regex.Generex;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 
 import java.util.function.Supplier;
 

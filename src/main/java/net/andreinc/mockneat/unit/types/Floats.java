@@ -18,20 +18,22 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
-import net.andreinc.mockneat.interfaces.MockUnitFloat;
+import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitFloat;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class Floats implements MockUnitFloat {
+public class Floats extends MockUnitBase implements MockUnitFloat {
 
     private final Random random;
 
-    public Floats(MockNeat mock) {
-        this.random = mock.getRandom();
+    public Floats(MockNeat mockNeat) {
+        super(mockNeat);
+        this.random = mockNeat.getRandom();
     }
 
     @Override

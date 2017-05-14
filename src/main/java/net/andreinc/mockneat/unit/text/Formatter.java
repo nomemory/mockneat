@@ -17,9 +17,9 @@ package net.andreinc.mockneat.unit.text;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.interfaces.MockUnit;
-import net.andreinc.mockneat.interfaces.MockUnitString;
-import net.andreinc.mockneat.interfaces.MockValue;
+import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toMap;
 import static net.andreinc.aleph.AlephFormatter.template;
-import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
+import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 

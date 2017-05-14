@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.networking;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.DomainSuffixType;
@@ -35,7 +36,7 @@ import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static net.andreinc.mockneat.types.enums.URLSchemeType.HTTP;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class URLs implements MockUnitString {
+public class URLs extends MockUnitBase implements MockUnitString {
 
     protected static final Integer[] COMMON_HTTP_PORTS = {
             80, 1311, 2480, 4567, 4711, 4712, 5104, 5800, 5988, 5989,
@@ -45,8 +46,6 @@ public class URLs implements MockUnitString {
     };
 
     // <schemes://><user:password@><host><.domain><:port></.../...>
-
-    private final MockNeat mock;
 
     // Scheme
     private Supplier<String> schemeSupplier;
@@ -66,9 +65,9 @@ public class URLs implements MockUnitString {
     // Port
     private Supplier<String> portSupplier;
 
-    public URLs(MockNeat mock) {
-        this.mock = mock;
-        this.initializeSuppliers();
+    public URLs(MockNeat mockNeat) {
+        super(mockNeat);
+        initializeSuppliers();
     }
 
     private static String urlFormat(String scheme,
@@ -100,7 +99,7 @@ public class URLs implements MockUnitString {
     }
 
     private Supplier<String> schemeSupplier(String... schemes) {
-        return mock.fromStrings(schemes).append("://")::val;
+        return mockNeat.fromStrings(schemes).append("://")::val;
     }
 
     private Supplier<String> schemeSupplier(String scheme) {
@@ -114,7 +113,7 @@ public class URLs implements MockUnitString {
     }
 
     private Supplier<String> schemeSupplier(URLSchemeType... schemes) {
-        return mock.from(schemes).mapToString().append("://")::val;
+        return mockNeat.from(schemes).mapToString().append("://")::val;
     }
 
     public URLs schemes(String... schemes) {
@@ -153,10 +152,10 @@ public class URLs implements MockUnitString {
     }
 
     public URLs auth() {
-        this.userNameSupplier = mock.users()
+        this.userNameSupplier = mockNeat.users()
                                     .urlEncode()
                                     .supplier();
-        this.passWordSupplier = mock.passwords()
+        this.passWordSupplier = mockNeat.passwords()
                                     .type(MEDIUM)
                                     .urlEncode()
                                     .supplier();
@@ -167,19 +166,19 @@ public class URLs implements MockUnitString {
     private Supplier<String> defaultHostSupplier() {
         return () -> {
             List<Pair<DictType, DictType>> comboList =
-                    mock.from(HostNameType.class).val().getDictCombos();
+                    mockNeat.from(HostNameType.class).val().getDictCombos();
             Pair<DictType, DictType> combo =
-                    mock.from(comboList).val();
+                    mockNeat.from(comboList).val();
             String result =
-                    mock.dicts().type(combo.getFirst()).noSpecialChars().format(LOWER_CASE).val() +
-                    mock.dicts().type(combo.getSecond()).noSpecialChars().format(LOWER_CASE).val();
+                    mockNeat.dicts().type(combo.getFirst()).noSpecialChars().format(LOWER_CASE).val() +
+                    mockNeat.dicts().type(combo.getSecond()).noSpecialChars().format(LOWER_CASE).val();
             if (www) { result = "www.".concat(result); }
             return result;
         };
     }
 
     private Supplier<String> hostSupplier(String... hosts) {
-        return mock.fromStrings(hosts).prepend(www ? "www." : "")::val;
+        return mockNeat.fromStrings(hosts).prepend(www ? "www." : "")::val;
     }
 
     private Supplier<String> hostSupplier(String host) {
@@ -187,16 +186,16 @@ public class URLs implements MockUnitString {
     }
 
     private Supplier<String> hostSupplier(HostNameType... types) {
-        HostNameType type = mock.from(types).val();
+        HostNameType type = mockNeat.from(types).val();
         return hostSupplier(type);
     }
 
     private Supplier<String> hostSupplier(HostNameType hostNameType) {
        return () -> {
             List<Pair<DictType, DictType>> comboList = hostNameType.getDictCombos();
-            Pair<DictType, DictType> combo = mock.from(comboList).val();
-            String result1 = mock.dicts().type(combo.getFirst()).noSpecialChars().val();
-            String result2 = mock.dicts().type(combo.getSecond()).noSpecialChars().val();
+            Pair<DictType, DictType> combo = mockNeat.from(comboList).val();
+            String result1 = mockNeat.dicts().type(combo.getFirst()).noSpecialChars().val();
+            String result2 = mockNeat.dicts().type(combo.getSecond()).noSpecialChars().val();
             String result = result1 + result2;
             if (www) result = "www.".concat(result);
             return result;
@@ -232,15 +231,15 @@ public class URLs implements MockUnitString {
     }
 
     private Supplier<String> domainSupplier(DomainSuffixType... types) {
-        return mock.domains().types(types).prepend(".")::val;
+        return mockNeat.domains().types(types).prepend(".")::val;
     }
 
     private Supplier<String> domainSupplier(DomainSuffixType type) {
-        return mock.domains().types(type).prepend(".")::val;
+        return mockNeat.domains().types(type).prepend(".")::val;
     }
 
     private Supplier<String> domainSupplier(String... domains) {
-        return mock.fromStrings(domains).prepend(".")::val;
+        return mockNeat.fromStrings(domains).prepend(".")::val;
     }
 
     private Supplier<String> domainSupplier(String domain) {
@@ -280,7 +279,7 @@ public class URLs implements MockUnitString {
     }
 
     private Supplier<String> portSupplier(Integer... array) {
-        return mock.fromInts(array).mapToString().prepend(":")::val;
+        return mockNeat.fromInts(array).mapToString().prepend(":")::val;
     }
 
     private Supplier<String> portSupplier(Integer port) {

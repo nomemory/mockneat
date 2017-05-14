@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.CharsType;
 import net.andreinc.mockneat.types.enums.IBANType;
@@ -37,7 +38,7 @@ import static net.andreinc.mockneat.alphabets.Alphabets.LETTERS_UPPERCASE;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmpty;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class IBANs implements MockUnitString {
+public class IBANs extends MockUnitBase implements MockUnitString {
 
     private static final Map<Character, String> VALUE_MAP = new HashMap<>();
 
@@ -60,10 +61,8 @@ public class IBANs implements MockUnitString {
         });
     }
 
-    private final MockNeat mockNeat;
-
     public IBANs(MockNeat mockNeat) {
-        this.mockNeat = mockNeat;
+        super(mockNeat);
     }
 
     @Override

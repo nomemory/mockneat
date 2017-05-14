@@ -18,24 +18,24 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
 
 import java.util.Random;
 import java.util.function.Supplier;
 import static org.apache.commons.lang3.Validate.inclusiveBetween;
 
-public class Bools implements MockUnit<Boolean> {
+public class Bools extends MockUnitBase implements MockUnit<Boolean> {
 
-    private final MockNeat mock;
     private final Random random;
 
-    public Bools(MockNeat mock) {
-        this.mock = mock;
-        this.random = mock.getRandom();
+    public Bools(MockNeat mockNeat) {
+        super(mockNeat);
+        this.random = mockNeat.getRandom();
     }
     public MockUnit<Boolean> probability(double probability) {
         inclusiveBetween(0.0, 100.0, probability);
-        Supplier<Boolean> supp = () -> mock.doubles()
+        Supplier<Boolean> supp = () -> mockNeat.doubles()
                                             .range(0.0, 100.0)
                                             .val() < probability;
         return () -> supp;

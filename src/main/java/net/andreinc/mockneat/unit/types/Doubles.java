@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitDouble;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitDouble;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -27,14 +28,15 @@ import static java.lang.Double.doubleToLongBits;
 import static java.lang.Double.longBitsToDouble;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class Doubles implements MockUnitDouble {
+public class Doubles extends MockUnitBase implements MockUnitDouble {
 
     private static final double DOUBLE_UNIT = 0x1.0p-53;
 
     private final Random random;
 
-    public Doubles(MockNeat mock) {
-        this.random = mock.getRandom();
+    public Doubles(MockNeat mockNeat) {
+        super(mockNeat);
+        this.random = mockNeat.getRandom();
     }
 
     @Override

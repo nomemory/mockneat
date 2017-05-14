@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.time;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitMonth;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitMonth;
 
 import java.time.Month;
 import java.util.function.Supplier;
@@ -27,17 +28,15 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 ;
 
-public class Months implements MockUnitMonth {
+public class Months extends MockUnitBase implements MockUnitMonth {
 
-    private final MockNeat mock;
-
-    public Months(MockNeat mock) {
-        this.mock = mock;
+    public Months(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
     public Supplier<Month> supplier() {
-        return mock.from(Month.class)::val;
+        return mockNeat.from(Month.class)::val;
     }
 
     public MockUnitMonth rangeClosed(Month lower, Month upper) {
@@ -45,7 +44,7 @@ public class Months implements MockUnitMonth {
         notNull(upper, "upper");
         isTrue(lower.getValue() < upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<Month> supp = () -> {
-            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()).val();
+            int idx = mockNeat.ints().range(lower.getValue()-1, upper.getValue()).val();
             return Month.values()[idx];
         };
         return () -> supp;
@@ -56,7 +55,7 @@ public class Months implements MockUnitMonth {
         notNull(upper, "upper");
         isTrue(lower.getValue() < upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<Month> supp = () -> {
-            int idx = mock.ints().range(lower.getValue()-1, upper.getValue()-1).val();
+            int idx = mockNeat.ints().range(lower.getValue()-1, upper.getValue()-1).val();
             return Month.values()[idx];
         };
         return () -> supp;
@@ -72,7 +71,7 @@ public class Months implements MockUnitMonth {
         notNull(after, "after");
         isTrue(after.getValue()<Month.values().length-1, AFTER_MONTH_DIFFERENT_TNAN_DECEMBER);
         Supplier<Month> supp = () -> {
-            int idx = mock.ints().range(after.getValue(), Month.values().length).val();
+            int idx = mockNeat.ints().range(after.getValue(), Month.values().length).val();
             return Month.values()[idx];
         };
         return () -> supp;

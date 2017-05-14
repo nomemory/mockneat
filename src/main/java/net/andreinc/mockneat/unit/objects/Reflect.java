@@ -18,8 +18,9 @@ package net.andreinc.mockneat.unit.objects;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
-import net.andreinc.mockneat.interfaces.MockValue;
+import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockValue;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -31,12 +32,12 @@ import java.util.regex.Pattern;
 import static java.lang.reflect.Modifier.FINAL;
 import static java.util.regex.Pattern.compile;
 import static net.andreinc.aleph.AlephFormatter.template;
-import static net.andreinc.mockneat.interfaces.MockConstValue.constant;
-import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
+import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
+import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.reflect.FieldUtils.*;
 
-public class Reflect<T> implements MockUnit<T> {
+public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
 
     private static final Pattern JAVA_FIELD_REGEX =
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
@@ -45,38 +46,36 @@ public class Reflect<T> implements MockUnit<T> {
     private boolean useDefaults = false;
     private final Map<Class<?>, MockValue> defaults = new HashMap<>();
     private final Class<T> cls;
-    private final MockNeat m;
 
     public Reflect(MockNeat mockNeat, Class<T> cls) {
+        super(mockNeat);
         this.cls = cls;
-        this.m = mockNeat;
-
         initDefaults();
     }
 
     private void initDefaults() {
-        type(boolean.class, m.bools());
-        type(Boolean.class, m.bools());
+        type(boolean.class, mockNeat.bools());
+        type(Boolean.class, mockNeat.bools());
 
-        type(char.class, m.chars().letters());
-        type(Character.class, m.chars().letters());
+        type(char.class, mockNeat.chars().letters());
+        type(Character.class, mockNeat.chars().letters());
 
-        type(short.class, m.ints().bound(100).map(Integer::shortValue));
-        type(Short.class, m.ints().bound(100).map(Integer::shortValue));
+        type(short.class, mockNeat.ints().bound(100).map(Integer::shortValue));
+        type(Short.class, mockNeat.ints().bound(100).map(Integer::shortValue));
 
-        type(int.class, m.ints().bound(100));
-        type(Integer.class, m.ints().bound(100));
+        type(int.class, mockNeat.ints().bound(100));
+        type(Integer.class, mockNeat.ints().bound(100));
 
-        type(long.class, m.longs().bound(100));
-        type(Long.class, m.longs().bound(100));
+        type(long.class, mockNeat.longs().bound(100));
+        type(Long.class, mockNeat.longs().bound(100));
 
-        type(double.class, m.doubles().bound(10));
-        type(Double.class, m.doubles().bound(10));
+        type(double.class, mockNeat.doubles().bound(10));
+        type(Double.class, mockNeat.doubles().bound(10));
 
-        type(float.class, m.floats().bound(10));
-        type(Float.class, m.floats().bound(10));
+        type(float.class, mockNeat.floats().bound(10));
+        type(Float.class, mockNeat.floats().bound(10));
 
-        type(String.class, m.strings().size(32));
+        type(String.class, mockNeat.strings().size(32));
     }
 
     @Override

@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.networking;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DomainSuffixType;
 
 import java.util.function.Supplier;
@@ -27,12 +28,10 @@ import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class Domains implements MockUnitString {
+public class Domains extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public Domains(MockNeat mock) {
-        this.mock = mock;
+    public Domains(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -42,12 +41,12 @@ public class Domains implements MockUnitString {
 
     public MockUnitString type(DomainSuffixType type) {
         notNull(type, "type");
-        return () -> mock.dicts().type(type.getDictType())::val;
+        return () -> mockNeat.dicts().type(type.getDictType())::val;
     }
 
     public MockUnitString types(DomainSuffixType... types) {
         notEmptyOrNullValues(types, "types");
-        DomainSuffixType type = mock.from(types).val();
+        DomainSuffixType type = mockNeat.from(types).val();
         return type(type);
     }
 }

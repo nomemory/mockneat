@@ -18,22 +18,23 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.utils.file.FileManager;
 
 import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmpty;
 
-public class FromFiles {
-    private final MockNeat rand;
+public class FromFiles extends MockUnitBase {
+
     private final FileManager fm = FileManager.getInstance();
 
-    public FromFiles(MockNeat mock) {
-        this.rand = mock;
+    public FromFiles(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     public MockUnitString from(String path) {
         notEmpty(path, "path");
-        return () -> rand.fromStrings(fm.getLines(path)).format(LOWER_CASE)::val;
+        return () -> mockNeat.fromStrings(fm.getLines(path)).format(LOWER_CASE)::val;
     }
 }

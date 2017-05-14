@@ -18,34 +18,34 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CurrencySymbolType;
 
 import static net.andreinc.mockneat.types.enums.DictType.FOREX_PAIRS;
 
-public class Currencies {
-    private final MockNeat mock;
+public class Currencies extends MockUnitBase {
 
-    public Currencies(MockNeat mock) {
-        this.mock = mock;
+    public Currencies(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     public MockUnitString forexPair() {
-        return () -> mock.dicts().type(FOREX_PAIRS)::val;
+        return () -> mockNeat.dicts().type(FOREX_PAIRS)::val;
     }
 
     public MockUnitString code() {
-        return () -> mock.from(CurrencySymbolType.class)
+        return () -> mockNeat.from(CurrencySymbolType.class)
                             .mapToString(CurrencySymbolType::getCode)::val;
     }
 
     public MockUnitString symbol() {
-        return () -> mock.from(CurrencySymbolType.class)
+        return () -> mockNeat.from(CurrencySymbolType.class)
                             .mapToString(CurrencySymbolType::getSymbol)::val;
     }
 
     public MockUnitString name() {
-        return () -> mock.from(CurrencySymbolType.class)
+        return () -> mockNeat.from(CurrencySymbolType.class)
                             .mapToString(CurrencySymbolType::getName)::val;
     }
 }

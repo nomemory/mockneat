@@ -18,8 +18,9 @@ package net.andreinc.mockneat.unit.objects;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -27,12 +28,10 @@ import java.util.function.Supplier;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 //TODO document
-public class Shufflers {
-
-    private MockNeat mockNeat;
+public class Shufflers extends MockUnitBase {
 
     public Shufflers(MockNeat mockNeat) {
-        this.mockNeat = mockNeat;
+        super(mockNeat);
     }
 
     public <T> MockUnit<T[]> array(T[] source) {

@@ -1,7 +1,7 @@
 package net.andreinc.mockneat;
 
 
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnit;
 
 import java.util.List;
 

@@ -18,18 +18,17 @@ package net.andreinc.mockneat.unit.misc;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.FormatUtils.prependZeroesToSize;
 
-public class SSCs implements MockUnitString {
-
-    private final MockNeat mockNeat;
+public class SSCs extends MockUnitBase implements MockUnitString {
 
     public SSCs(MockNeat mockNeat) {
-        this.mockNeat = mockNeat;
+        super(mockNeat);
     }
 
     /**

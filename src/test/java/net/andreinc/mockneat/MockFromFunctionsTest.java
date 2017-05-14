@@ -17,10 +17,10 @@ package net.andreinc.mockneat;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.interfaces.MockUnitDouble;
-import net.andreinc.mockneat.interfaces.MockUnitInt;
-import net.andreinc.mockneat.interfaces.MockUnitLong;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitDouble;
+import net.andreinc.mockneat.abstraction.MockUnitInt;
+import net.andreinc.mockneat.abstraction.MockUnitLong;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import org.junit.Test;
 
 import java.util.*;

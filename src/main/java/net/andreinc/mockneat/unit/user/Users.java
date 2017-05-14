@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.user;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.UserNameType;
@@ -29,14 +30,12 @@ import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class Users implements MockUnitString {
+public class Users extends MockUnitBase implements MockUnitString {
 
     private static final Double UNDERSCORE = 0.15;
 
-    private final MockNeat mock;
-
-    public Users(MockNeat mock) {
-        this.mock = mock;
+    public Users(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -52,19 +51,19 @@ public class Users implements MockUnitString {
 
     public MockUnitString types(UserNameType... types) {
         notEmptyOrNullValues(types, "types");
-        UserNameType type = mock.from(types).val();
+        UserNameType type = mockNeat.from(types).val();
         return type(type);
     }
 
     private String generateUserName(UserNameType type) {
-        Pair<DictType, DictType> pair = mock.from(type.getDictCombos()).val();
+        Pair<DictType, DictType> pair = mockNeat.from(type.getDictCombos()).val();
 
         String part1 =
-                mock.dicts().type(pair.getFirst()).format(LOWER_CASE).val();
+                mockNeat.dicts().type(pair.getFirst()).format(LOWER_CASE).val();
         String part2 =
-                mock.dicts().type(pair.getSecond()).format(LOWER_CASE).val();
+                mockNeat.dicts().type(pair.getSecond()).format(LOWER_CASE).val();
 
-        if (mock.bools().probability(UNDERSCORE).val()) {
+        if (mockNeat.bools().probability(UNDERSCORE).val()) {
             part1 += "_";
         }
         return part1 + part2;

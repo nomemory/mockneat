@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.time;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitLocalDate;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitLocalDate;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -27,14 +28,12 @@ import java.util.function.Supplier;
 import static java.time.LocalDate.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class LocalDates implements MockUnitLocalDate {
+public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
 
     public static final LocalDate EPOCH_START = ofEpochDay(0);
 
-    private final MockNeat mock;
-
-    public LocalDates(MockNeat mock) {
-        this.mock = mock;
+    public LocalDates(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class LocalDates implements MockUnitLocalDate {
         Supplier<LocalDate> supp = () -> {
             int year = now().getYear();
             int maxDays = now().lengthOfYear() + 1;
-            int randDay = mock.ints().range(1, maxDays).val();
+            int randDay = mockNeat.ints().range(1, maxDays).val();
             return LocalDate.ofYearDay(year, randDay);
         };
         return () -> supp;
@@ -57,7 +56,7 @@ public class LocalDates implements MockUnitLocalDate {
             int year = now().getYear();
             Month month = now().getMonth();
             int lM = now().lengthOfMonth() + 1;
-            int randDay = mock.ints().range(1, lM).val();
+            int randDay = mockNeat.ints().range(1, lM).val();
             return LocalDate.of(year, month, randDay);
         };
         return () -> supp;
@@ -74,7 +73,7 @@ public class LocalDates implements MockUnitLocalDate {
             long lowerEpoch = lowerDate.toEpochDay();
             long upperEpoch = upperDate.toEpochDay();
             long diff = upperEpoch - lowerEpoch;
-            long randEpoch = mock.longs().range(0, diff).val();
+            long randEpoch = mockNeat.longs().range(0, diff).val();
             return ofEpochDay(lowerEpoch + randEpoch);
         };
         return ()-> supp;

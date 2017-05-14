@@ -18,23 +18,23 @@ package net.andreinc.mockneat.unit.address;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
+
 import static net.andreinc.mockneat.types.enums.DictType.COUNTRY_ISO_CODE_2;
 import static net.andreinc.mockneat.types.enums.DictType.COUNTRY_NAME;
 
-public class Countries {
+public class Countries extends MockUnitBase {
 
-    private final MockNeat mock;
-
-    public Countries(MockNeat mock) {
-        this.mock = mock;
+    public Countries(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     public MockUnitString names() {
-        return mock.dicts().type(COUNTRY_NAME);
+        return mockNeat.dicts().type(COUNTRY_NAME);
     }
 
     public MockUnitString iso2() {
-        return mock.dicts().type(COUNTRY_ISO_CODE_2);
+        return mockNeat.dicts().type(COUNTRY_ISO_CODE_2);
     }
 }

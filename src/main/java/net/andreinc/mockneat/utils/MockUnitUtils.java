@@ -17,7 +17,7 @@ package net.andreinc.mockneat.utils;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnit;
 
 import java.util.*;
 import java.util.function.Function;

@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.networking;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.utils.LoopsUtils;
 
 import java.util.function.Supplier;
@@ -26,11 +27,10 @@ import java.util.stream.Collectors;
 
 import static net.andreinc.mockneat.alphabets.Alphabets.HEXA_STR;
 
-public class IPv6s implements MockUnitString {
-    private final MockNeat mock;
+public class IPv6s extends MockUnitBase implements MockUnitString {
 
-    public IPv6s(MockNeat mock) {
-        this.mock = mock;
+    public IPv6s(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class IPv6s implements MockUnitString {
     }
 
     private String group() {
-        String result = mock.from(HEXA_STR)
+        String result = mockNeat.from(HEXA_STR)
                             .stream().val()
                             .limit(4)
                             .collect(Collectors.joining())

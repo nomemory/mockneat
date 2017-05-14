@@ -17,7 +17,7 @@ package net.andreinc.mockneat;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.interfaces.*;
+import net.andreinc.mockneat.abstraction.*;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.companies.Departments;
@@ -231,7 +231,7 @@ public class MockNeat {
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
 
-    public <T> Seq<T> seq(Iterable<T> iterable) { return new Seq(this, iterable); }
+    public <T> Seq<T> seq(Iterable<T> iterable) { return new Seq(iterable); }
 
     public Shufflers shufflers() { return rShufflers; }
 

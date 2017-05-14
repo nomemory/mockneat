@@ -17,7 +17,7 @@ package net.andreinc.mockneat.unit.seq;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.interfaces.MockUnitLong;
+import net.andreinc.mockneat.abstraction.MockUnitLong;
 
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Supplier;

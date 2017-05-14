@@ -2,7 +2,7 @@ package net.andreinc.mockneat.github;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.github.model.Test;
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnit;
 
 /**
  * Created by andreinicolinciobanu on 06/03/2017.

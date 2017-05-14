@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.user;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.PassStrengthType;
 
@@ -31,17 +32,15 @@ import static net.andreinc.mockneat.types.enums.PassStrengthType.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class Passwords implements MockUnitString {
+public class Passwords extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public Passwords(MockNeat mock) {
-        this.mock = mock;
+    public Passwords(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
     public Supplier<String> supplier() {
-        PassStrengthType passStrengthType = mock.from(PassStrengthType.class).val();
+        PassStrengthType passStrengthType = mockNeat.from(PassStrengthType.class).val();
         return () -> nextPassword(passStrengthType);
     }
 
@@ -53,7 +52,7 @@ public class Passwords implements MockUnitString {
 
     public MockUnitString types(PassStrengthType... types) {
         notEmptyOrNullValues(types, "types");
-        PassStrengthType passStrengthType = mock.from(types).val();
+        PassStrengthType passStrengthType = mockNeat.from(types).val();
         return type(passStrengthType);
     }
 
@@ -72,8 +71,8 @@ public class Passwords implements MockUnitString {
     private String nextWeakPassword() {
         Integer minLength = WEAK.getLength().getLowerBound();
         Integer maxLength = WEAK.getLength().getUpperBound();
-        DictType dictType = mock.from(new DictType[]{EN_NOUN_2SYLL, EN_NOUN_1SYLL}).val();
-        String noun = mock.dicts().type(dictType).val();
+        DictType dictType = mockNeat.from(new DictType[]{EN_NOUN_2SYLL, EN_NOUN_1SYLL}).val();
+        String noun = mockNeat.dicts().type(dictType).val();
         if (noun.length()>maxLength) {
             noun = noun.substring(0, maxLength);
         }
@@ -84,7 +83,7 @@ public class Passwords implements MockUnitString {
             // is shorted than the minLength
             int diff = minLength - noun.length();
             while (diff-- > 0)
-                resultBuff.append(mock.ints().range(0, 10).val());
+                resultBuff.append(mockNeat.ints().range(0, 10).val());
         }
 
         return resultBuff.toString();
@@ -93,7 +92,7 @@ public class Passwords implements MockUnitString {
     private String nextMediumPassword() {
         Integer minLength = MEDIUM.getLength().getLowerBound();
         Integer maxLength = MEDIUM.getLength().getUpperBound();
-        String noun = mock.dicts().type(EN_NOUN_3SYLL).val();
+        String noun = mockNeat.dicts().type(EN_NOUN_3SYLL).val();
         if (noun.length()>maxLength) {
             noun = noun.substring(0, maxLength);
         }
@@ -102,17 +101,17 @@ public class Passwords implements MockUnitString {
         if (noun.length() < minLength) {
             int diff = minLength - noun.length();
             while (diff-- > 0)
-                resultBuff.append(mock.chars().digits().val());
+                resultBuff.append(mockNeat.chars().digits().val());
         }
 
         // Create a objs uppercase character
-        int randUpperCaseIdx = mock.ints().range(0, noun.length() - 1).val();
+        int randUpperCaseIdx = mockNeat.ints().range(0, noun.length() - 1).val();
         char replChar = resultBuff.charAt(randUpperCaseIdx);
         resultBuff.setCharAt(randUpperCaseIdx, Character.toUpperCase(replChar));
 
         // Insert / Replace with a objs special character
-        int randSpecialChrIdx = mock.ints().range(0, resultBuff.length()).val();
-        char specialChar = mock.from(SPECIAL_CHARACTERS).val();
+        int randSpecialChrIdx = mockNeat.ints().range(0, resultBuff.length()).val();
+        char specialChar = mockNeat.from(SPECIAL_CHARACTERS).val();
         if (resultBuff.length() < maxLength) {
             resultBuff.insert(randSpecialChrIdx, specialChar);
         } else {
@@ -127,16 +126,16 @@ public class Passwords implements MockUnitString {
     private String nextStrongPassword() {
         Integer minLength = STRONG.getLength().getLowerBound();
         Integer maxLength = STRONG.getLength().getUpperBound();
-        int passLength = mock.ints().range(minLength, maxLength).val();
+        int passLength = mockNeat.ints().range(minLength, maxLength).val();
         StringBuilder buff = new StringBuilder();
         List<Character> cAlph;
         while (passLength-- > 1) {
-            cAlph = mock.from(new List[]{SPECIAL_CHARACTERS, DIGITS, LETTERS}).val();
-            buff.append(mock.from(cAlph).val());
+            cAlph = mockNeat.from(new List[]{SPECIAL_CHARACTERS, DIGITS, LETTERS}).val();
+            buff.append(mockNeat.from(cAlph).val());
         }
         // Insert a special character to be 100% confident it exists
-        int randSpecialChrIdx = mock.ints().range(0, buff.length()).val();
-        buff.insert(randSpecialChrIdx, mock.from(SPECIAL_CHARACTERS).val());
+        int randSpecialChrIdx = mockNeat.ints().range(0, buff.length()).val();
+        buff.insert(randSpecialChrIdx, mockNeat.from(SPECIAL_CHARACTERS).val());
         return buff.toString();
     }
 }

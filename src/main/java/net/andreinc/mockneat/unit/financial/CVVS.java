@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CVVType;
 import net.andreinc.mockneat.utils.LoopsUtils;
 
@@ -27,12 +28,10 @@ import java.util.function.Supplier;
 import static net.andreinc.mockneat.types.enums.CVVType.CVV3;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class CVVS implements MockUnitString {
+public class CVVS extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public CVVS(MockNeat mock) {
-        this.mock = mock;
+    public CVVS(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -45,7 +44,7 @@ public class CVVS implements MockUnitString {
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
             LoopsUtils.loop(type.getLength(), () ->
-                    builder.append(mock.chars().digits().val()));
+                    builder.append(mockNeat.chars().digits().val()));
             return builder.toString();
         };
         return () -> supplier;

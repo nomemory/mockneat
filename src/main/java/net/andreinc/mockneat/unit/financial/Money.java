@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -28,15 +29,15 @@ import static java.text.NumberFormat.getCurrencyInstance;
 import static java.util.Locale.US;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class    Money implements MockUnitString {
+public class Money extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-    private NumberFormat formatter = getCurrencyInstance(US);
     public static final double DEFAULT_LOWER = 0.0;
     public static final double DEFAULT_UPPER = 10000.0;
 
-    public Money(MockNeat mock) {
-        this.mock = mock;
+    private NumberFormat formatter = getCurrencyInstance(US);
+
+    public Money(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     public Money locale(Locale locale) {
@@ -46,13 +47,13 @@ public class    Money implements MockUnitString {
     }
 
     public MockUnitString range(double lowerBound, double upperBound) {
-        return () -> mock.doubles()
+        return () -> mockNeat.doubles()
                          .range(lowerBound, upperBound)
                          .mapToString(formatter::format).supplier();
     }
 
     public MockUnitString bound(double bound) {
-        return () -> mock.doubles()
+        return () -> mockNeat.doubles()
                             .bound(bound)
                             .mapToString(formatter::format)::val;
     }

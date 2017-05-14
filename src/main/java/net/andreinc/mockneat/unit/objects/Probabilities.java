@@ -18,9 +18,10 @@ package net.andreinc.mockneat.unit.objects;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
-import net.andreinc.mockneat.interfaces.MockUnitDouble;
-import net.andreinc.mockneat.interfaces.MockValue;
+import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitDouble;
+import net.andreinc.mockneat.abstraction.MockValue;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.utils.ValidationUtils;
 
@@ -28,20 +29,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.interfaces.MockConstValue.constant;
-import static net.andreinc.mockneat.interfaces.MockUnitValue.unit;
+import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
+import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class Probabilities<T> implements MockUnit<T> {
+public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
 
-    private final MockNeat mockNeat;
     private final Class<T> cls;
     private final List<Pair<Double, MockValue>> probs = new ArrayList<>();
     private final MockUnitDouble mud;
 
     public Probabilities(MockNeat mockNeat, Class<T> cls) {
+        super(mockNeat);
         this.cls = cls;
-        this.mockNeat = mockNeat;
         this.mud = mockNeat.doubles().range(0, 1.0);
     }
 

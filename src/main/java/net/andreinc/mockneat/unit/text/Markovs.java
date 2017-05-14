@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.MarkovChainType;
 import net.andreinc.mockneat.unit.text.markov.MarkovUnit;
 import org.slf4j.Logger;
@@ -34,29 +35,28 @@ import static net.andreinc.mockneat.types.enums.MarkovChainType.KAFKA;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class Markovs implements MockUnitString {
+public class Markovs extends MockUnitBase implements MockUnitString {
 
     private static final Logger logger = LoggerFactory.getLogger(Markovs.class);
 
     private final Map<MarkovChainType, MarkovUnit> markovUnits =  new EnumMap<>(MarkovChainType.class);
 
-    private final MockNeat mock;
     private int size = 512;
 
-    public Markovs(MockNeat mock) {
-        this.mock = mock;
+    public Markovs(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     private MarkovUnit get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {
             logger.info("Loading MarkovUnit in memory '{}'." , markovChainType.getFile());
-            markovUnits.put(markovChainType, MarkovUnit.internal(mock, markovChainType, 2));
+            markovUnits.put(markovChainType, MarkovUnit.internal(mockNeat, markovChainType, 2));
         }
         return markovUnits.get(markovChainType);
     }
 
     public Markovs size(int size) {
-        Markovs markovs = new Markovs(mock);
+        Markovs markovs = new Markovs(mockNeat);
         markovs.size = size;
         return markovs;
     }
@@ -68,7 +68,7 @@ public class Markovs implements MockUnitString {
 
     public MockUnitString types(MarkovChainType... types) {
         notEmptyOrNullValues(types, "types");
-        MarkovChainType type = mock.from(types).val();
+        MarkovChainType type = mockNeat.from(types).val();
         return type(type);
     }
 

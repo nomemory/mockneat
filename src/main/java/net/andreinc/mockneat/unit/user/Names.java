@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.user;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.NameType;
 
@@ -30,12 +31,10 @@ import static net.andreinc.mockneat.utils.ValidationUtils.betweenClosed;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static org.apache.commons.lang3.Validate.notNull;
 
-public class Names implements MockUnitString {
+public class Names extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public Names(MockNeat mock) {
-        this.mock = mock;
+    public Names(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -55,8 +54,8 @@ public class Names implements MockUnitString {
     public MockUnitString full(double middleInitialProbability) {
         betweenClosed(middleInitialProbability, 0.0, 100.0);
         Supplier<String> supp = () -> {
-            boolean middleName = mock.bools().probability(middleInitialProbability).val();
-            String initial = (middleName) ? " " + mock.chars().upperLetters().val() + "." : "";
+            boolean middleName = mockNeat.bools().probability(middleInitialProbability).val();
+            String initial = (middleName) ? " " + mockNeat.chars().upperLetters().val() + "." : "";
             return first().val() + initial + " " + last().val();
         };
         return () -> supp;
@@ -64,13 +63,13 @@ public class Names implements MockUnitString {
 
     public MockUnitString types(NameType... types) {
         notEmptyOrNullValues(types, "types");
-        NameType nameType = mock.from(types).val();
+        NameType nameType = mockNeat.from(types).val();
         return type(nameType);
     }
 
     public MockUnitString type(NameType type) {
         notNull(type, "type");
-        DictType dictType = mock.from(type.getDictionaries()).val();
-        return () -> mock.dicts().type(dictType)::val;
+        DictType dictType = mockNeat.from(type.getDictionaries()).val();
+        return () -> mockNeat.dicts().type(dictType)::val;
     }
 }

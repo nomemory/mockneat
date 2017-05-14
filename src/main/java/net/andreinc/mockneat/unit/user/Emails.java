@@ -18,29 +18,28 @@ package net.andreinc.mockneat.unit.user;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnit;
 
 import java.util.function.Supplier;
 import static net.andreinc.mockneat.types.enums.DictType.DOMAIN_EMAIL;
 
-public class Emails implements MockUnitString {
+public class Emails extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public Emails(MockNeat mock) {
-        this.mock = mock;
+    public Emails(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
     public Supplier<String> supplier() {
-        return () -> mock.users().val() + "@" + mock.dicts().type(DOMAIN_EMAIL).val();
+        return () -> mockNeat.users().val() + "@" + mockNeat.dicts().type(DOMAIN_EMAIL).val();
     }
 
     public MockUnit<String> domains(String... domains) {
         Supplier<String> supp = () -> {
-            String user = mock.users().val();
-            String domain = mock.from(domains).val();
+            String user = mockNeat.users().val();
+            String domain = mockNeat.from(domains).val();
             return user + "@" + domain;
         };
         return () -> supp;

@@ -18,7 +18,8 @@ package net.andreinc.mockneat.unit.networking;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnitString;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Range;
 import net.andreinc.mockneat.types.enums.IPv4Type;
 
@@ -29,12 +30,10 @@ import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-public class IPv4s implements MockUnitString {
+public class IPv4s extends MockUnitBase implements MockUnitString {
 
-    private final MockNeat mock;
-
-    public IPv4s(MockNeat mock) {
-        this.mock = mock;
+    public IPv4s(MockNeat mockNeat) {
+        super(mockNeat);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class IPv4s implements MockUnitString {
 
     public MockUnitString types(IPv4Type... types) {
         notEmptyOrNullValues(types, "types");
-        IPv4Type type = mock.from(types).val();
+        IPv4Type type = mockNeat.from(types).val();
         return type(type);
     }
 
@@ -58,7 +57,7 @@ public class IPv4s implements MockUnitString {
                 int up = range.getUpperBound();
                 if (range.isConstant()) buff.append(low).append(".");
                 else {
-                    int result = mock.ints().range(low, up + 1).val();
+                    int result = mockNeat.ints().range(low, up + 1).val();
                     buff.append(result).append(".");
                 }
             });

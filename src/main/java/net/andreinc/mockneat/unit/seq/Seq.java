@@ -17,21 +17,16 @@ package net.andreinc.mockneat.unit.seq;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.interfaces.MockUnit;
+import net.andreinc.mockneat.abstraction.MockUnit;
 
 import java.util.Iterator;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.IMPOSSIBLE_TO_SEQ_OVER_EMPTY_COLLECTION;
-import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 
 // TODO - documentation
 public class  Seq<T> implements MockUnit<T> {
-
-    private final MockNeat mockNeat;
 
     private final Iterable<T> iterable;
     private Iterator<T> iterator;
@@ -39,12 +34,10 @@ public class  Seq<T> implements MockUnit<T> {
     private boolean cycle = false;
     private T after = null;
 
-    public Seq(MockNeat mockNeat, Iterable<T> iterable) {
+    public Seq(Iterable<T> iterable) {
 
-        notNull(mockNeat, "mockNeat");
         notNull(iterable, "iterable");
 
-        this.mockNeat = mockNeat;
         this.iterable = iterable;
         this.iterator = iterable.iterator();
 
