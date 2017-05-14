@@ -26,6 +26,8 @@ import net.andreinc.mockneat.types.enums.PassStrengthType;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static java.lang.Character.toUpperCase;
+import static java.util.Arrays.asList;
 import static net.andreinc.mockneat.alphabets.Alphabets.*;
 import static net.andreinc.mockneat.types.enums.DictType.*;
 import static net.andreinc.mockneat.types.enums.PassStrengthType.*;
@@ -107,7 +109,7 @@ public class Passwords extends MockUnitBase implements MockUnitString {
         // Create a objs uppercase character
         int randUpperCaseIdx = mockNeat.ints().range(0, noun.length() - 1).val();
         char replChar = resultBuff.charAt(randUpperCaseIdx);
-        resultBuff.setCharAt(randUpperCaseIdx, Character.toUpperCase(replChar));
+        resultBuff.setCharAt(randUpperCaseIdx, toUpperCase(replChar));
 
         // Insert / Replace with a objs special character
         int randSpecialChrIdx = mockNeat.ints().range(0, resultBuff.length()).val();
@@ -129,8 +131,9 @@ public class Passwords extends MockUnitBase implements MockUnitString {
         int passLength = mockNeat.ints().range(minLength, maxLength).val();
         StringBuilder buff = new StringBuilder();
         List<Character> cAlph;
+        List<List<Character>> lists = asList(new List[]{SPECIAL_CHARACTERS, DIGITS, LETTERS});
         while (passLength-- > 1) {
-            cAlph = mockNeat.from(new List[]{SPECIAL_CHARACTERS, DIGITS, LETTERS}).val();
+            cAlph = mockNeat.from(lists).val();
             buff.append(mockNeat.from(cAlph).val());
         }
         // Insert a special character to be 100% confident it exists
