@@ -17,7 +17,6 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.utils.MockUnitUtils;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.FileNotFoundException;
@@ -36,8 +35,7 @@ import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.generate;
 import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
-import static net.andreinc.mockneat.utils.MockUnitUtils.put;
+import static net.andreinc.mockneat.utils.MockUnitUtils.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @FunctionalInterface
@@ -121,7 +119,7 @@ public interface MockUnit<T> {
     }
 
     default MockUnitString mapToString() {
-        return () -> ifSupplierNotNullDo(supplier(), s -> val().toString());
+        return () -> ifSupplierNotNullDo(supplier(), s -> s.toString());
     }
 
     default MockUnit<Stream<T>> stream() {
@@ -135,7 +133,7 @@ public interface MockUnit<T> {
         Supplier<List<T>> supp = () -> {
             try {
                 List<T> result = listClass.newInstance();
-                loop(size, () -> MockUnitUtils.add(listClass, result, supplier()));
+                loop(size, () -> add(listClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 String fmt = template("Cannot instantiate list '{l.Name}'.")
@@ -157,7 +155,7 @@ public interface MockUnit<T> {
         Supplier<Set<T>> supp = () -> {
             try {
                 Set<T> result = setClass.newInstance();
-                loop(size, () -> MockUnitUtils.add(setClass, result, supplier()));
+                loop(size, () -> add(setClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 String fmt = format("Cannot instantiate set: '%s'.", setClass.getName());
@@ -177,7 +175,7 @@ public interface MockUnit<T> {
         Supplier<Collection<T>> supp = () -> {
             try {
                 Collection<T> result = collectionClass.newInstance();
-                loop(size, () -> MockUnitUtils.add(collectionClass, result, supplier()));
+                loop(size, () -> add(collectionClass, result, supplier()));
                 return result;
             } catch (InstantiationException | IllegalAccessException e) {
                 String fmt = template("Cannot instantiate collection: '#{c.name}'.")

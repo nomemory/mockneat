@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.abstraction;
+package net.andreinc.mockneat.github.hr.model;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -12,23 +12,34 @@ package net.andreinc.mockneat.abstraction;
  Software.
 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
+ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+public class Region {
 
-import static java.util.Date.from;
-import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
+    private long id;
+    private String name;
 
-public interface MockUnitLocalDate extends MockUnit<LocalDate> {
-
-    //TODO document and test
-    default MockUnit<Date> toUtilDate() {
-        return () -> ifSupplierNotNullDo(supplier(),
-                localDate -> from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    public Region() {
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 }

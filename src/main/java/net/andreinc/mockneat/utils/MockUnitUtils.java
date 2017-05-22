@@ -107,7 +107,8 @@ public class MockUnitUtils {
     public static <T, R> Supplier<R> ifSupplierNotNullDo(Supplier<T> supplier, Function<T, R> function) {
         return () -> {
             T val = supplier.get();
-            if (null == val) return null;
+            if (null == val)
+                return null;
             return function.apply(val);
         };
     }
