@@ -23,6 +23,10 @@ public enum DictType {
     COUNTRY_NAME("country-name"),
     COUNTRY_ISO_CODE_2("country-iso-code-2"),
 
+    // CITIES
+    CITIES_US("cities/cities-us"),
+    CITIES_CAPITALS("cities/cities-capitals"),
+
     // DOMAINS
     DOMAIN_EMAIL("domain-email"),
     DOMAIN_TOP_LEVEL_ALL("domain-top-level-all"),

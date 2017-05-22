@@ -18,7 +18,9 @@ package net.andreinc.mockneat;
  */
 
 import net.andreinc.mockneat.abstraction.*;
+import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.RandomType;
+import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.companies.Departments;
 import net.andreinc.mockneat.unit.financial.*;
@@ -59,6 +61,7 @@ public class MockNeat {
     private final Random random;
 
     private final Bools rBools;
+    private final Cities rCities;
     private final Countries rCountries;
     private final CreditCards rCCS;
     private final Chars rChars;
@@ -100,6 +103,7 @@ public class MockNeat {
         this.rBools = new Bools(this);
         this.rCountries = new Countries(this);
         this.rCCS = new CreditCards(this);
+        this.rCities = new Cities(this);
         this.rCurrencies = new Currencies(this);
         this.rCVVS = new CVVS(this);
         this.rDays = new Days(this);
@@ -148,6 +152,8 @@ public class MockNeat {
     public Bools bools() { return this.rBools; }
 
     public Chars chars() { return this.rChars; }
+
+    public Cities cities() { return this.rCities; }
 
     public CreditCards creditCards() {
         return this.rCCS;
@@ -231,7 +237,9 @@ public class MockNeat {
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
 
-    public <T> Seq<T> seq(Iterable<T> iterable) { return new Seq(iterable); }
+    public <T> Seq<T> seq(Iterable<T> iterable) { return Seq.fromIterable(iterable); }
+
+    public Seq<String> seq(DictType dictType) { return Seq.fromDict(dictType); }
 
     public Shufflers shufflers() { return rShufflers; }
 

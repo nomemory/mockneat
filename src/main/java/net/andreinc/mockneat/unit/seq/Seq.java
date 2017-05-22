@@ -18,8 +18,11 @@ package net.andreinc.mockneat.unit.seq;
  */
 
 import net.andreinc.mockneat.abstraction.MockUnit;
+import net.andreinc.mockneat.types.enums.DictType;
+import net.andreinc.mockneat.utils.file.FileManager;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
@@ -32,9 +35,19 @@ public class  Seq<T> implements MockUnit<T> {
     private Iterator<T> iterator;
 
     private boolean cycle = false;
-    private T after = null;
+    private Supplier<T> after = null;
 
-    public Seq(Iterable<T> iterable) {
+    public static Seq<String> fromDict(DictType dictType) {
+        notNull(dictType, "dictType");
+        List<String> lines = FileManager.getInstance().getLines(dictType);
+        return new Seq<>(lines);
+    }
+
+    public static <R> Seq<R> fromIterable(Iterable<R> iterable) {
+        return new Seq<>(iterable);
+    }
+
+    private Seq(Iterable<T> iterable) {
 
         notNull(iterable, "iterable");
 
@@ -50,7 +63,12 @@ public class  Seq<T> implements MockUnit<T> {
     }
 
     public Seq<T> after(T after) {
-        this.after = after;
+        this.after = () -> after;
+        return this;
+    }
+
+    public Seq<T> after(MockUnit<T> after) {
+        this.after = after.supplier();
         return this;
     }
 
@@ -68,4 +86,5 @@ public class  Seq<T> implements MockUnit<T> {
                     return(T) after;
         };
     }
+
 }

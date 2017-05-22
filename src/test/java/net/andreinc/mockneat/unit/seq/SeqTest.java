@@ -30,7 +30,8 @@ public class SeqTest {
 
     @Test(expected = NullPointerException.class)
     public void testSeqNullList() throws Exception {
-        M.seq(null).list(100).val();
+        List<String> list = null;
+        M.seq(list).list(100).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
