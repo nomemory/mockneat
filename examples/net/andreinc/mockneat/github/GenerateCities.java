@@ -1,5 +1,7 @@
 package net.andreinc.mockneat.github;
 
+import net.andreinc.mockneat.MockNeat;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -17,21 +19,17 @@ package net.andreinc.mockneat.github;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.MockNeat;
-
-public class GenerateDoubles {
+public class GenerateCities {
     public static void main(String[] args) {
-        MockNeat mock = MockNeat.threadLocal();
-        Double val = mock.doubles().val();
 
-        Double bound = 10.0;
-        Double boundedVal = mock.doubles().bound(bound).val();
+        MockNeat mockNeat = MockNeat.threadLocal();
 
-        Double valInRange = mock.doubles().range(100.0, 200.0).val();
+        // Generate a city in the us
+        String city = mockNeat.cities().us().val();
+        System.out.println(city);
 
-
-        System.out.println(val);
-        System.out.println(boundedVal);
-        System.out.println(valInRange);
+        // Generate a world capital
+        String worldCapital = mockNeat.cities().capitals().val();
+        System.out.println(worldCapital);
     }
 }
