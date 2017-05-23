@@ -133,7 +133,7 @@ public class HrSchema {
         List<Country> countries = m.reflect(Country.class)
                                    .field("id", m.seq(DictType.COUNTRY_ISO_CODE_2))
                                    .field("name", m.seq(DictType.COUNTRY_NAME).mapToString().replaceAll("'", "''"))
-                                   .field("regionId", m.from(regions).map(r -> r.getId()))
+                                   .field("regionId", m.from(regions).map(Region::getId))
                                    .list(totalCountries)
                                    .val();
 
@@ -144,7 +144,7 @@ public class HrSchema {
                                     .field("street", streeNameGenerator())
                                     .field("city", m.cities().capitals())
                                     .field("postalCode", m.regex("[A-Z]{1,3}[0-9]{1,2}[A-Z]{1,2}[0-9]{3,5}"))
-                                    .field("countryId", m.countries().iso2())
+                                    .field("countryId", m.from(countries).map(Country::getId))
                                     .map(HrSchema::cityWithCountryId)
                                     .list(totalLocations)
                                     .val();
