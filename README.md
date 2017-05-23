@@ -19,6 +19,12 @@ Quick links:
 - [The MockNeat Class](https://github.com/nomemory/mockneat/wiki/MockNeat);
 - [The MockUnit Interface](https://github.com/nomemory/mockneat/wiki/MockUnits)
 
+Real world examples:
+
+- [Creating CSV files with arbitrary data](https://github.com/nomemory/mockneat/wiki/Creating-CSV-files-with-arbitrary-data);
+
+- [Programatically populate MySQL Schema with arbitrary test data](https://github.com/nomemory/mockneat/wiki/Programatically-populate-MySQL-Schema-with-arbitrary-test-data).
+
 ## Contributions
 
 If you want to contribute please take a look at the open issues in the [Project Page](https://github.com/nomemory/mockneat/projects/1).
