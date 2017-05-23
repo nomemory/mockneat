@@ -67,7 +67,7 @@ public class  Seq<T> implements MockUnit<T> {
         return this;
     }
 
-    public Seq<T> after(MockUnit<T> after) {
+    public Seq<T> afterDoMock(MockUnit<T> after) {
         this.after = after.supplier();
         return this;
     }
@@ -83,7 +83,7 @@ public class  Seq<T> implements MockUnit<T> {
                     return (T) iterator.next();
                 }
                 else
-                    return(T) after;
+                    return (T) after.get();
         };
     }
 
