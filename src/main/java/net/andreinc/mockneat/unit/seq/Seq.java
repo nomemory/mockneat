@@ -82,8 +82,12 @@ public class  Seq<T> implements MockUnit<T> {
                     this.iterator = iterable.iterator();
                     return (T) iterator.next();
                 }
-                else
+                else {
+                    if (after == null) {
+                        return null;
+                    }
                     return (T) after.get();
+                }
         };
     }
 
