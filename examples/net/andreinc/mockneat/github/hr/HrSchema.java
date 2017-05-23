@@ -51,31 +51,51 @@ public class HrSchema {
         // A reference to the mock object associated with the current thread;
         MockNeat m = MockNeat.threadLocal();
 
-        // Returns a random string every time from the 'STREET_SUFFIX' list;
+        // Returns a random string from the 'STREET_SUFFIX' list;
         // Eg: "Str"
         MockUnitString streetNameSuffix = m.fromStrings(STREET_SUFFIX);
 
         // Returns a potential street name
+        // - Streets names have 55% chances of containing two words;
+        // - Street names have 45% chances of containing one word;
+        // The single word is always a noun (1 syllable, 2 syllables or 3 syllables)
+        // The first word if exists is an adjective (1 syllable or 2 syllables)
         MockUnitString streetNameGenerator = m.fmt("#{word1}#{word2}")
                 .param("word1", m.probabilites(String.class)
-                        .add(0.55, m.dicts().types(EN_ADJECTIVE_1SYLL, EN_ADJECTIVE_2SYLL))
-                        .add(0.45, "")
-                        .mapToString(s -> s.equals("") ? s : s + " ")
-                        .format(CAPITALIZED))
+                                        .add(0.55, m.dicts().types(EN_ADJECTIVE_1SYLL, EN_ADJECTIVE_2SYLL))
+                                        .add(0.45, "")
+                                        // If the first word exists (55% chance) then append a space
+                                        .mapToString(s -> s.equals("") ? s : s + " ")
+                                        // Capitalize the two (or one words) generated
+                                        .format(CAPITALIZED))
                 .param("word2", m.dicts().types(EN_NOUN_1SYLL, EN_NOUN_2SYLL, EN_NOUN_3SYLL).format(CAPITALIZED));
 
+        // Formatting street name
+        // - First section is a number in the range [1, 100000)
+        // - Second section is the name as generated above
+        // - Last section is the suffix as obtained above
         return m.fmt("#{no} #{name} #{suffix}")
                 .param("no", m.ints().range(1, 10000))
                 .param("name", streetNameGenerator)
                 .param( "suffix", streetNameSuffix);
     }
 
+    /**
+     * For the given location appends country ISO2 code to the city name
+     * @param location
+     * @return
+     */
     public static Location cityWithCountryId(Location location) {
         String newCity = location.getCity() + " " + location.getCountryId();
         location.setCity(newCity);
         return location;
     }
 
+    /**
+     * Generates a STR_TO_DATE string that is going to be used for the MySQL INSERT
+     * @param employee
+     * @return
+     */
     public static Employee populateHireDateStr(Employee employee) {
         Date date = employee.getHireDate();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
@@ -84,6 +104,12 @@ public class HrSchema {
         return employee;
     }
 
+    /**
+     * Prints a list of objects as a SQL INSERT Statement.
+     * @param template The template of the SQL INSERT Statement
+     * @param param The name of the parameter used in the template
+     * @param list The list of objects we are going to use for the INSERT
+     */
     private static <T> void printSql(String template, String param, List<T> list) {
         list.forEach(obj -> System.out.println(
             template(template)
@@ -162,6 +188,8 @@ public class HrSchema {
                 long empId = e.getId();
                 long mngId = e.getId();
 
+                // Avoid assigning the same number as
+                // id and managerId
                 while(mngId == empId)
                     mngId = m.from(managersIds).val();
 
