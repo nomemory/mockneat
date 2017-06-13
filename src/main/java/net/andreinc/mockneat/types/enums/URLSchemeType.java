@@ -17,6 +17,7 @@ package net.andreinc.mockneat.types.enums;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum URLSchemeType {
     HTTP("http"),
     HTTPS("https"),

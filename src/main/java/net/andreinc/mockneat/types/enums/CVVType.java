@@ -17,6 +17,7 @@ package net.andreinc.mockneat.types.enums;
  OTHERWISE, ARISING FROM, OUT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum CVVType {
     CVV3(3),
     CVV4(4);

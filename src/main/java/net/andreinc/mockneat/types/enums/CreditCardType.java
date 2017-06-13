@@ -17,12 +17,14 @@ package net.andreinc.mockneat.types.enums;
  OTHERWISE, ARISING FROM, OUT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum CreditCardType {
 
     AMERICAN_EXPRESS(15, 34, 37),

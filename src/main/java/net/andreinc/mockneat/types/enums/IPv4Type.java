@@ -19,6 +19,7 @@ package net.andreinc.mockneat.types.enums;
 
 import net.andreinc.mockneat.types.Range;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum IPv4Type {
     CLASS_A (new Range<>(1, 126), new Range<>(0, 255), new Range<>(0, 255), new Range<>(0, 255)),
     CLASS_A_LOOPBACK (new Range<>(127, 127), new Range<>(0, 255), new Range<>(0, 255), new Range<>(0, 255)),

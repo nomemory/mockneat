@@ -137,8 +137,8 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
 
     private T instance() {
         try {
-            return cls.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            return cls.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
             String fmt = template(CANNOT_INSTANTIATE_OBJECT_OF_CLASS)
                             .arg("cls", cls)
                             .fmt();

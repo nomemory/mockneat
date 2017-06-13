@@ -323,7 +323,7 @@ public class ShufflersTest {
         ArrayList<Double> newAl = M.shufflers().arrayList(al).val();
 
         assertNotNull(newAl);
-        assertTrue(al!=newAl);
+        assertTrue(al.equals(newAl));
         assertTrue(newAl.size()==0);
     }
 
@@ -335,7 +335,7 @@ public class ShufflersTest {
         ArrayList<Double> newAl = M.shufflers().arrayList(al).val();
 
         assertNotNull(newAl);
-        assertTrue(newAl!=al);
+        assertTrue(newAl.equals(al));
         assertTrue(newAl.size() == 1);
         assertTrue(newAl.get(0).equals(1.0));
     }
@@ -356,7 +356,7 @@ public class ShufflersTest {
                             .arrayList(al)
                             .val();
 
-                    assertTrue(newAl!=al);
+                    assertTrue(!newAl.equals(al));
                     assertTrue(al.size() == newAl.size());
 
                     range(0, newAl.size())

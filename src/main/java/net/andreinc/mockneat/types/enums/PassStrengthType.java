@@ -19,6 +19,7 @@ package net.andreinc.mockneat.types.enums;
 
 import net.andreinc.mockneat.types.Range;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum PassStrengthType {
     WEAK(new Range<>(6, 9)),
     MEDIUM(new Range<>(8, 13)),

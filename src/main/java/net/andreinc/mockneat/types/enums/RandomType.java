@@ -21,6 +21,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum RandomType {
 
     OLD(new java.util.Random()),

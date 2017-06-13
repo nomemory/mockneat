@@ -16,7 +16,7 @@ package net.andreinc.mockneat.abstraction;
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
-public class MockConstValue implements MockValue {
+public final class MockConstValue implements MockValue {
 
     private final Object value;
 

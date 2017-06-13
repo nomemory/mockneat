@@ -20,6 +20,7 @@ package net.andreinc.mockneat.types.enums;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.types.TriConsumer;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum MACAddressFormatType {
     DASH_EVERY_2_DIGITS(MACAddressFormatType::line2Digits),
     COLON_EVERY_2_DIGITS(MACAddressFormatType::colon2Digits),

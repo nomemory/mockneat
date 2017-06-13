@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static java.nio.charset.Charset.defaultCharset;
 import static java.nio.file.Paths.get;
 import static java.util.stream.Collectors.toList;
 
@@ -98,11 +99,7 @@ public class FileManager {
     }
 
     private List<String> readInternal(String internal) throws IOException {
-        try (BufferedReader buff =
-                     new BufferedReader(
-                             new InputStreamReader(
-                                     loader.getResourceAsStream(
-                                             internal)))) {
+        try (BufferedReader buff = new BufferedReader(new InputStreamReader(loader.getResourceAsStream(internal), defaultCharset()))) {
             return buff.lines().collect(toList());
         }
     }

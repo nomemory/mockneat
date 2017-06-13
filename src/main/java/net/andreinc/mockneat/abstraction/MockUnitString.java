@@ -24,6 +24,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.template;
@@ -149,7 +150,7 @@ public interface MockUnitString extends MockUnit<String> {
     }
 
     default MockUnitString base64() {
-        return () -> ifSupplierNotNullDo(supplier(), (str) -> new Base64().encodeAsString(str.getBytes()));
+        return () -> ifSupplierNotNullDo(supplier(), (str) -> new Base64().encodeAsString(str.getBytes(Charset.defaultCharset())));
     }
 
     default MockUnit<String[]> array(int size) {

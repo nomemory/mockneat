@@ -27,6 +27,7 @@ import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class FloatsTest {
@@ -66,7 +67,8 @@ public class FloatsTest {
     @Test(expected = NullPointerException.class)
     public void nextFloat_NullNotBound() throws Exception {
         Float bound = null;
-        stream(Constants.MOCKS).map(r -> r.floats().bound(bound).val()).count();
+        Long count = stream(Constants.MOCKS).map(r -> r.floats().bound(bound).val()).count();
+        assertNotNull(count);
     }
 
     @Test

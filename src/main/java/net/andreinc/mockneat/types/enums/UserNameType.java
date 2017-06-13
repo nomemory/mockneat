@@ -23,6 +23,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum UserNameType {
 
     ADJECTIVE_NOUN(

@@ -17,6 +17,7 @@ package net.andreinc.mockneat.github.hr;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.aleph.AlephFormatter;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitString;
@@ -30,7 +31,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.types.enums.DictType.*;
 import static net.andreinc.mockneat.types.enums.StringFormatType.CAPITALIZED;
 
@@ -112,7 +112,7 @@ public class HrSchema {
      */
     private static <T> void printSql(String template, String param, List<T> list) {
         list.forEach(obj -> System.out.println(
-            template(template)
+            AlephFormatter.template(template)
                     .arg(param, obj)
                     .fmt()));
     }

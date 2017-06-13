@@ -25,20 +25,21 @@ import java.util.List;
 
 public class UsersGroupsAssoc {
     public static void main(String[] args) {
-        MockNeat m = MockNeat.threadLocal();
+        MockNeat mock = MockNeat.threadLocal();
 
-        List<Group> groups = m.reflect(Group.class)
-                                .field("id", m.longSeq())
-                                .field("name", m.regex("[A-Z]{1}-[A-Z]{1}-[A-Z]{1}"))
-                                .list(5)
-                                .val();
+        // Create a list of 5 groups
+        List<Group> groups = mock.reflect(Group.class)
+                                 .field("id", mock.longSeq().start(100).increment(100))
+                                 .field("name", mock.regex("Group [A-Z]{3}[0-9]{2}"))
+                                 .list(5)
+                                 .val();
 
         System.out.println(groups);
 
-        List<User> users = m.reflect(User.class)
-                            .field("id", m.longSeq())
-                            .field("groupId", m.from(groups).map(Group::getId))
-                            .field("email", m.emails())
+        List<User> users = mock.reflect(User.class)
+                            .field("id", mock.longSeq())
+                            .field("groupId", mock.from(groups).map(Group::getId))
+                            .field("email", mock.emails())
                             .list(100)
                             .val();
 

@@ -132,10 +132,10 @@ public interface MockUnit<T> {
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<List<T>> supp = () -> {
             try {
-                List<T> result = listClass.newInstance();
+                List<T> result = listClass.getDeclaredConstructor().newInstance();
                 loop(size, () -> add(listClass, result, supplier()));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = template("Cannot instantiate list '{l.Name}'.")
                                 .arg("l", listClass)
                                 .fmt();
@@ -154,10 +154,10 @@ public interface MockUnit<T> {
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Set<T>> supp = () -> {
             try {
-                Set<T> result = setClass.newInstance();
+                Set<T> result = setClass.getDeclaredConstructor().newInstance();
                 loop(size, () -> add(setClass, result, supplier()));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = format("Cannot instantiate set: '%s'.", setClass.getName());
                 throw new IllegalArgumentException(fmt, e);
             }
@@ -174,10 +174,10 @@ public interface MockUnit<T> {
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Collection<T>> supp = () -> {
             try {
-                Collection<T> result = collectionClass.newInstance();
+                Collection<T> result = collectionClass.getDeclaredConstructor().newInstance();
                 loop(size, () -> add(collectionClass, result, supplier()));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = template("Cannot instantiate collection: '#{c.name}'.")
                                 .arg("c", collectionClass.getName())
                                 .fmt();
@@ -197,10 +197,10 @@ public interface MockUnit<T> {
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<R, T>> supp = () -> {
             try {
-                Map<R, T> result = mapClass.newInstance();
+                Map<R, T> result = mapClass.getDeclaredConstructor().newInstance();
                 loop(size, () -> put(mapClass, result, keysSupplier, supplier()));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -219,10 +219,10 @@ public interface MockUnit<T> {
         notNull(keys, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
-                Map<R, T> result = mapClass.newInstance();
+                Map<R, T> result = mapClass.getDeclaredConstructor().newInstance();
                 keys.forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -241,11 +241,11 @@ public interface MockUnit<T> {
         notNull(keys, "keys");
         Supplier<Map<R, T>> supp = () -> {
             try {
-                Map<R, T> result = mapClass.newInstance();
+                Map<R, T> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
-            catch (InstantiationException | IllegalAccessException e) {
+            catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -264,11 +264,11 @@ public interface MockUnit<T> {
         notNull(keys, "keys");
         Supplier<Map<Integer, T>> supp = () -> {
             try {
-                Map<Integer, T> result = mapClass.newInstance();
+                Map<Integer, T> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
-            catch (InstantiationException | IllegalAccessException e) {
+            catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -287,11 +287,11 @@ public interface MockUnit<T> {
         notNull(keys, "keys");
         Supplier<Map<Long, T>> supp = () -> {
             try {
-                Map<Long, T> result = mapClass.newInstance();
+                Map<Long, T> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
-            catch (InstantiationException | IllegalAccessException e) {
+            catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -310,11 +310,11 @@ public interface MockUnit<T> {
         notNull(keys, "keys");
         Supplier<Map<Double, T>> supp = () -> {
             try {
-                Map<Double, T> result = mapClass.newInstance();
+                Map<Double, T> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(keys).forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             }
-            catch (InstantiationException | IllegalAccessException e) {
+            catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -334,10 +334,10 @@ public interface MockUnit<T> {
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         Supplier<Map<T, R>> supp = () -> {
             try {
-                Map<T, R> result = mapClass.newInstance();
+                Map<T, R> result = mapClass.getDeclaredConstructor().newInstance();
                 loop(size, () -> put(mapClass, result, supplier(), valuesSupplier));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -356,15 +356,16 @@ public interface MockUnit<T> {
         notNull(values, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
-                Map<T, R> result = mapClass.newInstance();
+                Map<T, R> result = mapClass.getDeclaredConstructor().newInstance();
                 values.forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
+
         };
         return () -> supp;
     }
@@ -378,10 +379,10 @@ public interface MockUnit<T> {
         notNull(values, "values");
         Supplier<Map<T, R>> supp = () -> {
             try {
-                Map<T, R> result = mapClass.newInstance();
+                Map<T, R> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
-            } catch(InstantiationException | IllegalAccessException e) {
+            } catch(Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -400,10 +401,10 @@ public interface MockUnit<T> {
         notNull(values, "values");
         Supplier<Map<T, Integer>> supp = () -> {
             try {
-                Map<T, Integer> result = mapClass.newInstance();
+                Map<T, Integer> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
-            } catch(InstantiationException | IllegalAccessException e) {
+            } catch(Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -422,10 +423,10 @@ public interface MockUnit<T> {
         notNull(values, "values");
         Supplier<Map<T, Long>> supp = () -> {
             try {
-                Map<T, Long> result = mapClass.newInstance();
+                Map<T, Long> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
-            } catch(InstantiationException | IllegalAccessException e) {
+            } catch(Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
@@ -444,10 +445,10 @@ public interface MockUnit<T> {
         notNull(values, "values");
         Supplier<Map<T, Double>> supp = () -> {
             try {
-                Map<T, Double> result = mapClass.newInstance();
+                Map<T, Double> result = mapClass.getDeclaredConstructor().newInstance();
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
-            } catch(InstantiationException | IllegalAccessException e) {
+            } catch(Exception e) {
                 String fmt = template("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();

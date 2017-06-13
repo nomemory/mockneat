@@ -26,11 +26,12 @@ import java.nio.file.Paths;
 
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.WRITE;
-import static java.util.Locale.GERMANY;
 
 public class CreateCSVFile {
     public static void main(String[] args) {
+
         MockNeat m = MockNeat.threadLocal();
+
         final Path path = Paths.get("./test.csv");
 
         m.fmt("#{id},#{first},#{last},#{email},#{salary}")
@@ -38,7 +39,7 @@ public class CreateCSVFile {
          .param("first", m.names().first())
          .param("last", m.names().last())
          .param("email", m.emails())
-         .param("salary", m.money().locale(GERMANY).range(2000, 5000))
+         .param("salary", m.ints().range(1000, 5000))
          .list(1000)
          .consume(list -> {
              try { Files.write(path, list, CREATE, WRITE); }

@@ -23,10 +23,9 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static net.andreinc.mockneat.types.Pair.of;
-import static net.andreinc.mockneat.types.enums.CharsType.ALPHA_NUMERIC;
-import static net.andreinc.mockneat.types.enums.CharsType.DIGITS;
-import static net.andreinc.mockneat.types.enums.CharsType.UPPER_LETTERS;
+import static net.andreinc.mockneat.types.enums.CharsType.*;
 
+@SuppressWarnings("ImmutableEnumChecker")
 public enum IBANType {
 
     ALBANIA(

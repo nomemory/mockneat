@@ -44,7 +44,7 @@ public class SeqTest {
         List<Integer> arr = M.intSeq().max(100).cycle(false).list(100).val();
         List<Integer> seq = M.seq(arr).cycle(false).list(10).val();
 
-        seq.forEach(i -> assertTrue(seq.get(i) == i));
+        seq.forEach(i -> assertTrue(seq.get(i).equals(i)));
     }
 
     @Test

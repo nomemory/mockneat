@@ -36,7 +36,8 @@ public class IBANsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNullTypes() throws Exception {
-        M.ibans().types(null).val();
+        IBANType ibanType = null;
+        M.ibans().types(ibanType, ibanType).val();
     }
 
     @Test(expected = IllegalArgumentException.class)

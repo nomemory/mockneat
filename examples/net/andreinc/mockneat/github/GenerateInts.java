@@ -18,10 +18,18 @@ package net.andreinc.mockneat.github;
  */
 
 import net.andreinc.mockneat.MockNeat;
+import net.andreinc.mockneat.abstraction.MockUnitInt;
+
+import java.util.List;
 
 public class GenerateInts {
     public static void main(String[] args) {
+
+        // Internally uses a ThreadLocalRandom implementation
         MockNeat mock = MockNeat.threadLocal();
+        Integer x = mock.ints().range(100, 200).val();
+        System.out.println(x);
+
 
         Integer i1 = mock.ints().val();
         System.out.println(i1);
@@ -31,5 +39,13 @@ public class GenerateInts {
 
         Integer ranged = mock.ints().range(10, 20).val();
         System.out.println(ranged);
+
+        MockNeat mockNeat = MockNeat.threadLocal();
+        MockUnitInt intUnit = mockNeat.ints().range(0, 100);
+
+        int[] arr1 = intUnit.arrayPrimitive(100).val();
+        Integer[] arr2 = intUnit.array(100).val();
+        List<Integer> list1 = intUnit.list(100).val();
+        List<List<Integer>> list2 = intUnit.list(100).list(100).val();
     }
 }
