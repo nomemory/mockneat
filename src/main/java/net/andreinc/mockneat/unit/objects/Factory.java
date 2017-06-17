@@ -66,7 +66,7 @@ public class Factory<T, FT> implements MockUnit<T> {
         isTrue(JAVA_FIELD_REGEX.matcher(method).matches(), template(JAVA_METHOD_REGEX_MATCH, "method", method).fmt());
         final Object[] args = new Object[params.length];
         return () -> {
-            T result = null;
+            T result;
             try {
                 range(0, params.length).forEach(i -> args[i] = MockUnitUtils.mockOrObject(params[i]));
                 result = (T) invokeExactStaticMethod(factoryClass, method, args);

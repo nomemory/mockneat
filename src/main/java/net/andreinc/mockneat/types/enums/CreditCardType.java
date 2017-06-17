@@ -18,11 +18,12 @@ package net.andreinc.mockneat.types.enums;
  */
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.Collections.unmodifiableList;
+import static java.util.stream.Collectors.toList;
 
 @SuppressWarnings("ImmutableEnumChecker")
 public enum CreditCardType {
@@ -59,8 +60,10 @@ public enum CreditCardType {
 
     CreditCardType(Integer length, Integer... prefixes) {
         this.length = length;
-        List<Integer> plist = Arrays.asList(prefixes);
-        this.prefixes = plist.stream().map(this::fromNumber).collect(Collectors.toList());
+        this.prefixes =
+                unmodifiableList(Arrays.stream(prefixes)
+                                       .map(this::fromNumber)
+                                       .collect(toList()));
     }
 
     public List<List<Integer>> getPrefixes() {
@@ -69,13 +72,13 @@ public enum CreditCardType {
 
     public Integer getLength() { return length; }
 
-    private ArrayList<Integer> fromNumber(int num) {
+    private List<Integer> fromNumber(int num) {
         List<Integer> list = new LinkedList<>();
         int tmp = num;
         while(tmp!=0) {
             list.add(0, tmp%10);
             tmp/=10;
         }
-        return new ArrayList<>(list);
+        return unmodifiableList(list);
     }
 }

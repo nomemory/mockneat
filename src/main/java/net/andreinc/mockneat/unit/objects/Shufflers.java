@@ -38,7 +38,7 @@ public class Shufflers extends MockUnitBase {
         notNull(source, "source");
         Supplier<T[]> supplier = () -> {
             T[] result = source.clone();
-            T tmp = null;
+            T tmp;
             for(int j, i = 0; i < result.length - 2; ++i) {
                 j = mockNeat.ints().range(i, result.length).val();
                 tmp = result[i];

@@ -35,13 +35,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
 
-    private final Class<T> cls;
     private final List<Pair<Double, MockValue>> probs = new ArrayList<>();
     private final MockUnitDouble mud;
 
     public Probabilities(MockNeat mockNeat, Class<T> cls) {
         super(mockNeat);
-        this.cls = cls;
         this.mud = mockNeat.doubles().range(0, 1.0);
     }
 

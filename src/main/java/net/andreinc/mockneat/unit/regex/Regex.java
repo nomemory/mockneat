@@ -27,7 +27,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.validRegex;
 
 public class Regex implements MockUnitString {
 
-    private String regex;
+    private final String regex;
 
     public Regex(String regex) {
         this.regex = regex;

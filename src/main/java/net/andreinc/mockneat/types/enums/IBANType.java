@@ -234,17 +234,9 @@ public enum IBANType {
     private final int length;
     private final String prefix;
     private final List<Pair<Integer, CharsType>> bban;
-    private String checkDigits = null;
 
     IBANType(int length, String prefix, Pair<Integer, CharsType>... charsGroup) {
         this.length = length;
-        this.prefix = prefix;
-        this.bban = asList(charsGroup);
-    }
-
-    IBANType(int length, String checkDigits, String prefix, Pair<Integer, CharsType>... charsGroup) {
-        this.length = length;
-        this.checkDigits = checkDigits;
         this.prefix = prefix;
         this.bban = asList(charsGroup);
     }

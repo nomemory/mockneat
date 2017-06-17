@@ -26,8 +26,6 @@ import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-;
-
 public class Months extends MockUnitBase implements MockUnitMonth {
 
     public Months(MockNeat mockNeat) {

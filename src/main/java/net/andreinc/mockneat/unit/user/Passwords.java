@@ -131,7 +131,7 @@ public class Passwords extends MockUnitBase implements MockUnitString {
         int passLength = mockNeat.ints().range(minLength, maxLength).val();
         StringBuilder buff = new StringBuilder();
         List<Character> cAlph;
-        List<List<Character>> lists = asList(new List[]{SPECIAL_CHARACTERS, DIGITS, LETTERS});
+        List<List<Character>> lists = asList(SPECIAL_CHARACTERS, DIGITS, LETTERS);
         while (passLength-- > 1) {
             cAlph = mockNeat.from(lists).val();
             buff.append(mockNeat.from(cAlph).val());

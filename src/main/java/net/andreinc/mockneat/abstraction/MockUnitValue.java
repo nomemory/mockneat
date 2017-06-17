@@ -25,7 +25,7 @@ public class MockUnitValue implements MockValue {
         this.mockUnit = mockUnit;
     }
 
-    public static final MockUnitValue unit(MockUnit unit) {
+    public static MockUnitValue unit(MockUnit unit) {
         return new MockUnitValue(unit);
     }
 

@@ -75,7 +75,7 @@ public class Markovs extends MockUnitBase implements MockUnitString {
     public MockUnitString type(MarkovChainType type) {
         notNull(type, "type");
         Supplier<String> supp = () -> {
-            MarkovUnit unit = null;
+            MarkovUnit unit;
             try {
                 unit = get(type);
                 return unit.generateText(size);
