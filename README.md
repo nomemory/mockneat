@@ -8,7 +8,11 @@
 
 The library is available in [jcenter](https://bintray.com/nomemory/maven/mockneat) as a maven or gradle dependency.
 
-For detailed information on how you can include **MockNeat** in your projects please check the **[wiki page](https://github.com/nomemory/mockneat/wiki/Installing)**.
+For detailed information on how you can include **MockNeat** in your projects please check the **[wiki page](https://github.com/nomemory/mockneat/wiki/Installing)** 
+
+## Contributing
+
+Any type of contributions, suggestions or new ideas are stongly appreciated. Please check this [wiki page](https://github.com/nomemory/mockneat/wiki/Contributing) for more information.
 
 ## Documentation 
 
