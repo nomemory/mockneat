@@ -31,10 +31,6 @@ Real world examples:
 
 - [Programatically populate MySQL Schema with arbitrary test data](https://github.com/nomemory/mockneat/wiki/Programatically-populate-MySQL-Schema-with-arbitrary-test-data).
 
-## Contributions
-
-If you want to contribute please take a look at the open issues in the [Project Page](https://github.com/nomemory/mockneat/projects/1).
-
 ## Examples
 
 ### 1. Mocking Real-World Objects
