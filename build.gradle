@@ -41,6 +41,10 @@ dependencies {
     testCompile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.1'
+}
+
 apply from: 'install.gradle'
 apply from: 'bintray.gradle'
 
