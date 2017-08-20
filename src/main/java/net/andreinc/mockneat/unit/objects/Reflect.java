@@ -148,6 +148,12 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
 
     private void setValues(T object) {
         getAllFieldsList(cls).forEach(field -> {
+
+            if (field.isSynthetic()) {
+                // Skip synthetic fields
+                return;
+            }
+
             String name = field.getName();
             Class<?> fieldCls = field.getType();
             Object val = null;
