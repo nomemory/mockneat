@@ -12,14 +12,13 @@ buildscript() {
 plugins {
     id "com.github.johnrengelman.shadow" version "1.2.4"
     id "com.jfrog.bintray" version "1.7.3"
-    id "net.ltgt.errorprone" version "0.0.10"
 }
 
 apply plugin: 'java'
-apply plugin: "net.ltgt.errorprone"
+apply plugin: 'jacoco'
 
 group 'net.andreinc'
-version '0.1.0'
+version '0.1.1'
 
 sourceCompatibility = 1.8
 
@@ -44,3 +43,12 @@ dependencies {
 
 apply from: 'install.gradle'
 apply from: 'bintray.gradle'
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
