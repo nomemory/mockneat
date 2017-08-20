@@ -12,7 +12,7 @@ For detailed information on how you can include **MockNeat** in your projects pl
 
 ## Contributing
 
-Any type of contributions, suggestions or new ideas are stongly appreciated. Please check this [wiki page](https://github.com/nomemory/mockneat/wiki/Contributing) for more information.
+Any type of contributions, suggestions or new ideas are stongly appreciated. Please check this **[wiki page](https://github.com/nomemory/mockneat/wiki/Contributing)** for more information.
 
 ## Documentation 
 
