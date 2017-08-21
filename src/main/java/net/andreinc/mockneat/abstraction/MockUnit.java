@@ -47,15 +47,6 @@ public interface MockUnit<T> {
 
     default T val() { return supplier().get(); }
 
-
-    default T valOrElse(T alternateVal) {
-        T result = supplier().get();
-        if (null==result)
-            return alternateVal;
-        return result;
-    }
-
-    // TODO Document
     default void serialize(String strPath) {
         T object = supplier().get();
 
