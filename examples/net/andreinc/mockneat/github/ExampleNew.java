@@ -3,6 +3,7 @@ package net.andreinc.mockneat.github;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitInt;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
@@ -55,6 +56,14 @@ public class ExampleNew {
 
         // Generate a random name with a 50% chance of a having a midle name
         String fullName = mock.names().full(50.0).val();
+
+
+
+        List<List<List<Integer>>> lists = mock.ints()
+                                                .range(0, 10)
+                                                .list(10).list(LinkedList.class, 10)
+                                                .list(100)
+                                                .val();
 
     }
 }

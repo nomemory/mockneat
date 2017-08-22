@@ -20,8 +20,11 @@ package net.andreinc.mockneat.github;
 import net.andreinc.mockneat.MockNeat;
 
 import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import static java.time.Month.AUGUST;
+import static java.time.Month.JULY;
 import static java.time.Month.JUNE;
 
 public class GenerateMonths {
@@ -36,5 +39,12 @@ public class GenerateMonths {
 
         Month beforeSummer = mock.months().before(JUNE).val();
         System.out.println(beforeSummer);
+
+        String month = mock.months()
+                            .before(JULY)
+                            .display(TextStyle.FULL, Locale.CANADA)
+                            .val();
+
+        System.out.println(month);
     }
 }

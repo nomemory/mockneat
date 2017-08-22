@@ -37,7 +37,7 @@ public class MoneyTest {
     @Test
     public void testMoney() throws Exception {
         NumberFormat nf = getCurrencyInstance(US);
-        loop(true, MOCK_CYCLES, MOCKS, r -> r.money().locale(Locale.US).val(), m -> {
+        loop(MOCK_CYCLES, MOCKS, r -> r.money().locale(Locale.US).val(), m -> {
             try {
                 Number n = nf.parse(m);
                 Double d = n.doubleValue();
@@ -48,12 +48,11 @@ public class MoneyTest {
         });
     }
 
-//TODO Fix this test
     @Test
     public void testMoneyBound() throws Exception {
         double bound = 100000.00;
         NumberFormat nf = getCurrencyInstance(US);
-        loop(true, MONEY_CYCLES, MOCKS, r -> r.money().locale(US).bound(bound).val(), m -> {
+        loop(MONEY_CYCLES, MOCKS, r -> r.money().locale(US).bound(bound).val(), m -> {
             try {
                 double d = nf.parse(m).doubleValue();
                 assertTrue(d >= 0.0 && d <= bound);

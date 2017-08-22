@@ -17,33 +17,5 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-
-import static java.util.Date.from;
-import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
-
-public interface MockUnitLocalDate extends MockUnit<LocalDate> {
-
-    default MockUnit<Date> toUtilDate() {
-        return () -> ifSupplierNotNullDo(supplier(),
-                localDate -> from(localDate
-                                    .atStartOfDay(ZoneId.systemDefault())
-                                    .toInstant()));
-    }
-
-    default MockUnitString display(String format) {
-        return display(format, Locale.getDefault());
-    }
-
-    default MockUnitString display(String format, Locale locale) {
-        notNull(format, "format");
-        notNull(locale, "locale");
-        final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format, locale);
-        return () -> ifSupplierNotNullDo(supplier(), localDate -> localDate.format(dtf));
-    }
+public class MockUnitMonthTest {
 }

@@ -20,6 +20,7 @@ package net.andreinc.mockneat.unit.types;
 import net.andreinc.mockneat.Constants;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -145,5 +146,67 @@ public class FloatsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNextEmptyArrayNotAlphabet() throws Exception {
         Constants.M.floats().from(new float[]{}).val();
+    }
+
+    @Test
+    public void testDoubleStreams() {
+        loop(
+                Constants.FLOATS_CYCLES,
+                Constants.MOCKS,
+                m -> m.floats()
+                        .range(0, 100)
+                        .doubleStream()
+                        .val()
+                        .limit(100),
+                stream -> stream
+                            .forEach(num -> assertTrue(0f <= num && num < 100f))
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFloatsArrayNegativeSize() {
+        loop(
+                Constants.FLOATS_CYCLES,
+                Constants.MOCKS,
+                m -> m.floats()
+                        .bound(10f)
+                        .array(-1)
+                        .val()
+        );
+    }
+
+    @Test
+    public void testFloatsArrayZeroSize() {
+        loop(
+                Constants.FLOATS_CYCLES,
+                Constants.MOCKS,
+                m -> m.floats()
+                        .bound(10f)
+                        .array(0)
+                        .val(),
+                arr -> assertTrue(0 == arr.length)
+        );
+    }
+
+    @Test
+    public void testFloatsArrayCorrectSize() {
+        loop(
+                Constants.FLOATS_CYCLES,
+                Constants.MOCKS,
+                m -> {
+                    int size = m.ints().bound(100).val();
+
+                    Float[] floats = m.floats()
+                                        .range(0f, 1f)
+                                        .array(size)
+                                        .val();
+
+                    assertTrue(floats.length == size);
+
+                    Arrays
+                            .stream(floats)
+                            .forEach(f -> assertTrue(0f <= f && f< 1f));
+                }
+        );
     }
 }

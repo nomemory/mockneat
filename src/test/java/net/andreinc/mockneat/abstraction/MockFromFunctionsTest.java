@@ -1,4 +1,4 @@
-package net.andreinc.mockneat;
+package net.andreinc.mockneat.abstraction;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -17,10 +17,7 @@ package net.andreinc.mockneat;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.abstraction.MockUnitDouble;
-import net.andreinc.mockneat.abstraction.MockUnitInt;
-import net.andreinc.mockneat.abstraction.MockUnitLong;
-import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.Constants;
 import org.junit.Test;
 
 import java.util.*;

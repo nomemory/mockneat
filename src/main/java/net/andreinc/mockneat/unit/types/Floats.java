@@ -18,7 +18,6 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitFloat;
 
@@ -41,7 +40,7 @@ public class Floats extends MockUnitBase implements MockUnitFloat {
         return random::nextFloat;
     }
 
-    public MockUnit<Float> range(float lowerBound, float upperBound) {
+    public MockUnitFloat range(float lowerBound, float upperBound) {
         notNull(lowerBound, "lowerBound");
         notNull(upperBound, "upperBound");
         isTrue(lowerBound>=0.0f, LOWER_BOUND_BIGGER_THAN_ZERO);
@@ -52,11 +51,11 @@ public class Floats extends MockUnitBase implements MockUnitFloat {
         return () -> supp;
     }
 
-    public MockUnit<Float> bound(float bound) {
+    public MockUnitFloat bound(float bound) {
         return range(0f, bound);
     }
 
-    public MockUnit<Float> from(float[] alphabet) {
+    public MockUnitFloat from(float[] alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Float> supp = () -> {
             int idx = random.nextInt(alphabet.length);

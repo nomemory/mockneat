@@ -20,6 +20,9 @@ package net.andreinc.mockneat.github;
 import net.andreinc.mockneat.MockNeat;
 
 import java.time.LocalDate;
+import java.util.Date;
+
+import static java.time.LocalDate.of;
 
 public class GenerateLocalDates {
     public static void main(String[] args) {
@@ -31,18 +34,29 @@ public class GenerateLocalDates {
 
         // Generates a random date in the past
         // but beore 1987-1-30
-        LocalDate min = LocalDate.of(1987, 1, 30);
+        LocalDate min = of(1987, 1, 30);
         LocalDate past = mock.localDates().past(min).val();
         System.out.println(past);
 
-        LocalDate max = LocalDate.of(2020, 1, 1);
+        LocalDate max = of(2020, 1, 1);
         LocalDate future = mock.localDates().future(max).val();
         System.out.println(future);
 
         // Generates a random date between 1989-1-1 and 1993-1-1
-        LocalDate start = LocalDate.of(1989, 1, 1);
-        LocalDate stop = LocalDate.of(1993, 1, 1);
+        LocalDate start = of(1989, 1, 1);
+        LocalDate stop = of(1993, 1, 1);
         LocalDate between = mock.localDates().between(start, stop).val();
         System.out.println(between);
+
+        // Create a java.util.date
+        Date date = mock.localDates()
+                        .between(
+                                of(2000, 10, 10),
+                                of(2020, 10, 10)
+                        )
+                        .toUtilDate()
+                        .val();
+
+        System.out.println(date);
     }
 }

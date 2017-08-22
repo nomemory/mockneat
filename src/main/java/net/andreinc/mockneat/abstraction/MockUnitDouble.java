@@ -27,6 +27,7 @@ import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
 public interface MockUnitDouble extends MockUnit<Double> {
+
     default MockUnit<DoubleStream> doubleStream() {
         Supplier<DoubleStream> supp = () -> DoubleStream.generate(supplier()::get);
         return () -> supp;
