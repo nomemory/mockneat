@@ -93,7 +93,7 @@ public interface MockUnitString extends MockUnit<String> {
         return () -> ifSupplierNotNullDo(supplier(), s -> {
             try { return encode(s, encoding); }
             catch (UnsupportedEncodingException e) {
-                String msg = template(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, "val", s).fmt();
+                String msg = template(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, "val", s, "encoding", encoding   ).fmt();
                 throw new IllegalArgumentException(msg, e);
             }
         });
