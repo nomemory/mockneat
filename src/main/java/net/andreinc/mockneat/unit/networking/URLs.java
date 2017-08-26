@@ -145,7 +145,7 @@ public class URLs extends MockUnitBase implements MockUnitString {
     }
 
     private Supplier<String> authSupplier() {
-        return () -> template("#{userName}:#{passWord}")
+        return () -> template("#{userName}:#{passWord}@")
                         .arg("userName", this.userNameSupplier.get())
                         .arg("passWord", this.passWordSupplier.get())
                         .fmt();
@@ -165,14 +165,22 @@ public class URLs extends MockUnitBase implements MockUnitString {
 
     private Supplier<String> defaultHostSupplier() {
         return () -> {
+
             List<Pair<DictType, DictType>> comboList =
-                    mockNeat.from(HostNameType.class).val().getDictCombos();
-            Pair<DictType, DictType> combo =
-                    mockNeat.from(comboList).val();
+                    mockNeat.from(HostNameType.class)
+                            .val()
+                            .getDictCombos();
+
+            Pair<DictType, DictType> combo = mockNeat.from(comboList).val();
+
             String result =
                     mockNeat.dicts().type(combo.getFirst()).noSpecialChars().format(LOWER_CASE).val() +
                     mockNeat.dicts().type(combo.getSecond()).noSpecialChars().format(LOWER_CASE).val();
-            if (www) { result = "www.".concat(result); }
+
+            if (www) {
+                result = "www.".concat(result);
+            }
+
             return result;
         };
     }
@@ -320,4 +328,5 @@ public class URLs extends MockUnitBase implements MockUnitString {
             return urlFormat(scheme, auth, host, domain, port, paths);
         };
     }
+
 }

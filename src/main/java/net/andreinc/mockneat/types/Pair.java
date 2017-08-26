@@ -1,7 +1,5 @@
 package net.andreinc.mockneat.types;
 
-import java.util.function.Supplier;
-
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -33,8 +31,6 @@ public class Pair <T1,T2> {
         return new Pair<>(first, second);
     }
 
-    public static Pair<Supplier, Class> valueType(Supplier value, Class type) { return new Pair<>(value, type); }
-
     public T1 getFirst() {
         return first;
     }
@@ -43,18 +39,4 @@ public class Pair <T1,T2> {
         return second;
     }
 
-    @Override
-    public String toString() {
-        return "Pair{" +
-                "first=" + first +
-                ", second=" + second +
-                '}';
-    }
-
-    public String toString(String firstLabel, String secondLabel) {
-        return "Pair{" +
-                firstLabel + "=" + first +
-                ", " + secondLabel + "=" + second +
-                '}';
-    }
 }

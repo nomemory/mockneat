@@ -22,6 +22,7 @@ import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
+import net.andreinc.mockneat.unit.address.UsStates;
 import net.andreinc.mockneat.unit.companies.Departments;
 import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
@@ -90,11 +91,14 @@ public class MockNeat {
     private final Money rMoney;
     private final Months rMonths;
     private final Names rNames;
+    private final NaughtyStrings rNaughtyStrings;
     private final Passwords rPasswords;
     private final Shufflers rShufflers;
     private final SSCs rSSCs;
     private final UUIDs rUUIDs;
     private final Users rUsers;
+    private final UsStates rUsStates;
+    private final Words rWords;
 
     public MockNeat(RandomType randomTypeType) {
         this.random = randomTypeType.getRandom();
@@ -129,11 +133,14 @@ public class MockNeat {
         this.rMoney = new Money(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
+        this.rNaughtyStrings = new NaughtyStrings(this);
         this.rPasswords = new Passwords(this);
         this.rShufflers = new Shufflers(this);
         this.rSSCs = new SSCs(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
+        this.rUsStates = new UsStates(this);
+        this.rWords = new Words(this);
     }
 
     protected MockNeat() {
@@ -229,6 +236,8 @@ public class MockNeat {
 
     public Names names() { return this.rNames; }
 
+    public NaughtyStrings naughtyStrings() { return this.rNaughtyStrings; }
+
     public Passwords passwords() { return this.rPasswords; }
 
     public Regex regex(String regex) { return new Regex(regex); }
@@ -252,6 +261,10 @@ public class MockNeat {
     public UUIDs uuids() { return this.rUUIDs; }
 
     public Users users() { return this.rUsers; }
+
+    public UsStates usStates() { return this.rUsStates; }
+
+    public Words words() { return this.rWords; }
 
     public java.util.Random getRandom() {
         return random;
@@ -376,4 +389,5 @@ public class MockNeat {
     public MockUnitString fromStringsKeys(Map<String, ?> map) {
         return () -> fromKeys(map)::val;
     }
+
 }

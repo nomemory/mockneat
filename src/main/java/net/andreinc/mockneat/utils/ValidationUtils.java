@@ -44,7 +44,7 @@ public class ValidationUtils {
     public static final String AFTER_DAY_DIFFERENT_THAN_SUNDAY = "Cannot use 'Sunday' as 'after'. 'Sunday' is considered to be the last day of the week.";
     public static final String BEFORE_MONTH_DIFFERENT_THAN_JANUARY = "Cannot use 'January' as 'before'. 'January' is considered to be the first month of the year.";
     public static final String AFTER_MONTH_DIFFERENT_TNAN_DECEMBER = "Cannot use 'December' as 'after'. 'December' is considered to be the last month of the year.";
-    public static final String CANNOT_URL_ENCODE_UTF_8 = "Cannot URL encode the following string: '#{val}'.";
+    public static final String CANNOT_URL_ENCODE_UTF_8 = "Cannot URL encode the following string: '#{val}'. Encoding: '#{encoding}' looks invalid.";
     public static final String LOWER_DATE_SMALLER_THAN_UPPER_DATE = "lowerDate '#{lower}' should be < than upperDate '#{upper}'.";
     public static final String MAX_DATE_NOT_BIGGER_THAN = "maxDate '#{max}'  should be < than '#{date}' (LocalDates.MAX)";
     public static final String MIN_DATE_BIGGER_THAN = "minDate '#{min}' should be > than '#{date}' (LocalDate.MIN)";

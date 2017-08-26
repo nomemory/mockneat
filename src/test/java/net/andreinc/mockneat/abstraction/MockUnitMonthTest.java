@@ -1,5 +1,19 @@
 package net.andreinc.mockneat.abstraction;
 
+import net.andreinc.mockneat.Constants;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
+import static java.util.Arrays.asList;
+import static net.andreinc.mockneat.Constants.M;
+import static net.andreinc.mockneat.utils.LoopsUtils.loop;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -18,4 +32,59 @@ package net.andreinc.mockneat.abstraction;
  */
 
 public class MockUnitMonthTest {
+
+    @Test(expected = NullPointerException.class)
+    public void testDisplayNullTextStyle() {
+        M.months().display(null, Locale.getDefault()).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testDisplayNullLocale() {
+        M.months().display(TextStyle.FULL_STANDALONE, null).val();
+    }
+
+    @Test
+    public void testDisplay() {
+
+        final Set<String> possibleResults =
+                new HashSet<>(asList("Jan", "Feb", "Mar"));
+
+        loop(
+                Constants.MONTH_CYCLES,
+                Constants.MOCKS,
+                mock -> mock.months()
+                            .before(Month.APRIL)
+                            .display(TextStyle.SHORT, Locale.ENGLISH)
+                            .val(),
+                month -> Assert.assertTrue(possibleResults.contains(month))
+        );
+    }
+
+    @Test
+    public void testDisplayDefaultLocale() {
+
+        final Set<String> possibleResults =
+                new HashSet<>(asList("Jan", "Feb", "Mar"));
+
+        loop(
+                Constants.MONTH_CYCLES,
+                Constants.MOCKS,
+                mock -> mock.months().before(Month.APRIL).display(TextStyle.SHORT).val(),
+                month -> Assert.assertTrue(possibleResults.contains(month))
+        );
+    }
+
+
+    @Test
+    public void testDisplayDefaultLocaleAndDefaultTextStyle() {
+        final Set<String> possibleResults =
+                new HashSet<>(asList("January", "February", "March"));
+
+        loop(
+                Constants.MONTH_CYCLES,
+                Constants.MOCKS,
+                mock -> mock.months().before(Month.APRIL).display().val(),
+                month -> Assert.assertTrue(possibleResults.contains(month))
+        );
+    }
 }

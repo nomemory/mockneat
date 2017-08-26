@@ -47,6 +47,16 @@ public class IBANsTest {
     }
 
     @Test
+    public void testIbanType() {
+        loop(
+                IBANS_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.ibans().type(IBANType.AUSTRIA).val(),
+                iban -> assertTrue(ICD.isValid(iban))
+        );
+    }
+
+    @Test
     public void testCheckDigitsInGeneral() throws Exception {
         loop(
                 IBANS_CYCLES,

@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.types;
+package net.andreinc.mockneat.unit.misc;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -14,26 +14,35 @@ package net.andreinc.mockneat.types;
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, OUT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
+ OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class Range<T extends Number> {
 
-    private T lowerBound;
-    private T upperBound;
+import net.andreinc.mockneat.Constants;
+import net.andreinc.mockneat.types.enums.DictType;
+import net.andreinc.mockneat.utils.LoopsUtils;
+import net.andreinc.mockneat.utils.file.FileManager;
+import org.junit.Assert;
+import org.junit.Test;
 
-    public Range(T lowerBound, T uppeerBound) {
-        this.lowerBound = lowerBound;
-        this.upperBound = uppeerBound;
+import java.util.HashSet;
+import java.util.Set;
+
+public class MimesTest {
+
+    private final FileManager fm =
+            FileManager.getInstance();
+
+    private Set<String> allMimes = new HashSet<>(fm.getLines(DictType.MIME_TYPE));
+
+    @Test
+    public void testMimes() {
+        LoopsUtils.loop(
+                Constants.MIME_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.mimes().val(),
+                mime -> Assert.assertTrue(allMimes.contains(mime))
+        );
     }
 
-    public T getLowerBound() {
-        return lowerBound;
-    }
-
-    public T getUpperBound() {
-        return upperBound;
-    }
-
-    public Boolean isConstant() { return lowerBound.equals(upperBound); }
 }

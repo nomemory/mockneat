@@ -27,6 +27,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
 import static net.andreinc.mockneat.types.enums.CreditCardType.MASTERCARD;
 import static net.andreinc.mockneat.types.enums.CreditCardType.VISA_13;
@@ -80,14 +81,14 @@ public class CreditCardsTest {
     @Test(expected = NullPointerException.class)
     public void testCreditCardTypeNotNull() throws Exception {
         CreditCardType type = null;
-        Constants.M.creditCards().type(type).val();
+        M.creditCards().type(type).val();
 
     }
 
     @Test(expected = NullPointerException.class)
     public void testCreditCardTypesNotNull() throws Exception {
         CreditCardType[] types = null;
-        Constants.M.creditCards().types(types).val();
+        M.creditCards().types(types).val();
     }
 
     @Test
@@ -137,5 +138,23 @@ public class CreditCardsTest {
                 r -> r.creditCards().names().val(),
                 cn -> assertTrue(set.contains(cn))
         );
+    }
+
+    @Test
+    public void testAmex() throws Exception {
+        CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX);
+        assertTrue(ccv.isValid(M.creditCards().amex().val()));
+    }
+
+    @Test
+    public void testMastercard() throws Exception {
+        CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.MASTERCARD);
+        assertTrue(ccv.isValid(M.creditCards().masterCard().val()));
+    }
+
+    @Test
+    public void testVisa() throws Exception {
+        CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.VISA);
+        assertTrue(ccv.isValid(M.creditCards().visa().val()));
     }
 }

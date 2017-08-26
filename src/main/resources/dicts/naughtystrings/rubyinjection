@@ -1,0 +1,6 @@
+eval("puts 'hello world'")
+System("ls -al /")
+`ls -al /`
+Kernel.exec("ls -al /")
+Kernel.exit(1)
+%x('ls -al /')

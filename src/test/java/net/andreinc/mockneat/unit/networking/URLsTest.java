@@ -20,15 +20,20 @@ package net.andreinc.mockneat.unit.networking;
 import net.andreinc.mockneat.types.enums.DomainSuffixType;
 import net.andreinc.mockneat.types.enums.HostNameType;
 import net.andreinc.mockneat.types.enums.URLSchemeType;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.RegexValidator;
 import org.apache.commons.validator.routines.UrlValidator;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
@@ -67,8 +72,8 @@ public class URLsTest {
     public void testURLSchemesMultiple() throws Exception {
         loop(URL_CYCLES, MOCKS, r -> r.urls().schemes(FTP, HTTP, HTTPS).val(), u -> {
             assertTrue(u.startsWith(FTP.getStr()) ||
-                        u.startsWith(HTTPS.getStr()) ||
-                        u.startsWith(HTTP.getStr()));
+                    u.startsWith(HTTPS.getStr()) ||
+                    u.startsWith(HTTP.getStr()));
             assertTrue(DEFAULT_URL_VALID.isValid(u));
         });
     }
@@ -87,7 +92,7 @@ public class URLsTest {
         URLSchemeType scheme = URLSchemeType.NONE;
         loop(URL_CYCLES, MOCKS, r -> r.urls().scheme(scheme.getStr()).val(), u -> {
             String[] usplit = u.split("\\.");
-            assertTrue(usplit.length==3);
+            assertTrue(usplit.length == 3);
             assertTrue(usplit[0].equals("www"));
         });
     }
@@ -104,7 +109,7 @@ public class URLsTest {
 
     @Test
     public void testURLsHostsStrings() throws Exception {
-        String[] hosts = { "abc", "acd", "aef" };
+        String[] hosts = {"abc", "acd", "aef"};
         Set<String> hostsSet = new HashSet<>(asList(hosts));
         loop(URL_CYCLES, MOCKS, r -> r.urls().hosts(hosts).val(), u -> {
             String[] split = u.split("\\.");
@@ -126,7 +131,7 @@ public class URLsTest {
 
     @Test
     public void testURLsHostsType() throws Exception {
-        HostNameType[] hosts = new HostNameType[]{ ADJECTIVE_FIRST_NAME, NOUN_FIRST_NAME};
+        HostNameType[] hosts = new HostNameType[]{ADJECTIVE_FIRST_NAME, NOUN_FIRST_NAME};
         loop(URL_CYCLES,
                 MOCKS,
                 r -> r.urls().hosts(hosts).val(),
@@ -175,21 +180,22 @@ public class URLsTest {
     public void testURLsDomainAndPort() throws Exception {
         loop(URL_CYCLES, MOCKS, r -> r.urls().domain("mucu").ports(8080, 8090).val(), u -> {
             Integer port = parseInt(u.split(":")[2]);
-            String domain  = u.split("\\.")[2].split(":")[0];
-            assertTrue(port.equals(8090)||port.equals(8080));
+            String domain = u.split("\\.")[2].split(":")[0];
+            assertTrue(port.equals(8090) || port.equals(8080));
             assertTrue(domain.equals("mucu"));
         });
     }
 
     @Test
     public void testURLsDomains() throws Exception {
-        loop(URL_CYCLES, MOCKS, r -> r.urls().domains("cu", "mu", "bu", "la").ports(100,200).val(), u -> {       Integer port = parseInt(u.split(":")[2]);
-            String domain  = u.split("\\.")[2].split(":")[0];
-            assertTrue(port.equals(100)||port.equals(200));
-            assertTrue(domain.equals("cu")||
-                        domain.equals("mu")||
-                        domain.equals("bu")||
-                        domain.equals("la"));
+        loop(URL_CYCLES, MOCKS, r -> r.urls().domains("cu", "mu", "bu", "la").ports(100, 200).val(), u -> {
+            Integer port = parseInt(u.split(":")[2]);
+            String domain = u.split("\\.")[2].split(":")[0];
+            assertTrue(port.equals(100) || port.equals(200));
+            assertTrue(domain.equals("cu") ||
+                    domain.equals("mu") ||
+                    domain.equals("bu") ||
+                    domain.equals("la"));
         });
     }
 
@@ -358,4 +364,101 @@ public class URLsTest {
     public void testURLPortsNullPort() throws Exception {
         M.urls().ports(3, 5, null).val();
     }
+
+    //
+    // Auth
+    //
+
+    @Test
+    public void testURLAuth() {
+        loop(
+                URL_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.urls().auth().val(),
+                url -> {
+                    assertNotNull(url);
+                    try {
+                        URL urlObj = new URL(url);
+                        String[] userInfo = urlObj.getUserInfo().split(":");
+
+                        assertTrue(userInfo.length == 2);
+                        assertTrue(StringUtils.isNotEmpty(userInfo[0]));
+                        assertTrue(StringUtils.isNotEmpty(userInfo[1]));
+
+                        assertTrue(UrlValidator.getInstance().isValid(url));
+
+                    } catch (MalformedURLException e) {
+                        Assert.fail();
+                    }
+                }
+        );
+    }
+
+    //
+    // Schemes
+    //
+
+    @Test(expected = NullPointerException.class)
+    public void testSchemeNullSchemeString() {
+        String scheme = null;
+        M.urls().scheme(scheme).val();
+    }
+
+
+    @Test
+    public void testSchemeString() {
+        loop(
+                URL_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.urls().scheme("a").val(),
+                url -> {
+                    String[] splits = url.split("//");
+
+                    assertTrue(splits.length==2);
+                    assertTrue("a:".equals(splits[0]));
+                }
+        );
+    }
+
+    @Test
+    public void testSchemeType() {
+        loop(
+                URL_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.urls().scheme(URLSchemeType.FTP).val(),
+                url -> {
+                    String[] splits = url.split("//");
+
+                    assertTrue(splits.length==2);
+                    assertTrue("ftp:".equals(splits[0]));
+                }
+        );
+    }
+
+    @Test
+    public void testSchemesTypes() {
+        loop(
+                URL_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.urls()
+                                    .schemes(URLSchemeType.HTTPS, URLSchemeType.HTTP)
+                                    .val(),
+                url -> {
+
+                    String[] splits = url.split("//");
+
+                    assertTrue(splits.length==2);
+                    assertTrue("http:".equals(splits[0]) ||
+                                        "https:".equals(splits[0]));
+                }
+        );
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void testSchemeNullType() {
+        URLSchemeType schemeType = null;
+        M.urls().scheme(schemeType).val();
+    }
+
 }

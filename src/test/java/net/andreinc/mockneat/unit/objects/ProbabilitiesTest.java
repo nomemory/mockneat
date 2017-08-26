@@ -17,6 +17,9 @@ package net.andreinc.mockneat.unit.objects;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.Constants;
+import net.andreinc.mockneat.utils.LoopsUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.M;
@@ -44,5 +47,32 @@ public class ProbabilitiesTest {
                 .add(0.2, M.fromInts(new int[]{1,2,3}))
                 .add(0.5, M.fromInts(new int[]{4,5,6}))
                 .val();
+    }
+
+    @Test
+    public void testValues() {
+        LoopsUtils.loop(
+                Constants.PROBABILITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.probabilites(Integer.class)
+                                    .add(0.1, 1)
+                                    .add(0.9, 2)
+                                    .val(),
+                val -> Assert.assertTrue(val.equals(2) || val.equals(1))
+        );
+    }
+
+    @Test
+    public void testValuesWIthMockUnits() {
+        LoopsUtils.loop(
+                Constants.PROBABILITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.probabilites(String.class)
+                                    .add(0.5, mockNeat.strings().size(10))
+                                    .add(0.5, mockNeat.strings().size(15))
+                                    .val(),
+                val -> Assert.assertTrue(val.length()==10 ||
+                                                    val.length() == 15)
+        );
     }
 }

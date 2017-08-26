@@ -32,6 +32,7 @@ public class Constants {
     public static final int COMPOSE_CYCLES = 1000;
     public static final int CVVS_CYCLES= 1000;
     public static final int DEP_CYCLES = 1000;
+    public static final int CITIES_CYCLES= 1000;
     public static final int COUNTRIES_CYCLES = 1000;
     public static final int CURRENCIES_CYCLES = 1000;
     public static final int DAYS_CYCLES = 1000;
@@ -52,14 +53,19 @@ public class Constants {
     public static final int LOCAL_DATES_CYCLES = 1000;
     public static final int MAC_CYCLES = 1000;
     public static final int HASH_CYCLES = 1000;
+    public static final int MIME_CYCLES = 1000;
     public static final int MOCK_CYCLES = 1000;
     public static final int MONEY_CYCLES = 1000;
+    public static final int MONTH_CYCLES = 1000;
     public static final int NAMES_CYCLES = 1000;
     public static final int OBJS_CYCLES = 1000;
     public static final int PASS_CYCLES = 1000;
+    public static final int PROBABILITIES_CYCLES = 1000;
     public static final int SEQ_CYCLES = 1000;
     public static final int SSC_CYCLES = 1000;
     public static final int SHUFFLED_CYCLES = 1000;
     public static final int STRING_CYCLES = 1000;
     public static final int URL_CYCLES = 1000;
+    public static final int US_STATES_CYCLES = 1000;
+    public static final int WORDS_CYCLES = 1000;
 }

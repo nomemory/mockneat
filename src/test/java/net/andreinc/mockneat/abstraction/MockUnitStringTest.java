@@ -1,13 +1,15 @@
 package net.andreinc.mockneat.abstraction;
 
 import net.andreinc.mockneat.types.enums.StringFormatType;
+import net.andreinc.mockneat.types.enums.StringType;
 import org.junit.Test;
+
+import java.util.Arrays;
 
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.types.enums.StringType.LETTERS;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.apache.commons.lang3.StringUtils.isAllLowerCase;
-import static org.apache.commons.lang3.StringUtils.isAllUpperCase;
+import static org.apache.commons.lang3.StringUtils.*;
 import static org.junit.Assert.*;
 
 /**
@@ -173,5 +175,167 @@ public class MockUnitStringTest {
                     assertTrue(arr.length == 3);
                 }
         );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testEncodeUrlNullEncoding() {
+        M.strings().urlEncode(null).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEncodeUrlInvalidEncoding() {
+        M.strings().urlEncode("INVALID_ENCODING").val();
+    }
+
+    @Test
+    public void testEncodeUrl() {
+        String[] urls = { "A B C ™" };
+        String encodedUrl = M.from(urls).mapToString().urlEncode().val();
+        assertTrue("A+B+C+%E2%84%A2".equals(encodedUrl));
+    }
+
+    @Test
+    public void testNoSpecialChars() {
+        loop(
+                true,
+                STRING_CYCLES,
+                MOCKS,
+                m -> m.strings().types(StringType.SPECIAL_CHARACTERS).noSpecialChars().val(),
+                str -> assertTrue(str.length()==0)
+        );
+    }
+
+    @Test
+    public void testEscapeCsv() {
+        String escapedString =
+        M.from(new String[]{"\"Already Quoted\""})
+         .mapToString()
+         .escapeCsv()
+         .val();
+
+        assertTrue("\"\"\"Already Quoted\"\"\"".equals(escapedString));
+    }
+
+    @Test
+    public void testEscapeEcmaScript() {
+        String[] badBoyString = { "Hello ol' \"boy\"" };
+        String escaped = M.from(badBoyString)
+                            .mapToString()
+                            .escapeEcmaScript()
+                            .val();
+        assertTrue(escaped.equals("Hello ol\\' \\\"boy\\\""));
+    }
+
+    @Test
+    public void testEscapeXml() {
+        String[] badBoyString = { "{@code \"bread\" & \"butter\"}" };
+        String escaped = M.from(badBoyString)
+                            .mapToString()
+                            .escapeXml()
+                            .val();
+        assertTrue(escaped.equals("{@code &quot;bread&quot; &amp; &quot;butter&quot;}"));
+    }
+
+    @Test
+    public void testEscapeHtml() {
+        String[] badBoyString = {"\"bread\" &amp; \"butter\""};
+        String escaped = M.from(badBoyString)
+                            .mapToString()
+                            .escapeHtml()
+                            .val();
+        assertTrue(escaped.equals("&quot;bread&quot; &amp;amp; &quot;butter&quot;"));
+    }
+
+    @Test
+    public void testMd2() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().md2().val(),
+                md2 -> {
+                    assertTrue(32==md2.length());
+                    assertTrue(isAlphanumeric(md2));
+                }
+        );
+    }
+
+    @Test
+    public void testMd5() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().md5().val(),
+                md5 -> {
+                    assertTrue(32==md5.length());
+                    assertTrue(isAlphanumeric(md5));
+                }
+        );
+    }
+
+    @Test
+    public void testSha1() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().sha1().val(),
+                sha1 -> assertTrue(sha1.length()==40)
+        );
+    }
+
+    @Test
+    public void testSha256() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().sha256().val(),
+                sha256 -> assertTrue(sha256.length()==64)
+        );
+    }
+
+    @Test
+    public void testSha384() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().sha384().val(),
+                sha384 -> assertTrue(sha384.length()==96)
+        );
+    }
+
+    @Test
+    public void testSha512() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().sha512().val(),
+                sha512 -> assertTrue(sha512.length()==128)
+        );
+    }
+
+
+    @Test
+    public void testBase64() {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                mockNeat -> mockNeat.strings().base64().val(),
+                base64 -> assertTrue(base64.matches("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$"))
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testArrayNegativeSize() {
+        M.strings().array(-1).val();
+    }
+
+    @Test
+    public void testArray() {
+        M.from(new String[]{"a", "b"})
+                .mapToString()
+                .array(100)
+                .consume(arr ->
+                            Arrays.stream(arr)
+                                  .forEach(el ->
+                                          assertTrue("a".equals(el) || "b".equals(el))));
     }
 }

@@ -18,9 +18,11 @@ package net.andreinc.mockneat.unit.financial;
  */
 
 import net.andreinc.mockneat.Constants;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertTrue;
+import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.types.enums.CVVType.CVV3;
 import static net.andreinc.mockneat.types.enums.CVVType.CVV4;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
@@ -34,7 +36,7 @@ public class CVVSTest {
 
     @Test(expected = NullPointerException.class)
     public void testCVVTypeNotNull() throws Exception {
-        Constants.M.cvvs().type(null).val();
+        M.cvvs().type(null).val();
     }
 
     @Test
@@ -51,5 +53,21 @@ public class CVVSTest {
             assertTrue(null!=cvv && cvv.length()==4);
             assertTrue(isAlphanumeric(cvv));
         });
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testCVVTypesNullType() throws Exception {
+        M.cvvs().types(CVV3, null).val();
+    }
+
+    @Test
+    public void testCVVTypes() {
+        loop(
+                Constants.CVVS_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.cvvs().types(CVV3, CVV4).val(),
+                cvv -> assertTrue((cvv.length()==3 || cvv.length()==4)
+                                            && StringUtils.isNumeric(cvv))
+        );
     }
 }

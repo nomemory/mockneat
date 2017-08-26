@@ -24,6 +24,10 @@ public enum DictType {
     COUNTRY_NAME("country-name"),
     COUNTRY_ISO_CODE_2("country-iso-code-2"),
 
+    // US STATES
+    US_STATES("us-states"),
+    US_STATES_IS_CODE_2("us-states-iso2"),
+
     // CITIES
     CITIES_US("cities/cities-us"),
     CITIES_CAPITALS("cities/cities-capitals"),
@@ -64,7 +68,40 @@ public enum DictType {
     EN_VERB_4SYLL("words/en-verb-4syll"),
 
     //COMPANIES
-    DEPARTMENTS("departments");
+    DEPARTMENTS("departments"),
+
+    // NAUGHTY STRINGS (TODO Document)
+    NS_CVE_VULNERABILITIES("naughtystrings/cvevulnerabilities"),
+    NS_EMOJI("naughtystrings/emoji"),
+    NS_FILE_INCLUSIONS("naughtystrings/fileinclusions"),
+    NS_INCONOUS_STRINGS("naughtystrings/inconousstrings"),
+    NS_JAPANESE_EMOJI("naughtystrings/japaneseemoji"),
+    NS_MSDOS_SPECIAL_FILENAMES("naughtystrings/msdosspecialfilenames"),
+    NS_NUMERIC("naughtystrings/numeric"),
+    NS_QUOTATIONS("naughtystrings/quotations"),
+    NS_REGIONAL_INDICATORS("naughtystrings/regionalindicators"),
+    NS_RESERVED_KEYWORDS("naughtystrings/reservedkeywords"),
+    NS_RIGHT_TO_LEFT_STRINGS("naughtystrings/righttoleftstrings"),
+    NS_RUBY_INJECTION("naughtystrings/rubyinjection"),
+    NS_SCRIPT_INJECTION("naughtystrings/scriptinjection"),
+    NS_SERVER_CODE_INJECTION("naughtystrings/servercodeinjection"),
+    NS_SPECIAL_CHARS("naughtystrings/specialchars"),
+    NS_SQL_INJECTION("naughtystrings/sqlinjection"),
+    NS_TRICK_UNICODE("naughtystrings/trickunicode"),
+    NS_TWO_BYTE_CHARS("naughtystrings/twobytechars"),
+    NS_UNICODE_FONT("naughtystrings/unicodefont"),
+    NS_UNICODE_NUMBERS("naughtystrings/unicodenumbers"),
+    NS_UNICODE_SYMBOLS("naughtystrings/unicodesymbols"),
+    NS_UNICODE_UPSIDE_DOWN("naughtystrings/unicodeupsidedown"),
+    NS_UNICODE_SUBSCRIPT_SUPERSCRIPT("naughtystrings/unicodesubsuperscript"),
+    NS_UNWANTED_INTERPOLATION("naughtystrings/unwantedinterpolation"),
+    NS_XML_INJECTION("naughtystrings/xmlinjection"),
+    NS_ZALGO_TEXT("naughtystrings/zalgotext");
+
+
+    public String getFileName() {
+        return fileName;
+    }
 
     private final String fileName;
 

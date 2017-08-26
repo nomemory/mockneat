@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
+import static net.andreinc.mockneat.types.enums.CreditCardType.MASTERCARD;
+import static net.andreinc.mockneat.types.enums.CreditCardType.VISA_16;
 import static net.andreinc.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
@@ -50,6 +52,21 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
         notNull(type, "type");
         Supplier<String> supplier = () -> generateCreditCard(type);
         return () -> supplier;
+    }
+
+    //TODO Doc & Test
+    public MockUnitString amex() {
+        return type(AMERICAN_EXPRESS);
+    }
+
+    //TODO Doc & Test
+    public MockUnitString visa() {
+        return type(VISA_16);
+    }
+
+    //TODO Doc & Test
+    public MockUnitString masterCard() {
+        return type(MASTERCARD);
     }
 
     public MockUnitString types(CreditCardType... types) {

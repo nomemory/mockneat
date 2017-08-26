@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.misc;
+package net.andreinc.mockneat.unit.address;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -17,23 +17,32 @@ package net.andreinc.mockneat.unit.misc;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.types.enums.DictType;
 
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.types.enums.DictType.MIME_TYPE;
+//TODO document
+public class UsStates extends MockUnitBase implements MockUnitString {
 
-public class Mimes extends MockUnitBase implements MockUnitString {
-
-    public Mimes(MockNeat mockNeat) {
+    public UsStates(MockNeat mockNeat) {
         super(mockNeat);
     }
 
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().type(MIME_TYPE).supplier();
+        return mockNeat
+                .dicts()
+                .type(DictType.US_STATES)
+                .supplier();
+    }
+
+    public MockUnitString iso2() {
+        return () -> mockNeat
+                        .dicts()
+                        .type(DictType.US_STATES_IS_CODE_2)
+                        .supplier();
     }
 }
