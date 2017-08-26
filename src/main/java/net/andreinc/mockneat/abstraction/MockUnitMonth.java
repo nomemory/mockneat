@@ -22,20 +22,23 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static java.time.format.TextStyle.FULL_STANDALONE;
+import static java.time.format.TextStyle.FULL;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public interface MockUnitMonth extends MockUnit<Month> {
 
     default MockUnitString display(TextStyle textStyle, Locale locale) {
+        notNull(textStyle, "textStyle");
+        notNull(locale, "locale");
         Supplier<String> supp = () -> supplier().get().getDisplayName(textStyle, locale);
         return () -> supp;
     }
 
     default MockUnitString display(TextStyle textStyle) {
-        return display(textStyle, Locale.getDefault());
+        return display(textStyle, Locale.ENGLISH);
     }
 
     default MockUnitString display() {
-        return display(FULL_STANDALONE);
+        return display(FULL);
     }
 }

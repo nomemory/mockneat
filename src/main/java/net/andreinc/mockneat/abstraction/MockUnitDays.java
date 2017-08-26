@@ -21,7 +21,7 @@ import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import static java.time.format.TextStyle.FULL_STANDALONE;
+import static java.time.format.TextStyle.FULL;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
@@ -36,10 +36,10 @@ public interface MockUnitDays extends MockUnit<DayOfWeek> {
 
     default MockUnitString display(TextStyle textStyle) {
         notNull(textStyle, "textStyle");
-        return display(textStyle, Locale.getDefault());
+        return display(textStyle, Locale.ENGLISH);
     }
 
     default MockUnitString display() {
-        return display(FULL_STANDALONE);
+        return display(FULL);
     }
 }
