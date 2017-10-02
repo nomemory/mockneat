@@ -22,7 +22,6 @@ import net.andreinc.mockneat.types.enums.DictType;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-//TODO document and unit tests
 public class Cities extends MockUnitBase {
 
     public Cities(MockNeat mockNeat) {

@@ -66,9 +66,12 @@ public class ValidationUtils {
     public static final String PROBABILITIES_SUM_BIGGER = "Probabilities sum cannot be bigger (>) than '1.0'.";
     public static final String PROBABILITIES_SUM_NOT_1 = "Probabilities sum must be exactly (=) 1.0 when generating values.";
     public static final String INVALID_REGEX_PATTERN = "Invalid regex pattern ('#{pattern}'): ";
-    public static final String OBJECT_NOT_SERIALIZABLE = "Object is not serializable. Does the object's class extends 'java.io.Serializable' ?";
+    public static final String OBJECT_NOT_SERIALIZABLE = "Object is not serializable. Does the add's class extends 'java.io.Serializable' ?";
     public static final String PROBABILITY_NOT_NEGATIVE = "Probability '#{prob}' should be bigger than '0.0'.";
     public static final String IMPOSSIBLE_TO_SEQ_OVER_EMPTY_COLLECTION = "Impossible to create a Seq from an empty Iterable<T>.";
+    // MOCK SCENARIO
+    public static final String RETURN_VALUE_MUST_MATCH_THE_TYPE = "The value added #{value} must match the given return type: #{retType}. `instanceof` validation fails.";
+    public static final String RETURN_TYPE_HAVE_NO_TYPE = "A ReturnType object cannot be created without a <T> generic parametrized type.";
 
     private ValidationUtils() {}
 

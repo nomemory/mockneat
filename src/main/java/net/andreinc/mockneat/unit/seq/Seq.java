@@ -27,8 +27,6 @@ import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-
-// TODO - documentation
 public class  Seq<T> implements MockUnit<T> {
 
     private final Iterable<T> iterable;
