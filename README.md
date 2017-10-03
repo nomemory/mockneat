@@ -31,6 +31,8 @@ Real world examples:
 
 - [Programatically populate MySQL Schema with arbitrary test data](https://github.com/nomemory/mockneat/wiki/Programatically-populate-MySQL-Schema-with-arbitrary-test-data).
 
+- [Generate arbitrary JSON strings](https://github.com/nomemory/mockneat/wiki/CreateJsonObject)
+
 ## Examples
 
 ### 1. Mocking Real-World Objects
