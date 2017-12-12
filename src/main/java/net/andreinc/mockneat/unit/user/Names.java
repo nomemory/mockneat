@@ -25,8 +25,7 @@ import net.andreinc.mockneat.types.enums.NameType;
 
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.types.enums.NameType.FIRST_NAME;
-import static net.andreinc.mockneat.types.enums.NameType.LAST_NAME;
+import static net.andreinc.mockneat.types.enums.NameType.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.betweenClosed;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -43,6 +42,12 @@ public class Names extends MockUnitBase implements MockUnitString {
     }
 
     public MockUnitString first() { return type(FIRST_NAME); }
+
+    // TODO document and test
+    public MockUnitString firstAndMale() { return type(FIRST_NAME_MALE); }
+
+    //TODO document and test
+    public MockUnitString firstAndFemale() { return type(FIRST_NAME_FEMALE); }
 
     public MockUnitString last() { return type(LAST_NAME); }
 

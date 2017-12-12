@@ -29,7 +29,7 @@ import static net.andreinc.mockneat.types.enums.IPv4Type.CLASS_B;
 public class Example01 {
     public static void main(String[] args) {
 
-        // Creates a MockNeat object that internally uses
+        // Creates a MockNeat add that internally uses
         // a ThreadLocalRandom.
         MockNeat m = MockNeat.threadLocal();
 

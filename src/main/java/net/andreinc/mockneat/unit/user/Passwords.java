@@ -58,6 +58,21 @@ public class Passwords extends MockUnitBase implements MockUnitString {
         return type(passStrengthType);
     }
 
+    //TODO test and document
+    public MockUnitString weak() {
+        return type(WEAK);
+    }
+
+    //TODO test and document
+    public MockUnitString medium() {
+        return type(MEDIUM);
+    }
+
+    //TODO test and document
+    public MockUnitString strong() {
+        return type(STRONG);
+    }
+
     private String nextPassword(PassStrengthType passStrengthType) {
         switch (passStrengthType) {
             case WEAK:

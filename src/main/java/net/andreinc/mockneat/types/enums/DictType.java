@@ -96,7 +96,16 @@ public enum DictType {
     NS_UNICODE_SUBSCRIPT_SUPERSCRIPT("naughtystrings/unicodesubsuperscript"),
     NS_UNWANTED_INTERPOLATION("naughtystrings/unwantedinterpolation"),
     NS_XML_INJECTION("naughtystrings/xmlinjection"),
-    NS_ZALGO_TEXT("naughtystrings/zalgotext");
+    NS_ZALGO_TEXT("naughtystrings/zalgotext"),
+
+    // SPACE
+    SPACE_CONSTELLATIONS("space/constellations"),
+    SPACE_GALAXIES("space/galaxies"),
+    SPACE_MOONS("space/moons"),
+    SPACE_NEBULAS("space/nebulas"),
+    SPACE_PLANETS("space/planets"),
+    SPACE_STARS("space/stars")
+    ;
 
 
     public String getFileName() {

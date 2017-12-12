@@ -26,6 +26,7 @@ import net.andreinc.mockneat.utils.LoopsUtils;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.types.enums.CVVType.CVV3;
+import static net.andreinc.mockneat.types.enums.CVVType.CVV4;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
@@ -38,6 +39,16 @@ public class CVVS extends MockUnitBase implements MockUnitString {
     @Override
     public Supplier<String> supplier() {
         return type(CVV3).supplier();
+    }
+
+    //TODO document and test
+    public MockUnitString cvv3() {
+        return type(CVV3);
+    }
+
+    //TODO document and test
+    public MockUnitString cvv4() {
+        return type(CVV4);
     }
 
     public MockUnitString type(CVVType type) {

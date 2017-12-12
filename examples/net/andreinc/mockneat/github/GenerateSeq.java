@@ -19,5 +19,6 @@ public class GenerateSeq {
 
         mock.seq(list).after("X").list(100).consume(System.out::println);
         // Prints ["a", "b", "c", "d", "X", "X"...."X"]
+
     }
 }

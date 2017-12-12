@@ -1,7 +1,53 @@
 package net.andreinc.mockneat.unit.text;
 
-/**
- * Created by andreinicolinciobanu on 03/11/17.
- */
-public class Space {
+import net.andreinc.mockneat.MockNeat;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.types.enums.DictType;
+import net.andreinc.mockneat.types.enums.SpaceType;
+
+import java.util.function.Supplier;
+
+public class Space extends MockUnitBase implements MockUnitString {
+
+    public Space(MockNeat mockNeat) {
+        super(mockNeat);
+    }
+
+    @Override
+    public Supplier<String> supplier() {
+        return mockNeat.dicts().types().supplier();
+    }
+
+    public MockUnitString type(SpaceType spaceType) {
+        DictType[] types = spaceType.getDictTypes();
+        return () -> mockNeat.dicts().types(types).supplier();
+    }
+
+    public MockUnitString type(SpaceType... spaceTypes) {
+        return () -> {
+            SpaceType spaceType = mockNeat.from(spaceTypes).val();
+            return type(spaceType).supplier();
+        };
+    }
+
+    public MockUnitString constellations() {
+        return type(SpaceType.CONSTELLATIONS);
+    }
+
+    public MockUnitString galaxies() {
+        return type(SpaceType.GALAXIES);
+    }
+
+    public MockUnitString moons() {
+        return type(SpaceType.NEBULAS);
+    }
+
+    public MockUnitString planets() {
+        return type(SpaceType.PLANETS);
+    }
+
+    public MockUnitString stars() {
+        return type(SpaceType.STARS);
+    }
 }

@@ -24,6 +24,7 @@ import net.andreinc.mockneat.types.enums.DomainSuffixType;
 
 import java.util.function.Supplier;
 
+import static net.andreinc.mockneat.types.enums.DomainSuffixType.ALL;
 import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
@@ -37,6 +38,16 @@ public class Domains extends MockUnitBase implements MockUnitString {
     @Override
     public Supplier<String> supplier() {
         return type(POPULAR)::val;
+    }
+
+    //TODO test and document
+    public MockUnitString popular() {
+        return type(POPULAR);
+    }
+
+    //TODO test and document
+    public MockUnitString all() {
+        return type(ALL);
     }
 
     public MockUnitString type(DomainSuffixType type) {

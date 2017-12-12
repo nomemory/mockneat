@@ -48,7 +48,7 @@ public class HrSchema {
      */
     private static final MockUnitString streeNameGenerator() {
 
-        // A reference to the mock object associated with the current thread;
+        // A reference to the mock add associated with the current thread;
         MockNeat m = MockNeat.threadLocal();
 
         // Returns a random string from the 'STREET_SUFFIX' list;
