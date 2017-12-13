@@ -19,6 +19,7 @@ package net.andreinc.mockneat.unit.text;
 
 import net.andreinc.mockneat.alphabets.Alphabets;
 import net.andreinc.mockneat.types.enums.StringType;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -49,6 +50,16 @@ public class StringsTest {
                     String sized = M.strings().size(size).val();
                     assertTrue(size == sized.length());
                 }
+        );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullMockUnitIntSize() throws Exception {
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                m -> m.strings().size(m.fromInts(new int[]{-10, -10, -20})).type(ALPHA_NUMERIC).val(),
+                s -> Assert.assertNotNull(s)
         );
     }
 

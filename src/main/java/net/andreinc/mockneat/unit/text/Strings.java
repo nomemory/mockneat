@@ -19,6 +19,7 @@ package net.andreinc.mockneat.unit.text;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockUnitInt;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.StringType;
 
@@ -35,6 +36,7 @@ public class Strings extends MockUnitBase implements MockUnitString {
 
     private final Random random;
     private int size = 64;
+    private MockUnitInt sizeUnit;
 
     public Strings(MockNeat mockNeat) {
         super(mockNeat);
@@ -45,6 +47,16 @@ public class Strings extends MockUnitBase implements MockUnitString {
         isTrue(size>0, SIZE_BIGGER_THAN_ZERO_STRICT);
         this.size = size;
         return this;
+    }
+
+    public Strings size(MockUnitInt sizeUnit) {
+        notNull(sizeUnit, INPUT_PARAMETER_NOT_NULL, "sizeUnit");
+        this.sizeUnit = sizeUnit;
+        return this;
+    }
+
+    protected int getSize() {
+        return sizeUnit != null ? sizeUnit.val() : size;
     }
 
     public MockUnitString type(StringType type) {
@@ -66,33 +78,35 @@ public class Strings extends MockUnitBase implements MockUnitString {
     }
 
     private Supplier<String> numbers() {
-        return () -> random(size, 0, 0, false, true, null, random);
+        return () ->  random(getSize(), 0, 0, false, true, null, random);
     }
 
     private Supplier<String> letters() {
-        return () -> random(size, 0, 0, true, false, null, random);
+        return () -> random(getSize(), 0, 0, true, false, null, random);
     }
 
     private Supplier<String> alphaNumeric() {
-        return () -> random(size, 0, 0, true, true, null, random);
+        return () -> random(getSize(), 0, 0, true, true, null, random);
     }
 
     private Supplier<String> hex() {
         return () -> mockNeat.fromStrings(HEXA_STR)
-                            .stream().val()
-                            .limit(size)
+                            .stream()
+                            .val()
+                            .limit(getSize())
                             .collect(joining());
     }
 
     private Supplier<String> specialChars() {
         return () -> mockNeat.fromStrings(SPECIAL_CHARACTERS_STR)
-                            .stream().val()
-                            .limit(size)
+                            .stream()
+                            .val()
+                            .limit(getSize())
                             .collect(joining());
     }
 
     @Override
     public Supplier<String> supplier() {
-        return () -> random(size, 0, 0, true, true, null, random);
+        return () -> random(getSize(), 0, 0, true, true, null, random);
     }
 }
