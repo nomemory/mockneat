@@ -1,36 +1,36 @@
 package net.andreinc.mockneat.unit.networking;
 
-import static java.util.stream.Collectors.toList;
-import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Supplier;
-
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Range;
 import net.andreinc.mockneat.types.enums.IPv4Type;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.toList;
+import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
+
+/**
+ * Copyright 2017, Andrei N. Ciobanu
+ * <p>
+ * Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
+ */
 
 public class IPv4s extends MockUnitBase implements MockUnitString {
 
@@ -49,6 +49,7 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
         return type(type);
     }
 
+    //TODO modify the way IPV4 are generated
     public MockUnitString type(IPv4Type type) {
         notNull(type, "type");
         Range<Integer>[] oc = type.getOctets();
@@ -69,7 +70,7 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
         };
         return () -> supp;
     }
-    
+
     private boolean isPrivate(String ip) {
         List<Integer> numbers = 
                 Arrays.stream(ip.split("\\."))
