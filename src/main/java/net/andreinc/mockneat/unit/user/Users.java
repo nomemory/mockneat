@@ -66,6 +66,8 @@ public class Users extends MockUnitBase implements MockUnitString {
         if (mockNeat.bools().probability(UNDERSCORE).val()) {
             part1 += "_";
         }
+
+
         return part1 + part2;
     }
 }
