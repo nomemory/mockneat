@@ -24,6 +24,9 @@ import net.andreinc.mockneat.types.enums.IPv4Type;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.junit.Test;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -40,7 +43,25 @@ public class IPv4sTest {
     private static final InetAddressValidator IAV = new InetAddressValidator();
 
     protected void testIp(String ip, IPv4Type type) {
-        Range[] bounds = type.getOctets();
+        
+        if(Arrays.stream(new IPv4Type[] {IPv4Type.CLASS_A_PRIVATE, IPv4Type.CLASS_B_PRIVATE, IPv4Type.CLASS_C_PRIVATE}).anyMatch(x -> x == type)) {
+            try {
+                assertTrue(isPrivate(ip));
+            }catch(UnknownHostException e) {
+                fail(e.getMessage());
+            }
+        }
+        
+        if(Arrays.stream(new IPv4Type[] {IPv4Type.CLASS_A_NONPRIVATE, IPv4Type.CLASS_B_NONPRIVATE, IPv4Type.CLASS_C_NONPRIVATE}).anyMatch(x -> x == type)) {
+            try {
+                assertTrue(!isPrivate(ip));
+            }catch(UnknownHostException e) {
+                fail(e.getMessage());
+            }
+        }
+        
+        
+        Range<Integer>[] bounds = type.getOctets();
         assertTrue(bounds.length == 4);
 
         try {
@@ -66,6 +87,11 @@ public class IPv4sTest {
 
     protected void testIpCycle(IPv4Type t) {
         loop(Constants.IPV4S_CYCLES, Constants.MOCKS, r -> r.ipv4s().type(t).val(), ip -> testIp(ip, t));
+    }
+    
+    protected boolean isPrivate(String ip) throws UnknownHostException {
+        Inet4Address addr = (Inet4Address) Inet4Address.getByName(ip);
+        return addr.isSiteLocalAddress();
     }
 
     @Test

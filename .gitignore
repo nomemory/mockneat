@@ -2,3 +2,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 .idea/*
 build/*
+/bin/
+.classpath
+.project
+.settings/
