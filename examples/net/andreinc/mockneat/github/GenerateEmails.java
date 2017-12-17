@@ -19,15 +19,24 @@ package net.andreinc.mockneat.github;
 
 import net.andreinc.mockneat.MockNeat;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class GenerateEmails {
     public static void main(String[] args) {
-        MockNeat mock = MockNeat.threadLocal();
+        MockNeat m = MockNeat.threadLocal();
+        List<String> emails = m.emails()
+                               .list(LinkedList.class, 10)
+                               .val();
 
-        String email = mock.emails().val();
+        m.emails().domain("mail.com").consume(System.out::print);
 
-        String corpEmail = mock.emails().domain("startup.io").val();
+        String email = m.emails().val();
 
-        String domsEmail = mock.emails().domains("abc.com", "corp.org").val();
+        String corpEmail = m.emails().domain("startup.io").val();
+
+        String domsEmail = m.emails().domains("abc.com", "corp.org").val();
+
 
         System.out.println(email);
         System.out.println(corpEmail);
