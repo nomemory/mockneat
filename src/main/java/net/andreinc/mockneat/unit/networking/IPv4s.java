@@ -1,5 +1,14 @@
 package net.andreinc.mockneat.unit.networking;
 
+import static java.util.stream.Collectors.toList;
+import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -22,13 +31,6 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Range;
 import net.andreinc.mockneat.types.enums.IPv4Type;
-
-import java.util.Arrays;
-import java.util.function.Supplier;
-
-import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class IPv4s extends MockUnitBase implements MockUnitString {
 
@@ -62,9 +64,23 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
                 }
             });
             buff.deleteCharAt(buff.length() - 1);
-            return buff.toString();
+            String result = buff.toString();
+            return type.isPrivateAllowed() || !isPrivate(result) ? result : type(type).val() ;
         };
         return () -> supp;
+    }
+    
+    private boolean isPrivate(String ip) {
+        List<Integer> numbers = 
+                Arrays.stream(ip.split("\\."))
+                    .map(Integer::parseInt)
+                    .collect(toList());
+        return (
+                numbers.get(0) == 10 ||
+                (numbers.get(0) == 172 && numbers.get(1) >= 16 && numbers.get(1) < 32) ||
+                (numbers.get(0) == 192 && numbers.get(1) == 168)
+        );
+            
     }
 
 }

@@ -52,6 +52,14 @@ public class IPv4sTest {
             }
         }
         
+        if(Arrays.stream(new IPv4Type[] {IPv4Type.CLASS_A_NONPRIVATE, IPv4Type.CLASS_B_NONPRIVATE, IPv4Type.CLASS_C_NONPRIVATE}).anyMatch(x -> x == type)) {
+            try {
+                assertTrue(!isPrivate(ip));
+            }catch(UnknownHostException e) {
+                fail(e.getMessage());
+            }
+        }
+        
         
         Range<Integer>[] bounds = type.getOctets();
         assertTrue(bounds.length == 4);
