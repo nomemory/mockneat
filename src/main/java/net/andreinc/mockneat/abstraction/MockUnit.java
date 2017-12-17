@@ -46,18 +46,20 @@ public interface MockUnit<T> {
     Supplier<T> supplier();
 
     /**
-     * Returns the generated value.
-     * Each subsequent call will trigger the generating mechanism.
+     * <p>Returns the generated value as defined by the chain of constraints. This is a closing method.</p>
+     *
+     * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
      *
      * @return The generated value.
      */
     default T val() { return supplier().get(); }
 
     /**
-     * Serializes the generated value (T) into a file.
-     * The method uses the standard Java serilization mechanism.
+     * <p>Serializes the generated value {@code <T>} into a file.</p>
      *
-     * If the specified path is not accessible a {@link java.io.UncheckedIOException} is thrown.
+     * <p>The method uses the standard Java serilization mechanism.</p>
+     *
+     * <p><em>Note:</em> If the specified path is not accessible a {@link java.io.UncheckedIOException} is thrown.</p>
      *
      * @param strPath The path of the file where to serialize the generated value.
      */
@@ -72,17 +74,12 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Returns the generated value, after it applies the supplied function on it.
-     * Each subsequent call will trigger the generating mechanism.
+     * <p>Returns the generated value, after it applies the supplied {@code Function<T, R>}</p>
      *
-     * Example for generating a String that always ends with "X":
-     *  {@code
-     *  MockNeat m = MockNeat.threadLocal();
-     *  String endsWithX = m.strings().val(s -> s + "X");
-     *  }
+     * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
      *
-     * @param function This function is applied to the generated value.
-     * @return A new pre-processed arbitrary value.
+     * @param function The {@code Function<T,R>} applied to the generated value. {@code <T>} and {@code <R>} can be the same type.
+     * @return A new pre-processed arbitrary value of type {@code <R>}.
      */
     default <R> R val(Function<T, R> function) {
         notNull(function, "function");
@@ -90,15 +87,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Passes the generated value to a @{linkg java.util.function.Consumer}.
+     * <p>Passes the generated value to a {@code Consumer<T>}.<p>
      *
-     * Example for printing a random email address to the standard output:
-     * {@code
-     * MockNeat m = MockNeat.threadLocal();
-     * m.emails().domain("mail.com").consume(System.out::print);
-     * }
-     *
-     * @param consumer
+     * @param consumer The {@code Consumer<T>} method that will make use of the generated value {@code <T>}.
      */
     default void consume(Consumer<T> consumer) {
         notNull(consumer, "consumer");
@@ -106,8 +97,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * The method is calling {@link Object#toString()} of the generated value.
-     * If the generated value is null an empty string ("") is returned instead of throwing {@link NullPointerException}
+     * <p>Before retrieving the generated value, this method calls {@link Object#toString()} on {@code <T>}.</p>
+     *
+     * <p>If the generated value is null an empty string {@code ("")} is returned instead of throwing {@link NullPointerException}</p>
      *
      * @return The string representation of the generated value.
      */
@@ -116,8 +108,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * The method is calling {@link Object#toString()} of the generated value.
-     * If the generated value is null returns the 'valueIfNull' parameter instead.
+     * <p>The method is calling {@link Object#toString()} of the generated value.</p>
+     *
+     * <p>If the generated value is {@code null} returns the {@code valueIfNull} parameter instead.</p>
      *
      * @param valueIfNull The default value to be returned if the generated value is null.
      * @return The string representation of the generated value.
@@ -132,18 +125,9 @@ public interface MockUnit<T> {
 
 
     /**
-     * This can be used in order to add intermediary processing steps before actually generating the value.
-     * It works in a very similar way the {@link java.util.stream.Stream#map(Function)} method works.
+     * <p>This method can be used in order to add intermediary processing before generating the value {@code <T>}.</p>
      *
-     * Example for printing an arbitrary email with only uppercase letters:
-     * {@code
-     *   MockNeat m = MockNeat.threadLocal();
-     *   m.emails()
-     *    .map(String::toUpperCase)
-     *    .consume(System.out::println);
-     * }
-     *
-     * @param function The processing function
+     * @param function The {@code Function<T,R>} applied to the generated value in the intermediary step. {@code <T>} and {@code <R>} can be the same type.
      * @return A new MockUnit
      */
     default <R> MockUnit<R> map(Function<T, R> function) {
@@ -153,11 +137,12 @@ public interface MockUnit<T> {
     }
 
     /**
-     * This method is used to transform a MockUnit into a MockUnitInt.
-     * MockUnitInt is a super-type of MockUnit containing more useful methods for manipulating Integers.
+     * <p>This method is used to transform a {@code MockUnit} into a {@code MockUnitInt}.</p>
      *
-     * @param function The transformation method.
-     * @return A new MockUnitInt
+     * <p>{@code MockUnitInt} is a super-type of {@code MockUnit} specialized in manipulating Integers.</p>
+     *
+     * @param function The {@code Function<T,Integer>} applied to the generated value in the intermediary step.
+     * @return A new {@code MockUnitInt}.
      */
     default MockUnitInt mapToInt(Function<T, Integer> function) {
         notNull(function, "function");
@@ -166,11 +151,12 @@ public interface MockUnit<T> {
     }
 
     /**
-     * This method is used to transform a MockUnit into a MockUnitDouble.
-     * MockUnitDouble is a super-type of MockUnit containing more useful methods for manipulating Doubles.
+     * <p>This method is used to transform a {@code MockUnit} into a {@code MockUnitDouble}.</p>
      *
-     * @param function The transformation method.
-     * @return A new MockUnitDouble
+     * <p>{@code MockUnitDouble} is a super-type of {@code MockUnit} specialized in manipulating Doubles.</p>
+     *
+     * @param function The {@code Function<T,Double>} applied to the generated value in the intermediary step.
+     * @return A new {@code MockUnitDouble}
      */
     default MockUnitDouble mapToDouble(Function<T, Double> function) {
         notNull(function, "function");
@@ -179,11 +165,12 @@ public interface MockUnit<T> {
     }
 
     /**
-     * This method is used to transform a MockUnit into a MockUnitLong.
-     * MockUnitDouble is a super-type of MockUnit containing more useful methods for manipulating Longs.
+     * <p>This method is used to transform a {@code MockUnit} into a {@code MockUnitLong}.</p>
      *
-     * @param function The transformation method.
-     * @return A new MockUnitLong
+     * <p>{@code MockUnitLong} is a super-type of {@code MockUnit} specialized in manipulating Longs.</p>
+     *
+     * @param function The {@code Function<T,Long>} applied to the generated value in the intermediary step.
+     * @return A new {@code MockUnitLong}
      */
     default MockUnitLong mapToLong(Function<T, Long> function) {
         notNull(function, "function");
@@ -192,8 +179,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * This method is used to transform a MockUnit into a MockUnitString.
-     * MockUnitString is a super-type of MockUnit containing more useful methods for manipulating Strings.
+     * <p>This method is used to transform a MockUnit into a MockUnitString.</p>
+     *
+     * <p>MockUnitString is a super-type of MockUnit containing more useful methods for manipulating Strings.</p>
      *
      * @param function The transformation method.
      * @return A new MockUnitString
@@ -205,8 +193,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * This method is used to transform a MockUnit into a MockUnitString by calling the {@link Object#toString()} method.
-     * MockUnitString is a super-type of MockUnit containing more useful methods for manipulating Strings.
+     * <p>This method is used to transform a {@code MockUnit} into a {@code MockUnitString} by calling the {@link Object#toString()} method.</p>
+     *
+     * <p>{@code MockUnitString} is a super-type of {@code MockUnit} containing more useful methods for manipulating Strings.</p>
      *
      * @return
      */
@@ -215,7 +204,8 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Stream<T>>}.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Stream<T>>}.<p>
+     *
      * @return A {@code MockUnit<Stream<T>>}
      */
     default MockUnit<Stream<T>> stream() {
@@ -224,16 +214,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.
-     * This method can used to generate fixed-length Lists containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
-     * <p>Example for creating a {@code List<String>} of (10) emails:</p>
-     * {@code
-     *  MockNeat m = MockNeat.threadLocal();
-     *  List<String> emails = m.emails()
-     *                         .list(LinkedList.class, 10)
-     *                         .val();
-     * }
+     * <p>This method can used to generate fixed-length Lists containing arbitrary data.</p>
      *
      * @param listClass The type of List we are going to use as the internal implementation (Eg.: ArrayList.class)
      * @param size The size of the List
@@ -259,16 +242,9 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.
-     * This method can used to generate variable-length Lists containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
-     * <p>Example for creating {@code List<String>} of emails:</p>
-     * {@code
-     *  MockNeat m = MockNeat.threadLocal();
-     *  List<String> emails = m.emails()
-     *                         .list(LinkedList.class, m.ints().range(1,10))
-     *                         .val();
-     * }
+     * <p>This method can used to generate variable-length Lists containing arbitrary data.</p>
      *
      * @param listClass The type of List we are going to use as the internal implementation (Eg.: ArrayList.class)
      * @param sizeUnit The MockUnitInt used to generate the size of the List. If the MockUnitInt generates a negative value an exception will be thrown.
@@ -281,18 +257,11 @@ public interface MockUnit<T> {
 
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.
-     * This method can used to generate fixed-length Lists containing arbitrary data.
-     * The internal List implementation will be ArrayList.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
-     * Example for creating {@code List<String>} of emails:
+     * <p>This method can used to generate fixed-length Lists containing arbitrary data.</p>
      *
-     * {@code
-     *  MockNeat m = MockNeat.threadLocal();
-     *  List<String> emails = m.emails()
-     *                         .list(10)
-     *                         .val();
-     * }
+     * <p><em>Note</em>The internal List implementation will be an {@code ArrayList}.</p>
      *
      * @param size The size of the list.
      * @return A new {@code MockUnit<List<T>>}
@@ -302,18 +271,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.
-     * This method can used to generate variable-length Lists containing arbitrary data.
-     * The internal List implementation will be ArrayList.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
-     * Example for creating {@code List<String>} of emails:
+     * <p>This method can used to generate variable-length Lists containing arbitrary data.</p>
      *
-     * {@code
-     *  MockNeat m = MockNeat.threadLocal();
-     *  List<String> emails = m.emails()
-     *                         .list(   m.ints().range(1,10))
-     *                         .val();
-     * }
+     * <p><em>Note:</em> The internal List implementation will be {@code ArrayList}.</p>
      *
      * @param sizeUnit The MockUnitInt used to generate the size of the List. If the MockUnitInt generates a negative value an exception will be thrown.
      * @return A new {@code MockUnit<List<T>>}
@@ -324,14 +286,15 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.
-     * This method can be used to generate a fixed-length Set containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
      *
-     * Note: The size represents the max size of the Set, but it's not guaranteed to be so,
-     * given the nature of the Set (it doesn't accept duplicates).
+     * <p>This method can be used to generate a fixed-length Set containing arbitrary data.</p>
      *
-     * Note: If you are using a TreeSet.class as the implementing class you need to take in consideration
-     * it doesn't accept null values.
+     * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
+     *
+     * <p><em>Note:</em> If you are using a TreeSet.class as the implementing class you need to take in consideration it doesn't accept null values.</p>
+     *
+     * <p><em>Note:</em> The implementing set need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param setClass The {@code Set<T>} implementation we are going to use.
      * @param size The max size of the Set.
@@ -354,11 +317,15 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.
-     * This method can be used to generate a fixed-length Set containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
      *
-     * Note: The size represents the max size of the Set, but it's not guaranteed to be so,
-     * given the nature of the Set (it doesn't accept duplicates).
+     * <p>This method can be used to generate a variable-length Set containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
+     *
+     * <p><em>Note:</em> If you are using a TreeSet as the implementing class you need to take in consideration it doesn't accept null values.</p>
+     *
+     * <p><em>Note:</em> The implementing set need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param setClass The {@code Set<T>} implementation we are going to use.
      * @param sizeUnit The MockUnitInt used to generate the size of the Set. If the MockUnitInt generates a negative value an exception will be thrown.
@@ -369,17 +336,30 @@ public interface MockUnit<T> {
         return () -> set(setClass, sizeUnit.val()).supplier();
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
+     *
+     * <p>This method can be used to generate a fixed-length Set containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
+     *
+     * <p><em>Note:</em> The internal Set implementation is HashSet.</p>
+     *
+     * @param size The max size of the Set
+     * @return A new {@code MockUnit<Set<T>>}
+     */
     default MockUnit<Set<T>> set(int size) {
         return set(HashSet.class, size);
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.
-     * This method can be used to generate a fixed-length Set containing arbitrary data.
-     * Internally a HashSet.class will be used.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
      *
-     * Note: The size represents the max size of the Set, but it's not guaranteed to be so,
-     * given the nature of the Set.
+     * <p>This method can be used to generate a fixed-length Set containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The internal Set implementation is HashSet</p>
+     *
+     * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set.</p>
      *
      * @param sizeUnit The MockUnitInt used to generate the size of the Set. If the MockUnitInt generates a negative value an exception will be thrown.
      * @return A new {@code MockUnit<Set<T>>}
@@ -390,10 +370,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.
-     * This method can be used to generate a fixed-length Collection containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
      *
-     * NOTE: The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>This method can be used to generate a fixed-length Collection containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param collectionClass  The {@code Collection<T>} implementation we are going to use.
      * @param size The size of the collection.
@@ -418,10 +399,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.
-     * This method can be used to generate a variable-length Collection containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
      *
-     * NOTE: The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>This method can be used to generate a variable-length Collection containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param collectionClass  The {@code Collection<T>} implementation we are going to use.
      * @param sizeUnit The MockUnitInt used to generate the size of the Collection. If the MockUnitInt generates a negative value an exception will be thrown.
@@ -433,10 +415,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.
-     * This method can be used to generate a fixed-length Collection containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
      *
-     * Note: The implementing collection is ArrayList.class.
+     * <p>This method can be used to generate a fixed-length Collection containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing collection is ArrayList.class.</p>
      *
      * @return A new {@code MockUnit<Collection<T>>}
      */
@@ -446,10 +429,11 @@ public interface MockUnit<T> {
 
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.
-     * This method can be used to generate a fixed-length Collection containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
      *
-     * Note: The implementing collection is ArrayList.class.
+     * <p>This method can be used to generate a fixed-length Collection containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing collection is ArrayList.class.</p>
      *
      * @return A new {@code MockUnit<Collection<T>>}
      */
@@ -460,10 +444,11 @@ public interface MockUnit<T> {
 
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.
-     * This method can be used to generate a fixed-length Map containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>This method can be used to generate a fixed-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapClass The implementing class for the Map (eg.: HashMap).
      * @param size The size of the Map.
@@ -490,10 +475,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.
-     * This method can be used to generate a variable-length Map containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapClass The implementing class for the Map (eg.: HashMap).
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
@@ -506,10 +492,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.
-     * This method can be used to generate a fixed-length Map containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
-     * NOTE: The implementing Map is HashMap.
+     * <p>This method can be used to generate a fixed-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param size The size of the Map.
      * @param keysSupplier The supplier of the keys.
@@ -520,10 +507,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.
-     * This method can be used to generate a variable-length Map containing arbitrary data.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
-     * NOTE: The implementing Map is HashMap.
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
      * @param keysSupplier The supplier of the keys.
@@ -534,10 +522,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.
-     * The size of the Map is determined by the supplied {@code Iterable<R>}.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>The size of the Map is determined by the supplied {@code Iterable<R>}.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param keys The {@code Iterable<R>} used to generate the keys.
@@ -562,10 +551,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.
-     * The size of the Map is determined by the supplied {@code Iterable<R>}.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.</p>
      *
-     * NOTE: The implementing Map is HashMap.
+     * <p>The size of the Map is determined by the supplied {@code Iterable<R>}.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param keys The {@code Iterable<R>} used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
@@ -575,10 +565,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.
-     * The size of the Map is determined by the supplied {@code Iterable<R>}.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>The size of the Map is determined by the supplied {@code Iterable<R>}.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param keys The {@code Iterable<R>} used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
@@ -603,10 +594,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * Note: The map type is HashMap.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The map type is HashMap.</p>
      *
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
@@ -617,10 +609,11 @@ public interface MockUnit<T> {
 
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param keys The array used to generate the keys.
@@ -646,10 +639,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * NOTE: The implementing Map is HashMap.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
@@ -659,10 +653,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param keys The array used to generate the keys.
@@ -688,10 +683,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * NOTE: The implementing Map is HashMap.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
@@ -701,10 +697,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * NOTE: The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param keys The array used to generate the keys.
@@ -730,10 +727,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.
-     * The size of the Map is determined by the supplied array.
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
-     * NOTE: The implementing Map is HashMap.
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
@@ -742,6 +740,18 @@ public interface MockUnit<T> {
         return mapKeys(HashMap.class, keys);
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The type of the Map (eg.: HashMap.class).
+     * @param size The size of the map.
+     * @param valuesSupplier The supplier of the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
         notNull(mapClass, "mapClass");
         notNull(valuesSupplier, "valuesSupplier");
@@ -761,18 +771,65 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The type of the Map (eg.: HashMap.class).
+     * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @param valuesSupplier The supplier of the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
         return () -> mapVals(mapClass, sizeUnit.val(), valuesSupplier).supplier();
     }
 
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a fixed-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
+     *
+     * @param size The size of the map.
+     * @param valuesSupplier The supplier of the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(int size, Supplier<R> valuesSupplier) {
         return mapVals(HashMap.class, size, valuesSupplier);
     }
 
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map is HashMap.</p>
+     *
+     * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @param valuesSupplier The supplier of the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
         return () -> mapVals(sizeUnit.val(), valuesSupplier).supplier();
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Iterable<R>}.</p>
+     *
+     * <p>The size of the Map is strictly determined by the size of the {@code Iterable<R>}.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The implementing class for the Map (eg.: HashMap.class).
+     * @param values The {@code Iterable<R>} from where the values are selected in order.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, Iterable<R> values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -792,10 +849,31 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from a {@code Iterable<R>}.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the {@code Iterable<R>}.</p>
+     *
+     * <p><em>Note:</em> The implementing map used is HashMap.</p>
+     *
+     * @param values The {@code Iterable<R>} from where the values are selected in order.
+     * @return A new {@code MockUnit<T,R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(Iterable<R> values) {
         return mapVals(HashMap.class, values);
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The implementing class for the Map (eg.: HashMap.class).
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, R[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -814,10 +892,31 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing map used is HashMap.</p>
+     *
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default <R> MockUnit<Map<T, R>> mapVals(R[] values) {
         return mapVals(HashMap.class, values);
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The implementing class for the Map (eg.: HashMap.class).
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default MockUnit<Map<T, Integer>> mapVals(Class<? extends Map> mapClass, int[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -836,10 +935,31 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing map used is HashMap.</p>
+     *
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default MockUnit<Map<T, Integer>> mapVals(int[] values) {
         return mapVals(HashMap.class, values);
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The implementing class for the Map (eg.: HashMap.class).
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default MockUnit<Map<T, Long>> mapVals(Class<? extends Map> mapClass, long[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -858,10 +978,31 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing map used is HashMap.</p>
+     *
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default MockUnit<Map<T, Long>> mapVals(long[] values) {
         return mapVals(HashMap.class, values);
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapClass The implementing class for the Map (eg.: HashMap.class).
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default MockUnit<Map<T, Double>> mapVals(Class<? extends Map> mapClass, double[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -880,10 +1021,28 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * <p><em>Note:</em> The implementing map used is HashMap.</p>
+     *
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
     default MockUnit<Map<T, Double>> mapVals(double[] values) {
         return mapVals(HashMap.class, values);
     }
 
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T[]>}.</p>
+     *
+     * @param cls The type of the value generated by the MockUnit (eg. Student.class)
+     * @param size The size of the array.
+     * @return A new {@code MockUnit<T[]>}.
+     */
     default MockUnit<T[]> array(Class<T> cls, int size) {
         notNull(cls, "cls");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
