@@ -53,7 +53,7 @@ public class FactoryTest {
                 .val();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testFactoryForgetParams() throws Exception {
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                 .method("buffBuilder")
