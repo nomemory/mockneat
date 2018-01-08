@@ -29,6 +29,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public interface MockUnitLocalDate extends MockUnit<LocalDate> {
 
+    /**
+     * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnit<java.util.Date>}.</p>
+     *
+     * @return A new {@code MockUnit<java.util.Date>}.
+     */
     default MockUnit<Date> toUtilDate() {
         return () -> ifSupplierNotNullDo(supplier(),
                 localDate -> from(localDate
@@ -36,10 +41,23 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
                                     .toInstant()));
     }
 
+    /**
+     * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnitString} - the textual representation of the date object.</p>
+     *
+     * @param format The format of the date. (Eg.: "yyyy:MM:dd")
+     * @return A new {@code MockUnitString}
+     */
     default MockUnitString display(String format) {
         return display(format, Locale.getDefault());
     }
 
+    /**
+     * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnitString} - the textual representation of the date object.</p>
+     *
+     * @param locale the locale. (Eg.: Locale.FRANCE)
+     * @param format The format of the date. (Eg.: "yyyy:MM:dd")
+     * @return A new {@code MockUnitString}
+     */
     default MockUnitString display(String format, Locale locale) {
         notNull(format, "format");
         notNull(locale, "locale");

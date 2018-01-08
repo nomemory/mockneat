@@ -36,6 +36,14 @@ public class Emails extends MockUnitBase implements MockUnitString {
         return () -> mockNeat.users().val() + "@" + mockNeat.dicts().type(DOMAIN_EMAIL).val();
     }
 
+    /**
+     * <p>Generates a new {@code MockUnitString} that can be used to generate emails that have specific domains (eg.: "gmail.com").</p>
+     *
+     * <p>This is particularly useful when the requirement is to generate "company/enterprise" emails.</p>
+     *
+     * @param domains A var-arg String array containing the list of the domains to be used.
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnit<String> domains(String... domains) {
         Supplier<String> supp = () -> {
             String user = mockNeat.users().val();
@@ -45,6 +53,14 @@ public class Emails extends MockUnitBase implements MockUnitString {
         return () -> supp;
     }
 
+    /**
+     * <p>Generates a new {@code MockUnitString} that can be used to generate emails that have a specific domain (eg.: "gmail.com").</p>
+     *
+     * <p>This is particularly useful when the requirement is to generate "company/enterprise" emails.</p>
+     *
+     * @param domain The domain to be used.
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnit<String> domain(String domain) {
         return domains(domain);
     }

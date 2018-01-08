@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.io.UncheckedIOException;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -43,6 +44,14 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 public interface MockUnit<T> {
 
     // Functional Method
+
+    /**
+     * This is the sole abstract method of the interface.
+     *
+     * Needs to be implemented every-time a MockUnit is implemented.
+     *
+     * @return A {@code Supplier<T>}.
+     */
     Supplier<T> supplier();
 
     /**
@@ -79,6 +88,7 @@ public interface MockUnit<T> {
      * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
      *
      * @param function The {@code Function<T,R>} applied to the generated value. {@code <T>} and {@code <R>} can be the same type.
+     * @param <R> The type of the newly returned {@code MockUnit}. Can be the same as {@code </T>}
      * @return A new pre-processed arbitrary value of type {@code <R>}.
      */
     default <R> R val(Function<T, R> function) {
@@ -87,13 +97,29 @@ public interface MockUnit<T> {
     }
 
     /**
-     * <p>Passes the generated value to a {@code Consumer<T>}.<p>
+     * <p>Passes the arbitrary generated value to a {@code Consumer<T>}.<p>
      *
      * @param consumer The {@code Consumer<T>} method that will make use of the generated value {@code <T>}.
      */
     default void consume(Consumer<T> consumer) {
         notNull(consumer, "consumer");
         consumer.accept(val());
+    }
+
+
+    /**
+     * <p>Passes the arbitrary generated values to a {@code BiConsumer<Integer, T>} a number of {@code times}.</p>
+     *
+     * @param times The number of times we are going to call the {@code BiConsumer}.
+     * @param biConsumer The {@code BiConsumer} that is going to consume the arbitrary generated value(s). The first parameter of the {@code BiConsumer} represents the step.
+     */
+    //TODO document
+    default void consume(int times, BiConsumer<Integer, T> biConsumer) {
+        isTrue(times > 0, NUMBER_OF_TIMES_POSITIVE);
+        notNull(biConsumer, "consumer");
+        for (int i = 0; i < times; i++) {
+            biConsumer.accept(i, val());
+        }
     }
 
     /**
@@ -128,6 +154,7 @@ public interface MockUnit<T> {
      * <p>This method can be used in order to add intermediary processing before generating the value {@code <T>}.</p>
      *
      * @param function The {@code Function<T,R>} applied to the generated value in the intermediary step. {@code <T>} and {@code <R>} can be the same type.
+     * @param <R> The type of the newly returned {@code MockUnit<R>}.
      * @return A new MockUnit
      */
     default <R> MockUnit<R> map(Function<T, R> function) {
@@ -197,7 +224,7 @@ public interface MockUnit<T> {
      *
      * <p>{@code MockUnitString} is a super-type of {@code MockUnit} containing more useful methods for manipulating Strings.</p>
      *
-     * @return
+     * @return A new {@code MockUnitString}.
      */
     default MockUnitString mapToString() {
         return () -> ifSupplierNotNullDo(supplier(), s -> s.toString());
@@ -377,7 +404,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param collectionClass  The {@code Collection<T>} implementation we are going to use.
-     * @param size The size of the collection.
+     * @param size The size of the collection. (If the collection is a Set, this is guaranteed to be the max size, not the actual one).
      * @return A new {@code MockUnit<Collection<T>>}
      */
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, int size) {
@@ -406,7 +433,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param collectionClass  The {@code Collection<T>} implementation we are going to use.
-     * @param sizeUnit The MockUnitInt used to generate the size of the Collection. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @param sizeUnit The MockUnitInt used to generate the size of the Collection. If the MockUnitInt generates a negative value an exception will be thrown. (If the collection is a Set, this is guaranteed to be the max size, not the actual one).
      * @return A new {@code MockUnit<Collection<T>>}
      */
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, MockUnitInt sizeUnit) {
@@ -421,6 +448,7 @@ public interface MockUnit<T> {
      *
      * <p><em>Note:</em> The implementing collection is ArrayList.class.</p>
      *
+     * @param size The size of the Collection. (If the collection is a Set, this guaranteed to be the max size, not the actual one).
      * @return A new {@code MockUnit<Collection<T>>}
      */
     default MockUnit<Collection<T>> collection(int size) {
@@ -435,6 +463,7 @@ public interface MockUnit<T> {
      *
      * <p><em>Note:</em> The implementing collection is ArrayList.class.</p>
      *
+     * @param sizeUnit The size of the Collection generated through a MockUnitInt.
      * @return A new {@code MockUnit<Collection<T>>}
      */
     default MockUnit<Collection<T>> collection(MockUnitInt sizeUnit) {
@@ -453,6 +482,7 @@ public interface MockUnit<T> {
      * @param mapClass The implementing class for the Map (eg.: HashMap).
      * @param size The size of the Map.
      * @param keysSupplier The supplier of the keys.
+     * @param <R> The type of the Keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, int size, Supplier<R> keysSupplier) {
@@ -484,6 +514,7 @@ public interface MockUnit<T> {
      * @param mapClass The implementing class for the Map (eg.: HashMap).
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
      * @param keysSupplier The supplier of the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
@@ -500,6 +531,7 @@ public interface MockUnit<T> {
      *
      * @param size The size of the Map.
      * @param keysSupplier The supplier of the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(int size, Supplier<R> keysSupplier) {
@@ -515,6 +547,7 @@ public interface MockUnit<T> {
      *
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
      * @param keysSupplier The supplier of the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
@@ -530,6 +563,7 @@ public interface MockUnit<T> {
      *
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param keys The {@code Iterable<R>} used to generate the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, Iterable<R> keys) {
@@ -558,6 +592,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param keys The {@code Iterable<R>} used to generate the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Iterable<R> keys) {
@@ -571,7 +606,9 @@ public interface MockUnit<T> {
      *
      * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
+     * @param mapClass The implementing class of the collection (eg.: LinkedList).
      * @param keys The {@code Iterable<R>} used to generate the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, R[] keys) {
@@ -601,6 +638,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The map type is HashMap.</p>
      *
      * @param keys The array used to generate the keys.
+     * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(R[] keys) {
@@ -750,6 +788,7 @@ public interface MockUnit<T> {
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param size The size of the map.
      * @param valuesSupplier The supplier of the values.
+     * @param <R> The type of the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
@@ -781,6 +820,7 @@ public interface MockUnit<T> {
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
      * @param valuesSupplier The supplier of the values.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
@@ -797,6 +837,7 @@ public interface MockUnit<T> {
      *
      * @param size The size of the map.
      * @param valuesSupplier The supplier of the values.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(int size, Supplier<R> valuesSupplier) {
@@ -813,6 +854,7 @@ public interface MockUnit<T> {
      *
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
      * @param valuesSupplier The supplier of the values.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
@@ -828,6 +870,7 @@ public interface MockUnit<T> {
      *
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param values The {@code Iterable<R>} from where the values are selected in order.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, Iterable<R> values) {
@@ -857,6 +900,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The implementing map used is HashMap.</p>
      *
      * @param values The {@code Iterable<R>} from where the values are selected in order.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<T,R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Iterable<R> values) {
@@ -872,6 +916,7 @@ public interface MockUnit<T> {
      *
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param values The array.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, R[] values) {
@@ -900,6 +945,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The implementing map used is HashMap.</p>
      *
      * @param values The array.
+     * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(R[] values) {
@@ -986,7 +1032,7 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> The implementing map used is HashMap.</p>
      *
      * @param values The array.
-     * @return A new {@code MockUnit<Map<T, R>>}
+     * @return A new {@code MockUnit<Map<T, R>>}.
      */
     default MockUnit<Map<T, Long>> mapVals(long[] values) {
         return mapVals(HashMap.class, values);

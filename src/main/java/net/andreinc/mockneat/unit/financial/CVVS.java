@@ -41,16 +41,30 @@ public class CVVS extends MockUnitBase implements MockUnitString {
         return type(CVV3).supplier();
     }
 
-    //TODO document and test
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate a 3-digit code.</p>
+     *
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString cvv3() {
         return type(CVV3);
     }
 
-    //TODO document and test
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate a 4-digit code.</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString cvv4() {
         return type(CVV4);
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate a CVV code based on the supplied type: {@link CVVType}</p>
+     *
+     * @param type The type of the CVV.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString type(CVVType type) {
         notNull(type, "type");
         Supplier<String> supplier = () -> {
@@ -62,14 +76,22 @@ public class CVVS extends MockUnitBase implements MockUnitString {
         return () -> supplier;
     }
 
+    /**
+     * Returns a new {@code MockUnitString} that can be used to generate a CVV code based on the supplied types: {@link CVVType}.
+     *
+     * @param types A var-arg array containing the supplied types.
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString types(CVVType... types) {
         notEmptyOrNullValues(types, "types");
-        return () -> () -> {
-            CVVType type = mockNeat.from(types).val();
-            return mockNeat
-                    .cvvs()
-                    .type(type)
-                    .val();
-        };
+        return () ->
+               () ->
+               {
+                CVVType type = mockNeat.from(types).val();
+                return mockNeat
+                        .cvvs()
+                        .type(type)
+                        .val();
+               };
     }
 }

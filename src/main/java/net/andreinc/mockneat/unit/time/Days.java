@@ -40,6 +40,13 @@ public class Days extends MockUnitBase implements MockUnitDays {
         return mockNeat.from(DayOfWeek.class)::val;
     }
 
+    /**
+     * Creates a new {@code MockUnitDays} that is used to generate a day of the week in the closed ranged [{@code lower}, {@code upper}].
+     *
+     * @param lower The lower limit of the interval.
+     * @param upper The upper limit of the interval.
+     * @return A new {@code MockUnitDays}.
+     */
     public MockUnitDays rangeClosed(DayOfWeek lower, DayOfWeek upper) {
         notNull(lower, "lower");
         notNull(upper, "upper");
@@ -51,6 +58,13 @@ public class Days extends MockUnitBase implements MockUnitDays {
         return () -> supp;
     }
 
+    /**
+     * Creates a new {@code MockUnitDays} that is used to generate a day of the week in the open range [{@code lower}, {@code upper}).
+     *
+     * @param lower The lower limit of the interval.
+     * @param upper The upper limit of the interval.
+     * @return A new {@code MockUnitDays}
+     */
     public MockUnitDays range(DayOfWeek lower, DayOfWeek upper) {
         notNull(lower, "lower");
         notNull(upper, "upper");
@@ -62,12 +76,25 @@ public class Days extends MockUnitBase implements MockUnitDays {
         return () -> supp;
     }
 
+    /**
+     * Creates a {@code MockUnitDays} that is used to generate a day of the week before the given limit.
+     *
+     * @param before The upper limit.
+     * @return A new {@code MockUnitDays}
+     */
     public MockUnitDays before(DayOfWeek before) {
         notNull(before, "before");
         isTrue(before.getValue()-1>0, ValidationUtils.BEFORE_DAY_DIFFERENT_THAN_MONDAY);
         return range(DayOfWeek.values()[0], before);
     }
 
+
+    /**
+     * Creates a {@code MockUnitDays} that is used to generate a day of the week after the given limit.
+     *
+     * @param after The lower limit.
+     * @return A new {@code MockUnitDays}.
+     */
     public MockUnitDays after(DayOfWeek after) {
         notNull(after, "after");
         isTrue(after.getValue()-1<DayOfWeek.values().length-1, ValidationUtils.AFTER_DAY_DIFFERENT_THAN_SUNDAY);

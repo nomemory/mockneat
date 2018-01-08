@@ -152,64 +152,245 @@ public class MockNeat {
         random.setSeed(seed);
     }
 
+    /**
+     * <p>Re-use the default instance of a {@code MockNeat} class that internally uses a {@code ThreadLocalRandom} implementation from the Java Standard Library.</p>
+     *
+     * <p><em>Note:</em> This is the recommended way to obtain a new MockUnit.</p>
+     *
+     * @return An already instantiated {@code MockNeat} instance that can be reused.
+     */
     public static MockNeat threadLocal() { return THREAD_LOCAL; }
+
+    /**
+     * <p>Re-use the default instance of a {@code MockNeat} class that internally uses a SecureRandom implementation from the Java Standard Library.</p>
+     *
+     * @return An already instantiated {@code MockNeat} instance that can be reused.
+     */
     public static MockNeat secure() { return SECURE; }
+
+    /**
+     * <p>Re-use the default instance of a {@code MockNeat} class that internally uses the old Random class from the Java Standard Library.</p>
+     *
+     * @return An already instantiated {@code MockNeat} instance that can be reused.
+     */
     public static MockNeat old() { return OLD; }
 
+    /**
+     * <p>Returns a {@code Bools} object that can be used to generate arbitrary {@code Boolean} values.</p>
+     *
+     * @return A re-usable {@code Bools} instance. The class implements {@code MockUnit<Boolean>}.
+     */
     public Bools bools() { return this.rBools; }
 
+    /**
+     * <p>Returns a {@code Chars} object that can be used to generate arbitrary {@code Character} values.</p>
+     *
+     * <p><em>Note:</em> Without any additional constraint, the {@code Chars} object will generate alphanumeric characters.</p>
+     *
+     * @return A re-usable {@code Chars} instance. The class implements {@code MockUnit<Character>}.
+     */
     public Chars chars() { return this.rChars; }
 
+    /**
+     * <p>Returns a {@code Cities} object that can be used to generate arbitrary city names from around the world.</p>
+     *
+     * @return A re-usable {@code Citites} object.
+     */
     public Cities cities() { return this.rCities; }
 
+    /**
+     * <p>Returns a {@code CreditCards} object that can be used to generate valid Credit Card numbers.</p>
+     *
+     * <p><em>Note: </em>By default it generates AMERICAN_EXPRESS valid credit card numbers.</p>
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @return A re-usable {@code CreditCards} instance. The class implements {@code MockUnitString}.
+     */
     public CreditCards creditCards() {
         return this.rCCS;
     }
 
+    /**
+     * <p>Returns a new {@code Constructor} object.</p>
+     *
+     * <p>This method can be used to generate {@code MockUnit<T>} from a Java Bean {@code <T>} by accessing it's constructor and supply it with arbitrary input.</p>
+     *
+     * @param cls The class for type {@code <T>}. (Eg.: Student.class)
+     * @param <T> The type of {@code MockUnit<T>}. This is the wrapped type.
+     * @return A new {@code Constructor} object. The {@code Constructor} class implements {@code MockUnit<T>}.
+     */
     public <T> Constructor<T> constructor(Class<T> cls) { return new Constructor<>(cls); }
 
+    /**
+     * <p>Returns a {@code Countries} object that can be used to generate country names or country ISO2 codes.</p>
+     *
+     * @return A re-usable {@code Countries} object.
+     */
     public Countries countries() {
         return this.rCountries;
     }
 
+    /**
+     * <p>Returns a {@code Currencies} object that can be used to generate currencies-related information: </p>
+     *
+     * <ul>
+     *     <li>Forex pairs. (Eg.: "USD/CAD")</li>
+     *     <li>Currency codes. (Eg.: "USD", "GBP")</li>
+     *     <li>Currency symbols. (Eg.: "$", "¥")</li>
+     *     <li>Currency names. (Eg.: "Boliviano", "Dollar")</li>
+     * </ul>
+     *
+     * @return A re-usable {@code Currencies} object.
+     */
     public Currencies currencies() { return this.rCurrencies; }
 
+    /**
+     * <p>Returns a {@code CVVS} object that can be used to generate credit card cvv codes.</p>
+     *
+     * <p><em>Note: </em> By default the values generated are 3-digits CVV codes.</p>
+     *
+     * @return A re-usable {@code CVVS} object. The {@code CVVS} class implements the {@code MockUnitString} interface.
+     */
     public CVVS cvvs() { return this.rCVVS; }
 
+    /**
+     * <p>Returns a {@code Dicts} object that can be used to generate data from the library existing dictionaries.</p>
+     *
+     * <p>A dictionary is an {@code enum} mapping a text file containing a set of data</p>
+     *
+     * <p>The file contents are loaded in memory after the first call.</p>
+     *
+     * <p>Check {@link DictType} to see the comprehensive list.</p>
+     *
+     * @return A re-usable {@code Dicts} object.
+     */
     public Dicts dicts() {
         return this.rDicts;
     }
 
+    /**
+     * <p>Returns a {@code Days} object that can be used to generate a random {@code java.time.DayOfWeek} object.</p>
+     *
+     * <p><em>Note: </em> By default the {@code Days} object returns a random day of the week.</p>
+     *
+     * @return A re-usable {@code Days} object. The {@code Days} class implements {@code MockUnitDays} interface.
+     */
     public Days days() { return this.rDays; }
 
+    /**
+     * <p>Returns a {@code Departments} object that can be used to generate arbitrary names representing department names from a company.</p>
+     *
+     * @return A re-usable {@code Departments} object. The {@code Departments} class is implementing {@code MockUnitString}.
+     */
     public Departments departments() { return this.rDepartments; }
 
+    /**
+     * <p>Returns a {@code Domains} object</p> that can be used to generate domain names. (eg.: "www", "info")
+     *
+     * <p><em>Note: </em> By default "popular" domains will be generated (like: "com", "org", "net", "edu", "gov", "info", "io")</p>
+     *
+     * @return A re-usable {@code Domains} object. The {@code Domains} class implements {@code MockUnitString}
+     */
     public Domains domains() { return this.rDomains;}
 
+    /**
+     * <p>Returns a {@code Doubles} object that can be used to generate arbitrary {@code double} values.</p>
+     *
+     * <p><em>Note:</em> By default the {@code Doubles} object returns a random double in the [0.0, 1.0) interval. </p>
+     *
+     * @return A re-usable {@code Doubles} object. The {@code Doubles} class implements {@code MockUnitDouble}.
+     */
     public Doubles doubles() {
         return this.rDoubles;
     }
 
+    /**
+     * <p>Returns an {@code Email} object that can be used to generate arbitrary email address.</p>
+     *
+     * @return A re-usable {@code Emails} object. The {@code Emails} class implements {@code MockUnitString}.
+     */
     public Emails emails() { return this.rEmails; }
 
+    /**
+     * <p>Returns a new {@code Factory} object that can be used to instantiate Java Objects by calling a static factory method and supplying it with arbitrary data.</p>
+     *
+     * <p>The {@code Factory} class implements {@code MockUnit<T>}.</p>
+     *
+     * @param targetCls The Java class we want to create instances of.
+     * @param factoryCls The Java class that contains the static-factory method we want to invoke.
+     * @param <T>
+     * @param <FT>
+     * @return
+     */
     public <T, FT> Factory<T, FT> factory(Class<T> targetCls, Class<FT> factoryCls) {
         return new Factory<>(targetCls, factoryCls);
     }
 
+    /**
+     * <p>Returns a {@code FromFiles} object that can used to generate random strings from a given text file.</p>
+     *
+     * <p><em>Note:</em> The file is loaded in memory. For the moment there is no functionality to "unload" it.</p>
+     *
+     * @return A re-usable {@code FromFiles} object.
+     */
     public FromFiles files() { return this.rFiles; }
 
+    /**
+     * <p>Returns a {@code Floats} object than can be used to generate random float numbers.</p>
+     *
+     * <p><em>Note:</em> By defult it generates float numbers in the [0.0f, 1.0f) range.</p>
+     * @return A re-usable {@code Floats} object. The {@code Floats} class implements {@code MockUnitFloats}.
+     */
     public Floats floats() { return this.rFloats; }
 
+    /**
+     * <p>Returns a {@code Formatter} object than can be used to generate arbitrary patterns based on a given format.</p>
+     *
+     * <p>Eg.: m.fmt("#{oneInt} + #{aLetter}").params("oneInt", m.ints(), "aLetter", m.chars().letters()).val()</p>
+     *
+     * @param fmt The template of the desired pattern.
+     * @return A <strong>new</strong> {@code Formatter} object. The {@code Formatter} class implements {@code MockUnitString}.
+     */
     public Formatter fmt(String fmt) { return Formatter.formatter(fmt); }
 
+    /**
+     * <p>Returns a {@code Genders} object that can be used to generate "gender" data. (Eg.: "Male", "Female")</p>
+     *
+     * @return A re-usable {@code Genders} object. The {@code Genders} class implements {@code MockUnitString}.
+     */
     public Genders genders() { return this.rGenders; }
 
+    /**
+     * <p>Returns {@code Hashes} object that can be used to generate "hash" strings.</p>
+     *
+     * <p>The values are actually computed from arbitrary strings of length 128.</p>
+     *
+     * @return A re-usable {@code Hashes} object. The {@code Hashes} class implements {@code MockUnitString}.
+     */
     public Hashes hashes() { return this.rHashes; }
 
+    /**
+     * <p>Returns a {@code IBANs} object that can be used to generate valid IBANs codes.</p>
+     *
+     * @return A re-usable {@code IBANs} object. The {@code IBANs} class implements {@code MockUnitString}.
+     */
     public IBANs ibans() { return this.rIbans; }
 
+    /**
+     * <p>Returns a {@code Ints} object that can be used to generate arbitrary {@code Integer} numbers.</p>
+     *
+     * <p>Internally the method uses the {@code Random::nextInt} implementation.</p>
+     *
+     * @return A re-usable {@code Ints} object. The {@code Ints} class implements {@code MockUnitInt}.
+     */
     public Ints ints() { return this.rInts; }
 
+    /**
+     * <p>Returns a {@code IntSeq} object that can be used to generate arbitrary {@code Integer} numbers in a sequence.</p>
+     *
+     * @return A re-usable {@code IntSeq} object. The {@code IntSeq} class implements {@code MockUnitInt}.
+     */
     public IntSeq intSeq() { return new IntSeq(); }
 
     public IPv4s ipv4s() { return this.rIPv4s; }

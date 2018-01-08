@@ -39,18 +39,32 @@ public class Factory<T, FT> implements MockUnit<T> {
     private final Class<T> targetClass;
     private final Class<FT> factoryClass;
     private String method;
-    private Object[] params;
+    private Object[] params = new Object[]{};
 
     public Factory(Class<T> targetClass, Class<FT> factoryClass) {
         this.targetClass = targetClass;
         this.factoryClass = factoryClass;
     }
 
+    /**
+     * <p>Specifies the static method name.</p>
+     *
+     * @param methodName The method factory method used to instantiate the class.
+     * @return The same instance of the previously created {@code Factory} object. The {@code Factory} class implements the {@code MockUnit<T>} interface.
+     */
     public Factory<T, FT> method(String methodName) {
         this.method = methodName;
         return this;
     }
 
+    /**
+     * <p>Specified the params that are going to be supplied to the static factory method.</p>
+     *
+     * <p><em>Note:</em> If a {@code MockUnit} is supplied as a parameter the {@code val()} method is invoked instead of using the actual value.</p>
+     *
+     * @param params A var-arg array being the list of {@code params} supplied to the factory method.
+     * @return The same instance of the {@code Factory} object. THe {@code Factory} class implements the {@code MockUnit<T>} interface.
+     */
     public Factory<T, FT> params(Object... params) {
         this.params = params;
         return this;

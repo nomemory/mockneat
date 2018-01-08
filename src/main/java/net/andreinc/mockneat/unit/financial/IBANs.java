@@ -73,11 +73,23 @@ public class IBANs extends MockUnitBase implements MockUnitString {
         };
     }
 
+    /**
+     * This method returns a valid IBAN code from the given supplied country.
+     *
+     * @param ibanType The country
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString type(IBANType ibanType) {
         notNull(ibanType, "ibanType");
         return () -> () -> generate(ibanType);
     }
 
+    /**
+     * This method returns a valid IBAN code from the given supplied countries.
+     *
+     * @param ibanTypes The countries from which the selection is randomly being done.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString types(IBANType... ibanTypes) {
         notEmpty(ibanTypes, "ibanTypes");
         return () -> () -> {

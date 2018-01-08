@@ -40,6 +40,13 @@ public class Floats extends MockUnitBase implements MockUnitFloat {
         return random::nextFloat;
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitFloat} that can be used to generate random float values in a given range [{@code lowerBound}, {@code upperBound}).</p>
+     *
+     * @param lowerBound The upper bound of the interval.
+     * @param upperBound The lower bound of the interval.
+     * @return A new {@code MockUnitFloat}.
+     */
     public MockUnitFloat range(float lowerBound, float upperBound) {
         notNull(lowerBound, "lowerBound");
         notNull(upperBound, "upperBound");
@@ -51,10 +58,22 @@ public class Floats extends MockUnitBase implements MockUnitFloat {
         return () -> supp;
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitFloat} that can be used to generate float values bounded by a specific value: [0, {@code bound}).</p>
+     *
+     * @param bound The float bound.
+     * @return A new {@code MockUnitFloat}.
+     */
     public MockUnitFloat bound(float bound) {
         return range(0f, bound);
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitFloat} that can be used generate float values from a given "alphabet".</p>
+     *
+     * @param alphabet An array of values from where the values are randomly picked.
+     * @return A new {@code MockUnitFloat}.
+     */
     public MockUnitFloat from(float[] alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Float> supp = () -> {

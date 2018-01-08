@@ -30,10 +30,20 @@ public class Countries extends MockUnitBase {
         super(mockNeat);
     }
 
+    /**
+     * The method returns a new {@code MockUnitString} that can be used to generate country names. (Eg.: "Romania")
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString names() {
         return mockNeat.dicts().type(COUNTRY_NAME);
     }
 
+    /**
+     * The method returns a new {@code MockUnitString} that can be used to generate country ISO2 codes. (Eg.: "RO")
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString iso2() {
         return mockNeat.dicts().type(COUNTRY_ISO_CODE_2);
     }

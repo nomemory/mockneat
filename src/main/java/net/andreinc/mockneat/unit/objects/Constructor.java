@@ -39,6 +39,14 @@ public class Constructor<T> implements MockUnit<T> {
         this.cls = cls;
     }
 
+    /**
+     * <p>Specifies the values which are supplied to the constructor.</p>
+     *
+     * <p>As a param you can supply a {@code MockUnit<T>} or a constant value. If you chose to supply {@code MockUnit}s the {@code val()} method will be automatically invoked.</p>
+     *
+     * @param params A var-arg array of constant values or {@code MockUnit}s.
+     * @return The current {@code Constructor} instance.
+     */
     public Constructor<T> params(Object... params) {
         this.params = params;
         return this;

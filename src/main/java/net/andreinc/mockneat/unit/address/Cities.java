@@ -28,10 +28,20 @@ public class Cities extends MockUnitBase {
         super(mockNeat);
     }
 
+    /**
+     * Returns a {@code MockUnitString} that can be used to generate capital city names from around the world. (Eg.: "Paris")
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString capitals() {
         return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS).supplier();
     }
 
+    /**
+     * Returns a {@code MockUnitString} that can be used to generate US city names. (Eg.: "New York")
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString us() {
         return () -> mockNeat.dicts().type(DictType.CITIES_US).supplier();
     }

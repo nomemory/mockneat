@@ -45,6 +45,14 @@ public class Formatter implements MockUnitString {
         return new Formatter(fmt);
     }
 
+    /**
+     * <p>This method can be used to map a parameter from the template with a MockUnit.</p>
+     *
+     * @param param The parameter name as supplied in the template.
+     * @param mock The {@code MockUnit} that generates values for the given parameter.
+     * @param <T>
+     * @return The {@code Formatter} object.
+     */
     public <T> Formatter param(String param, MockUnit<T> mock) {
         notEmpty(param, "param");
         notNull(mock, "mock");

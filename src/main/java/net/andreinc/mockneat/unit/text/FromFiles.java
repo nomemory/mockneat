@@ -33,6 +33,14 @@ public class FromFiles extends MockUnitBase {
         super(mockNeat);
     }
 
+    /**
+     * <p>Generates a new {@code MockUnitString} that can be used to generate String lines from the given {@code path}.</p>
+     *
+     * <p><em>Note:</em> The files needs to exist and have read rights.</p>
+     *
+     * @param path The path of the file from the disk.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString from(String path) {
         notEmpty(path, "path");
         return () -> mockNeat.fromStrings(fm.getLines(path)).format(LOWER_CASE)::val;

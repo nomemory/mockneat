@@ -24,10 +24,19 @@ public final class MockConstValue implements MockValue {
         this.value = value;
     }
 
+    /**
+     * <p>Creates a new "constant" MockValue by wrapping an Object value.</p>
+     *
+     * @param value The Object wrapped by the {@code MockConstantValue} class.
+     * @return A new MockConstValue.
+     */
     public static MockConstValue constant(Object value) {
         return new MockConstValue(value);
     }
 
+    /**
+     * @return The wrapped Object value.
+     */
     @Override
     public Object get() {
         return value;

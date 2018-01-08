@@ -40,12 +40,26 @@ public class Ints extends MockUnitBase implements MockUnitInt {
         return random::nextInt;
     }
 
+    /**
+     * <p>This method can be used to generate arbitrary integer value in the [0, bound) range.</p>
+     *
+     * @param bound The interval bound.
+     * @return A new {@code MockUnitInt}.
+     */
     public MockUnitInt bound(int bound) {
         isTrue(bound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         Supplier<Integer> supp = () -> random.nextInt(bound);
         return () -> supp;
     }
 
+    /**
+     * <p>This method can be used to generate arbitrary integer values in the (lowerBound, upperBound) range.</p>
+     *
+     * @param lowerBound The lower bound.
+     * @param upperBound The upper bound.
+     *
+     * @return A new {@code MockUnitInt}.
+     */
     public MockUnitInt range(int lowerBound, int upperBound) {
         notNull(lowerBound, "lowerBound");
         notNull(upperBound, "upperBound");
@@ -56,6 +70,12 @@ public class Ints extends MockUnitBase implements MockUnitInt {
         return () -> supp;
     }
 
+    /**
+     * <p>This method can be used to generate arbitrary integer values from the given {@code alphabet}.</p>
+     *
+     * @param alphabet The alphabet from which the values are selected.
+     * @return A new {@code MockUnitInt}.
+     */
     public MockUnitInt from(int[] alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Integer> supp = () -> {

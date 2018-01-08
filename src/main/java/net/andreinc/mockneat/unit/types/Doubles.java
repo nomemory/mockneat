@@ -44,10 +44,22 @@ public class Doubles extends MockUnitBase implements MockUnitDouble {
         return random::nextDouble;
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitDouble} that can be used to generate double values (gaussian distribution).</p>
+     *
+     * @return A new {@code MockUnitDouble}
+     */
     public MockUnitDouble gaussians() {
         return () -> random::nextGaussian;
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitDouble} that can be used to generate double values into a given range [{@code lowerBound}, {@code upperBound}).</p>
+     *
+     * @param lowerBound The lower range.
+     * @param upperBound The upper range.
+     * @return A new {@code MockUnitDouble}
+     */
     public MockUnitDouble range(double lowerBound, double upperBound) {
         notNull(lowerBound, "lowerBound");
         notNull(upperBound, "upperBound");
@@ -70,10 +82,22 @@ public class Doubles extends MockUnitBase implements MockUnitDouble {
         return () -> supp;
     }
 
+    /**
+     * Returns a new {@code MockUnitDouble} that can be used to generate double values bounded by a specific value [0, {@code bound}).
+     *
+     * @param bound The bound value.
+     * @return A new {@code MockUnitDouble}
+     */
     public MockUnitDouble bound(double bound) {
         return range(0.0, bound);
     }
 
+    /**
+     * Returns a new {@code MockUnitDouble} that can be used to generate values from a specific alphabet (array).
+     *
+     * @param alphabet The source of elements.
+     * @return A new {@code MockUnitDouble}
+     */
     public MockUnitDouble from(double[] alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Double> supp = () -> {

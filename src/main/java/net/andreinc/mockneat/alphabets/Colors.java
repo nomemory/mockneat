@@ -71,91 +71,90 @@
 //    AO("Ao", "#008000"),
 //    APPLE("Apple",	"#66B447"),
 //    APPLE_GREEN("Apple Green",	"#8DB600"),
-//    "Apricot	#FBCEB1
-//    "Aqua	#00FFFF
-//    "Aquamarine	#7FFFD4	50%	100%	83%	160°	100%	75%	50%	100%
-//    "Arctic Lime	#D0FF14	82%	100%	8%	72°	100%	54%	92%	100%
-//    "Army Green	#4B5320	29%	33%	13%	69°	44%	23%	61%	33%
-//    Arsenic	#3B444B	23%	27%	29%	206°	12%	26%	21%	29%
-//    Artichoke	#8F9779	56%	59%	47%	76°	13%	53%	20%	59%
-//    Arylide Yellow	#E9D66B	91%	84%	42%	51°	74%	67%	54%	91%
-//    Ash Gray	#B2BEB5	70%	75%	71%	135°	8%	72%	6%	75%
-//    Asparagus	#87A96B	53%	66%	42%	93°	26%	54%	37%	66%
-//    Ateneo Blue	#003A6C	0%	23%	42%	208°	100%	21%	100%	42%
-//    Atomic Tangerine	#FF9966	100%	60%	40%	20°	100%	70%	60%	100%
-//    Auburn	#A52A2A	65%	16%	16%	0°	59%	41%	75%	65%
-//    Aureolin	#FDEE00	99%	93%	0%	56°	100%	50%	100%	99%
-//    AuroMetalSaurus	#6E7F80	43%	50%	50%	183°	8%	47%	14%	50%
-//    Avocado	#568203	34%	51%	1%	81°	95%	26%	98%	51%
-//    Awesome	#FF2052	100%	13%	32%	347°	95%	56%	98%	51%
-//    Axolotl	#63775B	39%	47%	36%	103°	95%	41%	24%	47%
-//    Aztec Gold	#C39953	76%	60%	33%	38°	48%	55%	57%	77%
-//    Azure	#007FFF	0%	50%	100%	210°	100%	50%	100%	100%
-//    Azure (Web Color)	#F0FFFF	94%	100%	100%	180°	100%	97%	6%	100%
-//    Azure Mist	#F0FFFF	94%	100%	100%	180°	100%	97%	6%	100%
-//    Azureish White	#DBE9F4	86%	91%	96%	206°	53%	91%	10%	96%
-//    Baby Blue	#89CFF0	54%	81%	94%	199°	77%	74%	43%	94%
-//    Baby Blue Eyes	#A1CAF1	63%	79%	95%	209°	74%	79%	33%	95%
-//    Baby Pink	#F4C2C2	96%	76%	76%	0°	69%	86%	20%	96%
-//    Baby Powder	#FEFEFA	100%	100%	98%	60°	67%	99%	2%	100%
-//    Baker-Miller Pink	#FF91AF	100%	57%	69%	344°	100%	78%	43%	100%
-//    Ball Blue	#21ABCD	13%	67%	80%	192°	72%	47%	84%	80%
-//    Banana Mania	#FAE7B5	98%	91%	71%	43°	87%	85%	28%	98%
-//    Banana Yellow	#FFE135	100%	88%	21%	51°	100%	60%	79%	100%
-//    Bangladesh Green	#006A4E	0%	42%	31%	164°	100%	21%	100%	42%
-//    Barbie Pink	#E0218A	88%	13%	54%	327°	75%	50%	85%	88%
-//    Barn Red	#7C0A02	49%	4%	1%	4°	97%	25%	98%	49%
-//    Battery Charged Blue	#1DACD6	11%	67%	84%	194°	76%	48%	86%	84%
-//    Battleship Grey	#848482	52%	52%	51%	60°	1%	51%	2%	52%
-//    Bazaar	#98777B	60%	47%	48%	353°	14%	53%	22%	60%
-//    Beau Blue	#BCD4E6	74%	83%	90%	206°	46%	82%	18%	90%
-//    Beaver	#9F8170	62%	51%	44%	22°	20%	53%	30%	62%
-//    Begonia	#FA6E79	98%	43%	47%	355°	93%	71%	10%	96%
-//    Beige	#F5F5DC	96%	96%	86%	60°	56%	91%	10%	96%
-//    B'dazzled Blue	#2E5894	18%	35%	58%	215°	53%	38%	69%	58%
-//    Big Dip O’ruby	#9C2542	61%	15%	26%	345°	62%	38%	76%	61%
-//    Big Foot Feet	#E88E5A	91%	56%	35%	22°	76%	63%	61%	91%
-//    Bisque	#FFE4C4	100%	89%	77%	33°	100%	88%	23%	100%
-//    Bistre	#3D2B1F	24%	17%	12%	24°	33%	18%	49%	24%
-//    Bistre Brown	#967117	59%	44%	9%	43°	73%	34%	85%	59%
-//    Bitter Lemon	#CAE00D	79%	88%	5%	66°	89%	46%	94%	88%
-//    Bitter Lime	#BFFF00	75%	100%	0%	75°	100%	50%	100%	100%
-//    Bittersweet	#FE6F5E	100%	44%	37%	6°	99%	68%	63%	100%
-//    Bittersweet Shimmer	#BF4F51	75%	31%	32%	359°	47%	53%	59%	75%
-//    Black	#000000	0%	0%	0%	0°	0%	0%	0%	0%
-//    Black Bean	#3D0C02	24%	5%	1%	10°	94%	12%	97%	24%
-//    Black Chocolate	#1B1811	11%	9%	7%	42°	23%	9%	37%	11%
-//    Black Coffee	#3B2F2F	23%	18%	18%	0°	11%	21%	20%	23%
-//    Black Coral	#54626F	33%	38%	44%	209°	14%	38%	24%	44%
-//    Black Leather Jacket	#253529	15%	21%	16%	135°	18%	18%	30%	21%
-//    Black Olive	#3B3C36	23%	24%	21%	70°	5%	22%	10%	24%
-//    Blackberry	#8F5973	56%	35%	45%	331°	23%	46%	38%	56%
-//    Black Shadows	#BFAFB2	75%	69%	70%	349°	11%	72%	8%	75%
-//    Blanched Almond	#FFEBCD	100%	92%	80%	36°	100%	90%	20%	100%
-//    Blast-Off Bronze	#A57164	65%	44%	39%	12°	27%	52%	39%	65%
-//    Bleu De France	#318CE7	19%	55%	91%	210°	79%	55%	79%	91%
-//    Blizzard Blue	#ACE5EE	67%	90%	93%	188°	66%	80%	28%	93%
-//    Blond	#FAF0BE	98%	94%	75%	50°	86%	86%	24%	98%
-//    Blood Orange	#D1001C	82%	0%	11%	352°	100%	41%	100%	82%
-//    Blood Red	#660000	40%	0%	0%	0°	100%	20%	100%	40%
-//    Blue	#0000FF	0%	0%	100%	240°	100%	50%	100%	100%
-//    Blue (Crayola)	#1F75FE	12%	46%	100%	217°	99%	56%	88%	100%
-//    Blue (Munsell)	#0093AF	0%	58%	69%	190°	100%	34%	100%	69%
-//    Blue (NCS)	#0087BD	0%	53%	74%	197°	100%	37%	100%	74%
-//    Blue (Pantone)	#0018A8	0%	9%	66%	231°	100%	33%	100%	66%
-//    Blue (Pigment)	#333399	20%	20%	60%	240°	50%	40%	67%	60%
-//    Blue (RYB)	#0247FE	1%	28%	100%	224°	99%	50%	99%	100%
-//    Blue Bell	#A2A2D0	64%	64%	82%	240°	33%	73%	22%	82%
-//    Blue Bolt	#00B9FB	0%	73%	98%	196°	100%	49%	100%	98%
-//    Blue-Gray	#6699CC	40%	60%	80%	210°	50%	60%	50%	80%
-//    Blue-Green	#0D98BA	5%	60%	73%	192°	87%	39%	93%	73%
-//    Blue Jeans	#5DADEC	36%	68%	93%	206°	79%	65%	61%	93%
-//    Blue Lagoon	#ACE5EE	67%	90%	93%	188°	66%	80%	28%	93%
-//    Blue-Magenta Violet	#553592	33%	21%	57%	261°	47%	39%	64%	57%
-//    Blue Sapphire	#126180	7%	38%	50%	197°	75%	29%	86%	50%
-//    Blue-Violet	#8A2BE2	54%	17%	89%	271°	76%	53%	81%	89%
-//    Blue Yonder	#5072A7	31%	45%	65%	217°	35%	48%	52%	65%
-//    Blueberry	#4F86F7	31%	53%	97%	220°	91%	64%	68%	97%
+//    APRICOT("Apricot",	"#FBCEB1"),
+//    AQUA("Aqua",	"#00FFFF"),
+//    AQUAMARINE("Aquamarine",	"#7FFFD4"),
+//    ARCTIC_LIME("Arctic Lime",	"#D0FF14"),
+//    ARMY_GREEN("Army Green",	"#4B5320"),
+//    ARSENIC("Arsenic",	"#3B444B"),
+//    ARTICHOKE("Artichoke",	"#8F9779"),
+//    ARYLIDE_YELLOW("Arylide Yellow",	"#E9D66B"),
+//    ASH_GRAY("Ash Gray",	"#B2BEB5"),
+//    ASPARAGUS("Asparagus", "#87A96B"),
+//    ATENEO("Ateneo", "#003A6C"),
+//    ATOMIC_TANGERINE("Atomic Tangerine",	"#FF9966"),
+//    AUBURN("Auburn",	"#A52A2A"),
+//    AUREOLIN("Aureolin",	"#FDEE00"),
+//    AUROMETALSAURUS("AuroMetalSaurus", "#6E7F80"),
+//    AVOCADO("Avocado"	, "#568203"),
+//    AWESOME("AWESOME", "#FF2052"),
+//    AXOLOTL("Axolotl", 	"#63775B"),
+//    AZTEC_GOLD("Aztec Gold",	"#C39953"),
+//    AZURE("Azure",	"#007FFF"),
+//    AZURE_MIST("Azure Mist",	"#F0FFFF"),
+//    AZUREISH_WHITE("Azureish White",	"#DBE9F4"),
+//    BABY_BLUE("Baby Blue",	"#89CFF0"),
+//    BABY_BLUE_EYES("Baby Blue Eyes",	"#A1CAF1"),
+//    BABY_PINK("Baby Pink",	"#F4C2C2"),
+//    BABY_POWDER("Baby Powder",	"#FEFEFA"),
+//    BAKER_MILLER_PINK("Baker-Miller Pink",	"#FF91AF"),
+//    BALL_BLUE("Ball Blue",	"#21ABCD"),
+//    BANANA_MANIA("Banana Mania",	"#FAE7B5"),
+//    BANANA_YELLOW("Banana Yellow",	"#FFE135"),
+//    BANGLADESH_GREEN("Bangladesh Green",	"#006A4E"),
+//    BARBIE_PINK("Barbie Pink",	"#E0218A"),
+//    BARB_RED("Barn Red", "#7C0A02"),
+//    BATTERY_CHARGED_BLUE("Battery Charged Blue",	"#1DACD6"),
+//    BATTLESHIP_GRAY("Battleship Grey",	"#848482"),
+//    BAZAAR("Bazaar",	"#98777B"),
+//    BEAU_BLEU("Beau Blue",	"#BCD4E6"),
+//    BEAVER("Beaver",	"#9F8170"),
+//    BEGONIA("Begonia",	"#FA6E79"),
+//    BEIGE("Beige",	"#F5F5DC"),
+//    B_DAZZLED_BLUE("B'dazzled Blue",	"#2E5894"),
+//    BIG_DIP_O_RUBY("Big Dip O’ruby",	"#9C2542"),
+//    BIG_FOOT_FEET("Big Foot Feet", "#E88E5A"),
+//    BISQUE("Bisque",	"#FFE4C4"),
+//    BISTRE("Bistre",	"#3D2B1F"),
+//    BISTRE_BROWN("Bistre Brown", "#967117"),
+//    BITTER_LEMON("Bitter Lemon", "#CAE00D"),
+//    BITTER_LIME("Bitter Lime",	"#BFFF00"),
+//    BITTERSWEET("Bittersweet",	"#FE6F5E"),
+//    BITTERSWEET("Bittersweet Shimmer",	"#BF4F51"),
+//    BLACK("Black",	"#000000"),
+//    BLACK_BEAN("Black Bean",	"#3D0C02"),
+//    BLACK("Black Chocolate",	"#1B1811"),
+//    BLACK_COFFEE("Black Coffee",	"#3B2F2F"),
+//    BLACK_CORAL("Black Coral",	"#54626F"),
+//    BLACK_LEATHER_JACKET("Black Leather Jacket",	"#253529"),
+//    BLACK_OLIVE("Black Olive",	"#3B3C36"),
+//    BLACKBERRY("Blackberry",	"#8F5973"),
+//    BLACK_SHADOWS("Black Shadows",	"#BFAFB2"),
+//    BLANCHED_ALMOND("Blanched Almond",	"#FFEBCD"),
+//    BLAST_OFF_BRONZE("Blast-Off Bronze",	"#A57164"),
+//    BLUE_DE_FRANCE("Bleu De France",	"#318CE7"),
+//    BLIZZARD_BLUE("Blizzard Blue",	"#ACE5EE"),
+//    BLOND("Blond",	"#FAF0BE"),
+//    BLOOD_ORANGE("Blood Orange",	"#D1001C"),
+//    BLOOD_RED("Blood Red",	"#660000"),
+//    BLUE("Blue",	"#0000FF"),
+//    BLUE_CRAYOLA("Blue Crayola",	"#1F75FE"),
+//    BLUE_MUNSELL("Blue Munsell",	"#0093AF"),
+//    BLUE_NCS("Blue NCS",	"#0087BD"),
+//    BLUE_PANTONE("Blue Pantone",	"#0018A8"),
+//    BLUE_PIGMENT("Blue Pigment",	"#333399"),
+//    BLUE_RYB("Blue RYB",	"#0247FE"),
+//    BLUE_BELL("Blue Bell",	"#A2A2D0"),
+//    BLUE_BOLT("Blue Bolt",	"#00B9FB"),
+//    BLUE_GRAY("Blue Gray",	"#6699CC"),
+//    BLUE_GREEN("Blue Green", "#0D98BA"),
+//    BLUE_JEANS("Blue Jeans", "#5DADEC"),
+//    BLUE_LAGOON("Blue Lagoon",	"#ACE5EE"),
+//    BLUE_MAGENTA_VIOLET("Blue-Magenta Violet",	"#553592"),
+//    BLUE_SAPPHIRE("Blue Sapphire",	"#126180"),
+//    BLUE_VIOLET("Blue-Violet",	"#8A2BE2"),
+//    BLUE_YONDER("Blue Yonder",	"#5072A7"),
+//    BLUEBERRY("Blueberry",	"#4F86F7"),
 //    Bluebonnet	#1C1CF0	11%	11%	94%	240°	88%	53%	88%	94%
 //    Blush	#DE5D83	87%	36%	51%	342°	66%	62%	58%	87%
 //    Bole	#79443B	47%	27%	23%	9°	34%	35%	51%	47%

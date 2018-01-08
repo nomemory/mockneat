@@ -34,11 +34,23 @@ public class Dicts extends MockUnitBase {
         super(mockNeat);
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate arbitrary values from a Dictionary ({@link DictType}.</p>
+     *
+     * @param type The type of the dictionary.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString type(DictType type) {
         notNull(type, "type");
         return () -> mockNeat.fromStrings(fm.getLines(type))::val;
     }
 
+    /**
+     * Returns a new {@code MockUnitString} that can be used to generate arbitrary values from a list of dictionaries {@link DictType}.
+     *
+     * @param types A var-arg array containing a list of possible {@code DictType}s.
+     * @return A mew {@code MockUnitString}
+     */
     public MockUnitString types(DictType... types) {
         notEmptyOrNullValues(types, "types");
         return () -> {

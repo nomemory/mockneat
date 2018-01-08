@@ -26,9 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
-import static net.andreinc.mockneat.types.enums.CreditCardType.MASTERCARD;
-import static net.andreinc.mockneat.types.enums.CreditCardType.VISA_16;
+import static net.andreinc.mockneat.types.enums.CreditCardType.*;
 import static net.andreinc.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
@@ -44,35 +42,81 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
         return type(AMERICAN_EXPRESS).supplier();
     }
 
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate credit card names (not numbers). (Eg.: "Mastercard")
+     *
+     * @return A new {@link MockUnitString}.
+     */
     public MockUnitString names() {
-        return () -> mockNeat.dicts().type(CREDIT_CARD_NAMES)::val;
+        return mockNeat.dicts().type(CREDIT_CARD_NAMES);
     }
 
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate credit card numbers of a given type: {@link CreditCardType}.
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @param type The type of the generated credit card number.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString type(CreditCardType type) {
         notNull(type, "type");
         Supplier<String> supplier = () -> generateCreditCard(type);
         return () -> supplier;
     }
 
-    //TODO Doc & Test
-    public MockUnitString amex() {
-        return type(AMERICAN_EXPRESS);
-    }
-
-    //TODO Doc & Test
-    public MockUnitString visa() {
-        return type(VISA_16);
-    }
-
-    //TODO Doc & Test
-    public MockUnitString masterCard() {
-        return type(MASTERCARD);
-    }
-
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate credit card numbers from the given {@code types}: {@link CreditCardType}.
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @param types A var-arg array that contains the types of the desired credit card numbers.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString types(CreditCardType... types) {
         notEmptyOrNullValues(types, "types");
         CreditCardType creditCardType = mockNeat.from(types).val();
         return type(creditCardType);
+    }
+
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate credit card numbers of type {@code AMERICAN_EXPRESS}.
+     *
+     * <p><em>Note: </em> This is a shortcut method for: {@code mockNeat.creditCards().type(AMERICAN_EXPRESS}</p>
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    public MockUnitString amex() {
+        return type(AMERICAN_EXPRESS);
+    }
+
+
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate credit card numbers of type {@code VISA_16}.
+     *
+     * <p><em>Note: </em> This is a shortcut method for: {@code mockNeat.creditCards().type(VISA_16}</p>
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    public MockUnitString visa() {
+        return type(VISA_16);
+    }
+
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate credit card numbers of type {@code MASTERCARD}.
+     *
+     * <p><em>Note: </em> This is a shortcut method for: {@code mockNeat.creditCards().type(MASTERCARD}</p>
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @return A new {@code MockUnitString}
+     */
+    public MockUnitString masterCard() {
+        return type(MASTERCARD);
     }
 
     private String generateCreditCard(CreditCardType creditCardType) {

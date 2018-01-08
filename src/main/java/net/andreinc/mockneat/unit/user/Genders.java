@@ -22,6 +22,11 @@ public class Genders extends MockUnitBase implements MockUnitString {
         return mockNeat.from(LONG).supplier();
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that is used to return "M" or "F".</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString letter() {
         return () -> mockNeat.from(SHORT).supplier();
     }
