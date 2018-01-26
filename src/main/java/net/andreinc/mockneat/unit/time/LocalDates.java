@@ -41,6 +41,11 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
         return between(EPOCH_START, LocalDate.now())::val;
     }
 
+    /**
+     * <p>This method can be used to generate date objects from the current year.</p>
+     *
+     * @return A new {@code MockUnitLocalDate} object.
+     */
     public MockUnitLocalDate thisYear() {
         Supplier<LocalDate> supp = () -> {
             int year = now().getYear();
@@ -51,6 +56,11 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
         return () -> supp;
     }
 
+    /**
+     * <p>This method can be used to generate date objects from the current month.</p>
+     *
+     * @return A new {@code MockUnitLocalDate} object.
+     */
     public MockUnitLocalDate thisMonth() {
         Supplier<LocalDate> supp = () -> {
             int year = now().getYear();
@@ -62,6 +72,13 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
         return () -> supp;
     }
 
+    /**
+     * <p>This method can be used to generate date objects in the defined range (lowerDate, upperDate).</p>
+     *
+     * @param lowerDate The lower limit of the interval.
+     * @param upperDate The upper limit of the interval.
+     * @return A new {@code MockUnitLocalDate} object.
+     */
     public MockUnitLocalDate between(LocalDate lowerDate, LocalDate upperDate) {
         notNull(lowerDate, "lowerDate");
         notNull(upperDate, "upperDate");
@@ -79,6 +96,12 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
         return ()-> supp;
     }
 
+    /**
+     * <p>This method can be used to generate date objects in the future.</p>
+     *
+     * @param maxDate The maxDate from the future.
+     * @return A new {@code MockUnitLocalDate} object.
+     */
     public MockUnitLocalDate future(LocalDate maxDate) {
         notNull(maxDate, "maxDate");
         isTrue(maxDate.compareTo(MAX.minusDays(1))<=0,
@@ -92,6 +115,12 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
         return between(now().plusDays(1), maxDate.plusDays(1));
     }
 
+    /**
+     * <p>This method can be used to generate date objects in the past.</p>
+     *
+     * @param minDate The minDate from the past.
+     * @return A new {@code MockUnitLocalDate}.
+     */
     public MockUnitLocalDate past(LocalDate minDate) {
         notNull(minDate,  "minDate");
         isTrue(minDate.compareTo(MIN)>0,

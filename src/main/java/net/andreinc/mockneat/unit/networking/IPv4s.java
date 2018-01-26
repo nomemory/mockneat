@@ -43,12 +43,24 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
         return type(NO_CONSTRAINT).supplier();
     }
 
+    /**
+     * <p>This method can be used to narrow down the IPv4 generation process to a few types.</p>
+     *
+     * @param types The types array (var-arg).
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString types(IPv4Type... types) {
         notEmptyOrNullValues(types, "types");
         IPv4Type type = mockNeat.from(types).val();
         return type(type);
     }
 
+    /**
+     * <p>This method can be used to narrow down the IPv4 generation process to a certain type.</p>
+     *
+     * @param type The type of array to be generated.
+     * @return A new {@code MockUnitString}.
+     */
     //TODO modify the way IPV4 are generated
     public MockUnitString type(IPv4Type type) {
         notNull(type, "type");

@@ -41,21 +41,51 @@ public class Names extends MockUnitBase implements MockUnitString {
         return full().supplier();
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate arbitrary first names (both male and female).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString first() { return type(FIRST_NAME); }
 
-    // TODO document and test
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate first names (males only).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString firstAndMale() { return type(FIRST_NAME_MALE); }
 
-    //TODO document and test
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate first names (female only).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString firstAndFemale() { return type(FIRST_NAME_FEMALE); }
 
+    /**
+     * <p>Returns a new {@code MockUnitstring} that can be used to generate last names.</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString last() { return type(LAST_NAME); }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate full names (First Name + Last Name).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString full() {
         Supplier<String> supp = () -> first().val() + " " + last().val();
         return () -> supp;
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate full names including a middle name (with a given probability).</p>
+     *
+     * @param middleInitialProbability A double value between [0.0, 100.0] denoting the probability of the middle name to appear.
+     *
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString full(double middleInitialProbability) {
         betweenClosed(middleInitialProbability, 0.0, 100.0);
         Supplier<String> supp = () -> {
@@ -66,12 +96,26 @@ public class Names extends MockUnitBase implements MockUnitString {
         return () -> supp;
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate names in the given array of types.</p>
+     *
+     * @param types A var-arg array denoting the types of names that are generated.
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString types(NameType... types) {
         notEmptyOrNullValues(types, "types");
         NameType nameType = mockNeat.from(types).val();
         return type(nameType);
     }
 
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate names of the given type.</p>
+     *
+     * @param type The type of name we want to generate.
+     *
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString type(NameType type) {
         notNull(type, "type");
         DictType dictType = mockNeat.from(type.getDictionaries()).val();

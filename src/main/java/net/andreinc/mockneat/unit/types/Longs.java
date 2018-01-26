@@ -40,6 +40,12 @@ public class Longs extends MockUnitBase implements MockUnitLong {
         return random::nextLong;
     }
 
+    /**
+     * <p>This method returns a {@code MockUnitLong} that can be used to generate arbitrary numbers in the [0, bound) interval.</p>
+     *
+     * @param bound The interval's bound.
+     * @return A new {@code MockUnitLong}.
+     */
     public MockUnitLong bound(long bound) {
         isTrue(bound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
         Supplier<Long> supplier = () -> {
@@ -55,6 +61,13 @@ public class Longs extends MockUnitBase implements MockUnitLong {
         return () -> supplier;
     }
 
+    /**
+     * <p>This method returns a {@code MockUnitLong} that can be used generate arbitrary numbers in the given range: [loweBound, upperBound)</p>
+     *
+     * @param lowerBound The lower bound of the interval.
+     * @param upperBound The upper bound of the interval.
+     * @return A new {@code MockUnitLong}.
+     */
     public MockUnitLong range(long lowerBound, long upperBound) {
         notNull(lowerBound, "lowerBound");
         notNull(upperBound, "upperBound");
@@ -66,6 +79,12 @@ public class Longs extends MockUnitBase implements MockUnitLong {
         return () -> supplier;
     }
 
+    /**
+     * <p>This method returns a {@code MockUnitLong} that can be used to generate arbitrary long numbers from the given alphabet.</p>
+     *
+     * @param alphabet The alphabet from which the values are selected.
+     * @return A new {@code MockUnitLong}.
+     */
     public MockUnitLong from(long[] alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Long> supp = () -> {

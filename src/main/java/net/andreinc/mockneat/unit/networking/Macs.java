@@ -39,6 +39,12 @@ public class Macs extends MockUnitBase implements MockUnitString {
         return type(COLON_EVERY_2_DIGITS)::val;
     }
 
+    /**
+     * <p>This method can be used to setup the format of the MAC address.</p>
+     *
+     * @param type The format.
+     * @return A new {@code MockUnitString}.
+     */
     public MockUnitString type(MACAddressFormatType type) {
         notNull(type, "type");
         Supplier<String> supplier = () -> {

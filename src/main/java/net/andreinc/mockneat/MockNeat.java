@@ -393,34 +393,110 @@ public class MockNeat {
      */
     public IntSeq intSeq() { return new IntSeq(); }
 
+    /**
+     * <p>Returns a {@code IPv4s} object that can be used to generate arbitrary IPv4 addresses.</p>
+     *
+     * @return A re-usable {@code IPv4s} object. The {@code IPv4s} class implements {@code MockUnitString}.
+     */
     public IPv4s ipv4s() { return this.rIPv4s; }
 
+    /**
+     * <p>Returns a {@code IPv6s} object that can be used to generate arbitrary IPv6 addresses.</p>
+     *
+     * @return A re-usable {@code IPv6s} object. The {@code IPv6s} class implements {@code MockUnitString}.
+     */
     public IPv6s iPv6s() { return this.rIPv6s; }
 
+    /**
+     * <p>Returns a {@code ISSNS} object that can be used to generate arbitrary ISSN codes.</p>
+     *
+     * @return A re-usable {@code ISSNS} object. The {@code ISSNS} class implements {@code MockUnitString}.
+     */
     public ISSNS issns() { return this.rISSNS; }
 
+    /**
+     * <p>Returns a {@code LocalDates} object that can be used to generate arbitrary {@code LocalDate} objects.</p>
+     *
+     * @return A re-usable {@code LocalDates} object. The {@code LocalDates} implements {@code MockUnitLocalDate}.
+     */
     public LocalDates localDates() { return this.rLocalDates; }
 
+    /**
+     * <p>Returns a {@code Longs} object that can be used to generate arbitrary {@code Long} numbers.</p>
+     *
+     * <p><em>Note:</em>By default the internal {@code Random.nextLong()} will be called.</p>
+     *
+     * @return A re-usable {@code Longs} object. The {@code Longs} class extends the {@code MockUnitLong} class.
+     */
     public Longs longs() { return this.rLongs; }
 
+    /**
+     * <p>Returns a {@code LongSeq} object that can be used to generate arbitrary {@code Long} numbers in a sequence.</p>
+     *
+     * @return A re-usable {@code LongSeq} object. The {@code LongSeq} class implements {@code MockUnitLong}.
+     */
     public LongSeq longSeq() { return new LongSeq(); }
 
+    /**
+     * <p>Returns a {@code Macs} object that can be used to generate arbitrary physical addresses (MAC).</p>
+     *
+     * @return A re-usable {@code Macs} object. The {@code Macs} class implements {@code MockUnitString}.
+     */
     public Macs macs() { return this.rMacs; }
 
     public Markovs markovs() { return this.rMarkovs; }
 
+    /**
+     * <p>Returns a {@code Mimes} object that can be used to generate arbitrary Mime Types (Eg.: "text/html", "image/x-icon", "text/calendar")</p>
+     *
+     * @return A re-usable {@code Mimes} object. The {@code Mimes} class implements {@code MockUnitString}.
+     */
     public Mimes mimes() { return this.rMimes; }
 
+    /**
+     * <p>Returns a {@code Months} object that can be used to generate arbitrary {@code Month} objects.</p>
+     *
+     * @return A re-usable {@code Months} object. The {@code Months} class implements {@code MockUnitMonth}.
+     */
     public Months months() { return this.rMonths; }
 
+    /**
+     * <p>Returns a {@code Money} object that can be used to generate arbitrary "money" information.</p>
+     *
+     * <p>The generated text represents sums of money generated using {@code NumberFormat.getCurrencyInstance().format(...)}.</p>
+     *
+     * <p><em>Note:</em>By default it returns a random sum of money</p>
+     *
+     * @return A re-usable {@code Money} object. The {@code Money} class implements {@code MockUnitString}.
+     */
     public Money money() { return this.rMoney; }
 
+    /**
+     * <p>Returns a {@code Names} object that can be used to generate "names" (full names, first names or last names).</p>
+     *
+     * <p><em>Note:</em>By default it can be used to generate people full names.</p>
+     *
+     * <p><em>Note:</em> The names are the most common names that appear in the US.</p>
+     *
+     * @return A re-usable {@code Names} object. The {@code Names} class implements {@code MockUnitString}.
+     */
     public Names names() { return this.rNames; }
 
     public NaughtyStrings naughtyStrings() { return this.rNaughtyStrings; }
 
+    /**
+     * <p>Returns a {@code Passwords} object that can be used to generate arbitrary user passwords.</p>
+     *
+     * @return A re-usable {@code Passwords} object. The {@code Passwords} class implements {@code MockUnitString}.
+     */
     public Passwords passwords() { return this.rPasswords; }
 
+    /**
+     * <p>Returns a new {@code Regex} object that can be used to generate arbitrary text bassed on a certain regex pattern.</p>
+     *
+     * @param regex The regex pattern that the generated string needs to comply.
+     * @return A new {@code Regex} object. The {@code Regex} class implements {@code MockUnitString}.
+     */
     public Regex regex(String regex) { return new Regex(regex); }
 
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }

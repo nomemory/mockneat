@@ -46,29 +46,56 @@ public class Passwords extends MockUnitBase implements MockUnitString {
         return () -> nextPassword(passStrengthType);
     }
 
+    /**
+     * <p>This method returns a new {@code MockUnitString} that can be used to generate passwords of a certain type.</p>
+     *
+     * @param passStrengthType The type of password.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString type(PassStrengthType passStrengthType) {
         notNull(passStrengthType, "passStrengthType");
         Supplier<String> supplier = () -> nextPassword(passStrengthType);
         return () -> supplier;
     }
 
+    /**
+     * <p>This method returns a new {@code MockUnitString} that can be used to generate passwords of certain type(s).</p>
+     *
+     * @param types A var-arg array containing the selected password types.
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString types(PassStrengthType... types) {
         notEmptyOrNullValues(types, "types");
         PassStrengthType passStrengthType = mockNeat.from(types).val();
         return type(passStrengthType);
     }
 
-    //TODO test and document
+    /**
+     * <p>This method returns a new {@code MockUnitString} that can be used to generate weak passwords (short english nouns).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    //TODO document
     public MockUnitString weak() {
         return type(WEAK);
     }
 
-    //TODO test and document
+    /**
+     * <p>This method returns a new {@code MockUnitString} that can be used to generate passwords with a medium security risk.</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    //TODO document
     public MockUnitString medium() {
         return type(MEDIUM);
     }
 
-    //TODO test and document
+    /**
+     * <p>This method returns a new {@code MockUnitString} that can be used to generate strong passwords.</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    //TODO document
     public MockUnitString strong() {
         return type(STRONG);
     }
