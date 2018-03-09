@@ -499,6 +499,13 @@ public class MockNeat {
      */
     public Regex regex(String regex) { return new Regex(regex); }
 
+    /**
+     * <p>Returns a {@code Probabilities} object that can be used to generate arbitrary data with a given probability.</p>
+     *
+     * @param cls The type we are going to generate.
+     * @param <T>
+     * @return A re-usable {@code Probabilities} object. The class implements {@code MockUnit<T>}.
+     */
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}

@@ -1099,5 +1099,4 @@ public interface MockUnit<T> {
         };
         return () -> supp;
     }
-
 }
