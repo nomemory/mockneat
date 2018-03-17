@@ -130,7 +130,7 @@ Integer x = m.probabilites(Integer.class)
              .val();
 ```
 
-### Generating (Markov) Text from the writings of Franz Kafka
+### 4. Generating (Markov) Text from the writings of Franz Kafka
 
 ```java
 MockNeat mock = MockNeat.threadLocal();
@@ -145,7 +145,7 @@ Possible Output:
 From under the couch and put her finger on her forehead. Her words seemed to regret her behaviour, as she approached the room, despite the chilly weather, gregor's mother and put more folds into it so that grete would probably be the right time to spare him this ordeal, but it became difficult after that, especially as he lay his head would fall wearily against the door again straight away now, pack up my samples and set off. Will you report everything accurately, then? it's quite possible for him it was nearly carrying her. What shall we take now, then? , gregor asked himself as he ran after him, gregor's father seized the chief clerk go away in front of her hands. Drawn in by the window where they remained with their hands in their chairs reading them and break the connection with their leader. Once there, all three had jobs which were very good and held particularly good promise for the other foods on the landing and the longer it went so slowly. Gregor remained all this time would normally be sat with his
 ```
 
-### Fill-up complex structures
+### 5. Fill-up complex structures
 
 ```java
 MockNeat mock = MockNeat.threadLocal();
