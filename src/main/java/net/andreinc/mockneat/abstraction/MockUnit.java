@@ -270,7 +270,7 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
-     * <p><em>Note:</em> The {@code listSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     * <p><em>Note:</em> The {@code listSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown.</p>
      *
      * @param listSupplier The supplier that returns a {@code List<T>}
      * @param size The final size of the list.
@@ -307,7 +307,7 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
-     * <p><em>Note:</em> The {@code listSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     * <p><em>Note:</em> The {@code listSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown.</p>
      *
      * @param listSupplier The supplier that returns a {@code List<T>}
      * @param sizeUnit The MockUnitInt used to generate the size of the List. If the MockUnitInt generates a negative value an exception will be thrown.
@@ -384,7 +384,7 @@ public interface MockUnit<T> {
      *
      * <p>This method can be used to generate a fixed-length Set containing arbitrary data.</p>
      *
-     * <p><em>Note:</em> The {@code setSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     * <p><em>Note:</em> The {@code setSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown.</p>
      *
      * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
      *
@@ -432,7 +432,7 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
      *
-     * <p><em>Note:</em> The {@code setSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     * <p><em>Note:</em> The {@code setSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown.</p>
      *
      * <p>This method can be used to generate a variable-length Set containing arbitrary data.</p>
      *
@@ -633,11 +633,11 @@ public interface MockUnit<T> {
     }
 
     /**
-     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
      * <p>This method can be used to generate a fixed-length Map containing arbitrary data.</p>
      *
-     * @param mapSupplier The {@code Supplier<Map<R, T>>} used to instantiate the {code Map<R, T>}.
+     * @param mapSupplier The {@code Supplier<Map<R, T>} used to instantiate the {@code Map<R, T>}.
      * @param size The size of the Map.
      * @param keySupplier The supplier of the keys.
      * @param <R> The type of the Keys.
