@@ -17,6 +17,8 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.utils.ValidationUtils;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -59,8 +61,8 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString display(String format, Locale locale) {
-        notNull(format, "format");
-        notNull(locale, "locale");
+        ValidationUtils.notNull(format, "format");
+        ValidationUtils.notNull(locale, "locale");
         final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format, locale);
         return () -> ifSupplierNotNullDo(supplier(), localDate -> localDate.format(dtf));
     }

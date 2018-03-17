@@ -29,7 +29,6 @@ import java.nio.charset.Charset;
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.template;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 @FunctionalInterface
 public interface MockUnitString extends MockUnit<String> {
@@ -49,7 +48,7 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString format(StringFormatType formatType) {
-        notNull(formatType, "formatType");
+        ValidationUtils.notNull(formatType, "formatType");
         return () -> ifSupplierNotNullDo(supplier(), formatType.getFormatter()::apply);
     }
 
@@ -91,7 +90,7 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString append(String str) {
-        notNull(str, "str");
+        ValidationUtils.notNull(str, "str");
         return () -> ifSupplierNotNullDo(supplier(), s -> s.concat(str));
     }
 
@@ -104,7 +103,7 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString prepend(String str) {
-        notNull(str, "str");
+        ValidationUtils.notNull(str, "str");
         return () -> ifSupplierNotNullDo(supplier(), str::concat);
     }
 
@@ -131,8 +130,8 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString replace(CharSequence target, CharSequence replacement) {
-        notNull(target, "target");
-        notNull(replacement, "replacement");
+        ValidationUtils.notNull(target, "target");
+        ValidationUtils.notNull(replacement, "replacement");
         return () -> ifSupplierNotNullDo(supplier(), s -> s.replace(target, replacement));
     }
 
@@ -146,8 +145,8 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString replaceAll(String regex, String replacement) {
-        notNull(regex, "regex");
-        notNull(replacement, "replacement");
+        ValidationUtils.notNull(regex, "regex");
+        ValidationUtils.notNull(replacement, "replacement");
         return () -> ifSupplierNotNullDo(supplier(), s -> s.replaceAll(regex,replacement));
     }
 
@@ -161,8 +160,8 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString replaceFirst(String regex, String replacement) {
-        notNull(regex, "regex");
-        notNull(replacement, "replacement");
+        ValidationUtils.notNull(regex, "regex");
+        ValidationUtils.notNull(replacement, "replacement");
         return () -> ifSupplierNotNullDo(supplier(), s -> s.replaceFirst(regex, replacement));
     }
 
@@ -176,7 +175,7 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnit<String>}
      */
     default MockUnit<String[]> split(String regex, int limit) {
-        notNull(regex, "regex");
+        ValidationUtils.notNull(regex, "regex");
         return () -> ifSupplierNotNullDo(supplier(), s -> s.split(regex, limit));
     }
 
@@ -202,7 +201,7 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString urlEncode(String encoding) {
-        notNull(encoding, "encoding");
+        ValidationUtils.notNull(encoding, "encoding");
         return () -> ifSupplierNotNullDo(supplier(), s -> {
             try { return encode(s, encoding); }
             catch (UnsupportedEncodingException e) {

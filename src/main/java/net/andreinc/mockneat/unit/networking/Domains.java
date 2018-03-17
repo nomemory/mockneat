@@ -21,6 +21,7 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DomainSuffixType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
@@ -65,7 +66,7 @@ public class Domains extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(DomainSuffixType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         return () -> mockNeat.dicts().type(type.getDictType())::val;
     }
 

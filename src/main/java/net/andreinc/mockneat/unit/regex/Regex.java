@@ -19,6 +19,7 @@ package net.andreinc.mockneat.unit.regex;
 
 import com.mifmif.common.regex.Generex;
 import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
@@ -35,7 +36,7 @@ public class Regex implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        notNull(regex, "regex");
+        ValidationUtils.notNull(regex, "regex");
         validRegex(regex);
         return () -> new Generex(regex).random();
     }

@@ -49,7 +49,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 import static org.apache.commons.lang3.Validate.notEmpty;
 
 @SuppressWarnings("unchecked")
@@ -553,7 +552,7 @@ public class MockNeat {
     }
 
     public <T extends Enum<?>> MockUnit<T> from(Class<T> enumClass) {
-        notNull(enumClass, "enumClass");
+        ValidationUtils.notNull(enumClass, "enumClass");
         T[] arr = enumClass.getEnumConstants();
         return from(arr);
     }

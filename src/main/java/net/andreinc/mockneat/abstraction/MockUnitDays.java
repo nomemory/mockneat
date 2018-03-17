@@ -17,13 +17,14 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.utils.ValidationUtils;
+
 import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
 import static java.time.format.TextStyle.FULL;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public interface MockUnitDays extends MockUnit<DayOfWeek> {
 
@@ -35,8 +36,8 @@ public interface MockUnitDays extends MockUnit<DayOfWeek> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString display(TextStyle textStyle, Locale locale) {
-        notNull(textStyle, "textStyle");
-        notNull(locale, "locale");
+        ValidationUtils.notNull(textStyle, "textStyle");
+        ValidationUtils.notNull(locale, "locale");
         return () ->
                 ifSupplierNotNullDo(supplier(), s -> s.getDisplayName(textStyle, locale));
     }
@@ -50,7 +51,7 @@ public interface MockUnitDays extends MockUnit<DayOfWeek> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString display(TextStyle textStyle) {
-        notNull(textStyle, "textStyle");
+        ValidationUtils.notNull(textStyle, "textStyle");
         return display(textStyle, Locale.ENGLISH);
     }
 

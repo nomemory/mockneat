@@ -26,6 +26,7 @@ import static net.andreinc.aleph.AlephFormatter.template;
 public class ValidationUtils {
 
     public static final String INPUT_PARAMETER_NOT_NULL = "Input parameter: '#{input}' should not be NULL.";
+    public static final String SUPPLIER_VALUE_NOT_NULL = "Value retrieved by Supplier<?> '#{supplier}' should not be NULL";
     public static final String INPUT_PARAMETER_NOT_EMPTY_OR_NULL = "Input parameter: '#{input}' should not be empty or NULL.";
     public static final String LOWER_BOUND_BIGGER_THAN_ZERO = "The input parameter 'lowerBound' should be >= 0.0.";
     public static final String UPPER_BOUND_BIGGER_THAN_ZERO = "The input parameter 'upperBound' should be > 0.0.";
@@ -89,6 +90,10 @@ public class ValidationUtils {
 
     public static <T> T notNull(T object, String input) {
         return notNull(object, INPUT_PARAMETER_NOT_NULL, "input", input);
+    }
+
+    public static <T> T notNullSupp(T object, String input) {
+        return notNull(object, SUPPLIER_VALUE_NOT_NULL, "supplier", input);
     }
 
     public static <T extends CharSequence> T notEmpty(T chars, String message, Object... values) {

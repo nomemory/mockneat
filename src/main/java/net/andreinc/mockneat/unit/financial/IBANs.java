@@ -23,6 +23,7 @@ import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.CharsType;
 import net.andreinc.mockneat.types.enums.IBANType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -80,7 +81,7 @@ public class IBANs extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString type(IBANType ibanType) {
-        notNull(ibanType, "ibanType");
+        ValidationUtils.notNull(ibanType, "ibanType");
         return () -> () -> generate(ibanType);
     }
 

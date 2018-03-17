@@ -21,6 +21,7 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.utils.file.FileManager;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
@@ -41,7 +42,7 @@ public class Dicts extends MockUnitBase {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(DictType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         return () -> mockNeat.fromStrings(fm.getLines(type))::val;
     }
 

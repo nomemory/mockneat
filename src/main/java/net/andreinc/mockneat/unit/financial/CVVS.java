@@ -22,6 +22,7 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CVVType;
 import net.andreinc.mockneat.utils.LoopsUtils;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
@@ -66,7 +67,7 @@ public class CVVS extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(CVVType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
             LoopsUtils.loop(type.getLength(), () ->

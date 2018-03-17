@@ -22,6 +22,7 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.MarkovChainType;
 import net.andreinc.mockneat.unit.text.markov.MarkovUnit;
+import net.andreinc.mockneat.utils.ValidationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,7 +74,7 @@ public class Markovs extends MockUnitBase implements MockUnitString {
     }
 
     public MockUnitString type(MarkovChainType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         Supplier<String> supp = () -> {
             MarkovUnit unit;
             try {

@@ -22,6 +22,7 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.PassStrengthType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -53,7 +54,7 @@ public class Passwords extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(PassStrengthType passStrengthType) {
-        notNull(passStrengthType, "passStrengthType");
+        ValidationUtils.notNull(passStrengthType, "passStrengthType");
         Supplier<String> supplier = () -> nextPassword(passStrengthType);
         return () -> supplier;
     }

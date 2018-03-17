@@ -21,6 +21,7 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.MACAddressFormatType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -46,7 +47,7 @@ public class Macs extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString type(MACAddressFormatType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         Supplier<String> supplier = () -> {
             StringBuilder buff = new StringBuilder();
             IntStream.range(0, 12).forEach(i -> type.getConsumer().consume(i, buff, this.mockNeat));

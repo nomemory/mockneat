@@ -21,6 +21,7 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -35,7 +36,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public <T> MockUnit<T[]> array(T[] source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<T[]> supplier = () -> {
             T[] result = source.clone();
             T tmp;
@@ -51,7 +52,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public MockUnit<int[]> arrayInt(int[] source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<int[]> supplier = () -> {
             int[] result = source.clone();
             int tmp;
@@ -67,7 +68,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public MockUnit<long[]> arrayLong(long[] source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<long[]> supplier = () -> {
             long[] result = source.clone();
             long tmp;
@@ -83,7 +84,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public MockUnit<double[]> arrayDouble(double[] source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<double[]> supplier = () -> {
             double[] result = source.clone();
             double tmp;
@@ -99,7 +100,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public MockUnit<float[]> arrayFloat(float[] source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<float[]> supplier = () -> {
             float[] result = source.clone();
             float tmp;
@@ -115,7 +116,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public <T> MockUnit<ArrayList<T>> arrayList(ArrayList<T> source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<ArrayList<T>> supplier = () -> {
             ArrayList<T> result = (ArrayList<T>) source.clone();
             T tmp;
@@ -132,7 +133,7 @@ public class Shufflers extends MockUnitBase {
     }
 
     public MockUnitString string(String source) {
-        notNull(source, "source");
+        ValidationUtils.notNull(source, "source");
         Supplier<String> supplier = () -> {
             char[] chars = source.toCharArray();
             char c;

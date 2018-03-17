@@ -21,22 +21,38 @@ import net.andreinc.mockneat.abstraction.models.AbstractSetNoInstance;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class MockUnitSetMethodTest {
+
     @Test(expected = NullPointerException.class)
     public void testSetNullType() throws Exception {
-        M.ints().set(null, 10).val();
+        Class<Set> cls = null;
+        M.ints().set(cls, 10).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetSuppNullType() throws Exception {
+        Supplier<Set<Integer>> setSupplier = null;
+        M.ints().set(setSupplier, 10).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetSuppRetNullType() throws Exception {
+        M.ints().set(() -> null, 10).val();
     }
 
     @Test
-    public void testSet0Iterations() throws Exception {
-        M.ints().set(HashSet.class, 0).val();
+    public void testSet0Iterations() {
+        Set<Integer> st = M.ints().set(HashSet.class, 0).val();
+        assertNotNull(st);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -45,22 +61,23 @@ public class MockUnitSetMethodTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void testSetSuppNegativeSize() throws Exception {
+        M.ints().set(() -> new TreeSet<>(), -1).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testCannotImplementSet() throws Exception {
         M.ints().set(AbstractSetNoInstance.class, 10).val();
     }
 
     @Test
-    public void testSetCorrectSize0() throws Exception {
-        loop(MOCK_CYCLES, () ->
-                stream(MOCKS).forEach(r ->
-                        assertTrue(r.ints().set(0).set(0).val().isEmpty())));
+    public void testSetCorrectSize0() {
+        loop(MOCK_CYCLES, MOCKS, m -> assertTrue(m.ints().set(0).set(0).val().isEmpty()));
     }
 
     @Test
     public void testSetCorrectSize0_1() throws Exception {
-        loop(MOCK_CYCLES, () ->
-                stream(MOCKS).forEach(r ->
-                        assertTrue(r.ints().set(5000).set(0).val().isEmpty())));
+        loop(MOCK_CYCLES, MOCKS, m -> m.ints().set(5000).set(0).val().isEmpty());
     }
 
     @Test
@@ -75,9 +92,9 @@ public class MockUnitSetMethodTest {
 
     @Test
     public void testSetCorrectValues() throws Exception {
-        loop(MOCK_CYCLES, () -> stream(MOCKS).forEach(r -> {
+        loop(MOCK_CYCLES, MOCKS, m -> {
             Set<Set<Set<Integer>>> result =
-                    r.ints().range(100, 200)
+                    m.ints().range(100, 200)
                             .set(HashSet.class, 5)
                             .set(HashSet.class, 10)
                             .set(HashSet.class, 5)
@@ -89,29 +106,29 @@ public class MockUnitSetMethodTest {
             assertTrue(result.iterator().next().iterator().next() instanceof HashSet);
 
             // Iterate over all the values
-            result.forEach(stack ->
-                    stack.forEach(linkedSet ->
-                            linkedSet.forEach(i ->
-                                    assertTrue(i >= 100 && i < 200))));
-        }));
-    }
-
-    protected MockUnit getRecursiveRandUnitSet(MockUnit ru, int stop) {
-        Class[] setsImpls = new Class[] { TreeSet.class, HashSet.class, LinkedHashSet.class };
-        while(stop-->0) {
-            ru = ru.set(M.from(setsImpls).val(), 1);
-        }
-        return ru;
-    }
-
-    protected Set getRecursiveSet() {
-        MockUnit l = M.ints().set(1);
-        return (Set) getRecursiveRandUnitSet(l, 1000).val();
+            result.forEach(i -> i.forEach(j -> j.forEach(k -> assertTrue(k >= 100 && k < 200))));
+        });
     }
 
     @Test
-    public void testSetDeep() {
+    public void testSetSuppCorrectValues() throws Exception {
+        loop(MOCK_CYCLES, MOCKS, m -> {
+            Set<Set<Set<Integer>>> result = null;
+            result = m.ints()
+                      .range(100, 200)
+                      .set(() -> new TreeSet<>(), 5)
+                      .set(() -> new HashSet<>(), 10)
+                      .set(() -> new LinkedHashSet<>(), 5)
+                      .val();
 
+            assertTrue(result.size()==5);
+            assertTrue(result instanceof LinkedHashSet);
+            assertTrue(result.iterator().next() instanceof HashSet);
+            assertTrue(result.iterator().next().iterator().next() instanceof TreeSet);
+
+            // Iterate over all the values
+            result.forEach(i -> i.forEach(j -> j.forEach(k -> assertTrue(k >= 100 && k < 200))));
+        });
     }
 
     @Test
@@ -126,5 +143,34 @@ public class MockUnitSetMethodTest {
         });
     }
 
+    // MockUnitInt sizes
 
+    @Test(expected = NullPointerException.class)
+    public void testSetMockUnitIntSizeNull() {
+        MockUnitInt sizeUnit = null;
+        M.ints().set(sizeUnit).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetMockUnitIntSizeNull1() {
+        MockUnitInt sizeUnit = null;
+        M.ints().set(HashSet.class, sizeUnit).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testSetSuppMockUnitSizeNull() {
+        MockUnitInt sizeUnit = null;
+        M.ints().set(() -> new TreeSet<>(), sizeUnit).val();
+    }
+
+    @Test
+    public void testCorrectMockUnitIntSize() {
+        loop(MOCK_CYCLES, MOCKS, m -> {
+            Set<Integer> set = m.intSeq()
+                                .set(() -> new HashSet<>(), m.ints().range(10, 20))
+                                .val();
+
+            assertTrue(set.size()>=10 && set.size()<20);
+        });
+    }
 }

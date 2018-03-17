@@ -23,6 +23,7 @@ import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.UserNameType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
@@ -44,7 +45,7 @@ public class Users extends MockUnitBase implements MockUnitString {
     }
 
     public MockUnitString type(UserNameType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         Supplier<String> supplier = () -> generateUserName(type);
         return () -> supplier;
     }

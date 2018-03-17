@@ -113,7 +113,6 @@ public interface MockUnit<T> {
      * @param times The number of times we are going to call the {@code BiConsumer}.
      * @param biConsumer The {@code BiConsumer} that is going to consume the arbitrary generated value(s). The first parameter of the {@code BiConsumer} represents the step.
      */
-    //TODO document
     default void consume(int times, BiConsumer<Integer, T> biConsumer) {
         isTrue(times > 0, NUMBER_OF_TIMES_POSITIVE);
         notNull(biConsumer, "consumer");
@@ -271,6 +270,29 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
      *
+     * <p><em>Note:</em> The {@code listSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     *
+     * @param listSupplier The supplier that returns a {@code List<T>}
+     * @param size The final size of the list.
+     * @return A new {@code MockUnit<List<T>>}.
+     */
+    default MockUnit<List<T>> list(Supplier<List<T>> listSupplier, int size) {
+        notNull(listSupplier, "listSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+
+        Supplier<List<T>> supp = () -> {
+            final List<T> result = listSupplier.get();
+            notNullSupp(result, "listSupplier");
+            range(0, size).forEach(i -> result.add(supplier().get()));
+            return result;
+        };
+
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
+     *
      * <p>This method can used to generate variable-length Lists containing arbitrary data.</p>
      *
      * @param listClass The type of List we are going to use as the internal implementation (Eg.: ArrayList.class)
@@ -279,7 +301,21 @@ public interface MockUnit<T> {
      */
     default MockUnit<List<T>> list(Class<? extends List> listClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return () -> list(listClass, sizeUnit.val()).supplier();
+        return list(listClass, sizeUnit.val())::supplier;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<List<T>>}.</p>
+     *
+     * <p><em>Note:</em> The {@code listSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     *
+     * @param listSupplier The supplier that returns a {@code List<T>}
+     * @param sizeUnit The MockUnitInt used to generate the size of the List. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @return A new {@code MockUnit<List<T>>}
+     */
+    default MockUnit<List<T>> list(Supplier<List<T>> listSupplier, MockUnitInt sizeUnit) {
+        notNull(sizeUnit, "sizeUnit");
+        return list(listSupplier, sizeUnit.val())::supplier;
     }
 
 
@@ -309,7 +345,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<List<T>> list(MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return () -> list(sizeUnit.val()).supplier();
+        return list(sizeUnit.val())::supplier;
     }
 
     /**
@@ -346,6 +382,35 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
      *
+     * <p>This method can be used to generate a fixed-length Set containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The {@code setSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     *
+     * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
+     *
+     * <p><em>Note:</em> If you are using a TreeSet.class as the implementing class you need to take in consideration it doesn't accept null values.</p>
+     *
+     * <p><em>Note:</em> The implementing set need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param setSupplier The supplier that returns a {@code Set<T>}.
+     * @param size The max size of the Set.
+     * @return A new {@code MockUnit<Set<T>>}
+     */
+    default MockUnit<Set<T>> set(Supplier<Set<T>> setSupplier, int size) {
+        notNull(setSupplier, "setSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<Set<T>> supp = () -> {
+            Set<T> result = setSupplier.get();
+            notNullSupp(result, "setSupplier");
+            range(0, size).forEach(i -> result.add(supplier().get()));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
+     *
      * <p>This method can be used to generate a variable-length Set containing arbitrary data.</p>
      *
      * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
@@ -354,13 +419,37 @@ public interface MockUnit<T> {
      *
      * <p><em>Note:</em> The implementing set need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
-     * @param setClass The {@code Set<T>} implementation we are going to use.
+     * @param setClass setSupplier The supplier that returns a {@code Set<T>}.
      * @param sizeUnit The MockUnitInt used to generate the size of the Set. If the MockUnitInt generates a negative value an exception will be thrown.
      * @return A new {@code MockUnit<Set<T>>}
      */
     default MockUnit<Set<T>> set(Class<? extends Set> setClass, MockUnitInt sizeUnit) {
+        notNull(setClass, "setClass");
         notNull(sizeUnit, "sizeUnit");
-        return () -> set(setClass, sizeUnit.val()).supplier();
+        return set(setClass, sizeUnit.val())::supplier;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Set<T>>}.</p>
+     *
+     * <p><em>Note:</em> The {@code setSupplier} should not return NULL values. Otherwise a NullPointer exception is thrown></p>
+     *
+     * <p>This method can be used to generate a variable-length Set containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The size represents the max size of the Set, but it's not guaranteed to be so, given the nature of the Set (it doesn't accept duplicates).</p>
+     *
+     * <p><em>Note:</em> If you are using a TreeSet as the implementing class you need to take in consideration it doesn't accept null values.</p>
+     *
+     * <p><em>Note:</em> The implementing set need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param setSupplier The {@code Set<T>} implementation we are going to use.
+     * @param sizeUnit The MockUnitInt used to generate the size of the Set. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @return A new {@code MockUnit<Set<T>>}
+     */
+    default MockUnit<Set<T>> set(Supplier<Set<T>> setSupplier, MockUnitInt sizeUnit) {
+        notNull(setSupplier, "setSupplier");
+        notNull(sizeUnit, "sizeUnit");
+        return set(setSupplier, sizeUnit.val())::supplier;
     }
 
     /**
@@ -393,7 +482,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<Set<T>> set(MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return () -> set(sizeUnit.val()).supplier();
+        return set(sizeUnit.val())::supplier;
     }
 
     /**
@@ -428,6 +517,29 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
      *
+     * <p>This method can be used to generate a fixed-length Collection containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param collectionSupplier  The {@code Supplier<Collection<T>>} we are going to use to obtain the Collection instance.
+     * @param size The size of the collection. (If the collection is a Set, this is guaranteed to be the max size, not the actual one).
+     * @return A new {@code MockUnit<Collection<T>>}
+     */
+    default MockUnit<Collection<T>> collection(Supplier<Collection<T>> collectionSupplier, int size) {
+        notNull(collectionSupplier, "collectionSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<Collection<T>> supp = () -> {
+            Collection<T> result = collectionSupplier.get();
+            notNullSupp(result, "collectionSupplier");
+            range(0, size).forEach(i -> result.add(supplier().get()));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
+     *
      * <p>This method can be used to generate a variable-length Collection containing arbitrary data.</p>
      *
      * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
@@ -438,7 +550,23 @@ public interface MockUnit<T> {
      */
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return () -> collection(collectionClass, sizeUnit.val()).supplier();
+        return collection(collectionClass, sizeUnit.val())::supplier;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Collection<T>>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Collection containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing collection need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param collectionSupplier  The {@code Supplier<Collection<T>>} we are going to use to obtain the Collection instance.
+     * @param sizeUnit The MockUnitInt used to generate the size of the Collection. If the MockUnitInt generates a negative value an exception will be thrown. (If the collection is a Set, this is guaranteed to be the max size, not the actual one).
+     * @return A new {@code MockUnit<Collection<T>>}
+     */
+    default MockUnit<Collection<T>> collection(Supplier<Collection<T>> collectionSupplier, MockUnitInt sizeUnit) {
+        notNull(sizeUnit, "sizeUnit");
+        return collection(collectionSupplier, sizeUnit.val())::supplier;
     }
 
     /**
@@ -468,7 +596,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<Collection<T>> collection(MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return () -> collection(sizeUnit.val()).supplier();
+        return collection(sizeUnit.val())::supplier;
     }
 
 
@@ -507,6 +635,31 @@ public interface MockUnit<T> {
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
+     * <p>This method can be used to generate a fixed-length Map containing arbitrary data.</p>
+     *
+     * @param mapSupplier The {@code Supplier<Map<R, T>>} used to instantiate the {code Map<R, T>}.
+     * @param size The size of the Map.
+     * @param keySupplier The supplier of the keys.
+     * @param <R> The type of the Keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, int size, Supplier<R> keySupplier) {
+        notNull(mapSupplier, "mapSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        notNull(keySupplier, "keySupplier");
+
+        Supplier<Map<R,T>> supp = () -> {
+            Map<R, T> result = mapSupplier.get();
+            notNullSupp(result, "keySupplier");
+            range(0, size).forEach(i -> result.put(keySupplier.get(), supplier().get()));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
+     *
      * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
      *
      * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
@@ -519,7 +672,25 @@ public interface MockUnit<T> {
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
         notNull(sizeUnit, "sizeUnit");
-        return () -> mapKeys(mapClass, sizeUnit.val(), keysSupplier).supplier();
+        return mapKeys(mapClass, sizeUnit.val(), keysSupplier)::supplier;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapSupplier The {@code Supplier<Map<R, T>>} that is used to obtain a Map instance.
+     * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @param keySupplier The supplier of the keys.
+     * @param <R> The type of the keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, MockUnitInt sizeUnit, Supplier<R> keySupplier) {
+        notNull(sizeUnit, "sizeUnit");
+        return mapKeys(mapSupplier, sizeUnit.val(), keySupplier)::supplier;
     }
 
     /**
@@ -538,6 +709,7 @@ public interface MockUnit<T> {
         return mapKeys(HashMap.class, size, keysSupplier);
     }
 
+
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Supplier<R>}.</p>
      *
@@ -551,7 +723,8 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
-        return () -> mapKeys(sizeUnit.val(), keysSupplier).supplier();
+        notNull(sizeUnit, "sizeUnit");
+        return mapKeys(sizeUnit.val(), keysSupplier)::supplier;
     }
 
     /**
@@ -580,6 +753,28 @@ public interface MockUnit<T> {
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.</p>
+     *
+     * <p>The size of the Map is determined by the supplied {@code Iterable<R>}.</p>
+     *
+     * @param mapSupplier A supplier method returning a {@code Map<R, T>}.
+     * @param keys The {@code Iterable<R>} used to generate the keys.
+     * @param <R> The type of the keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, Iterable<R> keys) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(keys, "keys");
+        Supplier<Map<R, T>> supp = () -> {
+            Map<R, T> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            keys.forEach(key -> result.put(key, supplier().get()));
+            return result;
         };
         return () -> supp;
     }
@@ -631,6 +826,30 @@ public interface MockUnit<T> {
     }
 
     /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.</p>
+     *
+     * <p>The size of the Map is determined by the supplied {@code Iterable<R>}.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapSupplier The supplier method returning a {@code Map<R,T>}.
+     * @param keys The {@code Iterable<R>} used to generate the keys.
+     * @param <R> The type of the keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, R[] keys) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(keys, "keys");
+        Supplier<Map<R, T>> supp = () -> {
+            Map<R, T> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(keys).forEach(key -> result.put(key, supplier().get()));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
      *
      * <p>The size of the Map is determined by the supplied array.</p>
@@ -644,7 +863,6 @@ public interface MockUnit<T> {
     default <R> MockUnit<Map<R, T>> mapKeys(R[] keys) {
         return mapKeys(HashMap.class, keys);
     }
-
 
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
@@ -672,6 +890,27 @@ public interface MockUnit<T> {
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
+     *
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * @param mapSupplier The supplier method that returns a {@code Map<Integer, T>}.
+     * @param keys The array used to generate the keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default MockUnit<Map<Integer, T>> mapKeys(Supplier<Map<Integer, T>> mapSupplier, int[] keys) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(keys, "keys");
+        Supplier<Map<Integer, T>> supp = () -> {
+            Map<Integer, T> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(keys).forEach(key -> result.put(key, supplier().get()));
+            return result;
         };
         return () -> supp;
     }
@@ -725,6 +964,29 @@ public interface MockUnit<T> {
      *
      * <p>The size of the Map is determined by the supplied array.</p>
      *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapSupplier The supplier method that returns a {@code Map<Long, T>}.
+     * @param keys The array used to generate the keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default MockUnit<Map<Long, T>> mapKeys(Supplier<Map<Long, T>> mapSupplier, long[] keys) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(keys, "keys");
+        Supplier<Map<Long, T>> supp = () -> {
+            Map<Long, T> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(keys).forEach(key -> result.put(key, supplier().get()));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
+     *
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
      * <p><em>Note:</em> The implementing Map is HashMap.</p>
      *
      * @param keys The array used to generate the keys.
@@ -760,6 +1022,27 @@ public interface MockUnit<T> {
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given array.</p>
+     *
+     * <p>The size of the Map is determined by the supplied array.</p>
+     *
+     * @param mapSupplier The supplier method that returns a {@code Map<Double, T>}.
+     * @param keys The array used to generate the keys.
+     * @return A new {@code MockUnit<Map<R, T>>}
+     */
+    default MockUnit<Map<Double, T>> mapKeys(Supplier<Map<Double, T>> mapSupplier, double[] keys) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(keys, "keys");
+        Supplier<Map<Double, T>> supp = () -> {
+            Map<Double, T> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(keys).forEach(key -> result.put(key, supplier().get()));
+            return result;
         };
         return () -> supp;
     }
@@ -817,6 +1100,32 @@ public interface MockUnit<T> {
      *
      * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
+     * @param mapSupplier The supplier method that returns a {@code Map<T, R>}.
+     * @param size The size of the map.
+     * @param valuesSupplier The supplier of the values.
+     * @param <R> The type of the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default <R> MockUnit<Map<T, R>> mapVals(Supplier<Map<T, R>> mapSupplier, int size, Supplier<R> valuesSupplier) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(valuesSupplier, "valuesSupplier");
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
+        Supplier<Map<T, R>> supp = () -> {
+            Map<T, R> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            range(0, size).forEach(i -> result.put(supplier().get(), valuesSupplier.get()));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
      * @param valuesSupplier The supplier of the values.
@@ -824,9 +1133,24 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
-        return () -> mapVals(mapClass, sizeUnit.val(), valuesSupplier).supplier();
+        return mapVals(mapClass, sizeUnit.val(), valuesSupplier)::supplier;
     }
 
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
+     *
+     * <p>This method can be used to generate a variable-length Map containing arbitrary data.</p>
+     *
+     * @param mapSupplier The supplier method that returns {@code Map<T, R>}.
+     * @param sizeUnit The MockUnitInt used to generate the size of the Map. If the MockUnitInt generates a negative value an exception will be thrown.
+     * @param valuesSupplier The supplier of the values.
+     * @param <R> The type the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default <R> MockUnit<Map<T, R>> mapVals(Supplier<Map<T, R>> mapSupplier, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
+        notNull(sizeUnit, "sizeUnit");
+        return mapVals(mapSupplier, sizeUnit.val(), valuesSupplier)::supplier;
+    }
 
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Supplier<R>}.</p>
@@ -892,6 +1216,29 @@ public interface MockUnit<T> {
         return () -> supp;
     }
 
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values generated from a {@code Iterable<R>}.</p>
+     *
+     * <p>The size of the Map is strictly determined by the size of the {@code Iterable<R>}.</p>
+     *
+     * @param  mapSupplier The supplier returning the {@code Map<T, R>} that will hold the values.
+     * @param values The {@code Iterable<R>} from where the values are selected in order.
+     * @param <R> The type the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default <R> MockUnit<Map<T, R>> mapVals(Supplier<Map<T, R>> mapSupplier, Iterable<R> values) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(values, "valus");
+        Supplier<Map<T, R>> supp = () -> {
+            Map<T, R> result = mapSupplier.get();
+            notNullSupp(result, "result");
+            values.forEach(value -> result.put(supplier().get(), value));
+            return result;
+        };
+        return () -> supp;
+    }
+
     /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from a {@code Iterable<R>}.</p>
      *
@@ -942,6 +1289,30 @@ public interface MockUnit<T> {
      *
      * <p>The size of the map is strictly determined by the size of the array.</p>
      *
+     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
+     *
+     * @param mapSupplier The supplier method that returns the {@code Map<T, R>}.
+     * @param values The array.
+     * @param <R> The type the values.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default <R> MockUnit<Map<T, R>> mapVals(Supplier<Map<T, R>> mapSupplier, R[] values) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(values, "values");
+        Supplier<Map<T, R>> supp = () -> {
+            Map<T, R> result = mapSupplier.get();
+            notNullSupp(result, "result");
+            Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
      * <p><em>Note:</em> The implementing map used is HashMap.</p>
      *
      * @param values The array.
@@ -982,7 +1353,28 @@ public interface MockUnit<T> {
     }
 
     /**
-     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,Integer>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * @param mapSupplier The supplier method that returns a {@code Map<T, Integer>}.
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default MockUnit<Map<T, Integer>> mapVals(Supplier<Map<T, Integer>> mapSupplier, int[] values) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(values, "values");
+        Supplier<Map<T, Integer>> supp = () -> {
+            Map<T, Integer> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+            return result;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,Integer>} where the values are generated from an array.</p>
      *
      * <p>The size of the map is strictly determined by the size of the array.</p>
      *
@@ -996,7 +1388,7 @@ public interface MockUnit<T> {
     }
 
     /**
-     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,Long>} where the values are generated from an array.</p>
      *
      * <p>The size of the map is strictly determined by the size of the array.</p>
      *
@@ -1025,6 +1417,28 @@ public interface MockUnit<T> {
     }
 
     /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,Long>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * @param mapSupplier The supplier method that returns a {@code Map<T, Long>}.
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default MockUnit<Map<T, Long>> mapVals(Supplier<Map<T, Long>> mapSupplier, long[] values) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(values, "values");
+        Supplier<Map<T, Long>> supp = () -> {
+            Map<T, Long> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+            return result;
+        };
+        return () -> supp;
+    }
+
+
+    /**
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
      *
      * <p>The size of the map is strictly determined by the size of the array.</p>
@@ -1039,7 +1453,7 @@ public interface MockUnit<T> {
     }
 
     /**
-     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,R>} where the values are generated from an array.</p>
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,Double>} where the values are generated from an array.</p>
      *
      * <p>The size of the map is strictly determined by the size of the array.</p>
      *
@@ -1063,6 +1477,27 @@ public interface MockUnit<T> {
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
             }
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T,Double>} where the values are generated from an array.</p>
+     *
+     * <p>The size of the map is strictly determined by the size of the array.</p>
+     *
+     * @param mapSupplier The supplier method that returns a {@code Map<T, Double>}.
+     * @param values The array.
+     * @return A new {@code MockUnit<Map<T, R>>}
+     */
+    default MockUnit<Map<T, Double>> mapVals(Supplier<Map<T, Double>> mapSupplier, double[] values) {
+        notNull(mapSupplier, "mapSupplier");
+        notNull(values, "values");
+        Supplier<Map<T, Double>> supp = () -> {
+            Map<T, Double> result = mapSupplier.get();
+            notNullSupp(result, "mapSupplier");
+            Arrays.stream(values).forEach(value -> result.put(supplier().get(), value));
+            return result;
         };
         return () -> supp;
     }
@@ -1096,6 +1531,23 @@ public interface MockUnit<T> {
             T[] objs = (T[]) Array.newInstance(cls, size);
             range(0, size).forEach(i -> objs[i] = supplier().get());
             return objs;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<T[]>}.</p>
+     *
+     * @param arraySupplier The supplier method for the {@code T[]} array. The array size will be used.
+     * @return A new {@code MockUnit<T[]>}.
+     */
+    default MockUnit<T[]> array(Supplier<T[]> arraySupplier) {
+        notNull(arraySupplier, "arraySupplier");
+        Supplier<T[]> supp = () -> {
+            T[] result = arraySupplier.get();
+            notNullSupp(result, "arraySupplier");
+            range(0, result.length).forEach(i -> result[i] = supplier().get());
+            return result;
         };
         return () -> supp;
     }

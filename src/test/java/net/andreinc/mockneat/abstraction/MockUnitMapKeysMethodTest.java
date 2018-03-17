@@ -24,6 +24,7 @@ import net.andreinc.mockneat.utils.MapCheckUtils;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
@@ -37,7 +38,8 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSupplierNullClass() throws Exception {
-        Constants.M.ints().mapKeys(null, 10, () -> "abc").val();
+        Class<Map<?, ?>> cls = null;
+        Constants.M.ints().mapKeys(cls, 10, () -> "abc").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -47,7 +49,8 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSupplierNullSupplier() {
-        Constants.M.ints().mapKeys(HashMap.class, 10, null).val();
+        Supplier<?> supp = null;
+        Constants.M.ints().mapKeys(HashMap.class, 10, supp).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -117,7 +120,8 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysIterableNullClass() throws Exception {
-        Constants.M.ints().mapKeys(null, Constants.M.ints().list(10).val());
+        Class<Map> cls = null;
+        Constants.M.ints().mapKeys(cls, Constants.M.ints().list(10).val());
     }
 
     @Test(expected = NullPointerException.class)
@@ -195,7 +199,8 @@ public class MockUnitMapKeysMethodTest {
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayNullClass() throws Exception {
         Integer[] keys = {1,2,3};
-        Constants.M.ints().mapKeys(null, keys).val();
+        Class<Map> cls = null;
+        Constants.M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -258,7 +263,8 @@ public class MockUnitMapKeysMethodTest {
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayIntNullClass() throws Exception {
         int[] keys = {1,2,3};
-        Constants.M.ints().mapKeys(null, keys).val();
+        Class<Map> cls = null;
+        Constants.M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -306,8 +312,9 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayLongNullClass() throws Exception {
+        Class<Map> cls = null;
         long[] keys = {1,2,3};
-        Constants.M.ints().mapKeys(null, keys).val();
+        Constants.M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -355,8 +362,9 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayDoubleNullClass() throws Exception {
+        Class<Map> cls = null;
         double[] keys = {1.0, 2.0, 3.0};
-        Constants.M.ints().mapKeys(null, keys).val();
+        Constants.M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)

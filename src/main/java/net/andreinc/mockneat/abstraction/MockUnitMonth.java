@@ -17,6 +17,8 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.utils.ValidationUtils;
+
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -35,8 +37,8 @@ public interface MockUnitMonth extends MockUnit<Month> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString display(TextStyle textStyle, Locale locale) {
-        notNull(textStyle, "textStyle");
-        notNull(locale, "locale");
+        ValidationUtils.notNull(textStyle, "textStyle");
+        ValidationUtils.notNull(locale, "locale");
         Supplier<String> supp = () -> supplier().get().getDisplayName(textStyle, locale);
         return () -> supp;
     }

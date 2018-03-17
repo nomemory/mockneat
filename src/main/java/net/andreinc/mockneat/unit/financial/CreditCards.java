@@ -21,6 +21,7 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CreditCardType;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +61,7 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(CreditCardType type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         Supplier<String> supplier = () -> generateCreditCard(type);
         return () -> supplier;
     }

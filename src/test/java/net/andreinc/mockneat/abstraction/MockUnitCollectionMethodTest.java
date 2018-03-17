@@ -31,7 +31,8 @@ import static org.junit.Assert.assertTrue;
 public class MockUnitCollectionMethodTest {
     @Test(expected = NullPointerException.class)
     public void testCollectionNulLType() throws Exception {
-        Constants.M.ints().collection(null, 10).val();
+        Class<Collection<?>> cls = null;
+        Constants.M.ints().collection(cls, 10).val();
     }
 
     @Test

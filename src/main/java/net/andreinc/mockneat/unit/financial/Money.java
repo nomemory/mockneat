@@ -20,6 +20,7 @@ package net.andreinc.mockneat.unit.financial;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -41,7 +42,7 @@ public class Money extends MockUnitBase implements MockUnitString {
     }
 
     public Money locale(Locale locale) {
-        notNull(locale, "locale");
+        ValidationUtils.notNull(locale, "locale");
         this.formatter = getCurrencyInstance(locale);
         return this;
     }

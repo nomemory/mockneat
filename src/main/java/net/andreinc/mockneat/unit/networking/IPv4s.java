@@ -5,6 +5,7 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Range;
 import net.andreinc.mockneat.types.enums.IPv4Type;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +64,7 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
      */
     //TODO modify the way IPV4 are generated
     public MockUnitString type(IPv4Type type) {
-        notNull(type, "type");
+        ValidationUtils.notNull(type, "type");
         Range<Integer>[] oc = type.getOctets();
         Supplier<String> supp = () -> {
             StringBuilder buff = new StringBuilder();

@@ -48,8 +48,8 @@ public class Days extends MockUnitBase implements MockUnitDays {
      * @return A new {@code MockUnitDays}.
      */
     public MockUnitDays rangeClosed(DayOfWeek lower, DayOfWeek upper) {
-        notNull(lower, "lower");
-        notNull(upper, "upper");
+        ValidationUtils.notNull(lower, "lower");
+        ValidationUtils.notNull(upper, "upper");
         isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
             int idx = mockNeat.ints().range(lower.getValue()-1, upper.getValue()).val();
@@ -66,8 +66,8 @@ public class Days extends MockUnitBase implements MockUnitDays {
      * @return A new {@code MockUnitDays}
      */
     public MockUnitDays range(DayOfWeek lower, DayOfWeek upper) {
-        notNull(lower, "lower");
-        notNull(upper, "upper");
+        ValidationUtils.notNull(lower, "lower");
+        ValidationUtils.notNull(upper, "upper");
         isTrue(lower.getValue()<upper.getValue(), UPPER_MONTH_BIGGER_THAN_LOWER);
         Supplier<DayOfWeek> supp = () -> {
             int idx = mockNeat.ints().range(lower.getValue()-1, upper.getValue()-1).val();
@@ -83,7 +83,7 @@ public class Days extends MockUnitBase implements MockUnitDays {
      * @return A new {@code MockUnitDays}
      */
     public MockUnitDays before(DayOfWeek before) {
-        notNull(before, "before");
+        ValidationUtils.notNull(before, "before");
         isTrue(before.getValue()-1>0, ValidationUtils.BEFORE_DAY_DIFFERENT_THAN_MONDAY);
         return range(DayOfWeek.values()[0], before);
     }
@@ -96,7 +96,7 @@ public class Days extends MockUnitBase implements MockUnitDays {
      * @return A new {@code MockUnitDays}.
      */
     public MockUnitDays after(DayOfWeek after) {
-        notNull(after, "after");
+        ValidationUtils.notNull(after, "after");
         isTrue(after.getValue()-1<DayOfWeek.values().length-1, ValidationUtils.AFTER_DAY_DIFFERENT_THAN_SUNDAY);
         Supplier<DayOfWeek> supp = () -> {
             int idx = mockNeat.ints().range(after.getValue(), DayOfWeek.values().length).val();

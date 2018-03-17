@@ -19,6 +19,7 @@ package net.andreinc.mockneat.unit.objects;
 
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.utils.MockUnitUtils;
+import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
@@ -54,8 +55,8 @@ public class Constructor<T> implements MockUnit<T> {
 
     @Override
     public Supplier<T> supplier() {
-        notNull(cls, "cls");
-        notNull(params, "params");
+        ValidationUtils.notNull(cls, "cls");
+        ValidationUtils.notNull(params, "params");
         final Object[] args = new Object[params.length];
         return () -> {
             range(0, params.length).forEach(i -> args[i] = MockUnitUtils.mockOrObject(params[i]));
