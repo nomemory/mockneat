@@ -26,7 +26,7 @@ public class GenerateMarkovs {
     public static void main(String[] args) {
         MockNeat mock = MockNeat.threadLocal();
 
-        String text = mock.markovs().size(512).type(KAFKA).val();
+        String text = mock.markovs().size(1024).type(KAFKA).val();
         System.out.println(text);
     }
 }

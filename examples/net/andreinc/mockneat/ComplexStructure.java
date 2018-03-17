@@ -28,14 +28,12 @@ public class ComplexStructure {
 
         Map<String, List<Map<Set<Integer>, List<Integer>>>> result =
                 mock.ints()
-                    // List<Integer>
                     .list(2)
-                    // Map<Set<Integer>, List<Integer>>
                     .mapKeys(2, mock.ints().set(3)::val)
-                    // List<Map<Set<Integer>, List<Integer>>>
                     .list(LinkedList.class, 2)
-                    // Map<String, List<Map<Set<Integer>, List<Integer>>>>
-                    .mapKeys(4, mock.strings()::val)
+                    .mapKeys(4, mock.strings().size(5)::val)
                     .val();
+
+        System.out.println(result);
     }
 }
