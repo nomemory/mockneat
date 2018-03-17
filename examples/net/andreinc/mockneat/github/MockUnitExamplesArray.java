@@ -27,5 +27,8 @@ public class MockUnitExamplesArray {
                             .first()
                             .array(String.class, 100)
                             .val();
+
+        Integer[] ints = m.ints().array(() -> new Integer[10]).val();
+
     }
 }

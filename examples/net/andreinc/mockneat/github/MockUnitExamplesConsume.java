@@ -24,5 +24,9 @@ public class MockUnitExamplesConsume {
         MockNeat m = MockNeat.threadLocal();
 
         m.urls().list(100).consume(System.out::println);
+
+        m.names().first().consume(10, (idx, name) -> {
+            System.out.printf("%d - %s\n", idx, name);
+        });
     }
 }

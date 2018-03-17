@@ -18,7 +18,10 @@ package net.andreinc.mockneat.github;
  */
 
 import net.andreinc.mockneat.MockNeat;
+import net.andreinc.mockneat.abstraction.MockUnitInt;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MockUnitExamplesList {
@@ -27,5 +30,10 @@ public class MockUnitExamplesList {
 
         List<String> countries = m.countries().names().list(100).val();
         System.out.println(countries);
+
+        List<String> emails = m.emails().list(() -> new ArrayList<>(), 10).val();
+
+        MockUnitInt lengthGenerator = m.ints().range(1, 100);
+        List<String> creditCards = m.creditCards().list(() -> new LinkedList<>(), lengthGenerator).val();
     }
 }
