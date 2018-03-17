@@ -115,6 +115,27 @@ m.fmt("#{id},#{first},#{last},#{email},#{salary}")
  }); // Writes the list to a file
 ```
 
+Possible Output:
+
+```
+10,Marianna,Duma,laithswoop@company.com,2214,341781929348574
+20,Taryn,Contrenas,moistwerner@company.com,3583,343141643983552
+30,Melissa,Hayward,costivetian@company.com,1552,345359563978695
+40,Vernita,Blind,brutalanastos@company.com,4454,349356219759467
+50,Sharon,Susany,poisedkati@company.com,1107,341564268273557
+60,Catina,Barroso,rakedgilbert@company.com,2817,373895563308966
+70,Joe,Hibbets,acredhordes@company.com,1857,340740009576588
+80,Pearlene,Baldon,heeledwinston@company.com,2550,375873851661469
+90,Evette,Zeis,plusserita@company.com,1578,375692810718024
+100,Chrystal,Ambroz,huedelvin@company.com,2130,342226196016008
+110,Thuy,Sturkie,flawedmoorehouse@company.com,1056,376516621386714
+120,Colleen,Stachowicz,scoremelba@company.com,2522,343614618335958
+130,Lacey,Franza,quitereive@company.com,3712,377995434270084
+140,Cherri,Maille,daftumber@company.com,4360,370982611739914
+....
+....
+```
+
 ### 3. Probabilities
 
 Example for generating numbers in intervals based on probabilities: 
