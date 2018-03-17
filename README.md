@@ -33,6 +33,9 @@ Real world examples:
 
 - [Generate arbitrary JSON strings](https://github.com/nomemory/mockneat/wiki/CreateJsonObject)
 
+DZone Article(s): 
+- [Generating and Mocking Data With MockNeat](https://dzone.com/articles/generating-arbitrary-data-using-mockneat)
+
 ## Examples
 
 ### 1. Mocking Real-World Objects
