@@ -326,6 +326,10 @@ public class MockNeat {
         return new Factory<>(targetCls, factoryCls);
     }
 
+    public <T> Filler<T> filler(Supplier<T> supplier) {
+        return new Filler<>(this, supplier);
+    }
+
     /**
      * <p>Returns a {@code FromFiles} object that can used to generate random strings from a given text file.</p>
      *
