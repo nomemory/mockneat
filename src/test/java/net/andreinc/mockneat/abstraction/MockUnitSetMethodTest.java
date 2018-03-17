@@ -164,13 +164,33 @@ public class MockUnitSetMethodTest {
     }
 
     @Test
-    public void testCorrectMockUnitIntSize() {
+    public void testSetSuppCorrectMockUnitIntSize() {
         loop(MOCK_CYCLES, MOCKS, m -> {
             Set<Integer> set = m.intSeq()
                                 .set(() -> new HashSet<>(), m.ints().range(10, 20))
                                 .val();
 
             assertTrue(set.size()>=10 && set.size()<20);
+        });
+    }
+
+    @Test
+    public void testSetCorrectMockUnitIntSize() {
+        loop(MOCK_CYCLES, MOCKS, m -> {
+            Set<Integer> set = m.intSeq()
+                                .set(HashSet.class, m.ints().range(10, 20))
+                                .val();
+            assertTrue(set.size() >= 10 && set.size() < 20);
+        });
+    }
+
+    @Test
+    public void testSetCorrectMockUnitIntSize1() {
+        loop(MOCK_CYCLES, MOCKS, m -> {
+            Set<Integer> set = m.intSeq()
+                                .set(m.ints().range(10, 20))
+                                .val();
+            assertTrue(set.size() >= 10 && set.size() < 20);
         });
     }
 }
