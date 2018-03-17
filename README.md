@@ -102,17 +102,18 @@ The file should contain 1000 lines.
 MockNeat m = MockNeat.threadLocal();
 final Path path = Paths.get("./test.csv");
 
-m.fmt("#{id},#{first},#{last},#{email},#{salary}")
- .param("id", m.longSeq()) // Replaces #{id} with a long number in a sequence
- .param("first", m.names().first()) // Replaces #{first} with a first name 
- .param("last", m.names().last()) // Replaces #{last} with a last name
- .param("email", m.emails()) // Replaces #{email} with an arbitrary email 
- .param("salary", m.money().locale(GERMANY).range(2000, 5000)) // Replace #{salary} with a sum of money (EUR) in the given range
- .list(1000) // Generates a list of 1000 Strings 
- .consume(list -> { 
-            try { Files.write(path, list, CREATE, WRITE); }
-            catch (IOException e) { e.printStackTrace(); }
- }); // Writes the list to a file
+m.fmt("#{id},#{first},#{last},#{email},#{salary},#{creditCardNum}")
+ .param("id", m.longSeq().start(10).increment(10).mapToString().escapeCsv())
+ .param("first", m.names().first().escapeCsv())
+ .param("last", m.names().last().escapeCsv())
+ .param("email", m.emails().domain("company.com").mapToString().escapeCsv())
+ .param("salary", m.ints().range(1000, 5000).mapToString().escapeCsv())
+ .param("creditCardNum", m.creditCards().type(AMERICAN_EXPRESS).escapeCsv())
+ .list(1000)
+ .consume(list -> {
+             try { Files.write(path, list, CREATE, WRITE); }
+             catch (IOException e) { e.printStackTrace(); }
+          });
 ```
 
 Possible Output:
