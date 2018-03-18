@@ -181,6 +181,25 @@ From under the couch and put her finger on her forehead. Her words seemed to reg
 
 ### 5. Fill-up complex structures
 
+Generate a "matrix" (`Integer[][]`) of "0" and "1":
+
+```java
+// Generating a matrix of random integers with 5 rows and 5 columns
+Integer[][] a = m.from(new Integer[]{0, 1})
+                 .array(() -> new Integer[5]) // Cols
+                 .array(() -> new Integer[5][]) // Rows
+                 .val();
+                 
+// Possible Output:
+// 1 1 1 0 1
+// 1 1 0 1 0
+// 1 1 1 0 0
+// 0 1 1 0 1
+// 0 1 1 1 1 
+```                     
+
+Filling-up a complex structure:
+
 ```java
 MockNeat mock = MockNeat.threadLocal();
 
@@ -223,6 +242,4 @@ LOOOOOOOOOOL!
 LOL!
 LOOL!
 ```
-
-
 
