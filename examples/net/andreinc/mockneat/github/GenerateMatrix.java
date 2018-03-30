@@ -10,9 +10,9 @@ public class GenerateMatrix {
         MockNeat m = MockNeat.threadLocal();
 
         // Generating a matrix of random integers with 5 rows and 5 columns
-        int[][] a = m.ints()
-                     .arrayPrimitive(5)
-                     .array(int[].class, 10)
+        Integer[][] a = m.from(new Integer[]{0, 1})
+                     .array(() -> new Integer[5]) // Cols
+                     .array(() -> new Integer[5][]) // Rows
                      .val();
 
         for (int i = 0; i < a.length; i++) {
@@ -23,3 +23,10 @@ public class GenerateMatrix {
         }
     }
 }
+
+// Possible Output:
+// 1 1 1 0 1
+// 1 1 0 1 0
+// 1 1 1 0 0
+// 0 1 1 0 1
+// 0 1 1 1 1

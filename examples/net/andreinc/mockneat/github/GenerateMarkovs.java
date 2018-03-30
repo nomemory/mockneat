@@ -19,14 +19,14 @@ package net.andreinc.mockneat.github;
 
 import net.andreinc.mockneat.MockNeat;
 
-import static net.andreinc.mockneat.types.enums.MarkovChainType.KAFKA;
+import static net.andreinc.mockneat.types.enums.MarkovChainType.LOREM_IPSUM;
 
 public class GenerateMarkovs {
 
     public static void main(String[] args) {
         MockNeat mock = MockNeat.threadLocal();
 
-        String text = mock.markovs().size(1024).type(KAFKA).val();
+        String text = mock.markovs().size(1024).type(LOREM_IPSUM).val();
         System.out.println(text);
     }
 }

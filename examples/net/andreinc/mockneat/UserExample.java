@@ -1,5 +1,8 @@
 package net.andreinc.mockneat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by andreinicolinciobanu on 17/03/18.
  */
@@ -17,6 +20,15 @@ public class UserExample {
                      .val();
 
         System.out.println(user1);
+
+        List<User> users = m.filler(() -> new User())
+                            .setter(User::setUserName,m.users())
+                            .setter(User::setFirstName, m.names().first())
+                            .setter(User::setLastName, m.names().last())
+                            .setter(User::setCreated, m.localDates().thisYear().toUtilDate())
+                            .setter(User::setModified, m.localDates().thisMonth().toUtilDate())
+                            .list(() -> new ArrayList<>(), 10)
+                            .val();
 
         User user2 = m.reflect(User.class)
                       .field("userName", m.users())

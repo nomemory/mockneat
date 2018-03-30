@@ -20,7 +20,8 @@ package net.andreinc.mockneat.types.enums;
 @SuppressWarnings("ImmutableEnumChecker")
 public enum MarkovChainType {
 
-    KAFKA("kafka");
+    KAFKA("kafka"),
+    LOREM_IPSUM("loremipsum");
 
     private final String path;
 

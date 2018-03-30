@@ -34,5 +34,7 @@ public class GenerateRegex {
         String codeRegex = "[A-Z]{2}-\\d{5}-[a-z]{5}";
         String code = mock.regex(codeRegex).val();
         System.out.println(code);
+
+        mock.regex("LO{1,15}L!").consume(10, (i, s) -> System.out.println(s));
     }
 }
