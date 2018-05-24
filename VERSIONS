@@ -1,6 +1,7 @@
 Version 0.1.6
 -------------
 - Changed the way the serialize() method works;
+- Added a new example for mocking non-static inner classes;
 
 Version 0.1.5
 -------------
