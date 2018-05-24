@@ -4,7 +4,7 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -14,7 +14,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 public class Filler<T> extends MockUnitBase implements MockUnit<T> {
 
     private Supplier<T> supplier;
-    Map<BiConsumer, MockUnit> setters = new HashMap<>();
+    Map<BiConsumer, MockUnit> setters = new LinkedHashMap<>();
 
     public Filler(MockNeat mockNeat, Supplier<T> supplier) {
         super(mockNeat);
