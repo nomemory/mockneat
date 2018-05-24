@@ -1,4 +1,7 @@
+Version 0.1.6
+-------------
+- Changed the way the serialize() method works;
+
 Version 0.1.5
 -------------
-
-- Added support for generating "Lorem Ipsum" text using markov chains.
+- Added support for generating "Lorem Ipsum" text using markov chains;
