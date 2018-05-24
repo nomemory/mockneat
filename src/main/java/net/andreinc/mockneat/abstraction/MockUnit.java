@@ -17,13 +17,14 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import org.apache.commons.lang3.SerializationUtils;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.io.UncheckedIOException;
 import java.lang.reflect.Array;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -32,6 +33,9 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
+import static java.nio.channels.Channels.newOutputStream;
+import static java.nio.channels.FileChannel.open;
+import static java.nio.file.StandardOpenOption.*;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.generate;
 import static net.andreinc.aleph.AlephFormatter.template;
@@ -70,16 +74,22 @@ public interface MockUnit<T> {
      *
      * <p><em>Note:</em> If the specified path is not accessible a {@link java.io.UncheckedIOException} is thrown.</p>
      *
-     * @param strPath The path of the file where to serialize the generated value.
+     * @param path The path of the file where to serialize the generated value.
      */
-    default void serialize(String strPath) {
+    default void serialize(String path) throws IOException {
+        notNull(path, "path");
         T object = supplier().get();
 
         isTrue(object instanceof Serializable, OBJECT_NOT_SERIALIZABLE);
 
-        Serializable sObj = (Serializable) object;
-        try { SerializationUtils.serialize(sObj, new FileOutputStream(strPath)); }
-        catch (FileNotFoundException e) { throw new UncheckedIOException(e); }
+        Path cachePath = Paths.get(path);
+        try(FileChannel channel = open(cachePath, CREATE, WRITE, APPEND)) {
+            FileLock lock = channel.lock();
+            try(ObjectOutputStream oos = new ObjectOutputStream(newOutputStream(channel))) {
+                oos.writeObject(object);
+                lock.release();
+            }
+        }
     }
 
     /**

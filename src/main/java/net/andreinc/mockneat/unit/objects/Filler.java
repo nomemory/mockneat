@@ -38,5 +38,4 @@ public class Filler<T> extends MockUnitBase implements MockUnit<T> {
             return object;
         };
     }
-
 }
