@@ -14,6 +14,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 public class Filler<T> extends MockUnitBase implements MockUnit<T> {
 
     private Supplier<T> supplier;
+
+    //TODO: Change this horrible way
     Map<BiConsumer, MockUnit> setters = new LinkedHashMap<>();
 
     public Filler(MockNeat mockNeat, Supplier<T> supplier) {
@@ -34,7 +36,7 @@ public class Filler<T> extends MockUnitBase implements MockUnit<T> {
         return () -> {
             T object = supplier.get();
             notNull(object, "supplier");
-            setters.forEach((k,v) -> k.accept(object, v.val()));
+            setters.forEach((k,v) ->  k.accept(object, v.val()));
             return object;
         };
     }

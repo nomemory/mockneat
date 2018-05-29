@@ -16,5 +16,4 @@ public class FillerTest {
 
         Assert.assertTrue(s.getS().equals("A"));
     }
-
 }
