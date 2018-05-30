@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.compile;
 import static java.util.stream.IntStream.range;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.MockUnitUtils.listTypes;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.reflect.MethodUtils.invokeExactStaticMethod;
@@ -77,7 +77,7 @@ public class Factory<T, FT> implements MockUnit<T> {
         notNull(factoryClass,  "factoryClass");
         notNull(params, "params");
         notEmpty(method,  "method");
-        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(), template(JAVA_METHOD_REGEX_MATCH, "method", method).fmt());
+        isTrue(JAVA_FIELD_REGEX.matcher(method).matches(), str(JAVA_METHOD_REGEX_MATCH).args("method", method).fmt());
         final Object[] args = new Object[params.length];
         return () -> {
             T result;
@@ -85,7 +85,7 @@ public class Factory<T, FT> implements MockUnit<T> {
                 range(0, params.length).forEach(i -> args[i] = MockUnitUtils.mockOrObject(params[i]));
                 result = (T) invokeExactStaticMethod(factoryClass, method, args);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                String fmt = template(CANNOT_INVOKE_STATIC_FACTORY_METHOD)
+                String fmt = str(CANNOT_INVOKE_STATIC_FACTORY_METHOD)
                                 .arg("cls", targetClass)
                                 .arg("method", method)
                                 .arg("types", listTypes(args))

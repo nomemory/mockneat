@@ -1,3 +1,14 @@
+Version 0.1.7
+-------------
+- Updated internal libraries versions;
+---- aleph-formater     0.0.3 -> 0.1.0
+---- slf4j-api          1.7.24 -> 1.7.25
+---- commons-lang3      3.5 -> 3.7
+---- commons-codec      1.10 -> 1.11
+---- commons-validator  1.5.1 -> 1.6
+- Some of the methods/classes from commons-lang3 where deprecated -> introduced a new dependecy on commons-text.
+
+
 Version 0.1.6
 -------------
 - Changed the way the serialize() method works;

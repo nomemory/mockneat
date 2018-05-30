@@ -25,10 +25,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 
 import static java.util.stream.IntStream.range;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.MockUnitUtils.listTypes;
 import static net.andreinc.mockneat.utils.ValidationUtils.CANNOT_INFER_CONSTRUCTOR;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 import static org.apache.commons.lang3.reflect.ConstructorUtils.invokeConstructor;
 
 public class Constructor<T> implements MockUnit<T> {
@@ -63,7 +62,7 @@ public class Constructor<T> implements MockUnit<T> {
             try {
                 return (T) invokeConstructor(cls, args);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                String fmt = template(CANNOT_INFER_CONSTRUCTOR)
+                String fmt = str(CANNOT_INFER_CONSTRUCTOR)
                                 .args("c", cls)
                                 .args("params", listTypes(params))
                                 .fmt();

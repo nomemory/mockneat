@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toMap;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
@@ -68,7 +68,7 @@ public class Formatter implements MockUnitString {
                                              .stream()
                                              .collect(toMap(e -> e.getKey(),
                                                             e -> e.getValue().getStr()));
-            return template(fmt, args).fmt();
+            return str(fmt).args(args).fmt();
         };
     }
 }

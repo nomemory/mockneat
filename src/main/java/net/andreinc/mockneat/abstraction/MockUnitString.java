@@ -21,13 +21,13 @@ import net.andreinc.mockneat.types.enums.StringFormatType;
 import net.andreinc.mockneat.utils.ValidationUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
 import static java.net.URLEncoder.encode;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
 
 @FunctionalInterface
@@ -205,7 +205,7 @@ public interface MockUnitString extends MockUnit<String> {
         return () -> ifSupplierNotNullDo(supplier(), s -> {
             try { return encode(s, encoding); }
             catch (UnsupportedEncodingException e) {
-                String msg = template(ValidationUtils.CANNOT_URL_ENCODE_UTF_8, "val", s, "encoding", encoding   ).fmt();
+                String msg = str(ValidationUtils.CANNOT_URL_ENCODE_UTF_8).args("val", s, "encoding", encoding   ).fmt();
                 throw new IllegalArgumentException(msg, e);
             }
         });

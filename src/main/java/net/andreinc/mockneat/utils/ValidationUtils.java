@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import static java.util.stream.IntStream.range;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -79,12 +79,12 @@ public class ValidationUtils {
 
     public static void isTrue(boolean expr, String fmt, Object... args) {
         if (!expr)
-            throw new IllegalArgumentException(template(fmt, args).fmt());
+            throw new IllegalArgumentException(str(fmt).args(args).fmt());
     }
 
     public static <T> T notNull(T object, final String message, Object... args) {
         if (object == null)
-            throw new NullPointerException(template(message, args).fmt());
+            throw new NullPointerException(str(message).args(args).fmt());
         return object;
     }
 
@@ -98,17 +98,18 @@ public class ValidationUtils {
 
     public static <T extends CharSequence> T notEmpty(T chars, String message, Object... values) {
         if (chars == null) {
-            throw new NullPointerException(template(message, values).fmt());
+            throw new NullPointerException(str(message).args(values).fmt());
         }
         if (chars.length() == 0) {
-            throw new IllegalArgumentException(template(message, values).fmt());
+            throw new IllegalArgumentException(str(message).args(values).fmt());
         }
         return chars;
     }
 
     public static <T extends CharSequence> T notEmpty(T chars, String input) {
 
-        String msg = template(INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "input", input)
+        String msg = str(INPUT_PARAMETER_NOT_EMPTY_OR_NULL)
+                        .args("input", input)
                         .fmt();
 
         if (chars == null) {
@@ -140,9 +141,9 @@ public class ValidationUtils {
 
     public static <T> T[] notEmpty(T[] arr, String name) {
         if (null == arr)
-            throw new NullPointerException(template(INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "input", name).fmt());
+            throw new NullPointerException(str(INPUT_PARAMETER_NOT_EMPTY_OR_NULL).args("input", name).fmt());
         if (0 == arr.length) {
-            throw new IllegalArgumentException(template(INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "input", name).fmt());
+            throw new IllegalArgumentException(str(INPUT_PARAMETER_NOT_EMPTY_OR_NULL).args("input", name).fmt());
         }
         return arr;
     }
@@ -190,7 +191,7 @@ public class ValidationUtils {
         try {
             Pattern.compile(regex);
         } catch (PatternSyntaxException pse) {
-            String fmt = template(INVALID_REGEX_PATTERN).arg("pattern", regex).fmt();
+            String fmt = str(INVALID_REGEX_PATTERN).arg("pattern", regex).fmt();
             throw new IllegalArgumentException(fmt, pse);
         }
         return regex;
@@ -198,14 +199,14 @@ public class ValidationUtils {
 
     public static void isFinite(Double value) {
         if (Double.isNaN(value) || Double.isInfinite(value)) {
-            String msg = template(IS_FINITE_NUMBER, "number", value).fmt();
+            String msg = str(IS_FINITE_NUMBER).args("number", value).fmt();
             throw new IllegalArgumentException(msg);
         }
     }
 
     public static void betweenClosed(Double value, Double start, Double end, String message, final Object... args) {
         if (!(start <=  value && end >= value)) {
-            String msg = template(message, args).fmt();
+            String msg = str(message).args(args).fmt();
             throw new IllegalArgumentException(msg);
         }
     }

@@ -29,7 +29,7 @@ import net.andreinc.mockneat.types.enums.URLSchemeType;
 import java.util.List;
 import java.util.function.Supplier;
 
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static net.andreinc.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static net.andreinc.mockneat.types.enums.StringFormatType.LOWER_CASE;
@@ -145,7 +145,7 @@ public class URLs extends MockUnitBase implements MockUnitString {
     }
 
     private Supplier<String> authSupplier() {
-        return () -> template("#{userName}:#{passWord}@")
+        return () -> str("#{userName}:#{passWord}@")
                         .arg("userName", this.userNameSupplier.get())
                         .arg("passWord", this.passWordSupplier.get())
                         .fmt();

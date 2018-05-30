@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
-import static org.apache.commons.lang3.text.WordUtils.capitalize;
+import static org.apache.commons.text.WordUtils.capitalize;
 
 public class MarkovUnit {
 

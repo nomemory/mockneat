@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 
 import static java.lang.reflect.Modifier.FINAL;
 import static java.util.regex.Pattern.compile;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
@@ -127,7 +127,7 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
             isTrue(JAVA_FIELD_REGEX.matcher(k).matches(), JAVA_FIELD_REGEX_MATCH, "field", k);
             Field field = getDeclaredField(cls, k, true);
             if (field==null) {
-                String fmt = template(JAVA_FIELD_DOESNT_EXIST_ON_CLASS, "field", k).fmt();
+                String fmt = str(JAVA_FIELD_DOESNT_EXIST_ON_CLASS).args("field", k).fmt();
                 throw new IllegalArgumentException(fmt);
             }
             boolean isFinal = (field.getModifiers() & FINAL) == FINAL;
@@ -139,7 +139,7 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
         try {
             return cls.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            String fmt = template(CANNOT_INSTANTIATE_OBJECT_OF_CLASS)
+            String fmt = str(CANNOT_INSTANTIATE_OBJECT_OF_CLASS)
                             .arg("cls", cls)
                             .fmt();
             throw new IllegalArgumentException(fmt, e);
@@ -168,7 +168,7 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
             try {
                 writeField(object, name, val, true);
             } catch (IllegalAccessException e) {
-                String fmt = template(CANNOT_SET_FIELD_WITH_VALUE)
+                String fmt = str(CANNOT_SET_FIELD_WITH_VALUE)
                         .arg("cls", fieldCls)
                         .arg("field", name)
                         .arg("val", val)

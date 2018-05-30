@@ -38,7 +38,7 @@ import static java.nio.channels.FileChannel.open;
 import static java.nio.file.StandardOpenOption.*;
 import static java.util.stream.IntStream.range;
 import static java.util.stream.Stream.generate;
-import static net.andreinc.aleph.AlephFormatter.template;
+import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static net.andreinc.mockneat.utils.MockUnitUtils.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
@@ -268,7 +268,7 @@ public interface MockUnit<T> {
                 loop(size, () -> add(listClass, result, supplier()));
                 return result;
             } catch (Exception e) {
-                String fmt = template("Cannot instantiate list '{l.Name}'.")
+                String fmt = str("Cannot instantiate list '{l.Name}'.")
                                 .arg("l", listClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -515,7 +515,7 @@ public interface MockUnit<T> {
                 loop(size, () -> add(collectionClass, result, supplier()));
                 return result;
             } catch (Exception e) {
-                String fmt = template("Cannot instantiate collection: '#{c.name}'.")
+                String fmt = str("Cannot instantiate collection: '#{c.name}'.")
                                 .arg("c", collectionClass.getName())
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -633,7 +633,7 @@ public interface MockUnit<T> {
                 loop(size, () -> put(mapClass, result, keysSupplier, supplier()));
                 return result;
             } catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -758,7 +758,7 @@ public interface MockUnit<T> {
                 keys.forEach(key -> put(mapClass, result, key, supplier().get()));
                 return result;
             } catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -826,7 +826,7 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -895,7 +895,7 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -960,7 +960,7 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1027,7 +1027,7 @@ public interface MockUnit<T> {
                 return result;
             }
             catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1094,7 +1094,7 @@ public interface MockUnit<T> {
                 loop(size, () -> put(mapClass, result, supplier(), valuesSupplier));
                 return result;
             } catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1216,7 +1216,7 @@ public interface MockUnit<T> {
                 values.forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch (Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1239,7 +1239,7 @@ public interface MockUnit<T> {
      */
     default <R> MockUnit<Map<T, R>> mapVals(Supplier<Map<T, R>> mapSupplier, Iterable<R> values) {
         notNull(mapSupplier, "mapSupplier");
-        notNull(values, "valus");
+        notNull(values, "values");
         Supplier<Map<T, R>> supp = () -> {
             Map<T, R> result = mapSupplier.get();
             notNullSupp(result, "result");
@@ -1285,7 +1285,7 @@ public interface MockUnit<T> {
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1353,7 +1353,7 @@ public interface MockUnit<T> {
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1417,7 +1417,7 @@ public interface MockUnit<T> {
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
@@ -1482,7 +1482,7 @@ public interface MockUnit<T> {
                 Arrays.stream(values).forEach(value -> put(mapClass, result, supplier().get(), value));
                 return result;
             } catch(Exception e) {
-                String fmt = template("Cannot instantiate map: '#{m.name}'.")
+                String fmt = str("Cannot instantiate map: '#{m.name}'.")
                                 .arg("m", mapClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);
