@@ -72,8 +72,7 @@ public class ValidationUtils {
     public static final String IMPOSSIBLE_TO_SEQ_OVER_EMPTY_COLLECTION = "Impossible to create a Seq from an empty Iterable<T>.";
     public static final String NUMBER_OF_TIMES_POSITIVE = "The number of times we are looping needs to be positive.";
     // MOCK STORAGE
-    public static final String MEMORY_STORAGE_INVALID_OVERWRITING = "An object mapped with the key: '#{keyId}' is already stored in memory. You are trying to overwrite it with a different value/type. Please use a different key.";
-    public static final String RETURN_TYPE_HAVE_NO_TYPE = "A ReturnType object cannot be created without a <T> generic parametrized type.";
+    public static final String CACHE_INVALID_KEY_TYPE_ASSOCIATION = "There is no ('#{key}', '#{type}') association in the cache.";
 
     private ValidationUtils() {}
 
