@@ -39,7 +39,7 @@ DZone Article(s):
 - [Generating and Mocking Data With MockNeat](https://dzone.com/articles/generating-arbitrary-data-using-mockneat)
 
 ## Who is using MockNeat ?
-**MockNeat** was downloaded +/-1400 times since May, 2017.
+**MockNeat** was downloaded +/-3300 times since May, 2017.
 
 If you are using **MockNeat** in your cool projects please send me a note so I can include you in this list.
 
