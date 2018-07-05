@@ -23,6 +23,7 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockValue;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -151,6 +152,11 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
 
             if (field.isSynthetic()) {
                 // Skip synthetic fields
+                return;
+            }
+
+            if (Modifier.isStatic(field.getModifiers())) {
+                // Skip static fields
                 return;
             }
 

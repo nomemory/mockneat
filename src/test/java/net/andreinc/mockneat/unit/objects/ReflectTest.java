@@ -19,6 +19,7 @@ package net.andreinc.mockneat.unit.objects;
 
 import net.andreinc.mockneat.unit.objects.model.Customer1;
 import net.andreinc.mockneat.unit.objects.model.FinalValue;
+import net.andreinc.mockneat.unit.objects.model.SerialPojo;
 import net.andreinc.mockneat.unit.objects.model.TheAbstractClass;
 import net.andreinc.mockneat.Constants;
 import net.andreinc.mockneat.utils.NamesCheckUtils;
@@ -177,5 +178,11 @@ public class ReflectTest {
                     assertTrue(!c.getEmail().equals("DEFAULT"));
                 }
         );
+    }
+
+    @Test
+    public void testSerialUIDPojo() throws Exception {
+        // Checks issue with static fields
+        M.reflect(SerialPojo.class).field("name", M.names()).val();
     }
 }
