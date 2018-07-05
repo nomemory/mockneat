@@ -245,6 +245,13 @@ public class MockNeat {
     public Currencies currencies() { return this.rCurrencies; }
 
     /**
+     * <p> Returns a {@code CSVs} object that can be used to generate CSV lines or files.</p>
+     *
+     * @return A new CSVs object.
+     */
+    public CSVs csvs() { return new CSVs(this); }
+
+    /**
      * <p>Returns a {@code CVVS} object that can be used to generate credit card cvv codes.</p>
      *
      * <p><em>Note: </em> By default the values generated are 3-digits CVV codes.</p>
@@ -349,8 +356,6 @@ public class MockNeat {
 
     /**
      * <p>Returns a {@code Formatter} object than can be used to generate arbitrary patterns based on a given format.</p>
-     *
-     * <p>Eg.: m.fmt("#{oneInt} + #{aLetter}").params("oneInt", m.ints(), "aLetter", m.chars().letters()).val()</p>
      *
      * @param fmt The template of the desired pattern.
      * @return A <strong>new</strong> {@code Formatter} object. The {@code Formatter} class implements {@code MockUnitString}.
