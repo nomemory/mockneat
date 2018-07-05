@@ -1,3 +1,9 @@
+Version 0.1.8
+-------------
+- Fixed minor issue with running test (Floats);
+- Fixed https://github.com/nomemory/mockneat/issues/23
+
+
 Version 0.1.7
 -------------
 - Updated internal libraries versions;
