@@ -68,8 +68,7 @@ public class FloatsTest {
     @Test(expected = NullPointerException.class)
     public void nextFloat_NullNotBound() throws Exception {
         Float bound = null;
-        Long count = stream(Constants.MOCKS).map(r -> r.floats().bound(bound).val()).count();
-        assertNotNull(count);
+        Constants.M.floats().bound(bound).val();
     }
 
     @Test
