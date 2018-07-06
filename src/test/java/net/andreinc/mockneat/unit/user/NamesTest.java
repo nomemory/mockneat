@@ -25,6 +25,7 @@ import org.junit.Test;
 import static java.lang.Character.isUpperCase;
 import static net.andreinc.mockneat.types.enums.NameType.FIRST_NAME;
 import static net.andreinc.mockneat.types.enums.NameType.LAST_NAME;
+import static net.andreinc.mockneat.types.enums.NameType.MIDDLE_NAME;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import static org.junit.Assert.assertTrue;
@@ -36,11 +37,14 @@ public class NamesTest {
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
                 m -> m.names().val(), n -> {
+                    System.out.println(n);
                     String[] split = n.split(" ");
                     String firstName = split[0];
-                    String lastName = split[1];
-                    assertTrue(split.length==2);
+                    String middlename = split[1];
+                    String lastName = split[2];
+                    assertTrue(split.length==3);
                     assertTrue(NamesCheckUtils.isNameOfType(firstName, FIRST_NAME));
+                    assertTrue(NamesCheckUtils.isNameOfType(middlename, MIDDLE_NAME));
                     assertTrue(NamesCheckUtils.isNameOfType(lastName, LAST_NAME));
                 }
         );
@@ -62,6 +66,26 @@ public class NamesTest {
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
                 r -> r.names().first().val(),
+                n -> assertTrue(isNotEmpty(n))
+        );
+    }
+
+    @Test
+    public void testNamesMiddle() throws Exception {
+        loop(
+                Constants.NAMES_CYCLES,
+                Constants.MOCKS,
+                r -> r.names().middle().val(),
+                n -> assertTrue(NamesCheckUtils.isNameOfType(n, MIDDLE_NAME))
+        );
+    }
+
+    @Test
+    public void testNamesMiddleNotEmpty() throws Exception {
+        loop(
+                Constants.NAMES_CYCLES,
+                Constants.MOCKS,
+                r -> r.names().middle().val(),
                 n -> assertTrue(isNotEmpty(n))
         );
     }

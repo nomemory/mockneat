@@ -48,6 +48,8 @@ public enum DictType {
     FIRST_NAME_MALE_AMERICAN("first-names-american-male"),
     FIRST_NAME_FEMALE_AMERICAN("first-names-american-female"),
     LAST_NAME_AMERICAN("last-names-american"),
+    MIDDLE_NAME_MALE_AMERICAN("middle-names-american-male"),
+    MIDDLE_NAME_FEMALE_AMERICAN("middle-names-american-male"),
 
     // WORDS
     EN_ADJECTIVE_1SYLL("words/en-adjective-1syll"),

@@ -475,7 +475,7 @@ public class MockNeat {
     public Money money() { return this.rMoney; }
 
     /**
-     * <p>Returns a {@code Names} object that can be used to generate "names" (full names, first names or last names).</p>
+     * <p>Returns a {@code Names} object that can be used to generate "names" (full names, first names, middle names or last names).</p>
      *
      * <p><em>Note:</em>By default it can be used to generate people full names.</p>
      *

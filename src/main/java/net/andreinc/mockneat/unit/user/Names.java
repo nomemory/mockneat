@@ -63,6 +63,27 @@ public class Names extends MockUnitBase implements MockUnitString {
     public MockUnitString firstAndFemale() { return type(FIRST_NAME_FEMALE); }
 
     /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate arbitrary middle names (both male and female).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    public MockUnitString middle() { return type(MIDDLE_NAME); }
+
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate middle names (males only).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    public MockUnitString middleAndMale() { return type(MIDDLE_NAME_MALE); }
+
+    /**
+     * <p>Returns a new {@code MockUnitString} that can be used to generate middle names (female only).</p>
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    public MockUnitString middleAndFemale() { return type(MIDDLE_NAME_FEMALE); }
+
+    /**
      * <p>Returns a new {@code MockUnitstring} that can be used to generate last names.</p>
      *
      * @return A new {@code MockUnitString}.
@@ -75,7 +96,7 @@ public class Names extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString full() {
-        Supplier<String> supp = () -> first().val() + " " + last().val();
+        Supplier<String> supp = () -> first().val() + " " + middle().val() + " " + last().val();
         return () -> supp;
     }
 
