@@ -1,3 +1,10 @@
+Version 0.1.9
+-------------
+- Fixed random errors in the naughtyStrings() method.
+- Added a new MockUnitString: CSSVs used to generate CSV files
+- Added a new method on MockUnitString valJoin() that joins intermediary results a number of times.
+
+
 Version 0.1.8
 -------------
 - Fixed minor issue with running test (Floats);
