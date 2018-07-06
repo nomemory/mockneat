@@ -1,14 +1,16 @@
 package net.andreinc.mockneat.unit.text;
 
+import com.opencsv.CSVReader;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.utils.LoopsUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static net.andreinc.mockneat.Constants.CSVS_CYCLES;
-import static net.andreinc.mockneat.Constants.M;
-import static net.andreinc.mockneat.Constants.MOCKS;
+import java.io.IOException;
+import java.io.StringReader;
+
+import static net.andreinc.mockneat.Constants.*;
 
 public class CSVsTest {
 
@@ -16,10 +18,41 @@ public class CSVsTest {
     public void testLine() {
         MockUnitString ms1 = M.fromStrings(new String[]{"ABC\","});
         String line = M.csvs()
-                        .addColumn(ms1)
-                        .addColumn("A,a")
+                        .column(ms1)
+                        .column("A,a")
                         .val();
         Assert.assertTrue(line.equals("\"ABC\"\",\",\"A,a\""));
+    }
+
+    @Test
+    public void testCsv() {
+        String[] chars = new String[]{ "\"", ",", "'", "|" };
+        LoopsUtils.loop(
+                CVVS_CYCLES,
+                MOCKS,
+                m -> m.csvs().column(m.strings().size(5))
+                             .column(m.ints().range(0, 10))
+                             .column(m.fromStrings(chars).accumulate(5,""))
+                             .column(m.fromStrings(chars).accumulate(5,""))
+                             .column(m.days())
+                             .column(m.names())
+                             .column(m.names().firstAndFemale())
+                             .separator(",")
+                             .accumulate(1000, "\n")
+                             .val(),
+                csv -> {
+                    CSVReader csvReader = new CSVReader(new StringReader(csv));
+                    String[] line;
+                    try {
+                        while ((line = csvReader.readNext()) != null) {
+                            Assert.assertTrue(line.length == 7);
+                        }
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
+                        Assert.fail();
+                    }
+                }
+        );
     }
 
     @Test
@@ -28,13 +61,12 @@ public class CSVsTest {
         LoopsUtils.loop(
                 CSVS_CYCLES,
                 MOCKS,
-                m -> {
-                    return m.csvs()
-                            .addColumn("A")
-                            .addColumn(torf)
-                            .addColumn(m.names())
-                            .val();
-                },
+                m ->
+                    m.csvs().column("A")
+                            .column(torf)
+                            .column(m.names())
+                            .val()
+                ,
                 s -> {
                     String[] split = s.split(",");
                     Assert.assertTrue(split.length == 3);
@@ -47,6 +79,11 @@ public class CSVsTest {
 
     @Test(expected = NullPointerException.class)
     public void testLineNullMockUnit() throws Exception {
-        M.csvs().addColumn(null).val();
+        M.csvs().column(null).val();
+    }
+
+    @Test
+    public void testWriteCsv() {
+
     }
 }
