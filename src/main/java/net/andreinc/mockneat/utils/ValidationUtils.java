@@ -72,8 +72,7 @@ public class ValidationUtils {
     public static final String IMPOSSIBLE_TO_SEQ_OVER_EMPTY_COLLECTION = "Impossible to create a Seq from an empty Iterable<T>.";
     public static final String NUMBER_OF_TIMES_POSITIVE = "The number of times should be a positive number.";
     public static final String NUMBER_OF_LINES_POSITIVE = "The number of lines needs to be a positive number.";
-    // MOCK STORAGE
-    public static final String CACHE_INVALID_KEY_TYPE_ASSOCIATION = "There is no ('#{key}', '#{type}') association in the cache.";
+    public static final String EMPTY_CSV_NO_COLUMNS = "Cannot generate CSV without any columns.";
 
     private ValidationUtils() {}
 
