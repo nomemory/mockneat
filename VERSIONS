@@ -1,3 +1,7 @@
+VERSION 0.2.0
+-------------
+- Fixed the csvs() method;
+
 Version 0.1.9
 -------------
 - Fixed random errors in the naughtyStrings() method.
