@@ -2,6 +2,7 @@ package net.andreinc.mockneat.abstraction;
 
 import net.andreinc.mockneat.types.enums.StringFormatType;
 import net.andreinc.mockneat.types.enums.StringType;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -30,6 +31,54 @@ import static org.junit.Assert.*;
  */
 
 public class MockUnitStringTest {
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAccumulateZeroTimes() throws Exception {
+        M.strings().accumulate(0, ",");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAccumulateNegativeTimes() throws Exception {
+        M.strings().accumulate(-1, ",");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testAccumulateNullSeparator() throws Exception {
+        M.strings().accumulate(10, null);
+    }
+
+    @Test
+    public void testAccumulateEmptySeparator() {
+        final String[] strings = new String[] {"A", "B", "C" };
+        loop(
+                STRING_CYCLES,
+                MOCKS,
+                m -> m.fromStrings(strings).accumulate(10, "").val(),
+                str -> {
+                    assertTrue(str.length()==10);
+                    for(char c : str.toCharArray()) {
+                        assertTrue(c == 'A' || c == 'B' || c == 'C');
+                    }
+                }
+        );
+    }
+
+    @Test
+    public void testAccumulateOneCharSeparator() {
+        final String[] strings = new String[] { "A" };
+        String result = M.fromStrings(strings).accumulate(10, ",").val();
+        assertTrue(10 == countMatches(result, "A"));
+        assertTrue(9 == countMatches(result, ","));
+    }
+
+    @Test
+    public void testAccumulatTwoCharSeparator() {
+        final String[] strings = new String[] { "A" };
+        String result = M.fromStrings(strings).accumulate(10, ";;").val();
+        assertTrue(10 == countMatches(result, "A"));
+        assertTrue(9 == countMatches(result, ";;"));
+    }
 
     @Test(expected = NullPointerException.class)
     public void testFormatNull() throws Exception {

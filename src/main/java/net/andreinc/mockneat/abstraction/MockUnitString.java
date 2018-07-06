@@ -30,9 +30,7 @@ import java.util.function.Supplier;
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
-import static net.andreinc.mockneat.utils.ValidationUtils.NUMBER_OF_TIMES_POSITIVE;
-import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmpty;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @FunctionalInterface
 public interface MockUnitString extends MockUnit<String> {
@@ -45,14 +43,19 @@ public interface MockUnitString extends MockUnit<String> {
      * @return A new {@code MockUnitstring}.
      */
     //TODO
-    default MockUnitString valJoin(int times, String separator) {
-        notEmpty(separator, "separator");
+    default MockUnitString accumulate(int times, String separator) {
+        notNull(separator, "separator");
         isTrue(times>0, NUMBER_OF_TIMES_POSITIVE);
         Supplier<String> supplier = () -> {
             StringBuilder buff = new StringBuilder();
             int counter = times;
             while(counter-->0) {
                 buff.append(val()).append(separator);
+            }
+            // Removed the last separator if needed
+            if (!separator.isEmpty()) {
+                int length = separator.length();
+                buff.delete(buff.length() - length, buff.length());
             }
             return buff.toString();
         };
