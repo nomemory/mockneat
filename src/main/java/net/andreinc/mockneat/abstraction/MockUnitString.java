@@ -25,13 +25,39 @@ import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.function.Supplier;
 
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
+import static net.andreinc.mockneat.utils.ValidationUtils.NUMBER_OF_TIMES_POSITIVE;
+import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmpty;
 
 @FunctionalInterface
 public interface MockUnitString extends MockUnit<String> {
+
+    /**
+     * <p>Joins intermediary results by calling val() a number of times using the given separator</p>
+     *
+     * @param times The number of times the value is joined
+     * @param separator The string used as a separator
+     * @return A new {@code MockUnitstring}.
+     */
+    //TODO
+    default MockUnitString valJoin(int times, String separator) {
+        notEmpty(separator, "separator");
+        isTrue(times>0, NUMBER_OF_TIMES_POSITIVE);
+        Supplier<String> supplier = () -> {
+            StringBuilder buff = new StringBuilder();
+            int counter = times;
+            while(counter-->0) {
+                buff.append(val()).append(separator);
+            }
+            return buff.toString();
+        };
+        return () -> supplier;
+    }
 
     /**
      * <p>Formats the results obtained from the {@code MockUnit<String>} and creates a new {@code MockUnitString} that generates formatted results.</p>
