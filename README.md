@@ -113,45 +113,43 @@ User user3 = m.constructor(User.class)
 
 Example for creating a CSV file with arbitrary data that has the following structure:
 
-`id, firstName, lastName, email, salary (euro)`
+`id|firstName|lastName|email|salary (euro)`
 
 The file should contain 1000 lines.
 
 ```java
-MockNeat m = MockNeat.threadLocal();
-final Path path = Paths.get("./test.csv");
-
-m.fmt("#{id},#{first},#{last},#{email},#{salary},#{creditCardNum}")
- .param("id", m.longSeq().start(10).increment(10).mapToString().escapeCsv())
- .param("first", m.names().first().escapeCsv())
- .param("last", m.names().last().escapeCsv())
- .param("email", m.emails().domain("company.com").mapToString().escapeCsv())
- .param("salary", m.ints().range(1000, 5000).mapToString().escapeCsv())
- .param("creditCardNum", m.creditCards().type(AMERICAN_EXPRESS).escapeCsv())
- .list(1000)
- .consume(list -> {
-             try { Files.write(path, list, CREATE, WRITE); }
-             catch (IOException e) { e.printStackTrace(); }
-          });
+M.csvs().column(M.intSeq())
+        .column(M.names().first())
+        .column(M.names().last())
+        .column(M.emails())
+        .column(M.money().locale(Locale.GERMANY).range(1000, 5000))
+        .separator(",")
+        .write("test.csv", 1000);
 ```
 
 Possible Output:
 
 ```
-10,Marianna,Duma,laithswoop@company.com,2214,341781929348574
-20,Taryn,Contrenas,moistwerner@company.com,3583,343141643983552
-30,Melissa,Hayward,costivetian@company.com,1552,345359563978695
-40,Vernita,Blind,brutalanastos@company.com,4454,349356219759467
-50,Sharon,Susany,poisedkati@company.com,1107,341564268273557
-60,Catina,Barroso,rakedgilbert@company.com,2817,373895563308966
-70,Joe,Hibbets,acredhordes@company.com,1857,340740009576588
-80,Pearlene,Baldon,heeledwinston@company.com,2550,375873851661469
-90,Evette,Zeis,plusserita@company.com,1578,375692810718024
-100,Chrystal,Ambroz,huedelvin@company.com,2130,342226196016008
-110,Thuy,Sturkie,flawedmoorehouse@company.com,1056,376516621386714
-120,Colleen,Stachowicz,scoremelba@company.com,2522,343614618335958
-130,Lacey,Franza,quitereive@company.com,3712,377995434270084
-140,Cherri,Maille,daftumber@company.com,4360,370982611739914
+0|Shaun|Muckerman|plumpveils@hotmail.com|"1.383,13 €"
+1|Maria|Theilen|unmeantbier@mail.com|"1.308,64 €"
+2|Barry|Friedler|trefkip@msn.com|"4.998,63 €"
+3|Sid|Brandon|glegrepaints@mac.com|"1.472,58 €"
+4|Leigh|Wormley|thencegangbang@yahoo.com|"3.473,98 €"
+5|Refugio|Ripka|starredlincoln@aol.com|"3.200,58 €"
+6|Jamaal|Cortinas|glumval@comcast.net|"4.789,84 €"
+7|Tobias|Stehly|nutswill@email.com|"1.385,04 €"
+8|Randall|Gennarelli|secmaryam@mac.com|"4.460,86 €"
+9|Erik|Sweeting|turdineslicker@yahoo.co.uk|"1.882,63 €"
+10|Oscar|Crumrine|mannedkarl@att.net|"4.432,08 €"
+11|Augustine|Gilchrist|childlesskilt@verizon.net|"3.727,49 €"
+12|Al|Philo|bentvalentine@aol.com|"3.798,17 €"
+13|Moises|Kalmer|keptearl@mail.com|"2.348,30 €"
+14|Adam|Beauparlant|sprymilbrandt@msn.com|"4.832,38 €"
+15|Anderson|Folino|somewhilebloats@att.net|"3.418,83 €"
+16|Dale|Schei|grimgerry@aol.com|"3.197,65 €"
+17|Nathanael|Veazie|toomchanel@aol.com|"2.132,70 €"
+18|Cedrick|Tome|starredagings@aol.com|"3.614,68 €"
+19|Ariel|Garufi|firmvelia@gmail.com|"2.984,32 €"
 ....
 ....
 ```
