@@ -121,8 +121,8 @@ public class CSVs extends MockUnitBase implements MockUnitString {
         notNull(path, "path");
         isTrue(numberOfLines>0, NUMBER_OF_LINES_POSITIVE);
         try {
-            StandardOpenOption[] ops = (append) ? (new StandardOpenOption[] { CREATE, WRITE, }) :
-                    (new StandardOpenOption[] { CREATE, WRITE, APPEND });
+            StandardOpenOption[] ops = (append) ? (new StandardOpenOption[] { CREATE, WRITE, APPEND}) :
+                                                  (new StandardOpenOption[] { CREATE, WRITE });
             Files.write(path, list(numberOfLines).val(), ops);
         }
         catch (IOException e) {
