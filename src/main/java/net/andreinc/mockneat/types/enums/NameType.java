@@ -36,6 +36,23 @@ public enum NameType {
     FIRST_NAME_FEMALE_AMERICAN(new DictType[]{
             DictType.FIRST_NAME_FEMALE_AMERICAN
     }),
+    MIDDLE_NAME(new DictType[]{
+            DictType.MIDDLE_NAME_MALE_AMERICAN,
+            DictType.MIDDLE_NAME_FEMALE_AMERICAN
+    }),
+    MIDDLE_NAME_MALE(new DictType[]{
+            DictType.MIDDLE_NAME_MALE_AMERICAN
+    }),
+    MIDDLE_NAME_FEMALE(new DictType[]{
+            DictType.MIDDLE_NAME_FEMALE_AMERICAN
+    }),
+    MIDDLE_NAME_MALE_AMERICAN(new DictType[]{
+            DictType.MIDDLE_NAME_MALE_AMERICAN
+    }),
+    MIDDLE_NAME_FEMALE_AMERICAN(new DictType[]{
+            DictType.MIDDLE_NAME_FEMALE_AMERICAN
+    }),
+
     LAST_NAME(new DictType[]{
             DictType.LAST_NAME_AMERICAN
     });
