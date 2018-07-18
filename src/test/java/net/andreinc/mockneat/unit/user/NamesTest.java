@@ -18,11 +18,13 @@ package net.andreinc.mockneat.unit.user;
  */
 
 import net.andreinc.mockneat.Constants;
+import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.NameType;
 import net.andreinc.mockneat.utils.NamesCheckUtils;
 import org.junit.Test;
 
 import static java.lang.Character.isUpperCase;
+import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.types.enums.NameType.FIRST_NAME;
 import static net.andreinc.mockneat.types.enums.NameType.LAST_NAME;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
@@ -124,7 +126,7 @@ public class NamesTest {
 
     @Test(expected = NullPointerException.class)
     public void testNamesTypeIsNull() throws Exception {
-        Constants.M.names().type(null).val();
+        M.names().type(null).val();
     }
 
     @Test
@@ -143,17 +145,17 @@ public class NamesTest {
     @Test(expected = NullPointerException.class)
     public void testNamesTypesNulL() throws Exception {
         NameType[] types = null;
-        Constants.M.names().types(types).val();
+        M.names().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testNamesTypesEmptyArray() throws Exception {
-        Constants.M.names().types(new NameType[]{}).val();
+        M.names().types(new NameType[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNamesEmptyElementInArray() throws Exception {
         NameType[] types = {FIRST_NAME, null, LAST_NAME};
-        Constants.M.names().types(types).val();
+        M.names().types(types).val();
     }
 }

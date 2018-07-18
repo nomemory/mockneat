@@ -22,7 +22,7 @@ import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class CSVs extends MockUnitBase implements MockUnitString {
+public class    CSVs extends MockUnitBase implements MockUnitString {
 
     public CSVs(MockNeat mockNeat) {
         super(mockNeat);

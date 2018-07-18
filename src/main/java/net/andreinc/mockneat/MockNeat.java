@@ -522,6 +522,8 @@ public class MockNeat {
 
     public Seq<String> seq(DictType dictType) { return Seq.fromDict(dictType); }
 
+    public SQLInserts sqlInserts() { return new SQLInserts(this); }
+
     public Shufflers shufflers() { return rShufflers; }
 
     public Strings strings() { return new Strings(this); }
