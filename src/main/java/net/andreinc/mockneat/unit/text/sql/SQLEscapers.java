@@ -16,8 +16,60 @@ public class SQLEscapers {
 
     public static class PostgreSQL {
 
-        public static final Function<String, String> TEXT_$QUOTED =
-                DOUBLE_APOSTROPHE.andThen((input) -> "'$quot$" + input + "$quot$'");
+        // Text escaper using the $ QUOTE strategy
+        public static final Function<String, String> TEXT_$_QUOTED =
+                DOUBLE_APOSTROPHE
+                        .andThen((input) -> "$quot$" + input + "$quot$");
+
+        // Text Escaper for PostgreSQL
+        public static final Function<String, String> TEXT_BACKLASH = new SQLEscaper(
+                Arrays.asList(
+                        new SQLEscaper.TextEscapeToken(
+                                "\u0000",
+                                "\\x00",
+                                "\\\\0"),
+                        new SQLEscaper.TextEscapeToken(
+                                "'",
+                                "'",
+                                "''"),
+                        new SQLEscaper.TextEscapeToken(
+                                "\"",
+                                "\"",
+                                "\\\\\""
+                        ),
+                        new SQLEscaper.TextEscapeToken(
+                                "\b",
+                                "\\x08",
+                                "\\\\b"
+                        ),
+                        new SQLEscaper.TextEscapeToken(
+                                "\n",
+                                "\\n",
+                                "\\\\n"
+                        ),
+                        new SQLEscaper.TextEscapeToken(
+                                "\r",
+                                "\\r",
+                                "\\\\r"
+                        ),
+                        new SQLEscaper.TextEscapeToken(
+                                "\t",
+                                "\\t",
+                                "\\\\t"
+                        ),
+                        new SQLEscaper.TextEscapeToken(
+                                "\u001A",
+                                "\\x1A",
+                                "\\\\Z"
+                        ),
+                        new SQLEscaper.TextEscapeToken(
+                                "\\",
+                                "\\\\",
+                                "\\\\\\\\"
+                        )
+                )
+        )::escape;
+
     }
 
     public static class MySQL {
@@ -32,7 +84,7 @@ public class SQLEscapers {
                         new SQLEscaper.TextEscapeToken(
                                 "'",
                                 "'",
-                                "\\\\'"),
+                                "''"),
                         new SQLEscaper.TextEscapeToken(
                                 "\"",
                                 "\"",

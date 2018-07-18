@@ -26,6 +26,7 @@ import org.apache.commons.text.StringEscapeUtils;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.str;

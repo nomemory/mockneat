@@ -30,6 +30,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
@@ -126,9 +127,7 @@ public interface MockUnit<T> {
     default void consume(int times, BiConsumer<Integer, T> biConsumer) {
         isTrue(times > 0, NUMBER_OF_TIMES_POSITIVE);
         notNull(biConsumer, "consumer");
-        for (int i = 0; i < times; i++) {
-            biConsumer.accept(i, val());
-        }
+        range(0, times).forEach(i -> biConsumer.accept(i, val()));
     }
 
     /**

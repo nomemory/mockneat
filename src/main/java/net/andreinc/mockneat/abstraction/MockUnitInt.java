@@ -23,6 +23,7 @@ import net.andreinc.mockneat.utils.ValidationUtils;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
+import static java.util.stream.IntStream.generate;
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 
@@ -36,7 +37,7 @@ public interface MockUnitInt extends MockUnit<Integer> {
      * @return A new {@code MockUnit<IntStream>}
      */
     default MockUnit<IntStream> intStream() {
-        Supplier<IntStream> supp = () -> IntStream.generate(supplier()::get);
+        Supplier<IntStream> supp = () -> generate(supplier()::get);
         return () -> supp;
     }
 
