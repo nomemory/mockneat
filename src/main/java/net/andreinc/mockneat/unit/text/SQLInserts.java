@@ -29,11 +29,25 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
         return this;
     }
 
+    public SQLInserts column(String column, MockUnit mockUnit) {
+        notEmpty(column, "column");
+        notNull(mockUnit, "mockUnit");
+        columns.put(column, unit(mockUnit.mapToString()));
+        return this;
+    }
+
     public SQLInserts column(String column, MockUnit mockUnit, Function<String, String> sqlFormatter) {
         notEmpty(column, "column");
         notNull(mockUnit, "mockUnit");
         notNull(sqlFormatter, "sqlFormatter");
         columns.put(column, unit(mockUnit.mapToString().map(sqlFormatter)));
+        return this;
+    }
+
+    public SQLInserts column(String column, String str) {
+        notEmpty(column, "column");
+        notNull(str, "str");
+        columns.put(column, constant(str));
         return this;
     }
 

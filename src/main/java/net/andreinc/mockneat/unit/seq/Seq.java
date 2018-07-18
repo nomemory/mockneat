@@ -21,6 +21,7 @@ import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.utils.file.FileManager;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
@@ -42,16 +43,19 @@ public class  Seq<T> implements MockUnit<T> {
     }
 
     public static <R> Seq<R> fromIterable(Iterable<R> iterable) {
+        notNull(iterable, "iterable");
         return new Seq<>(iterable);
     }
 
+    public static <R> Seq<R> fromArray(R[] array) {
+        notNull(array, "array");
+        return new Seq<>(Arrays.asList(array));
+    }
+
     private Seq(Iterable<T> iterable) {
-
         notNull(iterable, "iterable");
-
         this.iterable = iterable;
         this.iterator = iterable.iterator();
-
         isTrue(iterator.hasNext(), IMPOSSIBLE_TO_SEQ_OVER_EMPTY_COLLECTION);
     }
 
