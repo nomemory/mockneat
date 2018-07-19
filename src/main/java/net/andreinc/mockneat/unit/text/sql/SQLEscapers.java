@@ -22,7 +22,7 @@ public class SQLEscapers {
                         .andThen((input) -> "$quot$" + input + "$quot$");
 
         // Text Escaper for PostgreSQL
-        public static final Function<String, String> TEXT_BACKLASH = new SQLEscaper(
+        public static final Function<String, String> TEXT_BACKSLASH = new SQLEscaper(
                 Arrays.asList(
                         new SQLEscaper.TextEscapeToken(
                                 "\u0000",

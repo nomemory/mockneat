@@ -267,7 +267,7 @@ public interface MockUnit<T> {
                 loop(size, () -> add(listClass, result, supplier()));
                 return result;
             } catch (Exception e) {
-                String fmt = str("Cannot instantiate list '{l.Name}'.")
+                String fmt = str("Cannot instantiate list '#{l.name}'.")
                                 .arg("l", listClass)
                                 .fmt();
                 throw new IllegalArgumentException(fmt, e);

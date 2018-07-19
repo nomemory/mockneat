@@ -66,4 +66,14 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
         final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format, locale);
         return () -> ifSupplierNotNullDo(supplier(), localDate -> localDate.format(dtf));
     }
+
+    default MockUnitString display(DateTimeFormatter dtf, Locale locale) {
+        notNull(dtf, "dtf");
+        notNull(locale, "locale");
+        return () -> ifSupplierNotNullDo(supplier(), localDate -> dtf.format(localDate));
+    }
+
+    default MockUnitString display(DateTimeFormatter dtf) {
+        return display(dtf, Locale.getDefault());
+    }
 }

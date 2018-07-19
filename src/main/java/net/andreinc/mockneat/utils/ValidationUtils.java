@@ -73,6 +73,8 @@ public class ValidationUtils {
     public static final String NUMBER_OF_TIMES_POSITIVE = "The number of times should be a positive number.";
     public static final String NUMBER_OF_LINES_POSITIVE = "The number of lines needs to be a positive number.";
     public static final String EMPTY_CSV_NO_COLUMNS = "Cannot generate CSV without any columns.";
+    // SQL
+    public static final String COLUMN_DOESNT_EXISTS = "Column: #{column} cannot be found on #{table}.";
 
     private ValidationUtils() {}
 

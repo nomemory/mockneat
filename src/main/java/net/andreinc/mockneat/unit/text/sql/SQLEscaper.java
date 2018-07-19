@@ -29,10 +29,12 @@ public class SQLEscaper {
     public String escape(String text) {
         Matcher matcher = escapePattern.matcher(text);
         StringBuffer escapedBuff = new StringBuffer();
+        escapedBuff.append("'");
         while(matcher.find()) {
             matcher.appendReplacement(escapedBuff, replacers.get(matcher.group(1)));
         }
         matcher.appendTail(escapedBuff);
+        escapedBuff.append("'");
         return escapedBuff.toString();
     }
 

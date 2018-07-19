@@ -2,6 +2,7 @@ package net.andreinc.mockneat.unit.text;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.*;
+import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.unit.text.sql.SQLInsert;
 import net.andreinc.mockneat.unit.text.sql.SQLTable;
 
@@ -17,7 +18,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
 
     private String tableName;
-    private Map<String, MockValue> columns = new LinkedHashMap<>();
+    private Map<String, Pair<MockValue, Function<String, String>>> columns = new LinkedHashMap<>();
 
     public SQLInserts(MockNeat mockNeat) {
         super(mockNeat);
@@ -32,7 +33,7 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     public SQLInserts column(String column, MockUnit mockUnit) {
         notEmpty(column, "column");
         notNull(mockUnit, "mockUnit");
-        columns.put(column, unit(mockUnit.mapToString()));
+        columns.put(column, Pair.of(unit(mockUnit.mapToString()), null));
         return this;
     }
 
@@ -40,14 +41,14 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
         notEmpty(column, "column");
         notNull(mockUnit, "mockUnit");
         notNull(sqlFormatter, "sqlFormatter");
-        columns.put(column, unit(mockUnit.mapToString().map(sqlFormatter)));
+        columns.put(column, Pair.of(unit(mockUnit.mapToString()), sqlFormatter));
         return this;
     }
 
     public SQLInserts column(String column, String str) {
         notEmpty(column, "column");
         notNull(str, "str");
-        columns.put(column, constant(str));
+        columns.put(column, Pair.of(constant(str), null));
         return this;
     }
 
@@ -56,15 +57,16 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
         notEmpty(column, "column");
         notNull(str, "str");
         notNull(sqlFormatter, "sqlFormatter");
-        columns.put(column, constant(sqlFormatter.apply(str)));
+        columns.put(column,Pair.of(constant(str), sqlFormatter));
         return this;
     }
 
     @Override
     public Supplier<SQLInsert> supplier() {
         return () -> {
-            final Map<String, String> values = new LinkedHashMap<>();
-            columns.forEach((k, v) -> values.put(k, v.getStr()));
+            final Map<String, Pair<String, Function<String, String>>> values = new LinkedHashMap<>();
+            columns.forEach((k, v) ->
+                    values.put(k, Pair.of(v.getFirst().getStr(), v.getSecond())));
             return new SQLInsert(tableName, values);
         };
     }

@@ -57,12 +57,14 @@ public class MockUnitLocalDateTest {
 
     @Test(expected = NullPointerException.class)
     public void testDisplayNullFormat() {
-        M.localDates().display(null);
+        String fmt = null;
+        M.localDates().display(fmt);
     }
 
     @Test(expected = NullPointerException.class)
     public void testDisplayNullFormatOverloaded() {
-        M.localDates().display(null, Locale.ENGLISH);
+        String fmt = null;
+        M.localDates().display(fmt, Locale.ENGLISH);
     }
 
     @Test(expected = NullPointerException.class)
