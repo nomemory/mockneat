@@ -1,3 +1,9 @@
+Version 0.2.1
+--------------
+- Added new functionality to generate SQL Inserts (sqlInserts() method);
+- Enhanced the MockUnitLocalDate interface by adding new methods;
+
+
 VERSION 0.2.0
 -------------
 - Fixed the csvs() method;
