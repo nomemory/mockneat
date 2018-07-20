@@ -2,8 +2,6 @@ package net.andreinc.mockneat.unit.text;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitString;
-import net.andreinc.mockneat.types.enums.DictType;
-import net.andreinc.mockneat.unit.text.sql.SQLEscapers;
 import net.andreinc.mockneat.unit.text.sql.SQLTable;
 import org.junit.Test;
 
@@ -37,8 +35,7 @@ public class SQLInsertsTest {
         SQLTable regions = m.sqlInserts()
                             .tableName("regions")
                             .column("region_id", m.intSeq().start(1))
-                            .column("region_name", m.seq(regionNames),
-                                    TEXT_BACKSLASH)
+                            .column("region_name", m.seq(regionNames), TEXT_BACKSLASH)
                             .table(regionNames.length)
                             .val();
         System.out.println(regions);
@@ -68,12 +65,12 @@ public class SQLInsertsTest {
 
         SQLTable locations = m.sqlInserts()
                               .tableName("locations")
-                              .column("location_id", m.intSeq().start(1000).increment(100))
+                              .column("location_id",    m.intSeq().start(1000).increment(100))
                               .column("street_address", streetAddressGen, TEXT_BACKSLASH)
-                              .column("postal_code", postalCodeGen, TEXT_BACKSLASH)
-                              .column("city", m.cities().us(), TEXT_BACKSLASH)
+                              .column("postal_code",    postalCodeGen, TEXT_BACKSLASH)
+                              .column("city",           m.cities().us(), TEXT_BACKSLASH)
                               .column("state_province", m.cities().capitals(), TEXT_BACKSLASH)
-                              .column("country_id", countries.fromColumn("country_id"), TEXT_BACKSLASH)
+                              .column("country_id",     countries.fromColumn("country_id"), TEXT_BACKSLASH)
                               .table(numLocations)
                               .val();
 
