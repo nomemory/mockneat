@@ -59,6 +59,12 @@ public class FileManager {
         return fileManager;
     }
 
+    /**
+     * This method returns the cached lines for the file.
+     *
+     * @param path The path to the file.
+     * @return
+     */
     public List<String> getLines(String path) {
         if (!JAR_EXTERNAL.containsKey(path)) {
             try {
