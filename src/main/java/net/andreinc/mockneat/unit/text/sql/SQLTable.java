@@ -3,11 +3,9 @@ package net.andreinc.mockneat.unit.text.sql;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 
+import javax.swing.text.html.Option;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -38,9 +36,18 @@ public class SQLTable {
         return inserts.stream().filter(condition).collect(Collectors.toList());
     }
 
+    public SQLInsert selectRow(int row) {
+        return inserts.get(row);
+    }
+
     public SQLTable update(int row, String column, String newValue) {
         inserts.get(row)
                .setValue(column, newValue);
+        return this;
+    }
+
+    public SQLTable update(int row, Consumer<SQLInsert> updater) {
+        updater.accept(inserts.get(row));
         return this;
     }
 

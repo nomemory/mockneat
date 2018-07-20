@@ -11,7 +11,7 @@ public class SQLEscaper {
     private final Map<String, String> replacers = new HashMap<>();
     private final Pattern escapePattern;
 
-    protected SQLEscaper(List<TextEscapeToken> tokenList) {
+    public SQLEscaper(List<TextEscapeToken> tokenList) {
         // Building the escape pattern
         final StringBuilder buff = new StringBuilder();
         tokenList.stream().forEach(token -> {
