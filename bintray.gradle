@@ -1,6 +1,6 @@
 apply plugin: 'com.jfrog.bintray'
 
-version = '0.2.0'
+version = '0.2.1'
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
