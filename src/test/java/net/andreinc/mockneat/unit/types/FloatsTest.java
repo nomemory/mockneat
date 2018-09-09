@@ -201,10 +201,7 @@ public class FloatsTest {
                                         .val();
 
                     assertTrue(floats.length == size);
-
-                    Arrays
-                            .stream(floats)
-                            .forEach(f -> assertTrue(0f <= f && f< 1f));
+                    stream(floats).forEach(f -> assertTrue(0f <= f && f< 1f));
                 }
         );
     }

@@ -19,8 +19,8 @@ package net.andreinc.mockneat.types;
 
 public class Range<T extends Number> {
 
-    private T lowerBound;
-    private T upperBound;
+    private final T lowerBound;
+    private final T upperBound;
 
     public Range(T lowerBound, T uppeerBound) {
         this.lowerBound = lowerBound;

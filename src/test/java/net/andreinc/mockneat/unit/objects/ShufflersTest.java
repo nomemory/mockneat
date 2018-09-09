@@ -324,7 +324,7 @@ public class ShufflersTest {
 
         assertNotNull(newAl);
         assertTrue(al.equals(newAl));
-        assertTrue(newAl.size()==0);
+        assertTrue(newAl.isEmpty());
     }
 
     @Test

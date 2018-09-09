@@ -23,57 +23,61 @@ import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 
 //TODO Document and test
 public class Words extends MockUnitBase implements MockUnitString {
 
     private final List<MockUnitString> adjectives =
-            asList(
+            unmodifiableList(asList(
                     mockNeat.dicts().type(DictType.EN_ADJECTIVE_1SYLL),
                     mockNeat.dicts().type(DictType.EN_ADJECTIVE_2SYLL),
                     mockNeat.dicts().type(DictType.EN_ADJECTIVE_3SYLL),
                     mockNeat.dicts().type(DictType.EN_ADJECTIVE_4SYLL)
-            );
+            ));
 
     private final List<MockUnitString> adverbs =
-            asList(
+            unmodifiableList(asList(
                     mockNeat.dicts().type(DictType.EN_ADVERB_1SYLL),
                     mockNeat.dicts().type(DictType.EN_ADVERB_2SYLL),
                     mockNeat.dicts().type(DictType.EN_ADVERB_3SYLL),
                     mockNeat.dicts().type(DictType.EN_ADVERB_4SYLL)
-            );
+            ));
 
     private final List<MockUnitString> nouns =
-            asList(
+            unmodifiableList(asList(
                     mockNeat.dicts().type(DictType.EN_NOUN_1SYLL),
                     mockNeat.dicts().type(DictType.EN_NOUN_2SYLL),
                     mockNeat.dicts().type(DictType.EN_NOUN_3SYLL),
                     mockNeat.dicts().type(DictType.EN_NOUN_4SYLL)
-            );
+            ));
 
     private final List<MockUnitString> verbs =
-            asList(
+            unmodifiableList(asList(
                     mockNeat.dicts().type(DictType.EN_VERB_1SYLL),
                     mockNeat.dicts().type(DictType.EN_VERB_2SYLL),
                     mockNeat.dicts().type(DictType.EN_VERB_3SYLL),
                     mockNeat.dicts().type(DictType.EN_VERB_4SYLL)
-            );
+            ));
 
     private final List<MockUnitString> all;
 
     public Words(MockNeat mockNeat) {
         super(mockNeat);
 
-        this.all = new ArrayList<>();
+        ArrayList<MockUnitString> all = new ArrayList<>();
 
         all.addAll(adjectives);
         all.addAll(adverbs);
         all.addAll(nouns);
         all.addAll(verbs);
+
+        this.all = unmodifiableList(all);
     }
 
     @Override

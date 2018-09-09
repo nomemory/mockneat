@@ -34,9 +34,9 @@ public class CitiesTest {
     private final FileManager fm =
             FileManager.getInstance();
 
-    private Set<String> allUsCities = new HashSet<>(fm.getLines(DictType.CITIES_US));
+    private final Set<String> allUsCities = new HashSet<>(fm.getLines(DictType.CITIES_US));
 
-    private Set<String> allCapitalCities = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS));
+    private final Set<String> allCapitalCities = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS));
 
 
     @Test

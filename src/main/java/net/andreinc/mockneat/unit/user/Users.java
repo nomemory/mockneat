@@ -45,7 +45,7 @@ public class Users extends MockUnitBase implements MockUnitString {
     }
 
     public MockUnitString type(UserNameType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         Supplier<String> supplier = () -> generateUserName(type);
         return () -> supplier;
     }

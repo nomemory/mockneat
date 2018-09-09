@@ -59,7 +59,7 @@ public class MockUnitListMethodTest {
     @Test
     public void testListSupp0Size() throws Exception {
         List<Integer> list = M.ints().list(() -> new ArrayList<>(10), 0).val();
-        assertTrue(list.size() == 0);
+        assertTrue(list.isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)

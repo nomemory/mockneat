@@ -37,7 +37,7 @@ public class MockUnitDaysTest {
 
     @Test(expected = NullPointerException.class)
     public void testDisplayNullLocale() throws Exception {
-        M.days().display(TextStyle.SHORT, null).val();
+        M.days().display(SHORT, null).val();
     }
 
     @Test

@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class MapCheckUtils {
+public final class MapCheckUtils {
     public static <K,V> void testMap(Map<K,V> map,
                                       Consumer<K> validateKeys,
                                       Consumer<V> validateVals,

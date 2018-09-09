@@ -42,7 +42,7 @@ public class Chars implements MockUnit<Character> {
      */
     @Override
     public Supplier<Character> supplier() {
-        return mock.from(Alphabets.ALPHA_NUMERIC)::val;
+        return mock.from(ALPHA_NUMERIC)::val;
     }
 
 

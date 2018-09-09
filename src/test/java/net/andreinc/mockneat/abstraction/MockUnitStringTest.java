@@ -99,6 +99,7 @@ public class MockUnitStringTest {
                     case CAPITALIZED: { assertTrue(Character.isUpperCase(result.charAt(0))); break; }
                     case LOWER_CASE: { assertTrue(isAllLowerCase(result)); break; }
                     case UPPER_CASE: { assertTrue(isAllUpperCase(result)); break; }
+                    default: throw new IllegalArgumentException("Invalid StringFormatType.");
                 }
             }
         );

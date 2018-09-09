@@ -1,5 +1,7 @@
 package net.andreinc.mockneat.types.enums;
 
+import java.util.Arrays;
+
 public enum SpaceType {
 
     CONSTELLATIONS(new DictType[]{DictType.SPACE_CONSTELLATIONS}),
@@ -24,6 +26,6 @@ public enum SpaceType {
     private DictType[] dictTypes;
 
     public DictType[] getDictTypes() {
-        return dictTypes;
+        return Arrays.copyOf(dictTypes, dictTypes.length);
     }
 }

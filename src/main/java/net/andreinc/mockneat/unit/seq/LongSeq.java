@@ -30,7 +30,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 public class LongSeq implements MockUnitLong {
 
     private long increment = 1;
-    private long start = 0;
+    private long start = 0l;
     private boolean cycle = true;
     private long max = Long.MAX_VALUE;
     private long min = Long.MIN_VALUE;

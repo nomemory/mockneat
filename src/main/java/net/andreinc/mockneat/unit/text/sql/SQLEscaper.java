@@ -38,13 +38,13 @@ public class SQLEscaper {
         final StringBuilder buff = new StringBuilder();
         tokenList.stream().forEach(token -> {
             replacers.put(token.getSearchToken(), token.getReplaceString());
-            buff.append("|").append(token.getSearchRegex());
+            buff.append('|').append(token.getSearchRegex());
         });
         // Deletes the first "|" from the pattern
         buff.deleteCharAt(0);
         // Wraps the regex pattern inside "(" ")"
-        buff.insert(0, "(");
-        buff.append(")");
+        buff.insert(0, '(');
+        buff.append(')');
         this.escapePattern = Pattern.compile(buff.toString());
     }
 
@@ -52,12 +52,12 @@ public class SQLEscaper {
         notEmpty(text, "text");
         Matcher matcher = escapePattern.matcher(text);
         StringBuffer escapedBuff = new StringBuffer();
-        escapedBuff.append("'");
+        escapedBuff.append('\'');
         while(matcher.find()) {
             matcher.appendReplacement(escapedBuff, replacers.get(matcher.group(1)));
         }
         matcher.appendTail(escapedBuff);
-        escapedBuff.append("'");
+        escapedBuff.append('\'');
         return escapedBuff.toString();
     }
 

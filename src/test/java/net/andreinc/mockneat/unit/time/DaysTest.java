@@ -39,7 +39,7 @@ public class DaysTest {
     @Test
     public void testDaysInRange() throws Exception {
         DayOfWeek lower = TUESDAY;
-        DayOfWeek upper = DayOfWeek.THURSDAY;
+        DayOfWeek upper = THURSDAY;
         Set<DayOfWeek> dayOfWeekSet = EnumSet.of(TUESDAY, WEDNESDAY);
         loop(Constants.DAYS_CYCLES,
                 Constants.MOCKS,
@@ -70,7 +70,7 @@ public class DaysTest {
     @Test
     public void testDaysInRangeClosed() throws Exception {
         DayOfWeek lower = TUESDAY;
-        DayOfWeek upper = DayOfWeek.THURSDAY;
+        DayOfWeek upper = THURSDAY;
         Set<DayOfWeek> dayOfWeekSet = EnumSet.of(TUESDAY, WEDNESDAY, THURSDAY);
         loop(Constants.DAYS_CYCLES,
                 Constants.MOCKS,

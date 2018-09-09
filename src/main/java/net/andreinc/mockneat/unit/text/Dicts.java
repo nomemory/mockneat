@@ -42,7 +42,7 @@ public class Dicts extends MockUnitBase {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(DictType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         return () -> mockNeat.fromStrings(fm.getLines(type))::val;
     }
 

@@ -17,7 +17,7 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class MockUnitValue implements MockValue {
+public final class MockUnitValue implements MockValue {
 
     private final MockUnit mockUnit;
 

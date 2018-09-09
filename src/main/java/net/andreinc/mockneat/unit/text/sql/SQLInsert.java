@@ -54,13 +54,13 @@ public class SQLInsert {
     @Override
     public String toString() {
 
-        StringBuilder buff = new StringBuilder();
+        StringBuilder buff = new StringBuilder(1024);
 
         buff.append("INSERT INTO ")
                 .append(tableName)
-                .append(" ")
+                .append(' ')
                 .append(getColumnsSection())
-                .append("VALUES ").append("(");
+                .append("VALUES (");
 
         for(Pair<String, Function<String, String>> str : columns.values()) {
             String strVal = str.getFirst();
@@ -81,7 +81,7 @@ public class SQLInsert {
 
     private String getColumnsSection() {
         final StringBuilder buff = new StringBuilder();
-        buff.append("(");
+        buff.append('(');
 
         columns.keySet().forEach(col -> buff.append(col).append(", "));
 

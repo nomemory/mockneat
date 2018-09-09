@@ -28,13 +28,13 @@ import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class  Seq<T> implements MockUnit<T> {
+public final class  Seq<T> implements MockUnit<T> {
 
     private final Iterable<T> iterable;
     private Iterator<T> iterator;
 
-    private boolean cycle = false;
-    private Supplier<T> after = null;
+    private boolean cycle;
+    private Supplier<T> after;
 
     public static Seq<String> fromDict(DictType dictType) {
         notNull(dictType, "dictType");

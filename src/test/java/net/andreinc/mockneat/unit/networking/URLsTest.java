@@ -89,7 +89,7 @@ public class URLsTest {
 
     @Test
     public void testURLSNoScheme() throws Exception {
-        URLSchemeType scheme = URLSchemeType.NONE;
+        URLSchemeType scheme = NONE;
         loop(URL_CYCLES, MOCKS, r -> r.urls().scheme(scheme.getStr()).val(), u -> {
             String[] usplit = u.split("\\.");
             assertTrue(usplit.length == 3);
@@ -425,7 +425,7 @@ public class URLsTest {
         loop(
                 URL_CYCLES,
                 MOCKS,
-                mockNeat -> mockNeat.urls().scheme(URLSchemeType.FTP).val(),
+                mockNeat -> mockNeat.urls().scheme(FTP).val(),
                 url -> {
                     String[] splits = url.split("//");
 
@@ -441,7 +441,7 @@ public class URLsTest {
                 URL_CYCLES,
                 MOCKS,
                 mockNeat -> mockNeat.urls()
-                                    .schemes(URLSchemeType.HTTPS, URLSchemeType.HTTP)
+                                    .schemes(HTTPS, HTTP)
                                     .val(),
                 url -> {
 

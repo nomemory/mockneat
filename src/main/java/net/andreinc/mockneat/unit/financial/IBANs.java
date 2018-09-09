@@ -29,6 +29,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 import static java.lang.Character.toLowerCase;
@@ -41,7 +42,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class IBANs extends MockUnitBase implements MockUnitString {
 
-    private static final Map<Character, String> VALUE_MAP = new HashMap<>();
+    private static final Map<Character, String> VALUE_MAP = new ConcurrentHashMap<>();
 
     static {
         // Initialize a map:
@@ -51,14 +52,14 @@ public class IBANs extends MockUnitBase implements MockUnitString {
         // (Z, z) -> 35
         range(0, LETTERS_UPPERCASE.size()).forEach( i -> {
             Character upper = LETTERS_UPPERCASE.get(i);
-            Character lower=  toLowerCase(upper);
-            String value = (i + 10) + "";
+            Character lower =  toLowerCase(upper);
+            String value = valueOf(i + 10).toString();
             VALUE_MAP.put(lower, value);
             VALUE_MAP.put(upper, value);
         });
 
         range(0, DIGITS.size()).forEach( i -> {
-            VALUE_MAP.put(DIGITS.get(i), DIGITS.get(i)+"");
+            VALUE_MAP.put(DIGITS.get(i), DIGITS.get(i).toString());
         });
     }
 
@@ -81,7 +82,7 @@ public class IBANs extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString type(IBANType ibanType) {
-        ValidationUtils.notNull(ibanType, "ibanType");
+        notNull(ibanType, "ibanType");
         return () -> () -> generate(ibanType);
     }
 
@@ -127,11 +128,10 @@ public class IBANs extends MockUnitBase implements MockUnitString {
         });
 
         // Add prefix at the end of the numeric representation
-        numeric.append(VALUE_MAP.get(prefix.charAt(0)));
-        numeric.append(VALUE_MAP.get(prefix.charAt(1)));
-
-        // Check digits are added as 0s.
-        numeric.append("00");
+        numeric.append(VALUE_MAP.get(prefix.charAt(0)))
+               .append(VALUE_MAP.get(prefix.charAt(1)))
+                // Check digits are added as 0s.
+                .append("00");
 
         return iban.append(checkDigits(numeric.toString()))
                     .append(bban)
@@ -147,6 +147,6 @@ public class IBANs extends MockUnitBase implements MockUnitString {
         return (checkDigits<10) ?
                 // if the remainder is only 1 digit,
                 // we add a new 0
-                "0" + checkDigits : ""  + checkDigits ;
+                "0" + checkDigits : checkDigits.toString();
     }
 }

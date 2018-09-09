@@ -99,7 +99,7 @@ public class MockNeat {
     private final UsStates rUsStates;
     private final Words rWords;
 
-    public MockNeat(RandomType randomTypeType) {
+    public MockNeat(final RandomType randomTypeType) {
         this.random = randomTypeType.getRandom();
 
         this.rChars = new Chars(this);
@@ -146,7 +146,7 @@ public class MockNeat {
         this(RandomType.THREAD_LOCAL);
     }
 
-    public MockNeat(RandomType randomTypeType, Long seed) {
+    public MockNeat(final RandomType randomTypeType, Long seed) {
         this(randomTypeType);
         random.setSeed(seed);
     }
@@ -542,7 +542,7 @@ public class MockNeat {
 
     public Words words() { return this.rWords; }
 
-    public java.util.Random getRandom() {
+    public Random getRandom() {
         return random;
     }
 

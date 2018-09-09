@@ -76,7 +76,7 @@ public class ReflectTest {
     public void testReflectionConstruct() throws Exception {
         loop(
             OBJS_CYCLES,
-            Constants.MOCKS,
+            MOCKS,
             m -> m.reflect(Customer1.class)
                     .field("firstName", m.names().first())
                     .field("lastName", m.names().last())

@@ -18,7 +18,7 @@ package net.andreinc.mockneat.unit.objects.model;
  */
 
 public abstract class TheAbstractClass {
-    private String name;
+    private final String name;
 
     public TheAbstractClass(String name) {
         this.name = name;

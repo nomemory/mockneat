@@ -36,7 +36,7 @@ public class Regex implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        ValidationUtils.notNull(regex, "regex");
+        notNull(regex, "regex");
         validRegex(regex);
         return () -> new Generex(regex).random();
     }

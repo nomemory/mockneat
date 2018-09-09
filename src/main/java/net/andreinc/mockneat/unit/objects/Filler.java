@@ -13,7 +13,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Filler<T> extends MockUnitBase implements MockUnit<T> {
 
-    private Supplier<T> supplier;
+    private final Supplier<T> supplier;
 
     //TODO: Change this horrible way
     Map<BiConsumer, MockUnit> setters = new LinkedHashMap<>();

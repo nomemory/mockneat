@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ISSNSTest {
 
-    private ISSNValidator validator = ISSNValidator.getInstance();
+    private final ISSNValidator validator = ISSNValidator.getInstance();
 
     @Test
     public void test() throws Exception {

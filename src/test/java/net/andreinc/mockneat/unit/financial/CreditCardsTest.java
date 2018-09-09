@@ -37,7 +37,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CreditCardsTest {
 
-    private FileManager FM = FileManager.getInstance();
+    private final FileManager FM = FileManager.getInstance();
     private static Map<CreditCardType, Set<String>> PREFIX = new EnumMap<>(CreditCardType.class);
 
     static {

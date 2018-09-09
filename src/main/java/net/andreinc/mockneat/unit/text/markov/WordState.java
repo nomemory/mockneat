@@ -19,7 +19,7 @@ package net.andreinc.mockneat.unit.text.markov;
 
 import java.util.*;
 
-public class WordState {
+public final class WordState {
 
     private final String[] state;
 

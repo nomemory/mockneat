@@ -44,7 +44,7 @@ public class IPv4sTest {
 
     protected void testIp(String ip, IPv4Type type) {
         
-        if(Arrays.stream(new IPv4Type[] {IPv4Type.CLASS_A_PRIVATE, IPv4Type.CLASS_B_PRIVATE, IPv4Type.CLASS_C_PRIVATE}).anyMatch(x -> x == type)) {
+        if(stream(new IPv4Type[] {IPv4Type.CLASS_A_PRIVATE, IPv4Type.CLASS_B_PRIVATE, IPv4Type.CLASS_C_PRIVATE}).anyMatch(x -> x == type)) {
             try {
                 assertTrue(isPrivate(ip));
             }catch(UnknownHostException e) {
@@ -52,7 +52,7 @@ public class IPv4sTest {
             }
         }
         
-        if(Arrays.stream(new IPv4Type[] {IPv4Type.CLASS_A_NONPRIVATE, IPv4Type.CLASS_B_NONPRIVATE, IPv4Type.CLASS_C_NONPRIVATE}).anyMatch(x -> x == type)) {
+        if(stream(new IPv4Type[] {IPv4Type.CLASS_A_NONPRIVATE, IPv4Type.CLASS_B_NONPRIVATE, IPv4Type.CLASS_C_NONPRIVATE}).anyMatch(x -> x == type)) {
             try {
                 assertTrue(!isPrivate(ip));
             }catch(UnknownHostException e) {
@@ -75,10 +75,10 @@ public class IPv4sTest {
             IntStream
                     .range(0, bounds.length)
                     .forEach(i -> {
-                        Integer low = (Integer) bounds[i].getLowerBound();
-                        Integer up = (Integer) bounds[i].getUpperBound();
+                        Integer low = bounds[i].getLowerBound();
+                        Integer up = bounds[i].getUpperBound();
                         Integer value = numbers.get(i);
-                        Assert.assertTrue(value >= low && value <= up);
+                        assertTrue(value >= low && value <= up);
                     });
         } catch (NumberFormatException e) {
            fail(e.getMessage());

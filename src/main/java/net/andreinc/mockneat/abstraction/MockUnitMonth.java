@@ -37,8 +37,8 @@ public interface MockUnitMonth extends MockUnit<Month> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString display(TextStyle textStyle, Locale locale) {
-        ValidationUtils.notNull(textStyle, "textStyle");
-        ValidationUtils.notNull(locale, "locale");
+        notNull(textStyle, "textStyle");
+        notNull(locale, "locale");
         Supplier<String> supp = () -> supplier().get().getDisplayName(textStyle, locale);
         return () -> supp;
     }

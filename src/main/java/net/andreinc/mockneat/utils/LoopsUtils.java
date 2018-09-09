@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class LoopsUtils {
+public final class LoopsUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(LoopsUtils.class);
 
@@ -53,7 +53,6 @@ public class LoopsUtils {
                             T o = map.apply(r);
                             if (dbg) {
                                 logger.info(null == o ? "" : o.toString());
-                                System.out.println(null == o ? "" : o.toString());
                             }
                             return o;
                         })

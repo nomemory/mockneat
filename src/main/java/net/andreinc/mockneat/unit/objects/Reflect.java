@@ -44,7 +44,7 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Map<String, MockValue> fields = new LinkedHashMap<>();
-    private boolean useDefaults = false;
+    private boolean useDefaults;
     private final Map<Class<?>, MockValue> defaults = new HashMap<>();
     private final Class<T> cls;
 

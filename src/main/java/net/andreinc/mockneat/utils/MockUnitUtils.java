@@ -27,7 +27,7 @@ import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @SuppressWarnings("unchecked")
-public class MockUnitUtils {
+public final class MockUnitUtils {
 
     private MockUnitUtils() {}
 
@@ -67,7 +67,7 @@ public class MockUnitUtils {
         try {
             map.put(keyVal, valVal);
         } catch(Exception e ) {
-            String msg = str(ValidationUtils.CANNOT_PUT_VALUES_TO_MAP)
+            String msg = str(CANNOT_PUT_VALUES_TO_MAP)
                             .args("key", keyVal, "val", valVal, "cls", mapClass.getSimpleName())
                             .fmt();
             throw new IllegalArgumentException(msg, e);
@@ -77,7 +77,7 @@ public class MockUnitUtils {
         try {
             map.put(key, value);
         } catch (Exception e) {
-            String msg = str(ValidationUtils.CANNOT_PUT_VALUES_TO_MAP)
+            String msg = str(CANNOT_PUT_VALUES_TO_MAP)
                             .args("key", key, "val", value, "cls", mapClass.getSimpleName())
                             .fmt();
             throw new IllegalArgumentException(msg, e);
@@ -97,10 +97,10 @@ public class MockUnitUtils {
         Arrays.stream(objs).forEach(obj -> {
             if (null != obj) { buff.append(obj.getClass().getName()); }
             else { buff.append("null"); }
-            buff.append(",");
+            buff.append(',');
         });
         buff.deleteCharAt(buff.length()-1);
-        buff.append(")");
+        buff.append(')');
         return buff.toString();
     }
 

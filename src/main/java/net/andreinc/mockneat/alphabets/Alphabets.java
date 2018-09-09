@@ -23,7 +23,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 import static org.apache.commons.lang3.ArrayUtils.addAll;
 
-public class Alphabets {
+public final class Alphabets {
 
     /**
      * ---------------------------------------------------------

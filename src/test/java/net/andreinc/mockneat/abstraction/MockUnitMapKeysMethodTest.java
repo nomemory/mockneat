@@ -92,7 +92,7 @@ public class MockUnitMapKeysMethodTest {
         Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(HashMap.class, 10, M.from(ints).supplier()).val();
 
         Integer x = m.get(null);
-        Assert.assertTrue(0 <= x && x < 5);
+        assertTrue(0 <= x && x < 5);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class MockUnitMapKeysMethodTest {
                                    .mapKeys(() -> new HashMap<>(), 10, M.from(ints).supplier())
                                    .val();
         Integer x = m.get(null);
-        Assert.assertTrue(0 <= x && x < 5);
+        assertTrue(0 <= x && x < 5);
     }
 
     @Test
@@ -157,7 +157,7 @@ public class MockUnitMapKeysMethodTest {
                 map -> MapCheckUtils.testMap(
                         map,
                         (k) -> {
-                            if (!(k.length()==5))
+                            if ((k.length()!=5))
                                 fail();
                         },
                         MapCheckUtils.inRange(0, 100),
@@ -182,7 +182,7 @@ public class MockUnitMapKeysMethodTest {
                 map -> MapCheckUtils.testMap(
                         map,
                         (k) -> {
-                            if (!(k.length()==5))
+                            if ((k.length()!=5))
                                 fail();
                         },
                         MapCheckUtils.inRange(100, 200),
@@ -240,7 +240,7 @@ public class MockUnitMapKeysMethodTest {
         Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(HashMap.class, M.from(ints).list(10).val()).val();
 
         Integer x = m.get(null);
-        Assert.assertTrue(0 <= x && x < 5);
+        assertTrue(0 <= x && x < 5);
     }
 
     @Test
@@ -249,7 +249,7 @@ public class MockUnitMapKeysMethodTest {
         Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(() -> new HashMap<>(), M.from(ints).list(10).val()).val();
 
         Integer x = m.get(null);
-        Assert.assertTrue(0 <= x && x < 5);
+        assertTrue(0 <= x && x < 5);
     }
 
     @Test

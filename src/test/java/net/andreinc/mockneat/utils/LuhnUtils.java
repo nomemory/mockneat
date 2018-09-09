@@ -18,7 +18,7 @@ package net.andreinc.mockneat.utils;
  */
 
 
-public class LuhnUtils {
+public final class LuhnUtils {
     /**
      * Tests if a certain String is a valid Luhn number
      * @param cc

@@ -17,7 +17,7 @@ package net.andreinc.mockneat.unit.objects.model;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class FactoryMethods {
+public final class FactoryMethods {
 
     public static StringBuilder buffBuilder(String val) {
         return new StringBuilder(val);

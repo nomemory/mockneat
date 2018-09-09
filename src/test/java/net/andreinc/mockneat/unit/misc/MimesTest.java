@@ -33,7 +33,7 @@ public class MimesTest {
     private final FileManager fm =
             FileManager.getInstance();
 
-    private Set<String> allMimes = new HashSet<>(fm.getLines(DictType.MIME_TYPE));
+    private final Set<String> allMimes = new HashSet<>(fm.getLines(DictType.MIME_TYPE));
 
     @Test
     public void testMimes() {

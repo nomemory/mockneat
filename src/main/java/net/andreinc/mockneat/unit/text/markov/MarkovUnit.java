@@ -35,7 +35,7 @@ import static java.util.Arrays.stream;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
 import static org.apache.commons.text.WordUtils.capitalize;
 
-public class MarkovUnit {
+public final class MarkovUnit {
 
     private static final FileManager fm = FileManager.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(MarkovUnit.class);
@@ -43,8 +43,8 @@ public class MarkovUnit {
     private final String path;
     private final Map<WordState, WordStatistic> chain;
     private final MockUnit<WordState> randState;
-    private Integer stateSize = 2;
-    private MockNeat mock = MockNeat.threadLocal();
+    private final Integer stateSize;
+    private final MockNeat mock;
 
     private MarkovUnit(MockNeat mock, List<String> lines, String path, Integer stateSize) {
         this.path = path;
@@ -132,7 +132,7 @@ public class MarkovUnit {
                 next = capitalize(next);
             }
             prev = next;
-            buff.append(next).append(" ");
+            buff.append(next).append(' ');
         }
         return buff.subSequence(0, maxLength).toString();
     }

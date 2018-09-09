@@ -31,7 +31,7 @@ import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 
-public class Formatter implements MockUnitString {
+public final class Formatter implements MockUnitString {
 
     private final Map<String, MockValue> fields = new HashMap<>();
     private final String fmt;

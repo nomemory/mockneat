@@ -203,7 +203,7 @@ public class MockUnitCollectionMethodTest {
     public void testCollectionTreeSetWithNulls() {
         List<Integer> list = Arrays.asList(null, null);
         loop(MOCK_CYCLES, () -> {
-            stream(Constants.MOCKS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 Collection c = r.from(list).collection(TreeSet.class, 100).val();
                 c.forEach(e -> assertTrue(null==e));
             });
@@ -214,7 +214,7 @@ public class MockUnitCollectionMethodTest {
     public void testCollectionHashSetWithNulls() {
         List<Integer> list = Arrays.asList(null, null);
         loop(MOCK_CYCLES, () -> {
-            stream(Constants.MOCKS).forEach(r -> {
+            stream(MOCKS).forEach(r -> {
                 Collection c = r.from(list).collection(HashSet.class, 100).val();
                 c.forEach(e -> assertTrue(null==e));
             });

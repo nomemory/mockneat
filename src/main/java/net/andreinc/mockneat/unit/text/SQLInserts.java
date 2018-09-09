@@ -36,7 +36,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
 
     private String tableName;
-    private Map<String, Pair<MockValue, Function<String, String>>> columns = new LinkedHashMap<>();
+    private final Map<String, Pair<MockValue, Function<String, String>>> columns = new LinkedHashMap<>();
 
     public SQLInserts(MockNeat mockNeat) {
         super(mockNeat);

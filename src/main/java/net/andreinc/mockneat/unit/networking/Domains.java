@@ -66,7 +66,7 @@ public class Domains extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(DomainSuffixType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         return () -> mockNeat.dicts().type(type.getDictType())::val;
     }
 

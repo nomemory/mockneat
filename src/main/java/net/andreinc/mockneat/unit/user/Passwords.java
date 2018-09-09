@@ -54,7 +54,7 @@ public class Passwords extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(PassStrengthType passStrengthType) {
-        ValidationUtils.notNull(passStrengthType, "passStrengthType");
+        notNull(passStrengthType, "passStrengthType");
         Supplier<String> supplier = () -> nextPassword(passStrengthType);
         return () -> supplier;
     }
@@ -109,8 +109,8 @@ public class Passwords extends MockUnitBase implements MockUnitString {
                 return nextMediumPassword();
             case STRONG:
                 return nextStrongPassword();
+            default: throw new IllegalArgumentException("Invalid PassStrengthType");
         }
-        return "123456";
     }
 
     private String nextWeakPassword() {

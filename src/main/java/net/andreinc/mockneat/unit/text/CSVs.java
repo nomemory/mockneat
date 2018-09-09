@@ -29,7 +29,7 @@ public class    CSVs extends MockUnitBase implements MockUnitString {
     }
 
     private String separator = ",";
-    private List<MockValue> columns = new LinkedList<>();
+    private final List<MockValue> columns = new LinkedList<>();
 
     public CSVs separator(String separator) {
         notEmpty(separator, "separator");
@@ -68,7 +68,7 @@ public class    CSVs extends MockUnitBase implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        ValidationUtils.isTrue(!columns.isEmpty(), EMPTY_CSV_NO_COLUMNS);
+        isTrue(!columns.isEmpty(), EMPTY_CSV_NO_COLUMNS);
         Supplier<String> supplier = () -> {
             StringBuilder buff = new StringBuilder();
             columns.stream().forEach((v) -> {

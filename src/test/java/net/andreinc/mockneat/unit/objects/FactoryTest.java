@@ -75,7 +75,6 @@ public class FactoryTest {
                       .method("buffBuilder")
                       .params("ABC")
                       .val();
-        System.out.println(val);
     }
 
     @Test(expected = IllegalArgumentException.class)

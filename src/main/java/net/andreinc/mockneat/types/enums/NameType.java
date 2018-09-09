@@ -1,5 +1,7 @@
 package net.andreinc.mockneat.types.enums;
 
+import java.util.Arrays;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -47,6 +49,6 @@ public enum NameType {
     }
 
     public DictType[] getDictionaries() {
-        return dictionaries;
+        return Arrays.copyOf(dictionaries, dictionaries.length);
     }
 }

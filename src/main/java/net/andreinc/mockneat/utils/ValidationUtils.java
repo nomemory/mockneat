@@ -23,7 +23,7 @@ import static net.andreinc.aleph.AlephFormatter.str;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class ValidationUtils {
+public final class ValidationUtils {
 
     public static final String INPUT_PARAMETER_NOT_NULL = "Input parameter: '#{input}' should not be NULL.";
     public static final String SUPPLIER_VALUE_NOT_NULL = "Value retrieved by Supplier<?> '#{supplier}' should not be NULL";

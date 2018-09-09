@@ -47,7 +47,7 @@ public class Macs extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString type(MACAddressFormatType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         Supplier<String> supplier = () -> {
             StringBuilder buff = new StringBuilder();
             IntStream.range(0, 12).forEach(i -> type.getConsumer().consume(i, buff, this.mockNeat));

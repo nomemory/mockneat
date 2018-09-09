@@ -64,17 +64,17 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
      */
     //TODO modify the way IPV4 are generated
     public MockUnitString type(IPv4Type type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         Range<Integer>[] oc = type.getOctets();
         Supplier<String> supp = () -> {
             StringBuilder buff = new StringBuilder();
             Arrays.stream(oc).forEach(range -> {
                 int low = range.getLowerBound();
                 int up = range.getUpperBound();
-                if (range.isConstant()) buff.append(low).append(".");
+                if (range.isConstant()) buff.append(low).append('.');
                 else {
                     int result = mockNeat.ints().range(low, up + 1).val();
-                    buff.append(result).append(".");
+                    buff.append(result).append('.');
                 }
             });
             buff.deleteCharAt(buff.length() - 1);

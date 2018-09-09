@@ -61,8 +61,8 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
      * @return A new {@code MockUnitString}
      */
     default MockUnitString display(String format, Locale locale) {
-        ValidationUtils.notNull(format, "format");
-        ValidationUtils.notNull(locale, "locale");
+        notNull(format, "format");
+        notNull(locale, "locale");
         final DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format, locale);
         return () -> ifSupplierNotNullDo(supplier(), localDate -> localDate.format(dtf));
     }

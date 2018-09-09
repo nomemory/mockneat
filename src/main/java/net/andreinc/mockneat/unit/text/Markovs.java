@@ -74,7 +74,7 @@ public class Markovs extends MockUnitBase implements MockUnitString {
     }
 
     public MockUnitString type(MarkovChainType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         Supplier<String> supp = () -> {
             MarkovUnit unit;
             try {

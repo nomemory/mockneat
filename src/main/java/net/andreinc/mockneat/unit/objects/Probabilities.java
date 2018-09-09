@@ -37,10 +37,12 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
 
     private final List<Pair<Double, MockValue>> probs = new ArrayList<>();
     private final MockUnitDouble mud;
+    private final Class<T> cls;
 
     public Probabilities(MockNeat mockNeat, Class<T> cls) {
         super(mockNeat);
         this.mud = mockNeat.doubles().range(0, 1.0);
+        this.cls = cls;
     }
 
     @Override
@@ -53,7 +55,7 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
         isTrue(prob.compareTo(0.0)>0, PROBABILITY_NOT_NEGATIVE, "prob", prob);
         double lastVal = lastVal();
         double toAdd = lastVal + prob;
-        isTrue(!(lastVal + prob > 1.0), PROBABILITIES_SUM_BIGGER);
+        isTrue((lastVal + prob <= 1.0), PROBABILITIES_SUM_BIGGER);
         probs.add(Pair.of(toAdd, unit(mock)));
         return this;
     }
@@ -63,20 +65,20 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
         isTrue(prob.compareTo(0.0)>0, PROBABILITY_NOT_NEGATIVE, "prob", prob);
         double lastVal = lastVal();
         double toAdd = lastVal + prob;
-        isTrue(!(lastVal + prob > 1.0), PROBABILITIES_SUM_BIGGER);
+        isTrue((lastVal + prob <= 1.0), PROBABILITIES_SUM_BIGGER);
         probs.add(Pair.of(toAdd, constant(obj)));
         return this;
     }
 
     private double lastVal() {
-       return (probs.size()==0) ? 0.0 : probs.get(probs.size()-1).getFirst();
+       return (probs.isEmpty()) ? 0.0 : probs.get(probs.size()-1).getFirst();
     }
 
     private T getMock() {
-        isTrue(!(probs.get(probs.size()-1).getFirst()<1.0) , ValidationUtils.PROBABILITIES_SUM_NOT_1);
+        isTrue((probs.get(probs.size()-1).getFirst()>=1.0) , PROBABILITIES_SUM_NOT_1);
         double rVal = mud.val();
         int i = 0;
         while(probs.get(i).getFirst() < rVal) { i++; }
-        return (T) probs.get(i).getSecond().get();
+        return cls.cast(probs.get(i).getSecond().get());
     }
 }

@@ -42,7 +42,7 @@ public class Money extends MockUnitBase implements MockUnitString {
     }
 
     public Money locale(Locale locale) {
-        ValidationUtils.notNull(locale, "locale");
+        notNull(locale, "locale");
         this.formatter = getCurrencyInstance(locale);
         return this;
     }

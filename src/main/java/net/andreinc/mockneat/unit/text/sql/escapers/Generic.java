@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class Generic {
-    public static Function<String, String> DOUBLE_APOSTROPHE = new SQLEscaper(
+    public static final Function<String, String> DOUBLE_APOSTROPHE = new SQLEscaper(
             Arrays.asList(
                     new SQLEscaper.TextEscapeToken(
                             "'",

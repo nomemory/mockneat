@@ -162,6 +162,7 @@ public class StringsTest {
                         case LETTERS: { assertTrue(isAlpha(str)); break; }
                         case HEX : { verifyHex(str); break; }
                         case SPECIAL_CHARACTERS: { verifySpecialChars(str); break; }
+                        default: throw new IllegalArgumentException("Invalid StringType.");
                     }
                 }
         );

@@ -47,7 +47,7 @@ public class FileManager {
 
     private static final FileManager fileManager = new FileManager();
 
-    private static final ClassLoader loader = FileManager.getInstance().getClass().getClassLoader();
+    private static final ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
     private static final Map<String, List<String>> JAR_INTERNAL =
             new HashMap<>();

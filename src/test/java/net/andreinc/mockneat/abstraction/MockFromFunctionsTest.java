@@ -30,8 +30,8 @@ import static org.junit.Assert.assertTrue;
 public class MockFromFunctionsTest {
 
     private static class TestModel {
-        private String x1;
-        private Integer y1;
+        private final String x1;
+        private final Integer y1;
 
         public TestModel(String x1, Integer y1) {
             this.x1 = x1;
@@ -71,7 +71,7 @@ public class MockFromFunctionsTest {
         }
 
         public static List<TestModel> getTestList() {
-            return Arrays.asList(getTestArray());
+            return asList(getTestArray());
         }
     }
 
@@ -122,7 +122,7 @@ public class MockFromFunctionsTest {
 
     @Test
     public void testFrom1ElementList() throws Exception {
-        List<String> list = Arrays.asList(new String[]{ "a" });
+        List<String> list = asList(new String[]{ "a" });
         loop(Constants.OBJS_CYCLES,
                 Constants.MOCKS,
                 r -> r.from(list).val(),

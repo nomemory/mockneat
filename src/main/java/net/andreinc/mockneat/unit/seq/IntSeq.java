@@ -32,7 +32,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.isTrue;
 public class IntSeq implements MockUnitInt {
 
     private int increment = 1;
-    private int start = 0;
+    private int start; // incremented with 0 by default
     private boolean cycle = true;
     private int max = MAX_VALUE;
     private int min = MIN_VALUE;

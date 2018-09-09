@@ -67,8 +67,8 @@ public class Strings extends MockUnitBase implements MockUnitString {
             case LETTERS: return this::letters;
             case ALPHA_NUMERIC: return this::alphaNumeric;
             case SPECIAL_CHARACTERS: return this::specialChars;
+            default: throw new IllegalArgumentException("Invalid StringType");
         }
-        throw new IllegalArgumentException("Invalid StringType");
     }
 
     public MockUnitString types(StringType... types) {

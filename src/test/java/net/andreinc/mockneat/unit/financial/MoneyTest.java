@@ -37,7 +37,7 @@ public class MoneyTest {
     @Test
     public void testMoney() throws Exception {
         NumberFormat nf = getCurrencyInstance(US);
-        loop(MOCK_CYCLES, MOCKS, r -> r.money().locale(Locale.US).val(), m -> {
+        loop(MOCK_CYCLES, MOCKS, r -> r.money().locale(US).val(), m -> {
             try {
                 Number n = nf.parse(m);
                 Double d = n.doubleValue();

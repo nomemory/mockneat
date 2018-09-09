@@ -61,7 +61,7 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(CreditCardType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         Supplier<String> supplier = () -> generateCreditCard(type);
         return () -> supplier;
     }

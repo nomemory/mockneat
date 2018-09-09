@@ -40,7 +40,7 @@ import java.util.*;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class NamesCheckUtils {
+public final class NamesCheckUtils {
 
     private static FileManager FILE_MANAGER = FileManager.getInstance();
     private static Map<NameType, List<Set<String>>> NAMES = new EnumMap<>(NameType.class);

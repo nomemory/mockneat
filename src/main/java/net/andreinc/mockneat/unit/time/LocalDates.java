@@ -38,7 +38,7 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
 
     @Override
     public Supplier<LocalDate> supplier() {
-        return between(EPOCH_START, LocalDate.now())::val;
+        return between(EPOCH_START, now())::val;
     }
 
     /**
@@ -51,7 +51,7 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
             int year = now().getYear();
             int maxDays = now().lengthOfYear() + 1;
             int randDay = mockNeat.ints().range(1, maxDays).val();
-            return LocalDate.ofYearDay(year, randDay);
+            return ofYearDay(year, randDay);
         };
         return () -> supp;
     }
@@ -67,7 +67,7 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
             Month month = now().getMonth();
             int lM = now().lengthOfMonth() + 1;
             int randDay = mockNeat.ints().range(1, lM).val();
-            return LocalDate.of(year, month, randDay);
+            return of(year, month, randDay);
         };
         return () -> supp;
     }

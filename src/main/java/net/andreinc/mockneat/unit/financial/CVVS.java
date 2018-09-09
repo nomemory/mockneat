@@ -67,7 +67,7 @@ public class CVVS extends MockUnitBase implements MockUnitString {
      * @return A new {@code MockUnitString}
      */
     public MockUnitString type(CVVType type) {
-        ValidationUtils.notNull(type, "type");
+        notNull(type, "type");
         Supplier<String> supplier = () -> {
             final StringBuilder builder = new StringBuilder();
             LoopsUtils.loop(type.getLength(), () ->
