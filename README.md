@@ -45,6 +45,8 @@ DZone Article(s):
 ```java
 // Generate an integer value in the interval [0, 10)
 int x = mockNeat.ints().bound(10).val();
+
+// Possible Output: 7
 ```
 
 ```java
@@ -53,6 +55,9 @@ int[] arrRand = mockNeat.ints()
                         .range(0, 5)
                         .arrayPrimitive(10)
                         .val();
+                        
+// Possible Output:
+// [2, 2, 4, 2, 0, 2, 1, 1, 1, 3]
 ```                        
 
 ```java
@@ -65,7 +70,8 @@ List<String> namesAndNumbers =
                         .val();
 
 
-// 
+// Possible Output:
+// [Aurore Mings No. 4, Crista Gassel No. 0, Aubrey Leash No. 1, German Klar No. 2, ...an so on...
 ```
 
 ```java
@@ -79,7 +85,7 @@ MockUnitLocalDate dateGenerator =
 List<Date> beforeTheYear2000Dates = dateGenerator
                                             .toUtilDate()
                                             .list(() -> new LinkedList<>(), 10)
-                                            .val();
+                                            .val()                                                                             
 
 // Use the generator to generate a HashSet with a maximum of 
 // 100 dates before 2000.01.01
