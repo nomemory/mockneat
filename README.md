@@ -38,13 +38,58 @@ Real world examples:
 DZone Article(s): 
 - [Generating and Mocking Data With MockNeat](https://dzone.com/articles/generating-arbitrary-data-using-mockneat)
 
-## Who is using MockNeat ?
-
-If you are using **MockNeat** in your cool projects please send me a note so I can include you in this list.
-
 ## Examples
 
-### 1. Mocking Real-World Objects
+### A much more powerful random
+
+```java
+// Generate an integer value in the interval [0, 10)
+int x = mockNeat.ints().bound(10).val();
+```
+
+```java
+// Generate an array of int[] with random values in interval [2, 5)
+int[] arrRand = mockNeat.ints()
+                        .range(0, 5)
+                        .arrayPrimitive(10)
+                        .val();
+```                        
+
+```java
+// Generate a list of random people names and append a random number to resulting string
+List<String> namesAndNumbers =
+                mockNeat.fmt("#{name} #{number}")
+                        .param("name", mockNeat.names().full())
+                        .param("number", mockNeat.ints().bound(5).map((num) -> "No. " + num))
+                        .list(() -> new ArrayList<>(100), 10)
+                        .val();
+
+
+// 
+```
+
+```java
+// Create a generator that generates LocalDate(s) before the year 2000
+MockUnitLocalDate dateGenerator =
+                mockNeat.localDates()
+                        .past(LocalDate.of(2000, 1, 1));
+
+// Use the generator to generate a LinkedList with 10 elements containing
+// dates before 2000.01.01
+List<Date> beforeTheYear2000Dates = dateGenerator
+                                            .toUtilDate()
+                                            .list(() -> new LinkedList<>(), 10)
+                                            .val();
+
+// Use the generator to generate a HashSet with a maximum of 
+// 100 dates before 2000.01.01
+Set<Date> uniqueDatesBeforeTheYear2000 = dateGenerator
+                                                    .toUtilDate()
+                                                    .set(() -> new HashSet<>(), 100)
+                                                    .val();
+```
+
+### Mocking Real-World Objects
 
 The library supports several ways of filling/mocking the "model layer" of your application with relevant data. (*Note*: In the following examples `User` is a *custom* bean class from the "model layer").
 
@@ -108,7 +153,7 @@ User user3 = m.constructor(User.class)
 // User{userName='meetswipple', firstName='Florine', lastName='Buchmiller', created=Tue May 15 00:00:00 EEST 2018, modified=Wed Mar 14 00:00:00 EET 2018}
 ```
 
-### 2. Writing CSV files
+### Generating CSV files
 
 Example for creating a CSV file with arbitrary data that has the following structure:
 
@@ -153,7 +198,7 @@ Possible Output:
 ....
 ```
 
-### 3. Probabilities
+### Randomize with Probabilities
 
 Example for generating numbers in intervals based on probabilities: 
 - Generating a number in interval `[0, 100)` - 20% chance;
@@ -168,7 +213,7 @@ Integer x = m.probabilites(Integer.class)
              .val();
 ```
 
-### 4. Generating (Markov) Text from the writings of Franz Kafka ... or Lorem Ipsum
+### Generating (Markov) Text from the writings of Franz Kafka ... or Lorem Ipsum
 
 ```java
 MockNeat mock = MockNeat.threadLocal();
@@ -196,7 +241,7 @@ Possible Output:
 Consectetur lorem. Fusce a varius magna. Duis semper lorem ac porttitor sagittis. Curabitur massa nulla, maximus eu maximus vel, ultrices id lacus. Praesent mattis, arcu sit amet tempor venenatis, nunc est placerat purus, vel mollis enim ante ac purus. Suspendisse dapibus porta lectus non egestas. Sed cursus ligula et odio ultricies, at vehicula nibh semper. Morbi porta sed magna at hendrerit. Nulla eget neque dictum, efficitur mi ac, posuere nulla. Morbi diam ante, lobortis vitae tempor ac, mattis vel odio. Integer scelerisque at nisi a pharetra. Phasellus commodo ornare viverra. Etiam feugiat suscipit ultrices. Suspendisse dictum eget sem id ultricies. Nam quis nibh lorem. In sodales vel purus sed vehicula. Sed mollis elit velit, in condimentum dui rutrum eget. Sed ex justo, feugiat ac aliquet eu, commodo non tortor. Morbi nec dolor vel elit lobortis consectetur malesuada id metus. Fusce ut pellentesque nunc, eu luctus nisl. Etiam odio felis, accumsan in turpis nec, ornare laoreet elit. Aliquam sed ante pla
 ```
 
-### 5. Fill-up complex structures
+### Fill-up complex structures with data
 
 Generate a "matrix" (`Integer[][]`) of "0" and "1":
 
@@ -237,7 +282,7 @@ Possible Output (figure that!):
 {3D2Ly=[{[1188658698, -57519401, -1864634426]=[2052830538, 366685266], [-133985978, -2085629065, 1907531435]=[1485192096, 605946545]}, {[450717932, -1027874751, -549281331]=[900908182, -1603177013], [742214495, -1457376922, 1024095212]=[86581883, 271158555]}], tTobl=[{[-1886416467, 548674791, -593491043]=[-1631835207, 127044558], [2070408663, 1969285421, 1886566844]=[2029888013, 1401655408]}, {[-2086648400, -305706082, -707025980]=[178357740, 1657815118], [235507533, 63522348, 1439128176]=[-1800049424, -1714421491]}], qIQLs=[{[1106366866, 663699257, 368333112]=[-1857289744, 600277178], [1526858982, -1690364246, 28655773]=[358915749, -1177167700]}, {[2006554761, -1416799941, -1912526788]=[-1768470769, 1934286466], [-1679536093, -1582849360, 35999417]=[1795480034, -705569340]}], w3LIX=[{[1859659934, 1564658075, -1996131138]=[-791077342, 1086818886], [1843489282, 423382881, 1587909770]=[-1350074159, -304332972]}, {[921761090, -376877683, 34301027]=[1680999098, 1039071483], [1696152588, 387405184, 363183726]=[1040085467, 1395835033]}]}
 ```
 
-### 6. Generating data that always match a certain (simple) regex:
+### Build random values from regex 
 
 Generating a [`LOLs`](https://en.wikipedia.org/wiki/LOL) with varying levels of intensity:
 
