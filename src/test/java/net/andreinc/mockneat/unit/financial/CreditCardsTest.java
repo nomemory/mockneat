@@ -27,6 +27,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static net.andreinc.mockneat.Constants.CCS_CYCLES;
 import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
 import static net.andreinc.mockneat.types.enums.CreditCardType.MASTERCARD;
@@ -71,7 +72,7 @@ public class CreditCardsTest {
     @Test
     public void testDefaultVal() throws Exception {
         loop(
-                Constants.CCS_CYCLES,
+                CCS_CYCLES,
                 Constants.MOCKS,
                 m -> m.creditCards().val(),
                 c -> assertTrue(isValidCCOfType(c, AMERICAN_EXPRESS))
@@ -95,7 +96,7 @@ public class CreditCardsTest {
     public void testCreditCardTypes() throws Exception {
         CreditCardType[] types = { MASTERCARD, VISA_13 };
         loop(
-                Constants.CCS_CYCLES,
+                CCS_CYCLES,
                 Constants.MOCKS,
                 m -> {
                     String s = m.creditCards().types(types).val();
@@ -108,7 +109,7 @@ public class CreditCardsTest {
     @Test
     public void testCreditCards() throws Exception {
         loop(
-                Constants.CCS_CYCLES,
+                CCS_CYCLES,
                 Constants.MOCKS,
                 m -> {
                     CreditCardType type = m.from(CreditCardType.class).val();
@@ -122,7 +123,7 @@ public class CreditCardsTest {
     public void testCreditCardsAmexApacheValidator() throws Exception {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX);
         loop(
-                Constants.CCS_CYCLES,
+                CCS_CYCLES,
                 Constants.MOCKS,
                 m -> m.creditCards().type(AMERICAN_EXPRESS).val(),
                 c -> assertTrue(ccv.isValid(c))
@@ -133,7 +134,7 @@ public class CreditCardsTest {
     public void testCreditCardNames() throws Exception {
         Set<String> set = new HashSet<>(FM.getLines(CREDIT_CARD_NAMES));
         loop(
-                Constants.CCS_CYCLES,
+                CCS_CYCLES,
                 Constants.MOCKS,
                 r -> r.creditCards().names().val(),
                 cn -> assertTrue(set.contains(cn))
@@ -156,5 +157,31 @@ public class CreditCardsTest {
     public void testVisa() throws Exception {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.VISA);
         assertTrue(ccv.isValid(M.creditCards().visa().val()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustom0length() throws Exception {
+        M.creditCards().custom(0, 10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomNegativeLength() throws Exception {
+        M.creditCards().custom(Integer.MIN_VALUE, 10).val();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCustomEmptyArray() throws Exception {
+        M.creditCards().custom(10).val();
+    }
+
+    @Test
+    public void testCustomArray() throws Exception {
+        CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
+        loop(CCS_CYCLES, () -> {
+            int prefix = M.ints().range(100, Integer.MAX_VALUE).val();
+            int length = M.ints().range(12, 20).val();
+            String cc = M.creditCards().custom(length, prefix).val();
+            assertTrue(ccv.isValid(cc));
+        });
     }
 }

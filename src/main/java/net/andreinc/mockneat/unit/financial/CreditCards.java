@@ -24,13 +24,16 @@ import net.andreinc.mockneat.types.enums.CreditCardType;
 import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
+import static java.util.Collections.unmodifiableList;
+import static java.util.stream.Collectors.toList;
 import static net.andreinc.mockneat.types.enums.CreditCardType.*;
 import static net.andreinc.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
+import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class CreditCards extends MockUnitBase implements MockUnitString {
 
@@ -63,6 +66,22 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
     public MockUnitString type(CreditCardType type) {
         notNull(type, "type");
         Supplier<String> supplier = () -> generateCreditCard(type);
+        return () -> supplier;
+    }
+
+    /**
+     * Returns a new {@code MockUnitString} that is used to generate custom credit card numbers with a given length and prefix.
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @param length The length of the credit card number.
+     * @param prefix The prefix
+     * @return A new {@code MockUnitString}
+     */
+    public MockUnitString custom(int length, Integer... prefix) {
+        notEmpty(prefix, "prefix");
+        isTrue(length>=12 && length < 20, "Credit Card number length should be a value in the interval [12, 20).");
+        Supplier<String> supplier = () -> generateCreditCard(length, prefix);
         return () -> supplier;
     }
 
@@ -120,14 +139,13 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
         return type(MASTERCARD);
     }
 
-    private String generateCreditCard(CreditCardType creditCardType) {
-        int arraySize = creditCardType.getLength();
-        int cnt = arraySize - 1;
+    private String generateCreditCard(int length, List<List<Integer>> prefixes) {
+        int cnt = length - 1;
 
-        int[] results = new int[arraySize];
+        int[] results = new int[length];
 
         // Pick objs prefix
-        List<Integer> prefix = mockNeat.from(creditCardType.getPrefixes()).val();
+        List<Integer> prefix = mockNeat.from(prefixes).val();
 
         // Initialize the array with objs numbers
         // prefix + rest of the arrays
@@ -149,11 +167,29 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
             dblFlag = !dblFlag;
         }
         // Add the check digit
-        results[arraySize - 1] = (9 * sum) % 10;
+        results[length - 1] = (9 * sum) % 10;
 
         // Returning result
         StringBuilder buff = new StringBuilder();
         Arrays.stream(results).forEach(buff::append);
         return buff.toString();
+    }
+
+    private List<Integer> fromNumber(int num) {
+        List<Integer> list = new LinkedList<>();
+        int tmp = num;
+        while(tmp!=0) {
+            list.add(0, tmp%10);
+            tmp/=10;
+        }
+        return unmodifiableList(list);
+    }
+
+    private String generateCreditCard(int length, Integer... prefixes) {
+        return generateCreditCard(length, Arrays.stream(prefixes).map(this::fromNumber).collect(toList()));
+    }
+
+    private String generateCreditCard(CreditCardType creditCardType) {
+        return generateCreditCard(creditCardType.getLength(), creditCardType.getPrefixes());
     }
 }
