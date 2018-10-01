@@ -38,6 +38,8 @@ Real world examples:
 DZone Article(s): 
 - [Generating and Mocking Data With MockNeat](https://dzone.com/articles/generating-arbitrary-data-using-mockneat)
 
+- [Provisioning SQL Databases With Initial Sets of Data Using Java and MockNeat](https://dzone.com/articles/generating-data-using-mockneat)
+
 ## Examples
 
 ### A much more powerful random
