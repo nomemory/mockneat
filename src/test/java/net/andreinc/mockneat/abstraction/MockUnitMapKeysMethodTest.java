@@ -27,7 +27,10 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.Constants.M;
+import static net.andreinc.mockneat.Constants.MOCKS;
+import static net.andreinc.mockneat.Constants.MOCK_CYCLES;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
+import static net.andreinc.mockneat.utils.MapCheckUtils.testMap;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -112,13 +115,13 @@ public class MockUnitMapKeysMethodTest {
         Class<? extends Map>[] maps =
                 new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(10, 20)
                         .mapKeys(M.from(maps).val(), 10, ints.supplier())
                         .val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
+                map -> testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
         );
     }
 
@@ -133,13 +136,13 @@ public class MockUnitMapKeysMethodTest {
                 };
 
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(10, 20)
                         .mapKeys(M.from(maps).val(), 10, ints.supplier())
                         .val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
+                map -> testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
         );
     }
 
@@ -148,13 +151,13 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysSupplierOverloaded() throws Exception {
         MockUnitString strings = M.strings().size(5);
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                       .range(0, 100)
                       .mapKeys(10, strings.supplier())
                       .val(),
-                map -> MapCheckUtils.testMap(
+                map -> testMap(
                         map,
                         (k) -> {
                             if ((k.length()!=5))
@@ -173,13 +176,13 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysSuppSupplierOverloaded() throws Exception {
         MockUnitString strings = M.strings().size(5);
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(100, 200)
                         .mapKeys(() -> new HashMap<>(), 10, strings.supplier())
                         .val(),
-                map -> MapCheckUtils.testMap(
+                map -> testMap(
                         map,
                         (k) -> {
                             if ((k.length()!=5))
@@ -191,6 +194,29 @@ public class MockUnitMapKeysMethodTest {
                                 fail();
                         }
                 )
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testMapKeysSupplierMockUnitIntSizeNull() throws Exception {
+        MockUnitInt sizeUnit = null;
+        M.ints().range(0, 10).mapKeys(sizeUnit, M.ints().range(0, 10)::val);
+    }
+
+    @Test
+    public void testMapKeysSupplierMockUnitIntSize() {
+        final MockUnitInt size = M.ints().range(0, 10);
+        loop(
+                MOCK_CYCLES,
+                MOCKS,
+                m -> m.ints()
+                      .range(100, 200)
+                      .mapKeys(size, m.intSeq().supplier())
+                      .val(),
+                rMap -> {
+                   testMap(rMap, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(100, 200));
+                   Assert.assertTrue(rMap.size() < 10);
+                }
         );
     }
 
@@ -257,13 +283,13 @@ public class MockUnitMapKeysMethodTest {
         MockUnitInt ints = M.ints().range(50, 100);
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(1, 5)
                         .mapKeys(M.from(maps).val(), ints.list(10).val())
                         .val(),
-                map -> MapCheckUtils.testMap(
+                map -> testMap(
                         map,
                         MapCheckUtils.inRange(50, 100),
                         MapCheckUtils.inRange(1, 5)
@@ -280,13 +306,13 @@ public class MockUnitMapKeysMethodTest {
                 () -> new LinkedHashMap<>()
         };
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(1, 5)
                         .mapKeys(M.from(maps).val(), ints.list(10).val())
                         .val(),
-                map -> MapCheckUtils.testMap(
+                map -> testMap(
                         map,
                         MapCheckUtils.inRange(50, 100),
                         MapCheckUtils.inRange(1, 5)
@@ -298,13 +324,13 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysIterableOverloade() throws Exception {
         MockUnitInt ints = M.ints().range(1, 5);
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(100, 200)
                         .mapKeys(ints.list(20).val())
                         .val(),
-                map -> MapCheckUtils.testMap(
+                map -> testMap(
                             map,
                             MapCheckUtils.inRange(1, 5),
                             MapCheckUtils.inRange(100, 200),
@@ -325,13 +351,13 @@ public class MockUnitMapKeysMethodTest {
         };
         MockUnitInt ints = M.ints().range(1, 5);
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(100, 200)
                         .mapKeys(m.from(maps).val(), ints.list(20).val())
                         .val(),
-                map -> MapCheckUtils.testMap(
+                map -> testMap(
                         map,
                         MapCheckUtils.inRange(1, 5),
                         MapCheckUtils.inRange(100, 200),
@@ -386,10 +412,10 @@ public class MockUnitMapKeysMethodTest {
         Integer[] ints = M.ints().range(0, 10).array(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints().range(10, 20).mapKeys(M.from(maps).val(), ints).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
+                map -> testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
         );
     }
 
@@ -397,10 +423,10 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysArrayOverloaded() throws Exception {
         Integer[] ints = M.ints().range(0, 10).array(100).val();
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints().range(10, 20).mapKeys(ints).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20), m -> {
+                map -> testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20), m -> {
                     if (!(map instanceof HashMap))
                         fail();
                 })
@@ -437,10 +463,10 @@ public class MockUnitMapKeysMethodTest {
         int[] ints = M.ints().range(0, 10).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints().range(10, 20).mapKeys(M.from(maps).val(), ints).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
+                map -> testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20))
         );
     }
 
@@ -448,10 +474,10 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysArrayIntOverloaded() throws Exception {
         int[] ints = M.ints().range(0, 10).arrayPrimitive(100).val();
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints().range(10, 20).mapKeys(ints).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20), m -> {
+                map -> testMap(map, MapCheckUtils.inRange(0, 10), MapCheckUtils.inRange(10, 20), m -> {
                     if (!(m instanceof HashMap)) fail();
                 })
         );
@@ -487,10 +513,10 @@ public class MockUnitMapKeysMethodTest {
         long[] longs = M.longs().range(0l, 10l).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.longs().range(10, 20).mapKeys(M.from(maps).val(), longs).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0l, 10l), MapCheckUtils.inRange(10l, 20l))
+                map -> testMap(map, MapCheckUtils.inRange(0l, 10l), MapCheckUtils.inRange(10l, 20l))
         );
     }
 
@@ -498,10 +524,10 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysArrayLongOverloaded() throws Exception {
         long[] longs = M.longs().range(0l, 10l).arrayPrimitive(100).val();
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.longs().range(10l, 20l).mapKeys(longs).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0l, 10l), MapCheckUtils.inRange(10l, 20l), m -> {
+                map -> testMap(map, MapCheckUtils.inRange(0l, 10l), MapCheckUtils.inRange(10l, 20l), m -> {
                     if (!(m instanceof HashMap)) fail();
                 })
         );
@@ -537,10 +563,10 @@ public class MockUnitMapKeysMethodTest {
         double[] doubles = M.doubles().range(0.0, 10.0).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.doubles().range(10.0, 20.0).mapKeys(M.from(maps).val(), doubles).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0.0, 10.0), MapCheckUtils.inRange(10.0, 20.0))
+                map -> testMap(map, MapCheckUtils.inRange(0.0, 10.0), MapCheckUtils.inRange(10.0, 20.0))
         );
     }
 
@@ -548,10 +574,10 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysArrayDoubleOverloaded() throws Exception {
         double[] doubles = M.doubles().range(0.0, 10.0).arrayPrimitive(100).val();
         loop(
-                Constants.MOCK_CYCLES,
+                MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.doubles().range(10.0, 20.0).mapKeys(doubles).val(),
-                map -> MapCheckUtils.testMap(map, MapCheckUtils.inRange(0.0, 10.0), MapCheckUtils.inRange(10.0, 20.0), m -> {
+                map -> testMap(map, MapCheckUtils.inRange(0.0, 10.0), MapCheckUtils.inRange(10.0, 20.0), m -> {
                     if (!(m instanceof HashMap)) fail();
                 })
         );

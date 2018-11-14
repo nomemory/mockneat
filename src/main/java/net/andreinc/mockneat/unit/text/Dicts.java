@@ -24,6 +24,9 @@ import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.utils.file.FileManager;
 
+import java.util.Collections;
+import java.util.List;
+
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
@@ -58,5 +61,16 @@ public class Dicts extends MockUnitBase {
             DictType type = mockNeat.from(types).val();
             return mockNeat.fromStrings(fm.getLines(type))::val;
         };
+    }
+
+    /**
+     * Returns all data from the dictionary as an immutable list.
+     *
+     * @param type
+     * @return
+     */
+    public List<String> data(DictType type) {
+        notNull(type, "type");
+        return Collections.unmodifiableList(fm.getLines(type));
     }
 }
