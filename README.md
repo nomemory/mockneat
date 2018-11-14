@@ -161,6 +161,60 @@ User user3 = m.constructor(User.class)
 // User{userName='meetswipple', firstName='Florine', lastName='Buchmiller', created=Tue May 15 00:00:00 EEST 2018, modified=Wed Mar 14 00:00:00 EET 2018}
 ```
 
+### Generating SQL Inserts
+
+MockNeat can generate SQL Inserts for your Databases:
+
+```java
+MockNeat m = MockNeat.threadLocal();
+
+int empTableRows = 20;
+SQLTable empTable = m.sqlInserts()
+                          .tableName("emp")
+                          .column("id", m.intSeq().increment(10))
+                          .column("first_name", m.names().first(), TEXT_BACKSLASH)
+                          .column("last_name", m.names().last(), TEXT_BACKSLASH)
+                          .column("username", m.users(), TEXT_BACKSLASH)
+                          .column("email", m.emails(), TEXT_BACKSLASH)
+                          .column("description", m.markovs().size(32).type(LOREM_IPSUM), TEXT_BACKSLASH)
+                          .column("created", m.localDates().thisYear().display(BASIC_ISO_DATE), TEXT_BACKSLASH)
+                          .table(empTableRows) // Generate a table instead of a single Insert
+                          .val();
+
+// After the table is generated we can modify the data in it
+empTable.updateAll((i, insert) -> {
+            // Update all the descriptions with 'N/A'
+            insert.setValue("description", "N/A");
+});
+
+System.out.println(empTable);
+```
+
+Output:
+
+```
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (0, 'Odessa', 'Tolmie', 'dashedtommy', 'snidecherry@att.net', 'N/A', '20181213');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (10, 'Janette', 'Ellestad', 'oftcontemns', 'thallicreeks@verizon.net', 'N/A', '20181021');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (20, 'Brooke', 'Zickuhr', 'murkcelia', 'reprovedsieg@mac.com', 'N/A', '20180710');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (30, 'Clarissa', 'Castanio', 'bustagnes', 'punkhal@yahoo.co.uk', 'N/A', '20180420');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (40, 'Echo', 'Ruffini', 'roasttrouts', 'naychines@verizon.net', 'N/A', '20180425');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (50, 'Margit', 'Pliler', 'faincedi', 'thopicks@verizon.net', 'N/A', '20180319');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (60, 'Ingeborg', 'Bushman', 'poshchook', 'yonlavette@att.net', 'N/A', '20180926');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (70, 'Kimberli', 'Kayser', 'ebbalexa', 'trinebroil@aol.com', 'N/A', '20181229');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (80, 'Minerva', 'Beasley', 'meekdoloris', 'brochdent@mail.com', 'N/A', '20180702');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (90, 'Twanna', 'Mattison', 'sveltestsearight', 'fremdtoby@comcast.net', 'N/A', '20180315');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (100, 'Birgit', 'Aley', 'mailedhotbeds', 'bakedjamie@verizon.net', 'N/A', '20180103');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (110, 'Rozella', 'Algire', 'widebecame', 'toostores@gmx.com', 'N/A', '20180809');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (120, 'Becki', 'Kahn', 'vagueclams', 'corkedwhaups@att.net', 'N/A', '20180521');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (130, 'Dennise', 'Balck', 'roastsobina', 'sthenicdarsch@yahoo.com', 'N/A', '20180409');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (140, 'Karie', 'Adams', 'anesomits', 'scalledcapello@live.com', 'N/A', '20180917');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (150, 'Micah', 'Koone', 'tiedplaytimes', 'gravereframe@gmx.com', 'N/A', '20180705');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (160, 'Evalyn', 'Bonkowski', 'scabbyfedder', 'cuppedgrader@mail.com', 'N/A', '20180419');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (170, 'Meridith', 'Annable', 'trimlizzie', 'gunsmellissa@verizon.net', 'N/A', '20180114');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (180, 'Geneva', 'Wiley', 'chancelessdamned', 'tressedshinty@hotmail.co.uk', 'N/A', '20181218');
+INSERT INTO emp (id, first_name, last_name, username, email, description, created) VALUES (190, 'Jessika', 'Baun', 'muteclotilde', 'fatlyn@msn.com', 'N/A', '20180320');
+```
+
 ### Generating CSV files
 
 Example for creating a CSV file with arbitrary data that has the following structure:
