@@ -69,6 +69,17 @@ public interface MockUnit<T> {
     default T val() { return supplier().get(); }
 
     /**
+     * <p>Returns the generated value as defined by the chain of constraints. This is a closing method.</p>
+     *
+     * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
+     *
+     * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.
+     *
+     * @return The generated value.
+     */
+    default T get() { return val(); }
+
+    /**
      * <p>Serializes the generated value {@code <T>} into a file.</p>
      *
      * <p>The method uses the standard Java serilization mechanism.</p>
@@ -105,6 +116,21 @@ public interface MockUnit<T> {
     default <R> R val(Function<T, R> function) {
         notNull(function, "function");
         return function.apply(supplier().get());
+    }
+
+    /**
+     * <p>Returns the generated value, after it applies the supplied {@code Function<T, R>}</p>
+     *
+     * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
+     *
+     * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.
+     *
+     * @param function The {@code Function<T,R>} applied to the generated value. {@code <T>} and {@code <R>} can be the same type.
+     * @param <R> The type of the newly returned {@code MockUnit}. Can be the same as {@code </T>}
+     * @return A new pre-processed arbitrary value of type {@code <R>}.
+     */
+    default <R> R get(Function<T, R> function) {
+        return val(function);
     }
 
     /**

@@ -1,3 +1,12 @@
+Version 0.2.6
+-------------
+- Introduced a new method alias for the val() method. The new method is called: get().
+
+
+Version 0.2.5
+-------------
+- Improved unit test coverage.
+
 Version 0.2.4
 -------------
 - Added functionality to generate custom credit card numbers;
