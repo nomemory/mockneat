@@ -73,7 +73,7 @@ public interface MockUnit<T> {
      *
      * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
      *
-     * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.
+     * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.</em>
      *
      * @return The generated value.
      */
@@ -123,7 +123,7 @@ public interface MockUnit<T> {
      *
      * <p>Each subsequent call will trigger the generating mechanism and potentially will return a distinct value from the previous one.</p>
      *
-     * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.
+     * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.</em>
      *
      * @param function The {@code Function<T,R>} applied to the generated value. {@code <T>} and {@code <R>} can be the same type.
      * @param <R> The type of the newly returned {@code MockUnit}. Can be the same as {@code </T>}
