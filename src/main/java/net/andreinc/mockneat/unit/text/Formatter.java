@@ -36,12 +36,12 @@ public final class Formatter implements MockUnitString {
     private final Map<String, MockValue> fields = new HashMap<>();
     private final String fmt;
 
-    private Formatter(String fmt) {
+    public Formatter(String fmt) {
+        notEmpty(fmt, "fmt");
         this.fmt = fmt;
     }
 
     public static Formatter formatter(String fmt) {
-        notEmpty(fmt, "fmt");
         return new Formatter(fmt);
     }
 

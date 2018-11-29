@@ -23,6 +23,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.M;
+import static net.andreinc.mockneat.Constants.MOCKS;
+import static net.andreinc.mockneat.Constants.PROBABILITIES_CYCLES;
 
 public class ProbabilitiesTest {
 
@@ -52,8 +54,8 @@ public class ProbabilitiesTest {
     @Test
     public void testValues() {
         LoopsUtils.loop(
-                Constants.PROBABILITIES_CYCLES,
-                Constants.MOCKS,
+                PROBABILITIES_CYCLES,
+                MOCKS,
                 mockNeat -> mockNeat.probabilites(Integer.class)
                                     .add(0.1, 1)
                                     .add(0.9, 2)
@@ -65,8 +67,8 @@ public class ProbabilitiesTest {
     @Test
     public void testValuesWIthMockUnits() {
         LoopsUtils.loop(
-                Constants.PROBABILITIES_CYCLES,
-                Constants.MOCKS,
+                PROBABILITIES_CYCLES,
+                MOCKS,
                 mockNeat -> mockNeat.probabilites(String.class)
                                     .add(0.5, mockNeat.strings().size(10))
                                     .add(0.5, mockNeat.strings().size(15))

@@ -29,6 +29,8 @@ public class Hashes extends MockUnitBase {
 
     private static final Integer HASHED_STRING_SIZE = 128;
 
+    public Hashes() { }
+
     public Hashes(MockNeat mockNeat) {
         super(mockNeat);
     }

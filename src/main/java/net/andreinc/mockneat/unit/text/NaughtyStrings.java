@@ -61,6 +61,8 @@ public class NaughtyStrings extends MockUnitBase implements MockUnitString {
                     );
 
 
+    public NaughtyStrings() {
+    }
 
     public NaughtyStrings(MockNeat mockNeat) {
         super(mockNeat);

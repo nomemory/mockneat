@@ -27,6 +27,8 @@ import static net.andreinc.mockneat.utils.FormatUtils.prependZeroesToSize;
 
 public class SSCs extends MockUnitBase implements MockUnitString {
 
+    public SSCs() { }
+
     public SSCs(MockNeat mockNeat) {
         super(mockNeat);
     }

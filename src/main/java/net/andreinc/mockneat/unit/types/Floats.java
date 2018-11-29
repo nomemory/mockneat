@@ -30,6 +30,10 @@ public class Floats extends MockUnitBase implements MockUnitFloat {
 
     private final Random random;
 
+    public Floats() {
+        this(MockNeat.threadLocal());
+    }
+
     public Floats(MockNeat mockNeat) {
         super(mockNeat);
         this.random = mockNeat.getRandom();

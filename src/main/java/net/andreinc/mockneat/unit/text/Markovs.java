@@ -48,6 +48,8 @@ public class Markovs extends MockUnitBase implements MockUnitString {
         super(mockNeat);
     }
 
+    public Markovs() {}
+
     private MarkovUnit get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {
             logger.info("Loading MarkovUnit in memory '{}'." , markovChainType.getFile());

@@ -27,6 +27,9 @@ import static net.andreinc.mockneat.types.enums.DictType.DOMAIN_EMAIL;
 
 public class Emails extends MockUnitBase implements MockUnitString {
 
+    public Emails() {
+    }
+
     public Emails(MockNeat mockNeat) {
         super(mockNeat);
     }

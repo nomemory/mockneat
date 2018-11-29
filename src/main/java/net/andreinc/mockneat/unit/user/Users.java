@@ -35,6 +35,8 @@ public class Users extends MockUnitBase implements MockUnitString {
 
     private static final Double UNDERSCORE = 0.15;
 
+    public Users() { }
+
     public Users(MockNeat mockNeat) {
         super(mockNeat);
     }

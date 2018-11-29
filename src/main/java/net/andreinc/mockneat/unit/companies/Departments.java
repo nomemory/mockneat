@@ -27,6 +27,8 @@ import static net.andreinc.mockneat.types.enums.DictType.DEPARTMENTS;
 
 public class Departments extends MockUnitBase implements MockUnitString {
 
+    public Departments() { }
+
     public Departments(MockNeat mockNeat) {
         super(mockNeat);
     }

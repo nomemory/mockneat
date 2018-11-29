@@ -48,6 +48,10 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
     private final Map<Class<?>, MockValue> defaults = new HashMap<>();
     private final Class<T> cls;
 
+    public Reflect(Class<T> cls) {
+        this(MockNeat.threadLocal(), cls);
+    }
+
     public Reflect(MockNeat mockNeat, Class<T> cls) {
         super(mockNeat);
         this.cls = cls;

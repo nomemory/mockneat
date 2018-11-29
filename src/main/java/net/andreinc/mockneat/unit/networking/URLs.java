@@ -65,6 +65,11 @@ public class URLs extends MockUnitBase implements MockUnitString {
     // Port
     private Supplier<String> portSupplier;
 
+    public URLs() {
+        super();
+        initializeSuppliers();
+    }
+
     public URLs(MockNeat mockNeat) {
         super(mockNeat);
         initializeSuppliers();

@@ -39,6 +39,10 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
     private final MockUnitDouble mud;
     private final Class<T> cls;
 
+    public Probabilities(Class<T> cls) {
+        this(MockNeat.threadLocal(), cls);
+    }
+
     public Probabilities(MockNeat mockNeat, Class<T> cls) {
         super(mockNeat);
         this.mud = mockNeat.doubles().range(0, 1.0);

@@ -10,6 +10,9 @@ import java.util.function.Supplier;
 
 public class Space extends MockUnitBase implements MockUnitString {
 
+    public Space() {
+    }
+
     public Space(MockNeat mockNeat) {
         super(mockNeat);
     }

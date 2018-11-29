@@ -29,6 +29,8 @@ public class FromFiles extends MockUnitBase {
 
     private final FileManager fm = FileManager.getInstance();
 
+    public FromFiles() { }
+
     public FromFiles(MockNeat mockNeat) {
         super(mockNeat);
     }

@@ -30,6 +30,10 @@ public class Ints extends MockUnitBase implements MockUnitInt {
 
     private final Random random;
 
+    public Ints() {
+        this(MockNeat.threadLocal());
+    }
+
     public Ints(MockNeat mockNeat) {
         super(mockNeat);
         this.random = mockNeat.getRandom();

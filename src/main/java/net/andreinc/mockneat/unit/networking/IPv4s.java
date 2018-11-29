@@ -35,6 +35,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class IPv4s extends MockUnitBase implements MockUnitString {
 
+    public IPv4s() { }
+
     public IPv4s(MockNeat mockNeat) {
         super(mockNeat);
     }

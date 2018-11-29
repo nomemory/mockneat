@@ -32,6 +32,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Domains extends MockUnitBase implements MockUnitString {
 
+    public Domains() { }
+
     public Domains(MockNeat mockNeat) {
         super(mockNeat);
     }

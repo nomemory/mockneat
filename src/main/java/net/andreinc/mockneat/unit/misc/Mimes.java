@@ -28,6 +28,9 @@ import static net.andreinc.mockneat.types.enums.DictType.MIME_TYPE;
 
 public class Mimes extends MockUnitBase implements MockUnitString {
 
+    public Mimes() {
+    }
+
     public Mimes(MockNeat mockNeat) {
         super(mockNeat);
     }

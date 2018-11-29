@@ -24,6 +24,8 @@ import java.util.function.Supplier;
 
 public class UUIDs implements MockUnitString {
 
+    public UUIDs() { }
+
     @Override
     public Supplier<String> supplier() {
        return UUID.randomUUID()::toString;

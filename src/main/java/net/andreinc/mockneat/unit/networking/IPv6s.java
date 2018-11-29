@@ -29,6 +29,8 @@ import static net.andreinc.mockneat.alphabets.Alphabets.HEXA_STR;
 
 public class IPv6s extends MockUnitBase implements MockUnitString {
 
+    public IPv6s() { }
+
     public IPv6s(MockNeat mockNeat) {
         super(mockNeat);
     }

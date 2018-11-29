@@ -37,6 +37,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Passwords extends MockUnitBase implements MockUnitString {
 
+    public Passwords() { }
+
     public Passwords(MockNeat mockNeat) {
         super(mockNeat);
     }

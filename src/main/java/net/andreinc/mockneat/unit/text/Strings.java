@@ -38,6 +38,11 @@ public class Strings extends MockUnitBase implements MockUnitString {
     private int size = 64;
     private MockUnitInt sizeUnit;
 
+    public Strings() {
+        super();
+        this.random = mockNeat.getRandom();
+    }
+
     public Strings(MockNeat mockNeat) {
         super(mockNeat);
         this.random = mockNeat.getRandom();

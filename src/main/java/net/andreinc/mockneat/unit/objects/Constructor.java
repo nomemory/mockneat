@@ -33,7 +33,7 @@ import static org.apache.commons.lang3.reflect.ConstructorUtils.invokeConstructo
 public class Constructor<T> implements MockUnit<T> {
 
     private final Class<T> cls;
-    private Object[] params;
+    private Object[] params = new Object[0];
 
     public Constructor(Class<T> cls) {
         this.cls = cls;

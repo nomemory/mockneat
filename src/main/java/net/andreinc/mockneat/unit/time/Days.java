@@ -31,6 +31,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Days extends MockUnitBase implements MockUnitDays {
 
+    public Days() { }
+
     public Days(MockNeat mockNeat) {
         super(mockNeat);
     }

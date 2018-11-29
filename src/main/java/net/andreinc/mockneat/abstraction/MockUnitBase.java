@@ -28,4 +28,8 @@ public abstract class MockUnitBase {
         notNull(mockNeat, "mockNeat");
         this.mockNeat = mockNeat;
     }
+
+    public MockUnitBase() {
+        this.mockNeat = MockNeat.threadLocal();
+    }
 }

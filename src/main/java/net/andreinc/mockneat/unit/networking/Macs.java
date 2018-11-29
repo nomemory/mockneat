@@ -31,6 +31,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Macs extends MockUnitBase implements MockUnitString {
 
+    public Macs() { }
+
     public Macs(MockNeat mockNeat) {
         super(mockNeat);
     }

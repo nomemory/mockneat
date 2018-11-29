@@ -27,6 +27,8 @@ import java.util.function.Supplier;
 //TODO document
 public class UsStates extends MockUnitBase implements MockUnitString {
 
+    public UsStates() { }
+
     public UsStates(MockNeat mockNeat) {
         super(mockNeat);
     }

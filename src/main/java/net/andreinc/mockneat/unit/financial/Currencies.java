@@ -26,10 +26,11 @@ import static net.andreinc.mockneat.types.enums.DictType.FOREX_PAIRS;
 
 public class Currencies extends MockUnitBase {
 
+    public Currencies() { }
+
     public Currencies(MockNeat mockNeat) {
         super(mockNeat);
     }
-
 
     /**
      * <p>Returns a new {@code MockUnitString} that can be used to generate Forex Pairs (eg.: "EUR/USD")</p>

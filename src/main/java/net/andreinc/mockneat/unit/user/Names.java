@@ -32,6 +32,8 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Names extends MockUnitBase implements MockUnitString {
 
+    public Names() { }
+
     public Names(MockNeat mockNeat) {
         super(mockNeat);
     }

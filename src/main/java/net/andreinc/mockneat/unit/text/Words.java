@@ -67,6 +67,10 @@ public class Words extends MockUnitBase implements MockUnitString {
 
     private final List<MockUnitString> all;
 
+    public Words() {
+        this(MockNeat.threadLocal());
+    }
+
     public Words(MockNeat mockNeat) {
         super(mockNeat);
 

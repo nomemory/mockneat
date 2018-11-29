@@ -37,6 +37,8 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class CreditCards extends MockUnitBase implements MockUnitString {
 
+    public CreditCards() { }
+
     public CreditCards(MockNeat mockNeat) {
         super(mockNeat);
     }

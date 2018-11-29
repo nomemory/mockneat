@@ -34,6 +34,10 @@ public class Doubles extends MockUnitBase implements MockUnitDouble {
 
     private final Random random;
 
+    public Doubles() {
+        this(MockNeat.threadLocal());
+    }
+
     public Doubles(MockNeat mockNeat) {
         super(mockNeat);
         this.random = mockNeat.getRandom();

@@ -38,6 +38,8 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     private String tableName;
     private final Map<String, Pair<MockValue, Function<String, String>>> columns = new LinkedHashMap<>();
 
+    public SQLInserts() { }
+
     public SQLInserts(MockNeat mockNeat) {
         super(mockNeat);
     }

@@ -18,6 +18,7 @@ package net.andreinc.mockneat.unit.types;
  */
 
 import net.andreinc.mockneat.MockNeat;
+import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.alphabets.Alphabets;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.types.enums.CharsType;
@@ -27,12 +28,12 @@ import java.util.function.Supplier;
 import static net.andreinc.mockneat.alphabets.Alphabets.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class Chars implements MockUnit<Character> {
+public class Chars extends MockUnitBase implements MockUnit<Character> {
 
-    private final MockNeat mock;
+    public Chars() {}
 
     public Chars(MockNeat mock) {
-        this.mock = mock;
+        super(mock);
     }
 
     /**
@@ -42,7 +43,7 @@ public class Chars implements MockUnit<Character> {
      */
     @Override
     public Supplier<Character> supplier() {
-        return mock.from(ALPHA_NUMERIC)::val;
+        return mockNeat.from(ALPHA_NUMERIC)::val;
     }
 
 
@@ -52,7 +53,7 @@ public class Chars implements MockUnit<Character> {
      * @return A new {@code MockUnit<Character>} that generates digits characters (Eg.: '0', '1', etc.)
      */
     public MockUnit<Character> digits() {
-        return mock.from(DIGITS);
+        return mockNeat.from(DIGITS);
     }
 
     /**
@@ -61,7 +62,7 @@ public class Chars implements MockUnit<Character> {
      * @return A new {@code MockUnit<Character>} that generates lower-letter characters (Eg.: 'a', 'z', etc.)
      */
     public MockUnit<Character> lowerLetters() {
-        return mock.from(LETTERS_LOWERCASE);
+        return mockNeat.from(LETTERS_LOWERCASE);
     }
 
     /**
@@ -70,7 +71,7 @@ public class Chars implements MockUnit<Character> {
      * @return A new {@code MockUnit<Character>} that generate lower-letters characters (Eg.: 'A', 'J', etc.)
      */
     public MockUnit<Character> upperLetters() {
-        return mock.from(LETTERS_UPPERCASE);
+        return mockNeat.from(LETTERS_UPPERCASE);
     }
 
     /**
@@ -81,7 +82,7 @@ public class Chars implements MockUnit<Character> {
      * @return A new {@code MockUnit<Character>} that generate letters characters (Eg.: 'a', 'X', etc.)
      */
     public MockUnit<Character> letters() {
-        return mock.from(LETTERS);
+        return mockNeat.from(LETTERS);
     }
 
     /**
@@ -91,14 +92,14 @@ public class Chars implements MockUnit<Character> {
      *
      * @return A new {@code MockUnit<Character>} that generated HEXA-characters.
      */
-    public MockUnit<Character> hex() { return mock.from(HEXA); }
+    public MockUnit<Character> hex() { return mockNeat.from(HEXA); }
 
     /**
      * <p>Returns a new {@code MockUnit<Character>} that is used to generate arbitrary {@code Character} values. The generated values are alphanumeric. The ' ' (space) character is not included.</p>
      *
      * @return A new {@code MockUnit<Character>} that generate alpha-numeric characters.
      */
-    public MockUnit<Character> alphaNumeric() { return mock.from(ALPHA_NUMERIC); }
+    public MockUnit<Character> alphaNumeric() { return mockNeat.from(ALPHA_NUMERIC); }
 
     /**
      * <p>Returns a new {@code MockUnit<Character>} that is used to generate arbitrary {@code Character} values. The generated characters match the supplied type: {@link CharsType}</p>
@@ -127,7 +128,7 @@ public class Chars implements MockUnit<Character> {
      */
     public MockUnit<Character> types(CharsType... types) {
         notEmptyOrNullValues(types, "types");
-        CharsType type = mock.from(types).val();
+        CharsType type = mockNeat.from(types).val();
         return type(type);
     }
 
@@ -140,7 +141,7 @@ public class Chars implements MockUnit<Character> {
     public MockUnit<Character> from(String alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Character> supp = () -> {
-            int idx = mock.getRandom().nextInt(alphabet.length());
+            int idx = mockNeat.getRandom().nextInt(alphabet.length());
             return alphabet.charAt(idx);
         };
         return () -> supp;
@@ -155,7 +156,7 @@ public class Chars implements MockUnit<Character> {
     public MockUnit<Character> from(char[] alphabet) {
         notEmpty(alphabet, "alphabet");
         Supplier<Character> supp = () -> {
-            int idx = mock.getRandom().nextInt(alphabet.length);
+            int idx = mockNeat.getRandom().nextInt(alphabet.length);
             return alphabet[idx];
         };
         return () -> supp;

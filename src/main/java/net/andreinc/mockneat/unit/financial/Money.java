@@ -37,6 +37,8 @@ public class Money extends MockUnitBase implements MockUnitString {
 
     private NumberFormat formatter = getCurrencyInstance(US);
 
+    public Money() { }
+
     public Money(MockNeat mockNeat) {
         super(mockNeat);
     }

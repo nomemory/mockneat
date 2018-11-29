@@ -30,6 +30,10 @@ public class Bools extends MockUnitBase implements MockUnit<Boolean> {
 
     private final Random random;
 
+    public Bools(Random random) {
+        this(MockNeat.threadLocal());
+    }
+
     public Bools(MockNeat mockNeat) {
         super(mockNeat);
         this.random = mockNeat.getRandom();

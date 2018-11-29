@@ -22,14 +22,16 @@ import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-public class    CSVs extends MockUnitBase implements MockUnitString {
+public class CSVs extends MockUnitBase implements MockUnitString {
+
+    private String separator = ",";
+    private final List<MockValue> columns = new LinkedList<>();
+
+    public CSVs() {}
 
     public CSVs(MockNeat mockNeat) {
         super(mockNeat);
     }
-
-    private String separator = ",";
-    private final List<MockValue> columns = new LinkedList<>();
 
     public CSVs separator(String separator) {
         notEmpty(separator, "separator");
