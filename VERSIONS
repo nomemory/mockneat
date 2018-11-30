@@ -1,3 +1,7 @@
+Version 0.2.7
+-------------
+- Introduced shortcut factory methods to create MockNeats
+
 Version 0.2.6
 -------------
 - Introduced a new method alias for the val() method. The new method is called: get().
