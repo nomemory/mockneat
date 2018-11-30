@@ -17,6 +17,7 @@ package net.andreinc.mockneat.unit.seq;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitInt;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,6 +38,10 @@ public class IntSeq implements MockUnitInt {
     private int max = MAX_VALUE;
     private int min = MIN_VALUE;
     private AtomicInteger internal;
+
+    public static IntSeq intSeq() {
+        return MockNeat.threadLocal().intSeq();
+    }
 
     public IntSeq(int start, int increment, int max, int min, boolean cycle) {
         isTrue(min<max, str(SEQ_INVALID_RANGE).args("min", min, "max", max).fmt());

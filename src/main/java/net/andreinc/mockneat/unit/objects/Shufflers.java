@@ -31,7 +31,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 //TODO document
 public class Shufflers extends MockUnitBase {
 
-    public Shufflers() {}
+    private static Shufflers shufflers() {
+        return MockNeat.threadLocal().shufflers();
+    }
+
+    protected Shufflers() {}
 
     public Shufflers(MockNeat mockNeat) {
         super(mockNeat);

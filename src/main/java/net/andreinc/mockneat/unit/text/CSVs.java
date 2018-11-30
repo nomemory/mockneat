@@ -27,7 +27,11 @@ public class CSVs extends MockUnitBase implements MockUnitString {
     private String separator = ",";
     private final List<MockValue> columns = new LinkedList<>();
 
-    public CSVs() {}
+    public static CSVs csvs() {
+        return MockNeat.threadLocal().csvs();
+    }
+
+    protected CSVs() {}
 
     public CSVs(MockNeat mockNeat) {
         super(mockNeat);

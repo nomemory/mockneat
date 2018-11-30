@@ -29,7 +29,9 @@ public class ISSNS extends MockUnitBase implements MockUnitString {
 
     private static final String ISSN_PREFIX = "ISSN";
 
-    public ISSNS() { }
+    public static ISSNS issns() { return MockNeat.threadLocal().issns(); }
+
+    protected ISSNS() { }
 
     public ISSNS(MockNeat mockNeat) {
         super(mockNeat);

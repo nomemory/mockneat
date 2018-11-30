@@ -29,6 +29,10 @@ public class FromFiles extends MockUnitBase {
 
     private final FileManager fm = FileManager.getInstance();
 
+    public static FromFiles files() {
+        return MockNeat.threadLocal().files();
+    }
+
     public FromFiles() { }
 
     public FromFiles(MockNeat mockNeat) {
@@ -45,6 +49,6 @@ public class FromFiles extends MockUnitBase {
      */
     public MockUnitString from(String path) {
         notEmpty(path, "path");
-        return () -> mockNeat.fromStrings(fm.getLines(path)).format(LOWER_CASE)::val;
+        return mockNeat.fromStrings(fm.getLines(path)).format(LOWER_CASE);
     }
 }

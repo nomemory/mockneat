@@ -24,6 +24,8 @@ import java.util.function.Supplier;
 
 public class UUIDs implements MockUnitString {
 
+    public static UUIDs uuids() { return new UUIDs(); }
+
     public UUIDs() { }
 
     @Override

@@ -13,6 +13,10 @@ public class Genders extends MockUnitBase implements MockUnitString {
     private static final List<String> LONG = Arrays.asList("Male", "Female");
     private static final List<String> SHORT = Arrays.asList("M", "F");
 
+    public static Genders genders() {
+        return MockNeat.threadLocal().genders();
+    }
+
     public Genders() { }
 
     public Genders(MockNeat mockNeat) {

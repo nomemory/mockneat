@@ -61,7 +61,11 @@ public class NaughtyStrings extends MockUnitBase implements MockUnitString {
                     );
 
 
-    public NaughtyStrings() {
+    public static NaughtyStrings naughtyStrings() {
+        return MockNeat.threadLocal().naughtyStrings();
+    }
+
+    protected NaughtyStrings() {
     }
 
     public NaughtyStrings(MockNeat mockNeat) {

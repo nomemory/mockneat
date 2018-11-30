@@ -28,7 +28,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Months extends MockUnitBase implements MockUnitMonth {
 
-    public Months() { }
+    public static Months months() {
+        return MockNeat.threadLocal().months();
+    }
+
+    protected Months() { }
 
     public Months(MockNeat mockNeat) {
         super(mockNeat);

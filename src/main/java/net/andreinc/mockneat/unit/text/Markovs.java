@@ -44,11 +44,15 @@ public class Markovs extends MockUnitBase implements MockUnitString {
 
     private int size = 512;
 
+    public static Markovs markovs() {
+        return MockNeat.threadLocal().markovs();
+    }
+
     public Markovs(MockNeat mockNeat) {
         super(mockNeat);
     }
 
-    public Markovs() {}
+    protected Markovs() {}
 
     private MarkovUnit get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {

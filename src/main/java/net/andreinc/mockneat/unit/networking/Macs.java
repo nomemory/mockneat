@@ -31,6 +31,10 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Macs extends MockUnitBase implements MockUnitString {
 
+    public static Macs macs() {
+        return MockNeat.threadLocal().macs();
+    }
+
     public Macs() { }
 
     public Macs(MockNeat mockNeat) {

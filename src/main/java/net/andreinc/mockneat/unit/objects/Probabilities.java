@@ -39,7 +39,11 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
     private final MockUnitDouble mud;
     private final Class<T> cls;
 
-    public Probabilities(Class<T> cls) {
+    public static <T> Probabilities<T> probabilities(Class<T> cls) {
+        return MockNeat.threadLocal().probabilites(cls);
+    }
+
+    protected Probabilities(Class<T> cls) {
         this(MockNeat.threadLocal(), cls);
     }
 

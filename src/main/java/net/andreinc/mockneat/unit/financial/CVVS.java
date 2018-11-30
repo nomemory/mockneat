@@ -33,7 +33,9 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class CVVS extends MockUnitBase implements MockUnitString {
 
-    public CVVS() { }
+    public static CVVS cvvs() { return new CVVS(); }
+
+    protected CVVS() { }
 
     public CVVS(MockNeat mockNeat) {
         super(mockNeat);

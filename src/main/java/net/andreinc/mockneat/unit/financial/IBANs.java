@@ -63,7 +63,9 @@ public class IBANs extends MockUnitBase implements MockUnitString {
         });
     }
 
-    public IBANs() { }
+    public static IBANs ibans() { return MockNeat.threadLocal().ibans(); }
+
+    protected IBANs() { }
 
     public IBANs(MockNeat mockNeat) {
         super(mockNeat);

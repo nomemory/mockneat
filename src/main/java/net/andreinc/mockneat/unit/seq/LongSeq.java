@@ -17,6 +17,7 @@ package net.andreinc.mockneat.unit.seq;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitLong;
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -35,6 +36,10 @@ public class LongSeq implements MockUnitLong {
     private long max = Long.MAX_VALUE;
     private long min = Long.MIN_VALUE;
     private AtomicLong internal;
+
+    public static LongSeq longSeq() {
+        return MockNeat.threadLocal().longSeq();
+    }
 
     public LongSeq(long start, long increment, long max, long min, boolean cycle) {
         isTrue(min<max, str(SEQ_INVALID_RANGE).args("min", min, "max", max).fmt());

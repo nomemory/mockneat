@@ -30,7 +30,11 @@ public class Longs extends MockUnitBase implements MockUnitLong {
 
     private final Random random;
 
-    public Longs() {
+    public static Longs longs() {
+        return MockNeat.threadLocal().longs();
+    }
+
+    protected Longs() {
         this(MockNeat.threadLocal());
     }
 

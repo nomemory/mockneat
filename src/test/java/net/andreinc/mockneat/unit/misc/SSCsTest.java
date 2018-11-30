@@ -31,7 +31,7 @@ public class SSCsTest {
         loop(
                 SSC_CYCLES,
                 MOCKS,
-                m -> m.sccs().val(),
+                m -> m.sscs().val(),
                 ssc -> {
 
                     assertTrue(!ssc.equals("078-05-1120"));

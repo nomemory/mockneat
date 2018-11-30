@@ -17,6 +17,7 @@ package net.andreinc.mockneat.unit.types;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
@@ -30,8 +31,8 @@ public class Bools extends MockUnitBase implements MockUnit<Boolean> {
 
     private final Random random;
 
-    public Bools(Random random) {
-        this(MockNeat.threadLocal());
+    public static Bools bools() {
+        return MockNeat.threadLocal().bools();
     }
 
     public Bools(MockNeat mockNeat) {

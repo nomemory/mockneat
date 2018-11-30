@@ -8,9 +8,14 @@ import net.andreinc.mockneat.types.enums.SpaceType;
 
 import java.util.function.Supplier;
 
+//TODO document
 public class Space extends MockUnitBase implements MockUnitString {
 
-    public Space() {
+    public static Space space() {
+        return MockNeat.threadLocal().space();
+    }
+
+    protected Space() {
     }
 
     public Space(MockNeat mockNeat) {

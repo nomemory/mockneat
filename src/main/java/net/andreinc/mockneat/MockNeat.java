@@ -98,6 +98,7 @@ public class MockNeat {
     private final NaughtyStrings rNaughtyStrings;
     private final Passwords rPasswords;
     private final Shufflers rShufflers;
+    private final Space rSpace;
     private final SSCs rSSCs;
     private final UUIDs rUUIDs;
     private final Users rUsers;
@@ -140,6 +141,7 @@ public class MockNeat {
         this.rNaughtyStrings = new NaughtyStrings(this);
         this.rPasswords = new Passwords(this);
         this.rShufflers = new Shufflers(this);
+        this.rSpace = new Space(this);
         this.rSSCs = new SSCs(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
@@ -535,7 +537,9 @@ public class MockNeat {
 
     public Strings strings() { return new Strings(this); }
 
-    public SSCs sccs() { return this.rSSCs; }
+    public Space space() { return rSpace; }
+
+    public SSCs sscs() { return this.rSSCs; }
 
     public URLs urls() { return new URLs(this); }
 

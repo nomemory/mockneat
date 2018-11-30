@@ -26,7 +26,11 @@ import static net.andreinc.mockneat.types.enums.DictType.COUNTRY_NAME;
 
 public class Countries extends MockUnitBase {
 
-    public Countries() { }
+    public static Countries countries() {
+        return MockNeat.threadLocal().countries();
+    }
+
+    protected Countries() { }
 
     public Countries(MockNeat mockNeat) {
         super(mockNeat);

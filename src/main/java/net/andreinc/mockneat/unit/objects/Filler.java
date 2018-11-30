@@ -18,7 +18,11 @@ public class Filler<T> extends MockUnitBase implements MockUnit<T> {
     //TODO: Change this horrible way
     Map<BiConsumer, MockUnit> setters = new LinkedHashMap<>();
 
-    public Filler(Supplier<T> supplier) {
+    public static final <T> Filler<T> filler(Supplier<T> supplier) {
+        return MockNeat.threadLocal().filler(supplier);
+    }
+
+    protected Filler(Supplier<T> supplier) {
         super();
         notNull(supplier, "supplier");
         this.supplier = supplier;

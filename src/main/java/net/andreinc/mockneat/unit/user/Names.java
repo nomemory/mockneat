@@ -32,7 +32,11 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Names extends MockUnitBase implements MockUnitString {
 
-    public Names() { }
+    public static Names names() {
+        return MockNeat.threadLocal().names();
+    }
+
+    protected Names() { }
 
     public Names(MockNeat mockNeat) {
         super(mockNeat);

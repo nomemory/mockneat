@@ -17,6 +17,7 @@ package net.andreinc.mockneat.unit.objects;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.utils.MockUnitUtils;
 
@@ -40,6 +41,10 @@ public class Factory<T, FT> implements MockUnit<T> {
     private final Class<FT> factoryClass;
     private String method;
     private Object[] params = new Object[]{};
+
+    public static <T, FT> Factory<T, FT> factory(Class<T> targetClass, Class<FT> factoryClass) {
+        return MockNeat.threadLocal().factory(targetClass, factoryClass);
+    }
 
     public Factory(Class<T> targetClass, Class<FT> factoryClass) {
         this.targetClass = targetClass;

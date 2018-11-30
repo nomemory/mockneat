@@ -17,6 +17,7 @@ package net.andreinc.mockneat.unit.text;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.abstraction.MockValue;
@@ -36,13 +37,17 @@ public final class Formatter implements MockUnitString {
     private final Map<String, MockValue> fields = new HashMap<>();
     private final String fmt;
 
-    public Formatter(String fmt) {
-        notEmpty(fmt, "fmt");
-        this.fmt = fmt;
+    public static Formatter fmt(String fmt) {
+        return MockNeat.threadLocal().fmt(fmt);
     }
 
     public static Formatter formatter(String fmt) {
         return new Formatter(fmt);
+    }
+
+    public Formatter(String fmt) {
+        notEmpty(fmt, "fmt");
+        this.fmt = fmt;
     }
 
     /**

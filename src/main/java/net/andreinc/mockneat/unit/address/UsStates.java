@@ -27,7 +27,11 @@ import java.util.function.Supplier;
 //TODO document
 public class UsStates extends MockUnitBase implements MockUnitString {
 
-    public UsStates() { }
+    public static UsStates usStates() {
+        return MockNeat.threadLocal().usStates();
+    }
+
+    protected UsStates() { }
 
     public UsStates(MockNeat mockNeat) {
         super(mockNeat);

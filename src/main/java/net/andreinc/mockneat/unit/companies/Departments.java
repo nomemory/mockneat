@@ -27,7 +27,11 @@ import static net.andreinc.mockneat.types.enums.DictType.DEPARTMENTS;
 
 public class Departments extends MockUnitBase implements MockUnitString {
 
-    public Departments() { }
+    public static Departments departments() {
+        return MockNeat.threadLocal().departments();
+    }
+
+    protected Departments() { }
 
     public Departments(MockNeat mockNeat) {
         super(mockNeat);

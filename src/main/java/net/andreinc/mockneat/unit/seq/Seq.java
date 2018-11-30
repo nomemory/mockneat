@@ -17,6 +17,7 @@ package net.andreinc.mockneat.unit.seq;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.utils.file.FileManager;
@@ -35,6 +36,18 @@ public final class  Seq<T> implements MockUnit<T> {
 
     private boolean cycle;
     private Supplier<T> after;
+
+    public static Seq seq(DictType dictType) {
+        return MockNeat.threadLocal().seq(dictType);
+    }
+
+    public static <R> Seq<R> seq(Iterable<R> iterable) {
+        return MockNeat.threadLocal().seq(iterable);
+    }
+
+    public static <R> Seq<R> seq(R[] array) {
+        return MockNeat.threadLocal().seq(array);
+    }
 
     public static Seq<String> fromDict(DictType dictType) {
         notNull(dictType, "dictType");

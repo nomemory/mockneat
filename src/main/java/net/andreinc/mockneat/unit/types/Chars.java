@@ -30,7 +30,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Chars extends MockUnitBase implements MockUnit<Character> {
 
-    public Chars() {}
+    public static Chars chars() {
+        return MockNeat.threadLocal().chars();
+    }
+
+    protected Chars() {}
 
     public Chars(MockNeat mock) {
         super(mock);

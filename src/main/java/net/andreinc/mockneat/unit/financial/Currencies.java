@@ -26,7 +26,11 @@ import static net.andreinc.mockneat.types.enums.DictType.FOREX_PAIRS;
 
 public class Currencies extends MockUnitBase {
 
-    public Currencies() { }
+    public static Currencies currencies() {
+        return MockNeat.threadLocal().currencies();
+    }
+
+    protected Currencies() { }
 
     public Currencies(MockNeat mockNeat) {
         super(mockNeat);

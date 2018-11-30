@@ -34,7 +34,11 @@ public class Dicts extends MockUnitBase {
 
     private final FileManager fm = FileManager.getInstance();
 
-    public Dicts() {}
+    private static Dicts dicts() {
+        return MockNeat.threadLocal().dicts();
+    }
+
+    protected Dicts() {}
 
     public Dicts(MockNeat mockNeat) {
         super(mockNeat);

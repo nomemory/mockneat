@@ -32,7 +32,11 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
 
     public static final LocalDate EPOCH_START = ofEpochDay(0);
 
-    public LocalDates() { }
+    public static LocalDates localDates() {
+        return MockNeat.threadLocal().localDates();
+    }
+
+    protected LocalDates() { }
 
     public LocalDates(MockNeat mockNeat) {
         super(mockNeat);
