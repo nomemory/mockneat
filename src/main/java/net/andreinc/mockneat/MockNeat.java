@@ -18,9 +18,7 @@ package net.andreinc.mockneat;
  */
 
 import net.andreinc.mockneat.abstraction.*;
-import net.andreinc.mockneat.types.enums.CreditCardType;
 import net.andreinc.mockneat.types.enums.DictType;
-import net.andreinc.mockneat.types.enums.MarkovChainType;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
@@ -39,16 +37,12 @@ import net.andreinc.mockneat.unit.seq.IntSeq;
 import net.andreinc.mockneat.unit.seq.LongSeq;
 import net.andreinc.mockneat.unit.seq.Seq;
 import net.andreinc.mockneat.unit.text.*;
-import net.andreinc.mockneat.unit.text.sql.SQLTable;
 import net.andreinc.mockneat.unit.time.Days;
 import net.andreinc.mockneat.unit.time.LocalDates;
 import net.andreinc.mockneat.unit.time.Months;
 import net.andreinc.mockneat.unit.types.*;
 import net.andreinc.mockneat.unit.user.*;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -78,6 +72,7 @@ public class MockNeat {
     private final Domains rDomains;
     private final Doubles rDoubles;
     private final Emails rEmails;
+    private final Froms rFrom;
     private final FromFiles rFiles;
     private final Floats rFloats;
     private final Genders rGenders;
@@ -122,6 +117,7 @@ public class MockNeat {
         this.rDoubles = new Doubles(this);
         this.rEmails = new Emails(this);
         this.rFiles = new FromFiles(this);
+        this.rFrom = new Froms(this);
         this.rFloats = new Floats(this);
         this.rGenders = new Genders(this);
         this.rHashes = new Hashes(this);
@@ -556,123 +552,99 @@ public class MockNeat {
     }
 
     public <T> MockUnit<T> from(List<T> alphabet) {
-        notEmpty(alphabet, "alphabet");
-        Supplier<T> supp = () -> {
-            int idx = getRandom().nextInt(alphabet.size());
-            return alphabet.get(idx);
-        };
-        return () -> supp;
+        return rFrom.from(alphabet);
     }
 
     public <T> MockUnit<T> from(T[] alphabet) {
-        notEmpty(alphabet, "alphabet");
-        Supplier<T> supp = () -> {
-            int idx = getRandom().nextInt(alphabet.length);
-            return alphabet[idx];
-        };
-        return () -> supp;
+        return rFrom.from(alphabet);
     }
 
     public <T extends Enum<?>> MockUnit<T> from(Class<T> enumClass) {
-        ValidationUtils.notNull(enumClass, "enumClass");
-        T[] arr = enumClass.getEnumConstants();
-        return from(arr);
+        return rFrom.from(enumClass);
     }
 
     public <T> MockUnit<T> fromKeys(Map<T, ?> map) {
-        notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "map");
-        Supplier<T> supp = () -> {
-            T[] keys = (T[]) map.keySet().toArray();
-            int idx = getRandom().nextInt(keys.length);
-            return keys[idx];
-        };
-        return () -> supp;
+        return rFrom.fromKeys(map);
     }
 
     public <T> MockUnit<T> fromValues(Map<?, T> map) {
-        notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "map");
-        Supplier<T> supp = () -> {
-            T[] values = (T[]) map.values().toArray();
-            int idx = getRandom().nextInt(values.length);
-            return values[idx];
-        };
-        return () -> supp;
+        return rFrom.fromValues(map);
     }
 
     public MockUnitInt fromInts(Integer[] alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromInts(alphabet);
     }
 
     public MockUnitInt fromInts(int[] alphabet) {
-        return () -> this.ints().from(alphabet)::val;
+        return rFrom.fromInts(alphabet);
     }
 
     public MockUnitInt fromInts(List<Integer> alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromInts(alphabet);
     }
 
     public MockUnitInt fromIntsValues(Map<?, Integer> map) {
-        return () -> fromValues(map)::val;
+        return rFrom.fromIntsValues(map);
     }
 
     public MockUnitInt fromIntsKeys(Map<Integer, ?> map) {
-        return () -> fromKeys(map)::val;
+        return rFrom.fromIntsKeys(map);
     }
 
     public MockUnitDouble fromDoubles(Double[] alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromDoubles(alphabet);
     }
 
     public MockUnitDouble fromDoubles(double[] alphabet) {
-        return () -> this.doubles().from(alphabet)::val;
+        return rFrom.fromDoubles(alphabet);
     }
 
     public MockUnitDouble fromDoubles(List<Double> alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromDoubles(alphabet);
     }
 
     public MockUnitDouble fromDoublesValues(Map<?, Double> map) {
-        return () -> fromValues(map)::val;
+        return rFrom.fromDoublesValues(map);
     }
 
     public MockUnitDouble fromDoublesKeys(Map<Double, ?> map) {
-        return () -> fromKeys(map)::val;
+        return rFrom.fromDoublesKeys(map);
     }
 
     public MockUnitLong fromLongs(Long[] alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromLongs(alphabet);
     }
 
     public MockUnitLong fromLongs(long[] alphabet) {
-        return () -> this.longs().from(alphabet)::val;
+        return rFrom.fromLongs(alphabet);
     }
 
     public MockUnitLong fromLongs(List<Long> alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromLongs(alphabet);
     }
 
     public MockUnitLong fromLongsValues(Map<?, Long> map) {
-        return () -> fromValues(map)::val;
+        return rFrom.fromLongsValues(map);
     }
 
     public MockUnitLong fromLongsKeys(Map<Long, ?> map) {
-        return () -> fromKeys(map)::val;
+        return rFrom.fromLongsKeys(map);
     }
 
     public MockUnitString fromStrings(String[] alphabet) {
-        return () ->  () -> from(alphabet).val();
+        return rFrom.fromStrings(alphabet);
     }
 
     public MockUnitString fromStrings(List<String> alphabet) {
-        return () -> from(alphabet)::val;
+        return rFrom.fromStrings(alphabet);
     }
 
     public MockUnitString fromStringsValues(Map<?, String> map) {
-        return () -> fromValues(map)::val;
+        return rFrom.fromStringsValues(map);
     }
 
     public MockUnitString fromStringsKeys(Map<String, ?> map) {
-        return () -> fromKeys(map)::val;
+        return rFrom.fromStringsKeys(map);
     }
 
 }
