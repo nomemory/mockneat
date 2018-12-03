@@ -1,3 +1,7 @@
+Version 0.2.8
+-------------
+- Added shortcut methods for the from() family of functions.
+
 Version 0.2.7
 -------------
 - Introduced shortcut factory methods to create MockNeats
