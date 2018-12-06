@@ -21,6 +21,11 @@ import net.andreinc.mockneat.types.enums.UserNameType;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.M;
+import static net.andreinc.mockneat.types.enums.PassStrengthType.MEDIUM;
+import static net.andreinc.mockneat.types.enums.PassStrengthType.WEAK;
+import static net.andreinc.mockneat.unit.text.Formatter.fmt;
+import static net.andreinc.mockneat.unit.user.Emails.emails;
+import static net.andreinc.mockneat.unit.user.Passwords.passwords;
 
 public class UsersTest {
 

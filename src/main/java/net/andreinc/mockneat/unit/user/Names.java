@@ -111,8 +111,10 @@ public class Names extends MockUnitBase implements MockUnitString {
      */
     public MockUnitString types(NameType... types) {
         notEmptyOrNullValues(types, "types");
-        NameType nameType = mockNeat.from(types).val();
-        return type(nameType);
+        return () -> {
+            NameType nameType = mockNeat.from(types).val();
+            return type(nameType).supplier();
+        };
     }
 
     /**

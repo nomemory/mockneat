@@ -32,7 +32,7 @@ public class Space extends MockUnitBase implements MockUnitString {
         return () -> mockNeat.dicts().types(types).supplier();
     }
 
-    public MockUnitString type(SpaceType... spaceTypes) {
+    public MockUnitString types(SpaceType... spaceTypes) {
         return () -> {
             SpaceType spaceType = mockNeat.from(spaceTypes).val();
             return type(spaceType).supplier();

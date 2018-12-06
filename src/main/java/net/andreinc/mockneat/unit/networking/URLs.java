@@ -65,7 +65,7 @@ public class URLs extends MockUnitBase implements MockUnitString {
     // Port
     private Supplier<String> portSupplier;
 
-    public final URLs urls() {
+    public static final URLs urls() {
         return MockNeat.threadLocal().urls();
     }
 

@@ -58,8 +58,10 @@ public class Users extends MockUnitBase implements MockUnitString {
 
     public MockUnitString types(UserNameType... types) {
         notEmptyOrNullValues(types, "types");
-        UserNameType type = mockNeat.from(types).val();
-        return type(type);
+        return () -> {
+            UserNameType type = mockNeat.from(types).val();
+            return type(type).supplier();
+        };
     }
 
     private String generateUserName(UserNameType type) {

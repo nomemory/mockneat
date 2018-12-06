@@ -29,10 +29,9 @@ import java.util.stream.Collectors;
 
 import static net.andreinc.mockneat.Constants.CCS_CYCLES;
 import static net.andreinc.mockneat.Constants.M;
-import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
-import static net.andreinc.mockneat.types.enums.CreditCardType.MASTERCARD;
-import static net.andreinc.mockneat.types.enums.CreditCardType.VISA_13;
+import static net.andreinc.mockneat.types.enums.CreditCardType.*;
 import static net.andreinc.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
+import static net.andreinc.mockneat.unit.financial.CreditCards.creditCards;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 

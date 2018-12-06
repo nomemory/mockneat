@@ -73,8 +73,11 @@ public class Passwords extends MockUnitBase implements MockUnitString {
      */
     public MockUnitString types(PassStrengthType... types) {
         notEmptyOrNullValues(types, "types");
-        PassStrengthType passStrengthType = mockNeat.from(types).val();
-        return type(passStrengthType);
+        Supplier<String> supplier = () -> {
+            PassStrengthType passStrengthType = mockNeat.from(types).val();
+            return type(passStrengthType).get();
+        };
+        return () -> supplier;
     }
 
     /**

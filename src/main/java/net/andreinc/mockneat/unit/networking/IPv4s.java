@@ -56,8 +56,10 @@ public class IPv4s extends MockUnitBase implements MockUnitString {
      */
     public MockUnitString types(IPv4Type... types) {
         notEmptyOrNullValues(types, "types");
-        IPv4Type type = mockNeat.from(types).val();
-        return type(type);
+        return () -> {
+            IPv4Type type = mockNeat.from(types).val();
+            return type(type).supplier();
+        };
     }
 
     /**

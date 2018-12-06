@@ -75,8 +75,10 @@ public class Markovs extends MockUnitBase implements MockUnitString {
 
     public MockUnitString types(MarkovChainType... types) {
         notEmptyOrNullValues(types, "types");
-        MarkovChainType type = mockNeat.from(types).val();
-        return type(type);
+        return () -> {
+            MarkovChainType type = mockNeat.from(types).val();
+            return type(type).supplier();
+        };
     }
 
     public MockUnitString type(MarkovChainType type) {

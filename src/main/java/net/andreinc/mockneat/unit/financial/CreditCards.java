@@ -101,8 +101,11 @@ public class CreditCards extends MockUnitBase implements MockUnitString {
      */
     public MockUnitString types(CreditCardType... types) {
         notEmptyOrNullValues(types, "types");
-        CreditCardType creditCardType = mockNeat.from(types).val();
-        return type(creditCardType);
+        Supplier<String> supplier = () -> {
+            CreditCardType creditCardType = mockNeat.from(types).val();
+            return type(creditCardType).val();
+        };
+        return () -> supplier;
     }
 
     /**

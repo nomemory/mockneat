@@ -1,3 +1,7 @@
+Version 0.2.9
+-------------
+- Fixed types() methods so they can alternate when types are picked.
+
 Version 0.2.8
 -------------
 - Added shortcut methods for the from() family of functions.

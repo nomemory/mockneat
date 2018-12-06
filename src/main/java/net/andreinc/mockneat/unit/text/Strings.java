@@ -82,8 +82,10 @@ public class Strings extends MockUnitBase implements MockUnitString {
 
     public MockUnitString types(StringType... types) {
         notEmptyOrNullValues(types, "types");
-        StringType type = mockNeat.from(types).val();
-        return type(type);
+        return () -> {
+            StringType type = mockNeat.from(types).val();
+            return type(type).supplier();
+        };
     }
 
     private Supplier<String> numbers() {

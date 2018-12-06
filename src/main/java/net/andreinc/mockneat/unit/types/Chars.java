@@ -132,8 +132,11 @@ public class Chars extends MockUnitBase implements MockUnit<Character> {
      */
     public MockUnit<Character> types(CharsType... types) {
         notEmptyOrNullValues(types, "types");
-        CharsType type = mockNeat.from(types).val();
-        return type(type);
+        Supplier<Character> supplier = () -> {
+            CharsType type = mockNeat.from(types).val();
+            return type(type).get();
+        };
+        return () -> supplier;
     }
 
     /**

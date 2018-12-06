@@ -83,7 +83,9 @@ public class Domains extends MockUnitBase implements MockUnitString {
      */
     public MockUnitString types(DomainSuffixType... types) {
         notEmptyOrNullValues(types, "types");
-        DomainSuffixType type = mockNeat.from(types).val();
-        return type(type);
+        return () -> {
+            DomainSuffixType type = mockNeat.from(types).val();
+            return type(type).supplier();
+        };
     }
 }

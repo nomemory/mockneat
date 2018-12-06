@@ -89,14 +89,12 @@ public class CVVS extends MockUnitBase implements MockUnitString {
      */
     public MockUnitString types(CVVType... types) {
         notEmptyOrNullValues(types, "types");
-        return () ->
-               () ->
-               {
+        return () -> () -> {
                 CVVType type = mockNeat.from(types).val();
                 return mockNeat
                         .cvvs()
                         .type(type)
                         .val();
-               };
+        };
     }
 }
