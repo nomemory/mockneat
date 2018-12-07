@@ -18,7 +18,10 @@ Any type of contributions, suggestions or new ideas are stongly appreciated. Ple
 
 ## Documentation 
 
-For extensive documentation please visit the **[wiki](https://github.com/nomemory/mockneat/wiki)**. 
+[www.mockneat.com](www.mockneat) is the official site for the library. 
+The vast majority of the documentation was already migrated there. Also a tutorial is in the making. Once the site finished the github wiki will be *decommissioned*. 
+
+Until then, the **[wiki](https://github.com/nomemory/mockneat/wiki)** remains available.
 
 Quick links: 
 
