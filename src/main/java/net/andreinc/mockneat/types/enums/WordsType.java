@@ -1,0 +1,24 @@
+package net.andreinc.mockneat.types.enums;
+
+public enum WordsType {
+    ADJECTIVES,
+    ADJECTIVES_1SYLL,
+    ADJECTIVES_2SYLL,
+    ADJECTIVES_3SYLL,
+    ADJECTIVES_4SYLL,
+    ADVERBS,
+    ADVERBS_1SYLL,
+    ADVERBS_2SYLL,
+    ADVERBS_3SYLL,
+    ADVERBS_4SYLL,
+    NOUNS,
+    NOUNS_1SYL,
+    NOUNS_2SYL,
+    NOUNS_3SYL,
+    NOUNS_4SYL,
+    VERBS,
+    VERBS_1SYLL,
+    VERBS_2SYLL,
+    VERBS_3SYLL,
+    VERBS_4SYLL;
+}
