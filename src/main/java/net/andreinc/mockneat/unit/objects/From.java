@@ -12,95 +12,95 @@ public class From {
         return MockNeat.threadLocal().from(alphabet);
     }
 
-    public <T> MockUnit<T> from(T[] alphabet) {
+    public static <T> MockUnit<T> from(T[] alphabet) {
         return MockNeat.threadLocal().from(alphabet);
     }
 
-    public <T extends Enum<?>> MockUnit<T> from(Class<T> enumClass) {
+    public static <T extends Enum<?>> MockUnit<T> from(Class<T> enumClass) {
        return MockNeat.threadLocal().from(enumClass);
     }
 
-    public <T> MockUnit<T> fromKeys(Map<T, ?> map) {
+    public static <T> MockUnit<T> fromKeys(Map<T, ?> map) {
        return MockNeat.threadLocal().fromKeys(map);
     }
 
-    public <T> MockUnit<T> fromValues(Map<?, T> map) {
+    public static <T> MockUnit<T> fromValues(Map<?, T> map) {
        return MockNeat.threadLocal().fromValues(map);
     }
 
-    public MockUnitInt fromInts(Integer[] alphabet) {
+    public static MockUnitInt fromInts(Integer[] alphabet) {
         return MockNeat.threadLocal().fromInts(alphabet);
     }
 
-    public MockUnitInt fromInts(int[] alphabet) {
+    public static MockUnitInt fromInts(int[] alphabet) {
         return MockNeat.threadLocal().fromInts(alphabet);
     }
 
-    public MockUnitInt fromInts(List<Integer> alphabet) {
+    public static MockUnitInt fromInts(List<Integer> alphabet) {
        return MockNeat.threadLocal().fromInts(alphabet);
     }
 
-    public MockUnitInt fromIntsValues(Map<?, Integer> map) {
+    public static MockUnitInt fromIntsValues(Map<?, Integer> map) {
         return MockNeat.threadLocal().fromIntsValues(map);
     }
 
-    public MockUnitInt fromIntsKeys(Map<Integer, ?> map) {
+    public static MockUnitInt fromIntsKeys(Map<Integer, ?> map) {
         return MockNeat.threadLocal().fromIntsKeys(map);
     }
 
-    public MockUnitDouble fromDoubles(Double[] alphabet) {
+    public static MockUnitDouble fromDoubles(Double[] alphabet) {
         return MockNeat.threadLocal().fromDoubles(alphabet);
     }
 
-    public MockUnitDouble fromDoubles(double[] alphabet) {
+    public static MockUnitDouble fromDoubles(double[] alphabet) {
         return MockNeat.threadLocal().fromDoubles(alphabet);
     }
 
-    public MockUnitDouble fromDoubles(List<Double> alphabet) {
+    public static MockUnitDouble fromDoubles(List<Double> alphabet) {
        return MockNeat.threadLocal().fromDoubles(alphabet);
     }
 
-    public MockUnitDouble fromDoublesValues(Map<?, Double> map) {
+    public static MockUnitDouble fromDoublesValues(Map<?, Double> map) {
        return MockNeat.threadLocal().fromDoublesValues(map);
     }
 
-    public MockUnitDouble fromDoublesKeys(Map<Double, ?> map) {
+    public static MockUnitDouble fromDoublesKeys(Map<Double, ?> map) {
        return MockNeat.threadLocal().fromDoublesKeys(map);
     }
 
-    public MockUnitLong fromLongs(Long[] alphabet) {
+    public static MockUnitLong fromLongs(Long[] alphabet) {
         return MockNeat.threadLocal().fromLongs(alphabet);
     }
 
-    public MockUnitLong fromLongs(long[] alphabet) {
+    public static MockUnitLong fromLongs(long[] alphabet) {
         return MockNeat.threadLocal().fromLongs(alphabet);
     }
 
-    public MockUnitLong fromLongs(List<Long> alphabet) {
+    public static MockUnitLong fromLongs(List<Long> alphabet) {
         return MockNeat.threadLocal().fromLongs(alphabet);
     }
 
-    public MockUnitLong fromLongsValues(Map<?, Long> map) {
+    public static MockUnitLong fromLongsValues(Map<?, Long> map) {
         return MockNeat.threadLocal().fromLongsValues(map);
     }
 
-    public MockUnitLong fromLongsKeys(Map<Long, ?> map) {
+    public static MockUnitLong fromLongsKeys(Map<Long, ?> map) {
         return MockNeat.threadLocal().fromLongsKeys(map);
     }
 
-    public MockUnitString fromStrings(String[] alphabet) {
+    public static MockUnitString fromStrings(String[] alphabet) {
         return MockNeat.threadLocal().fromStrings(alphabet);
     }
 
-    public MockUnitString fromStrings(List<String> alphabet) {
+    public static MockUnitString fromStrings(List<String> alphabet) {
         return MockNeat.threadLocal().fromStrings(alphabet);
     }
 
-    public MockUnitString fromStringsValues(Map<?, String> map) {
+    public static MockUnitString fromStringsValues(Map<?, String> map) {
         return MockNeat.threadLocal().fromStringsValues(map);
     }
 
-    public MockUnitString fromStringsKeys(Map<String, ?> map) {
+    public static MockUnitString fromStringsKeys(Map<String, ?> map) {
         return MockNeat.threadLocal().fromStringsKeys(map);
     }
 
