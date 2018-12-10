@@ -18,6 +18,7 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.aleph.UncheckedFormatterException;
+import net.andreinc.mockneat.abstraction.MockUnit;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.*;
@@ -58,7 +59,8 @@ public class FormatterTest {
 
     @Test(expected = NullPointerException.class)
     public void testFmtWithNullMockUnit() throws Exception {
-        M.fmt("#{p1}abc").param("p1", null).val();
+        MockUnit unit = null;
+        M.fmt("#{p1}abc").param("p1", unit).val();
     }
 
     @Test

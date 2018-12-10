@@ -18,20 +18,24 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.mockneat.MockNeat;
+import net.andreinc.mockneat.abstraction.MockConstValue;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.abstraction.MockValue;
 
+import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toMap;
 import static net.andreinc.aleph.AlephFormatter.str;
+import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 
+//TODO allow constant as param - document this
 public final class Formatter implements MockUnitString {
 
     private final Map<String, MockValue> fields = new HashMap<>();
@@ -63,6 +67,14 @@ public final class Formatter implements MockUnitString {
         notNull(mock, "mock");
         isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, "input", param);
         this.fields.put(param, unit(mock));
+        return this;
+    }
+
+    public <T> Formatter param(String param, String constValue) {
+        notEmpty(param, "param");
+        notNull(constValue, "constValue");
+        isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, "input", param);
+        this.fields.put(param, constant(param));
         return this;
     }
 
