@@ -41,7 +41,7 @@ public class CSVsTest {
     public void testCsv() {
         String[] chars = new String[]{ "\"", ",", "'", "|" };
         LoopsUtils.loop(
-                CVVS_CYCLES,
+                CSVS_CYCLES,
                 MOCKS,
                 m -> m.csvs().column(m.strings().size(5))
                              .column(m.ints().range(0, 10))
@@ -118,7 +118,7 @@ public class CSVsTest {
     public void testCsvWrite() throws Exception {
         String[] chars = new String[]{ "\"", ",", "'", "|" };
         LoopsUtils.loop(
-                CVVS_CYCLES,
+                CSVS_CYCLES,
                 MOCKS,
                 m -> {
                     try {
