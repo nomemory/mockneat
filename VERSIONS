@@ -1,3 +1,9 @@
+Version 0.3.0
+-------------
+- Fixed From.from.. family of methods. Now they can be accessed as static methods (the way it was intended in the first place anyway);
+- fmt().param() now support String constant as a named param, not only MockUnitString;
+- words() now support words().type() and words().types();
+
 Version 0.2.9
 -------------
 - Fixed types() methods so they can alternate when types are picked.
