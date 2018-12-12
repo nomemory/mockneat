@@ -220,6 +220,18 @@ public class MockUnitMapKeysMethodTest {
         );
     }
 
+
+    /*----------------------------------
+    * test map method with supplier, unit, supplier
+    * <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, MockUnitInt sizeUnit, Supplier<R> keySupplier)
+    ----------------------------------*/
+
+    @Test
+    public void testMapKeysMapSuppUnitKeysSuppWithNullSupp() {
+        
+    }
+
+
     /*----------------------------------
      * test map method with iterable
      * default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, Iterable<R> keys)
@@ -582,4 +594,6 @@ public class MockUnitMapKeysMethodTest {
                 })
         );
     }
+
+
 }

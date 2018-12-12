@@ -106,8 +106,7 @@ public enum DictType {
     SPACE_MOONS("space/moons"),
     SPACE_NEBULAS("space/nebulas"),
     SPACE_PLANETS("space/planets"),
-    SPACE_STARS("space/stars")
-    ;
+    SPACE_STARS("space/stars");
 
 
     public String getFileName() {

@@ -25,6 +25,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -262,6 +263,20 @@ public interface MockUnit<T> {
      */
     default MockUnitString mapToString() {
         return () -> ifSupplierNotNullDo(supplier(), s -> s.toString());
+    }
+
+    /**
+     * <p>This method is used to transform a {@code MockUnit} into a {@code MOckUnitLocaldate}.</p>
+     *
+     * @param dateTransformer The transformation {@code Function<T, LocalDate>}
+     *
+     * @return A new {@code MockUnitLocalDate}
+     */
+    // TODO document and test
+    default MockUnitLocalDate mapToLocalDate(Function<T, LocalDate> dateTransformer) {
+        notNull(dateTransformer, "dateTransformer");
+        Supplier<LocalDate> supp = () -> dateTransformer.apply(val());
+        return () -> supp;
     }
 
     /**

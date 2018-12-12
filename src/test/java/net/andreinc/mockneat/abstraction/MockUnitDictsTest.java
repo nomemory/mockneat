@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static net.andreinc.mockneat.Constants.M;
+import static net.andreinc.mockneat.types.enums.DictType.CITIES_US;
 
 public class MockUnitDictsTest {
 
@@ -32,5 +33,10 @@ public class MockUnitDictsTest {
     public void dictData() {
         List<String> data = M.dicts().data(DictType.COUNTRY_ISO_CODE_2);
         data.forEach((code) -> Assert.assertEquals(code.length(), 2));
+    }
+
+    @Test
+    public void correctFileName() {
+        Assert.assertTrue(CITIES_US.getFileName().equals("cities/cities-us"));
     }
 }

@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -92,6 +93,50 @@ public class MockUnitLocalDateTest {
                 Constants.LOCAL_DATES_CYCLES,
                 Constants.MOCKS,
                 mock -> mock.localDates().between(start, stop).display("yyyy:MM:dd").val(),
+                date -> {
+                    String[] split = date.split(":");
+
+                    assertTrue(split.length == 3);
+
+                    int year = Integer.parseInt(split[0]);
+                    int month = Integer.parseInt(split[1]);
+                    int day = Integer.parseInt(split[2]);
+
+                    assertTrue(1990 <= year && year < 2000);
+                    assertTrue( 1 <= month && month <= 12);
+                    assertTrue( 1<= day && day <= 31);
+                }
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testDisplayWithDtfNullDtf() {
+        DateTimeFormatter dtf = null;
+        M.localDates().display(dtf, Locale.GERMAN);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testDisplayWithOnlyDtfNullDtf() {
+        DateTimeFormatter dtf = null;
+        M.localDates().display(dtf);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testDisplayWithDtfNullLocale() {
+        M.localDates().display(DateTimeFormatter.BASIC_ISO_DATE, null);
+    }
+
+    @Test
+    public void testDisplayDtf() {
+        final LocalDate start = LocalDate.of(1990, 1, 1);
+        final LocalDate stop = LocalDate.of(2000, 1, 1);
+        loop(
+                Constants.LOCAL_DATES_CYCLES,
+                Constants.MOCKS,
+                mock -> {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd");
+                    return mock.localDates().between(start, stop).display(dtf).val();
+                },
                 date -> {
                     String[] split = date.split(":");
 
