@@ -176,7 +176,7 @@ public class MockUnitCollectionMethodTest {
 
     protected Collection getRecursiveCollectionSupp() {
         MockUnit l = M.ints().collection(() -> new ArrayList<>(), 1);
-        return (Collection) getRecursiveRandUnitCollectionSupp(l, 1000).val();
+        return (Collection) getRecursiveRandUnitCollectionSupp(l, 100).val();
     }
 
     @Test
