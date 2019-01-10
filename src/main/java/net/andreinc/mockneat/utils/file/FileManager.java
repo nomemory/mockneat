@@ -89,7 +89,8 @@ public class FileManager {
                         lines.size());
                 JAR_INTERNAL.put(internal, lines);
             } catch (IOException e) {
-                logger.error("Cannot read internal dictionary '{}' in memory. Something is terribly wrong.");
+                logger.error("Cannot read internal dictionary '{}' in memory. Something is terribly wrong.",
+                        dictType.getFile());
                 throw new UncheckedIOException(e);
             }
         }
