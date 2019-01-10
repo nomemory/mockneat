@@ -144,13 +144,13 @@ public class IBANs extends MockUnitBase implements MockUnitString {
 
     public String checkDigits(String numericIBAN) {
         BigInteger bigInteger = new BigInteger(numericIBAN);
-        Integer remainder = bigInteger.mod(valueOf(97)).intValue();
+        int remainder = bigInteger.mod(valueOf(97)).intValue();
 
-        Integer checkDigits = 98 - remainder;
+        int checkDigits = 98 - remainder;
 
         return (checkDigits<10) ?
                 // if the remainder is only 1 digit,
                 // we add a new 0
-                "0" + checkDigits : checkDigits.toString();
+                "0" + checkDigits : String.valueOf(checkDigits);
     }
 }
