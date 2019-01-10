@@ -110,7 +110,6 @@ public class DaysTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testDaysBeforeMonday() throws Exception {
-        DayOfWeek bound = MONDAY;
         Constants.M.days().before(MONDAY).val();
     }
 

@@ -37,7 +37,6 @@ public class MockConstValueTest {
     public void testGetStr() throws Exception {
         ToString s = new ToString();
         MockConstValue mco = constant(s);
-        assertTrue(mco.getStr() instanceof String);
         assertTrue(mco.getStr().equals(ToString.CONST));
     }
 

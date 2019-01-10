@@ -42,7 +42,7 @@ public final class WordState {
         return new WordState(newState);
     }
 
-    public String[] getState() {
+    protected String[] getStagetStatete() {
         return state;
     }
 

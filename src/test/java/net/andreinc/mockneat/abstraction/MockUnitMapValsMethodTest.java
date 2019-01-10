@@ -57,7 +57,6 @@ public class MockUnitMapValsMethodTest {
                                         .val();
 
         assertTrue(map instanceof HashMap);
-        assertTrue(map.get(null) instanceof Integer);
     }
 
     @Test
@@ -128,7 +127,6 @@ public class MockUnitMapValsMethodTest {
                 .val();
 
         assertTrue(map instanceof HashMap);
-        assertTrue(map.get(null) instanceof Integer);
     }
 
     @Test
@@ -199,7 +197,6 @@ public class MockUnitMapValsMethodTest {
                 .val();
 
         assertTrue(map instanceof HashMap);
-        assertTrue(map.get(null) instanceof Integer);
     }
 
     @Test

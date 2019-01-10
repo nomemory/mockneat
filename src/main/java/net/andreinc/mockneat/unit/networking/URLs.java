@@ -38,7 +38,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class URLs extends MockUnitBase implements MockUnitString {
 
-    protected static final Integer[] COMMON_HTTP_PORTS = {
+    static final Integer[] COMMON_HTTP_PORTS = {
             80, 1311, 2480, 4567, 4711, 4712, 5104, 5800, 5988, 5989,
             7000, 7001, 7002, 8008, 8080, 8088, 8280, 8281, 8530, 8531,
             8887, 8888, 9080, 9443, 9981, 9982, 11371, 16080, 18091,

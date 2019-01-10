@@ -48,12 +48,13 @@ public class SqlEscapeUtils {
                     };
 
             sqlTokens = new HashMap<>();
-            String patternStr = "";
+            StringBuilder buff = new StringBuilder();
             for (String[] srr : search_regex_replacement)
             {
                 sqlTokens.put(srr[0], srr[2]);
-                patternStr += (patternStr.isEmpty() ? "" : "|") + srr[1];
+                buff.append((buff.length() == 0 ? "" : "|") + srr[1]);
             }
+            String patternStr = buff.toString();
             sqlTokenPattern = Pattern.compile('(' + patternStr + ')');
         }
 

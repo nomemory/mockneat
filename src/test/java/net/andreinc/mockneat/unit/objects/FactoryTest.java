@@ -69,14 +69,6 @@ public class FactoryTest {
                 .val();
     }
 
-    @Test(expected = ClassCastException.class)
-    public void testFactoryBuilderClassCastException() throws Exception {
-        String val = Constants.M.factory(String.class, FactoryMethods.class)
-                      .method("buffBuilder")
-                      .params("ABC")
-                      .val();
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testFactoryBuilderInvalidMethod() throws Exception {
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)

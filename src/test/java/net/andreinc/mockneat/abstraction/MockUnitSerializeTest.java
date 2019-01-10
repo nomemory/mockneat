@@ -39,7 +39,8 @@ public class MockUnitSerializeTest {
         Integer x = deserialize(new FileInputStream(randomFileName));
         assertTrue(x >= 0  && x < 10);
 
-        new File(randomFileName).delete();
+        boolean isDeleted = new File(randomFileName).delete();
+        assertTrue(isDeleted);
     }
 
     @Test
@@ -54,7 +55,8 @@ public class MockUnitSerializeTest {
         assertTrue(list.get(0) == 0);
         range(0, list.size()).forEach(i -> assertTrue(list.get(i) == i));
 
-        new File(randomFileName).delete();
+        boolean isDeleted = new File(randomFileName).delete();
+        assertTrue(isDeleted);
     }
 
     @Test
@@ -71,6 +73,7 @@ public class MockUnitSerializeTest {
         assertTrue(list!=null);
         assertTrue(list.size() == 100);
 
-        new File(randomFileName).delete();
+        boolean isDeleted = new File(randomFileName).delete();
+        assertTrue(isDeleted);
     }
 }

@@ -215,7 +215,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromInts(array).val(),
                 x -> arrayValues.contains(x));
-        assertTrue(Constants.M.fromInts(array) instanceof MockUnitInt);
     }
 
     @Test(expected = NullPointerException.class)
@@ -238,7 +237,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromInts(array).val(),
                 x -> arrayValues.contains(x));
-        assertTrue(Constants.M.fromInts(array) instanceof MockUnitInt);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -261,7 +259,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromInts(list).val(),
                 x -> assertTrue(listValues.contains(x)));
-        assertTrue(Constants.M.fromInts(list) instanceof MockUnitInt);
     }
 
     @Test(expected = NullPointerException.class)
@@ -283,7 +280,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromIntsValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
-        assertTrue(Constants.M.fromIntsValues(map) instanceof MockUnitInt);
     }
 
     @Test(expected = NullPointerException.class)
@@ -305,7 +301,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromIntsKeys(map).val(),
                 x -> assertTrue(map.containsKey(x)));
-        assertTrue(Constants.M.fromIntsKeys(map) instanceof MockUnitInt);
     }
 
     @Test(expected = NullPointerException.class)
@@ -332,7 +327,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromDoubles(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
-        assertTrue(Constants.M.fromDoubles(array) instanceof MockUnitDouble);
     }
 
     @Test(expected = NullPointerException.class)
@@ -355,7 +349,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromDoubles(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
-        assertTrue(Constants.M.fromDoubles(array) instanceof MockUnitDouble);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -378,7 +371,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromDoubles(list).val(),
                 x -> assertTrue(listValues.contains(x)));
-        assertTrue(Constants.M.fromDoubles(list) instanceof MockUnitDouble);
     }
 
     @Test(expected = NullPointerException.class)
@@ -400,7 +392,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromDoublesValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
-        assertTrue(Constants.M.fromDoublesValues(map) instanceof MockUnitDouble);
     }
 
     @Test(expected = NullPointerException.class)
@@ -422,7 +413,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromDoublesKeys(map).val(),
                 x -> assertTrue(map.containsKey(x)));
-        assertTrue(Constants.M.fromDoublesKeys(map) instanceof MockUnitDouble);
     }
 
     @Test(expected = NullPointerException.class)
@@ -449,7 +439,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromLongs(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
-        assertTrue(Constants.M.fromLongs(array) instanceof MockUnitLong);
     }
 
     @Test(expected = NullPointerException.class)
@@ -472,7 +461,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromLongs(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
-        assertTrue(Constants.M.fromLongs(array) instanceof MockUnitLong);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -495,7 +483,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromLongs(list).val(),
                 x -> listValues.contains(x));
-        assertTrue(Constants.M.fromLongs(list) instanceof MockUnitLong);
     }
 
     @Test(expected = NullPointerException.class)
@@ -517,7 +504,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromLongsValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
-        assertTrue(Constants.M.fromLongsValues(map) instanceof MockUnitLong);
     }
 
     @Test(expected = NullPointerException.class)
@@ -540,7 +526,6 @@ public class MockFromFunctionsTest {
                 r -> r.fromLongsKeys(map).val(),
                 x -> assertTrue(map.containsKey(x)));
 
-        assertTrue(Constants.M.fromLongsKeys(map) instanceof MockUnitLong);
     }
 
     @Test(expected = NullPointerException.class)
@@ -567,7 +552,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromStrings(array).val(),
                 x -> assertTrue(arrayValues.contains(x)));
-        assertTrue(Constants.M.fromStrings(array) instanceof MockUnitString);
     }
 
     @Test(expected = NullPointerException.class)
@@ -590,7 +574,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromStrings(list).val(),
                 x -> assertTrue(listValues.contains(x)));
-        assertTrue(Constants.M.fromStrings(list) instanceof MockUnitString);
     }
 
     @Test(expected = NullPointerException.class)
@@ -612,7 +595,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromStringsValues(map).val(),
                 x -> assertTrue(map.containsValue(x)));
-        assertTrue(Constants.M.fromStringsValues(map) instanceof MockUnitString);
     }
 
     @Test(expected = NullPointerException.class)
@@ -634,8 +616,6 @@ public class MockFromFunctionsTest {
                 Constants.MOCKS,
                 r -> r.fromStringsKeys(map).val(),
                 x -> map.containsKey(x));
-
-        assertTrue(Constants.M.fromStringsKeys(map) instanceof MockUnitString);
     }
 
     @Test(expected = NullPointerException.class)
