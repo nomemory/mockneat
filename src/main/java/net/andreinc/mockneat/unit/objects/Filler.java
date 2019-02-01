@@ -3,6 +3,7 @@ package net.andreinc.mockneat.unit.objects;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
+import net.andreinc.mockneat.abstraction.MockValue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,6 +39,13 @@ public class Filler<T> extends MockUnitBase implements MockUnit<T> {
         notNull(setter, "setter");
         notNull(mockUnit, "mockUnit");
         setters.put(setter, mockUnit);
+        return this;
+    }
+
+    public <R> Filler<T> constant(BiConsumer<T, R> setter, R constant) {
+        notNull(setter, "setter");
+        notNull(constant, "constant");
+        setters.put(setter, () -> () -> constant);
         return this;
     }
 
