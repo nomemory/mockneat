@@ -32,7 +32,7 @@ public class FillerTest {
          .setter(null, M.from(new String[]{"A"}));
     }
 
-    @Test(expected = NotLinkException.class)
+    @Test(expected = NullPointerException.class)
     public void testFillerNullValue() {
         M.filler(SimpleBean::new)
          .setter(SimpleBean::setS, null);
