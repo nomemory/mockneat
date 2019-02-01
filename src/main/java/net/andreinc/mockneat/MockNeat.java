@@ -37,15 +37,14 @@ import net.andreinc.mockneat.unit.seq.IntSeq;
 import net.andreinc.mockneat.unit.seq.LongSeq;
 import net.andreinc.mockneat.unit.seq.Seq;
 import net.andreinc.mockneat.unit.text.*;
+import net.andreinc.mockneat.unit.text.Formatter;
 import net.andreinc.mockneat.unit.time.Days;
 import net.andreinc.mockneat.unit.time.LocalDates;
 import net.andreinc.mockneat.unit.time.Months;
 import net.andreinc.mockneat.unit.types.*;
 import net.andreinc.mockneat.unit.user.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Supplier;
 
 import static org.apache.commons.lang3.Validate.notEmpty;
