@@ -2,7 +2,7 @@ Version 0.3.1
 --------------------------
 - Reduced the cycles for creating csv file.
 - Added MockUnit<T>.mapToLocalDate(Function<T, LocalDate>) method.
-- Fixed the floats() shortcut methods - now it's accesible;
+- Fixed the floats() shortcut methods - now it's accessible;
 
 Version 0.3.0
 -------------
