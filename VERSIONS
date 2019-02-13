@@ -1,3 +1,7 @@
+Version 0.3.3
+-------------
+- Changed the implementation of markovs() using a new library: markovneat ;
+
 Version 0.3.2
 -------------
 - Added support for constant() in Filler() method.
