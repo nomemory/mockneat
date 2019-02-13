@@ -44,7 +44,7 @@ public class WordStatistic {
             associatedWords[i] = new Pair<>(cv, entry.getKey());
             i++;
         }
-        Arrays.sort(associatedWords, (v1, v2) -> v1.getFirst().compareTo(v2.getFirst()));
+        Arrays.sort(associatedWords, Comparator.comparing(Pair::getFirst));
     }
 
     protected Double getTotal(Map<String, Integer> rawLine) {

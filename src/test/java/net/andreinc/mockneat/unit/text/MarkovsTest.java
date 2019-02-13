@@ -17,10 +17,14 @@ package net.andreinc.mockneat.unit.text;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.types.enums.MarkovChainType;
 import org.junit.Test;
+
+import static net.andreinc.mockneat.unit.text.Markovs.markovs;
 
 public class MarkovsTest {
     @Test
     public void test1() throws Exception {
+        markovs().type(MarkovChainType.LOREM_IPSUM).consume(System.out::println);
     }
 }

@@ -42,10 +42,6 @@ public final class WordState {
         return new WordState(newState);
     }
 
-    protected String[] getStagetStatete() {
-        return state;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o)
