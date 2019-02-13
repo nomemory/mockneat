@@ -22,24 +22,17 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.MarkovChainType;
-import net.andreinc.mockneat.unit.text.markov.MarkovUnit;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.utils.file.FileManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.Paths;
 import java.util.EnumMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
-import static net.andreinc.mockneat.types.enums.MarkovChainType.KAFKA;
 import static net.andreinc.mockneat.types.enums.MarkovChainType.LOREM_IPSUM;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
@@ -108,5 +101,9 @@ public class Markovs extends MockUnitBase implements MockUnitString {
             }
         };
         return () -> supp;
+    }
+
+    public MockUnitString loremIpsum() {
+        return type(LOREM_IPSUM);
     }
 }
