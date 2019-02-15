@@ -22,8 +22,9 @@ import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
-import net.andreinc.mockneat.unit.address.UsStates;
+import net.andreinc.mockneat.unit.address.USStates;
 import net.andreinc.mockneat.unit.companies.Departments;
+import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
@@ -77,6 +78,7 @@ public class MockNeat {
     private final Genders rGenders;
     private final Hashes rHashes;
     private final IBANs rIbans;
+    private final Industries rIndustries;
     private final Ints rInts;
     private final ISSNS rISSNS;
     private final IPv4s rIPv4s;
@@ -91,12 +93,16 @@ public class MockNeat {
     private final Names rNames;
     private final NaughtyStrings rNaughtyStrings;
     private final Passwords rPasswords;
+    private final Primes rPrimes;
+    private final RockStars rRockStars;
     private final Shufflers rShufflers;
     private final Space rSpace;
     private final SSCs rSSCs;
     private final UUIDs rUUIDs;
+    private final UKPrimeMinisters rUKPrimeMinisters;
     private final Users rUsers;
-    private final UsStates rUsStates;
+    private final USStates rUSStates;
+    private final USPresidents rUSPresidents;
     private final Words rWords;
 
     public MockNeat(final RandomType randomTypeType) {
@@ -121,6 +127,7 @@ public class MockNeat {
         this.rGenders = new Genders(this);
         this.rHashes = new Hashes(this);
         this.rIbans = new IBANs(this);
+        this.rIndustries = new Industries(this);
         this.rInts = new Ints(this);
         this.rIPv4s = new IPv4s(this);
         this.rIPv6s = new IPv6s(this);
@@ -135,12 +142,16 @@ public class MockNeat {
         this.rNames = new Names(this);
         this.rNaughtyStrings = new NaughtyStrings(this);
         this.rPasswords = new Passwords(this);
+        this.rPrimes = new Primes(this);
+        this.rRockStars = new RockStars(this);
         this.rShufflers = new Shufflers(this);
         this.rSpace = new Space(this);
         this.rSSCs = new SSCs(this);
+        this.rUKPrimeMinisters = new UKPrimeMinisters(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
-        this.rUsStates = new UsStates(this);
+        this.rUSStates = new USStates(this);
+        this.rUSPresidents = new USPresidents(this);
         this.rWords = new Words(this);
     }
 
@@ -387,6 +398,8 @@ public class MockNeat {
      */
     public IBANs ibans() { return this.rIbans; }
 
+    public Industries inudstries() { return this.rIndustries; }
+
     /**
      * <p>Returns a {@code Ints} object that can be used to generate arbitrary {@code Integer} numbers.</p>
      *
@@ -501,6 +514,8 @@ public class MockNeat {
      */
     public Passwords passwords() { return this.rPasswords; }
 
+    public Primes primes() { return this.rPrimes; }
+
     /**
      * <p>Returns a new {@code Regex} object that can be used to generate arbitrary text bassed on a certain regex pattern.</p>
      *
@@ -508,6 +523,8 @@ public class MockNeat {
      * @return A new {@code Regex} object. The {@code Regex} class implements {@code MockUnitString}.
      */
     public Regex regex(String regex) { return new Regex(regex); }
+
+    public RockStars rockStars() { return this.rRockStars; }
 
     /**
      * <p>Returns a {@code Probabilities} object that can be used to generate arbitrary data with a given probability.</p>
@@ -536,13 +553,17 @@ public class MockNeat {
 
     public SSCs sscs() { return this.rSSCs; }
 
+    public UKPrimeMinisters ukPrimeMinisters() { return this.rUKPrimeMinisters; }
+
     public URLs urls() { return new URLs(this); }
 
     public UUIDs uuids() { return this.rUUIDs; }
 
     public Users users() { return this.rUsers; }
 
-    public UsStates usStates() { return this.rUsStates; }
+    public USStates usStates() { return this.rUSStates; }
+
+    public USPresidents usPresidents() { return this.rUSPresidents; }
 
     public Words words() { return this.rWords; }
 

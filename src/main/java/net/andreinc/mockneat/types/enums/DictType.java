@@ -33,6 +33,7 @@ public enum DictType {
     // CITIES
     CITIES_US("cities/cities-us"),
     CITIES_CAPITALS("cities/cities-capitals"),
+    CITIES_CAPITALS_EUROPE("cities/cities-capitals-europe"),
 
     // DOMAINS
     DOMAIN_EMAIL("domain-email"),
@@ -50,6 +51,9 @@ public enum DictType {
     FIRST_NAME_MALE_AMERICAN("first-names-american-male"),
     FIRST_NAME_FEMALE_AMERICAN("first-names-american-female"),
     LAST_NAME_AMERICAN("last-names-american"),
+    AMERICAN_PRESIDENTS("american-presidents"),
+    UK_PRIME_MINISTERS("uk-primeministers"),
+    ROCK_STARS("rock-starts"),
 
     // WORDS
     EN_ADJECTIVE_1SYLL("words/en-adjective-1syll"),
@@ -71,6 +75,7 @@ public enum DictType {
 
     //COMPANIES
     DEPARTMENTS("departments"),
+    INDUSTRIES("industries"),
 
     // NAUGHTY STRINGS (TODO Document)
     NS_CVE_VULNERABILITIES("naughtystrings/cvevulnerabilities"),

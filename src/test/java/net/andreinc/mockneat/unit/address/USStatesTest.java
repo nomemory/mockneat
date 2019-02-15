@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UsStatesTest {
+public class USStatesTest {
 
     private static final FileManager FM = FileManager.getInstance();
     private static final Set<String> US_STATES = new HashSet<>();

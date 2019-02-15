@@ -1,12 +1,14 @@
-package net.andreinc.mockneat.unit.address;
+package net.andreinc.mockneat.unit.companies;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
 
+import java.util.function.Supplier;
+
 /**
- * Copyright 2017, Andrei N. Ciobanu
+ * Copyright 2019, Andrei N. Ciobanu
 
  Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
  documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -22,36 +24,17 @@ import net.andreinc.mockneat.types.enums.DictType;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public class Cities extends MockUnitBase {
+// TODO document
+public class Industries extends MockUnitBase implements MockUnitString {
 
-    public static final Cities cities() {
-        return MockNeat.threadLocal().cities();
-    }
+    public static Industries industries() { return MockNeat.threadLocal().inudstries(); }
 
-    protected Cities() { }
-
-    public Cities(MockNeat mockNeat) {
+    public Industries(MockNeat mockNeat) {
         super(mockNeat);
     }
 
-    /**
-     * Returns a {@code MockUnitString} that can be used to generate capital city names from around the world. (Eg.: "Paris")
-     *
-     * @return A new {@code MockUnitString}.
-     */
-    public MockUnitString capitals() {
-        return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS).supplier();
-    }
-
-    // TODO document
-    public MockUnitString capitalsEurope() { return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS_EUROPE).supplier(); }
-
-    /**
-     * Returns a {@code MockUnitString} that can be used to generate US city names. (Eg.: "New York")
-     *
-     * @return A new {@code MockUnitString}.
-     */
-    public MockUnitString us() {
-        return () -> mockNeat.dicts().type(DictType.CITIES_US).supplier();
+    @Override
+    public Supplier<String> supplier() {
+        return mockNeat.dicts().type(DictType.INDUSTRIES).supplier();
     }
 }

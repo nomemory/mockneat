@@ -25,15 +25,15 @@ import net.andreinc.mockneat.types.enums.DictType;
 import java.util.function.Supplier;
 
 //TODO document
-public class UsStates extends MockUnitBase implements MockUnitString {
+public class USStates extends MockUnitBase implements MockUnitString {
 
-    public static UsStates usStates() {
+    public static USStates usStates() {
         return MockNeat.threadLocal().usStates();
     }
 
-    protected UsStates() { }
+    protected USStates() { }
 
-    public UsStates(MockNeat mockNeat) {
+    public USStates(MockNeat mockNeat) {
         super(mockNeat);
     }
 
