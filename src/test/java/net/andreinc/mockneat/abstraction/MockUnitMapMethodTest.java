@@ -18,19 +18,24 @@ package net.andreinc.mockneat.abstraction;
  */
 
 import net.andreinc.mockneat.Constants;
+import net.andreinc.mockneat.MockNeat;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.function.Function;
 
 import static java.util.Arrays.stream;
+import static net.andreinc.mockneat.Constants.M;
+import static net.andreinc.mockneat.Constants.MOCKS;
+import static net.andreinc.mockneat.Constants.MOCK_CYCLES;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 public class MockUnitMapMethodTest {
     @Test
     public void testMapToIntInts() {
-        loop(Constants.MOCK_CYCLES, () ->
-                stream(Constants.MOCKS).forEach(r ->
+        loop(MOCK_CYCLES, () ->
+                stream(MOCKS).forEach(r ->
                     r.ints()
                         .range(0, 5)
                         .mapToInt(x -> x + 5)
@@ -41,13 +46,13 @@ public class MockUnitMapMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapToIntsNullFunct() {
-        Constants.M.ints().range(0, 5).mapToInt(null).val();
+        M.ints().range(0, 5).mapToInt(null).val();
     }
 
     @Test
     public void testMapToLong() {
-        loop(Constants.MOCK_CYCLES, () ->
-            stream(Constants.MOCKS).forEach(r ->
+        loop(MOCK_CYCLES, () ->
+            stream(MOCKS).forEach(r ->
                     r.longs()
                         .range(0, 5)
                         .mapToLong(x -> x +5)
@@ -58,13 +63,13 @@ public class MockUnitMapMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapToLongNullFunct() {
-        Constants.M.longs().range(0l, 5l).mapToLong(null).val();
+        M.longs().range(0l, 5l).mapToLong(null).val();
     }
 
     @Test
     public void testMapToDoubleDoubles() {
-        loop(Constants.MOCK_CYCLES, () ->
-            stream(Constants.MOCKS).forEach(r ->
+        loop(MOCK_CYCLES, () ->
+            stream(MOCKS).forEach(r ->
                         r.doubles()
                             .range(0.5, 5.0)
                             .mapToDouble(x -> x + 5.0)
@@ -75,18 +80,18 @@ public class MockUnitMapMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapToDoubleNullFunct() {
-        Constants.M.doubles().range(0.5, 10.0).mapToDouble(null).val();
+        M.doubles().range(0.5, 10.0).mapToDouble(null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapNullFunct() {
-        Constants.M.ints().from(new int[]{ 5, 7, 8}).map(null).val();
+        M.ints().from(new int[]{ 5, 7, 8}).map(null).val();
     }
 
     @Test
     public void testMap() {
         Function<Object, String> f = (x) -> x.toString() + "x";
-        MockUnit r = Constants.M.ints().from(new int[]{5});
+        MockUnit r = M.ints().from(new int[]{5});
         int i = 100;
         while(i-->0) r = r.map(f);
         String result = r.valStr();
@@ -97,6 +102,21 @@ public class MockUnitMapMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapFunct() {
-        Constants.M.ints().from(new int[]{5}).map(null).val();
+        M.ints().from(new int[]{5}).map(null).val();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testMapToLocalDateNullDateTransformer() {
+        M.ints().mapToLocalDate(null);
+    }
+
+    @Test
+    public void testMapLocalDate() {
+       loop(MOCK_CYCLES,
+            MOCKS,
+            m -> m.ints()
+                  .from(new int[] { 2015, 2012, 2013 })
+                  .mapToLocalDate(i -> LocalDate.of(i, 01, 01)).get(),
+            ld -> assertTrue(ld.getYear() == 2015 || ld.getYear() == 2012 || ld.getYear() == 2013));
     }
 }

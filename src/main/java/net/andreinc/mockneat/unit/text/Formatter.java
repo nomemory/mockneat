@@ -70,7 +70,16 @@ public final class Formatter implements MockUnitString {
         return this;
     }
 
-    public <T> Formatter param(String param, String constValue) {
+
+    /**
+     * <p>This method can be used to map a parameter from the template with a String value (not a MockUnit!).</p>
+     *
+     * @param param The parameter name as supplied in the template.
+     * @param constValue The string value.
+     *                   
+     * @return The {@code Formatter} object.
+     */
+    public Formatter param(String param, String constValue) {
         notEmpty(param, "param");
         notNull(constValue, "constValue");
         isTrue(isAlphanumeric(param), INPUT_PARAM_ALPHANUMERIC, "input", param);
