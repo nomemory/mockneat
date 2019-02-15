@@ -43,7 +43,6 @@ public interface MockUnitString extends MockUnit<String> {
      * @param separator The string used as a separator
      * @return A new {@code MockUnitstring}.
      */
-    //TODO
     default MockUnitString accumulate(int times, String separator) {
         notNull(separator, "separator");
         isTrue(times>0, NUMBER_OF_TIMES_POSITIVE);

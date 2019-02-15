@@ -38,6 +38,8 @@ public class CitiesTest {
 
     private final Set<String> allCapitalCities = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS));
 
+    private final Set<String> allCapitalCitiesEurope = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS_EUROPE));
+
 
     @Test
     public void testUsCity() {
@@ -61,6 +63,19 @@ public class CitiesTest {
                 capitalCity -> {
                     Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
                     Assert.assertTrue(allCapitalCities.contains(capitalCity));
+                }
+        );
+    }
+
+    @Test
+    public void testCapitalsEurope() {
+        loop(
+                Constants.CITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.cities().capitalsEurope().get(),
+                capitalCity -> {
+                    Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
+                    Assert.assertTrue(allCapitalCitiesEurope.contains(capitalCity));
                 }
         );
     }

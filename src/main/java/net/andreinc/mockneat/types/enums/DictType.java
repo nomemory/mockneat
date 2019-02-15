@@ -77,7 +77,6 @@ public enum DictType {
     DEPARTMENTS("departments"),
     INDUSTRIES("industries"),
 
-    // NAUGHTY STRINGS (TODO Document)
     NS_CVE_VULNERABILITIES("naughtystrings/cvevulnerabilities"),
     NS_EMOJI("naughtystrings/emoji"),
     NS_FILE_INCLUSIONS("naughtystrings/fileinclusions"),
