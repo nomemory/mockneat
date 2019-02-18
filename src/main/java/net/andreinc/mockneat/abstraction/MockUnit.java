@@ -272,7 +272,6 @@ public interface MockUnit<T> {
      *
      * @return A new {@code MockUnitLocalDate}
      */
-    // TODO document and test
     default MockUnitLocalDate mapToLocalDate(Function<T, LocalDate> dateTransformer) {
         notNull(dateTransformer, "dateTransformer");
         Supplier<LocalDate> supp = () -> dateTransformer.apply(val());

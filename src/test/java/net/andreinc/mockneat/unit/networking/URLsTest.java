@@ -33,8 +33,6 @@ import java.util.Set;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.asList;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.types.enums.DomainSuffixType.POPULAR;
 import static net.andreinc.mockneat.types.enums.HostNameType.ADJECTIVE_FIRST_NAME;
@@ -43,6 +41,8 @@ import static net.andreinc.mockneat.types.enums.URLSchemeType.*;
 import static net.andreinc.mockneat.unit.networking.URLs.COMMON_HTTP_PORTS;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.validator.routines.UrlValidator.ALLOW_ALL_SCHEMES;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class URLsTest {
 

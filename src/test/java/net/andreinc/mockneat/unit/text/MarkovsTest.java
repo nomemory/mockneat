@@ -25,6 +25,6 @@ import static net.andreinc.mockneat.unit.text.Markovs.markovs;
 public class MarkovsTest {
     @Test
     public void test1() throws Exception {
-        markovs().type(MarkovChainType.LOREM_IPSUM).consume(System.out::println);
+        markovs().type(MarkovChainType.LOREM_IPSUM).get();
     }
 }

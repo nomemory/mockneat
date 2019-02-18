@@ -17,7 +17,6 @@ package net.andreinc.mockneat.unit.networking;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import junit.framework.Assert;
 import net.andreinc.mockneat.Constants;
 import net.andreinc.mockneat.types.Range;
 import net.andreinc.mockneat.types.enums.IPv4Type;
@@ -26,7 +25,6 @@ import org.junit.Test;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 

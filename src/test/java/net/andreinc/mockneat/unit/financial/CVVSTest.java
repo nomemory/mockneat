@@ -21,13 +21,13 @@ import net.andreinc.mockneat.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertTrue;
 import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.types.enums.CVVType.CVV3;
 import static net.andreinc.mockneat.types.enums.CVVType.CVV4;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by andreinicolinciobanu on 08/02/2017.

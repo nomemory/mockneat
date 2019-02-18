@@ -8,7 +8,6 @@ import net.andreinc.mockneat.types.enums.SpaceType;
 
 import java.util.function.Supplier;
 
-//TODO document
 public class Space extends MockUnitBase implements MockUnitString {
 
     public static Space space() {

@@ -24,7 +24,6 @@ import net.andreinc.mockneat.types.enums.DictType;
 
 import java.util.function.Supplier;
 
-//TODO document
 public class USStates extends MockUnitBase implements MockUnitString {
 
     public static USStates usStates() {

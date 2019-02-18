@@ -35,7 +35,6 @@ import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 
-//TODO allow constant as param - document this
 public final class Formatter implements MockUnitString {
 
     private final Map<String, MockValue> fields = new HashMap<>();
@@ -69,7 +68,6 @@ public final class Formatter implements MockUnitString {
         this.fields.put(param, unit(mock));
         return this;
     }
-
 
     /**
      * <p>This method can be used to map a parameter from the template with a String value (not a MockUnit!).</p>

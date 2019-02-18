@@ -17,8 +17,8 @@ package net.andreinc.mockneat.unit.networking;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import junit.framework.Assert;
 import net.andreinc.mockneat.types.enums.MACAddressFormatType;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static java.util.Arrays.stream;

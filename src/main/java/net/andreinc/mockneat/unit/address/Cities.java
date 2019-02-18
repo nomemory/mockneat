@@ -43,7 +43,11 @@ public class Cities extends MockUnitBase {
         return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS).supplier();
     }
 
-    // TODO document
+    /**
+     * Returns a {@code MockUnitString} that can be used to generate capital city names from Europe (Eg.: "London")
+     *
+     * @return A new {@code MockUnitString}
+     */
     public MockUnitString capitalsEurope() { return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS_EUROPE).supplier(); }
 
     /**

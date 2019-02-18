@@ -17,10 +17,10 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import junit.framework.Assert;
 import net.andreinc.mockneat.Constants;
 import net.andreinc.mockneat.abstraction.models.AbstractMapNoInstance;
 import net.andreinc.mockneat.utils.MapCheckUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;

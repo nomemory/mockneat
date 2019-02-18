@@ -24,7 +24,6 @@ import java.util.function.Supplier;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-// TODO document
 public class Industries extends MockUnitBase implements MockUnitString {
 
     public static Industries industries() { return MockNeat.threadLocal().inudstries(); }

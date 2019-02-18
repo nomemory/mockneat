@@ -298,8 +298,6 @@ public interface MockUnitString extends MockUnit<String> {
         return () -> ifSupplierNotNullDo(supplier(), StringEscapeUtils::escapeXml11);
     }
 
-    // TODO document methods
-
     default MockUnitString md2() {
         return () -> ifSupplierNotNullDo(supplier(), DigestUtils::md2Hex);
     }
