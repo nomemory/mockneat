@@ -70,6 +70,31 @@ public class Longs extends MockUnitBase implements MockUnitLong {
     }
 
     /**
+     * <p>This method returns a {@code MockUnitLong} that can be used to generate arbitrary numbers in the [0, bound) interval.</p>
+     *
+     * @param upperBound The interval's bound.
+     * @return A new {@code MockUnitLong}.
+     */
+    //TODO document
+    public MockUnitLong upperBound(long upperBound) {
+        return bound(upperBound);
+    }
+
+    /**
+     * <p> This method can be used to generate arbitrary long value in [lowerBound, Long.MAX_VALUE]</p>
+     *
+     * @param lowerBound The lower bound. Should be different than Long.MAX_VALUE and bigger than 0.
+     * @return A new {@code MockUnitLong}
+     */
+    //TODO document
+    public MockUnitLong lowerBound(long lowerBound) {
+        notNull(lowerBound, "lowerBound");
+        isTrue(lowerBound >= 0, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(lowerBound != Integer.MAX_VALUE, LOWER_BOUND_DIFFERENT_THAN_LONG_MAX);
+        return rangeClosed(lowerBound, Long.MAX_VALUE);
+    }
+
+    /**
      * <p>This method returns a {@code MockUnitLong} that can be used generate arbitrary numbers in the given range: [loweBound, upperBound)</p>
      *
      * @param lowerBound The lower bound of the interval.
@@ -85,6 +110,25 @@ public class Longs extends MockUnitBase implements MockUnitLong {
         Supplier<Long> supplier = () ->
                 mockNeat.longs().bound(upperBound - lowerBound).val() + lowerBound;
         return () -> supplier;
+    }
+
+    /**
+     * <p>This method return a {@code MockUnitLong} that can be used to generate arbitrary numbers in the given closed range: [lowerBound, upperBound]</p>
+     *
+     * @param lowerBound The lower bound of the interval.
+     * @param upperBound The upper bound of the interval.
+     *
+     * @return A new {@code MockUnitLong}.
+     */
+    //TODO document
+    public MockUnitLong rangeClosed(long lowerBound, long upperBound) {
+        notNull(lowerBound, "lowerBound");
+        notNull(upperBound, "upperBound");
+        isTrue(lowerBound>=0, LOWER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>0, UPPER_BOUND_BIGGER_THAN_ZERO);
+        isTrue(upperBound>lowerBound, UPPER_BOUND_BIGGER_LOWER_BOUND);
+        Supplier<Long> supp = () -> mockNeat.longs().bound(upperBound - lowerBound + 1).val() + lowerBound;
+        return () -> supp;
     }
 
     /**

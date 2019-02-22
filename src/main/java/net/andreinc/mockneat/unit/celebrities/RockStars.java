@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.user;
+package net.andreinc.mockneat.unit.celebrities;
 
 /**
  * Copyright 2019, Andrei N. Ciobanu
@@ -26,10 +26,6 @@ import java.util.function.Supplier;
 
 //TODO document
 public class RockStars extends MockUnitBase implements MockUnitString {
-
-    public static RockStars rockStars() {
-        return MockNeat.threadLocal().rockStars();
-    }
 
     public RockStars(MockNeat mockNeat) {
         super(mockNeat);

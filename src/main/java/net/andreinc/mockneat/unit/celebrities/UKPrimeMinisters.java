@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.user;
+package net.andreinc.mockneat.unit.celebrities;
 
 /**
  * Copyright 2019, Andrei N. Ciobanu
@@ -27,10 +27,6 @@ import java.util.function.Supplier;
 
 //TODO document
 public class UKPrimeMinisters extends MockUnitBase implements MockUnitString {
-
-    public static UKPrimeMinisters ukPrimeMinisters() {
-        return MockNeat.threadLocal().ukPrimeMinisters();
-    }
 
     public UKPrimeMinisters(MockNeat mockNeat) {
         super(mockNeat);

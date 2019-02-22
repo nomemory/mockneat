@@ -51,9 +51,12 @@ public enum DictType {
     FIRST_NAME_MALE_AMERICAN("first-names-american-male"),
     FIRST_NAME_FEMALE_AMERICAN("first-names-american-female"),
     LAST_NAME_AMERICAN("last-names-american"),
-    AMERICAN_PRESIDENTS("american-presidents"),
+    US_PRESIDENTS("american-presidents"),
     UK_PRIME_MINISTERS("uk-primeministers"),
     ROCK_STARS("rock-starts"),
+    JAZZ_ARTISTS("jazz-artists"),
+    ACTORS("actors"),
+    ACTRESSES("actresses"),
 
     // WORDS
     EN_ADJECTIVE_1SYLL("words/en-adjective-1syll"),

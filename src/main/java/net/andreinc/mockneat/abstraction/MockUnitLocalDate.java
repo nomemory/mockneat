@@ -20,6 +20,7 @@ package net.andreinc.mockneat.abstraction;
 import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -42,7 +43,7 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
                                     .atStartOfDay(ZoneId.systemDefault())
                                     .toInstant()));
     }
-
+    
     /**
      * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnitString} - the textual representation of the date object.</p>
      *

@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.user;
+package net.andreinc.mockneat.unit.celebrities;
 
 /**
  * Copyright 2019, Andrei N. Ciobanu
@@ -27,17 +27,13 @@ import java.util.function.Supplier;
 //TODO document
 public class USPresidents extends MockUnitBase implements MockUnitString {
 
-    public static USPresidents usPresidents() {
-        return MockNeat.threadLocal().usPresidents();
-    }
-
     public USPresidents(MockNeat mockNeat) {
         super(mockNeat);
     }
 
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().type(DictType.AMERICAN_PRESIDENTS).supplier();
+        return mockNeat.dicts().type(DictType.US_PRESIDENTS).supplier();
     }
 
 }

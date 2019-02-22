@@ -29,6 +29,8 @@ public final class ValidationUtils {
     public static final String SUPPLIER_VALUE_NOT_NULL = "Value retrieved by Supplier<?> '#{supplier}' should not be NULL";
     public static final String INPUT_PARAMETER_NOT_EMPTY_OR_NULL = "Input parameter: '#{input}' should not be empty or NULL.";
     public static final String LOWER_BOUND_BIGGER_THAN_ZERO = "The input parameter 'lowerBound' should be >= 0.0.";
+    public static final String LOWER_BOUND_DIFFERENT_THAN_INTEGER_MAX = "The 'lowerBound' should be different than Integer.MAX_VALUE.";
+    public static final String LOWER_BOUND_DIFFERENT_THAN_LONG_MAX = "The 'lowerBound' should be different than Long.MAX_VALUE.";
     public static final String UPPER_BOUND_BIGGER_THAN_ZERO = "The input parameter 'upperBound' should be > 0.0.";
     public static final String UPPER_BOUND_BIGGER_LOWER_BOUND = "The input parameter 'upperBound' > 'lowerBound'.";
     public static final String UPPER_MONTH_BIGGER_THAN_LOWER = "'lower' Month < 'upper' Month";

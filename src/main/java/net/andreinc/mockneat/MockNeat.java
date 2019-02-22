@@ -23,6 +23,7 @@ import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.address.USStates;
+import net.andreinc.mockneat.unit.celebrities.Celebrities;
 import net.andreinc.mockneat.unit.companies.Departments;
 import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
@@ -60,6 +61,7 @@ public class MockNeat {
     private final Random random;
 
     private final Bools rBools;
+    private final Celebrities rCelebrities;
     private final Cities rCities;
     private final Countries rCountries;
     private final CreditCards rCCS;
@@ -94,20 +96,18 @@ public class MockNeat {
     private final NaughtyStrings rNaughtyStrings;
     private final Passwords rPasswords;
     private final Primes rPrimes;
-    private final RockStars rRockStars;
     private final Shufflers rShufflers;
     private final Space rSpace;
     private final SSCs rSSCs;
     private final UUIDs rUUIDs;
-    private final UKPrimeMinisters rUKPrimeMinisters;
     private final Users rUsers;
     private final USStates rUSStates;
-    private final USPresidents rUSPresidents;
     private final Words rWords;
 
     public MockNeat(final RandomType randomTypeType) {
         this.random = randomTypeType.getRandom();
 
+        this.rCelebrities = new Celebrities(this);
         this.rChars = new Chars(this);
         this.rBools = new Bools(this);
         this.rCountries = new Countries(this);
@@ -143,15 +143,12 @@ public class MockNeat {
         this.rNaughtyStrings = new NaughtyStrings(this);
         this.rPasswords = new Passwords(this);
         this.rPrimes = new Primes(this);
-        this.rRockStars = new RockStars(this);
         this.rShufflers = new Shufflers(this);
         this.rSpace = new Space(this);
         this.rSSCs = new SSCs(this);
-        this.rUKPrimeMinisters = new UKPrimeMinisters(this);
         this.rUUIDs = new UUIDs();
         this.rUsers = new Users(this);
         this.rUSStates = new USStates(this);
-        this.rUSPresidents = new USPresidents(this);
         this.rWords = new Words(this);
     }
 
@@ -193,6 +190,8 @@ public class MockNeat {
      * @return A re-usable {@code Bools} instance. The class implements {@code MockUnit<Boolean>}.
      */
     public Bools bools() { return this.rBools; }
+
+    public Celebrities celebrities() { return this.rCelebrities; }
 
     /**
      * <p>Returns a {@code Chars} object that can be used to generate arbitrary {@code Character} values.</p>
@@ -524,8 +523,6 @@ public class MockNeat {
      */
     public Regex regex(String regex) { return new Regex(regex); }
 
-    public RockStars rockStars() { return this.rRockStars; }
-
     /**
      * <p>Returns a {@code Probabilities} object that can be used to generate arbitrary data with a given probability.</p>
      *
@@ -553,8 +550,6 @@ public class MockNeat {
 
     public SSCs sscs() { return this.rSSCs; }
 
-    public UKPrimeMinisters ukPrimeMinisters() { return this.rUKPrimeMinisters; }
-
     public URLs urls() { return new URLs(this); }
 
     public UUIDs uuids() { return this.rUUIDs; }
@@ -563,7 +558,6 @@ public class MockNeat {
 
     public USStates usStates() { return this.rUSStates; }
 
-    public USPresidents usPresidents() { return this.rUSPresidents; }
 
     public Words words() { return this.rWords; }
 
