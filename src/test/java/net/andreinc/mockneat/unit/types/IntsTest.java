@@ -17,9 +17,6 @@ package net.andreinc.mockneat.unit.types;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import com.sun.tools.corba.se.idl.InterfaceGen;
-import net.andreinc.mockneat.Constants;
-import net.andreinc.mockneat.unit.objects.Constructor;
 import org.junit.Test;
 
 import java.util.HashSet;
