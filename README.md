@@ -6,4 +6,4 @@ It can also act as a powerful Random substitute or a mocking library.
 
 Official Documentation: [www.mockneat.com](http://www.mockneat.com)
 
-<a href='https://bintray.com/nomemory/maven/mockneat?source=watch' alt='Get automatic notifications about new "mockneat" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a><a href='https://bintray.com/nomemory/maven/mockneat?source=watch' alt='Get automatic notifications about new "mockneat" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
+<a href='https://bintray.com/nomemory/maven/mockneat?source=watch' alt='Get automatic notifications about new "mockneat" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
