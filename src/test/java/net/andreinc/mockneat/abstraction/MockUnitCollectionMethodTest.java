@@ -178,16 +178,16 @@ public class MockUnitCollectionMethodTest {
         MockUnit l = M.ints().collection(() -> new ArrayList<>(), 1);
         return (Collection) getRecursiveRandUnitCollectionSupp(l, 100).val();
     }
-
-    @Test
-    public void testCollectionDeep() {
-        Collection l = getRecursiveCollection();
-        Optional opt = l.stream().findFirst();
-        while(opt.get() instanceof Collection) {
-            opt = ((Collection)opt.get()).stream().findFirst();
-        }
-        assertTrue(opt.get() instanceof Integer);
-    }
+//
+//    @Test
+//    public void testCollectionDeep() {
+//        Collection l = getRecursiveCollection();
+//        Optional opt = l.stream().findFirst();
+//        while(opt.get() instanceof Collection) {
+//            opt = ((Collection)opt.get()).stream().findFirst();
+//        }
+//        assertTrue(opt.get() instanceof Integer);
+//    }
 
     @Test
     public void testCollectionSuppDeep() {
