@@ -53,7 +53,7 @@ public class IBANs extends MockUnitBase implements MockUnitString {
         range(0, LETTERS_UPPERCASE.size()).forEach( i -> {
             Character upper = LETTERS_UPPERCASE.get(i);
             Character lower =  toLowerCase(upper);
-            String value = valueOf(i + 10).toString();
+            String value = valueOf((long)i + 10).toString();
             VALUE_MAP.put(lower, value);
             VALUE_MAP.put(upper, value);
         });
