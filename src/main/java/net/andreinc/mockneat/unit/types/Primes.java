@@ -9,7 +9,6 @@ import java.util.function.Supplier;
 
 import static net.andreinc.mockneat.unit.objects.From.from;
 
-//TODO document
 public class Primes extends MockUnitBase implements MockUnitInt {
 
     public static Primes primes() { return MockNeat.threadLocal().primes(); }

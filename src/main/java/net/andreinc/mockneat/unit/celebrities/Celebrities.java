@@ -11,7 +11,6 @@ import java.util.function.Supplier;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static org.apache.commons.lang3.Validate.notNull;
 
-//TODO document
 public class Celebrities extends MockUnitBase implements MockUnitString {
 
     public static Celebrities celebrities() { return MockNeat.threadLocal().celebrities(); }
