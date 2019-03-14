@@ -19,7 +19,7 @@ apply plugin: 'java'
 apply plugin: 'jacoco'
 
 group 'net.andreinc'
-version '0.3.5'
+version '0.3.6'
 
 sourceCompatibility = 1.8
 

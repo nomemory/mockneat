@@ -53,7 +53,7 @@ public enum DictType {
     LAST_NAME_AMERICAN("last-names-american"),
     US_PRESIDENTS("american-presidents"),
     UK_PRIME_MINISTERS("uk-primeministers"),
-    ROCK_STARS("rock-starts"),
+    ROCK_STARS("rock-stars"),
     JAZZ_ARTISTS("jazz-artists"),
     ACTORS("actors"),
     ACTRESSES("actresses"),
