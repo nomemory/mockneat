@@ -32,13 +32,13 @@ import static net.andreinc.mockneat.utils.MockUnitUtils.listTypes;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 import static org.apache.commons.lang3.reflect.MethodUtils.invokeExactStaticMethod;
 
-public class Factory<T, FT> implements MockUnit<T> {
+public class Factory<T, R> implements MockUnit<T> {
 
     private static final Pattern JAVA_FIELD_REGEX =
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Class<T> targetClass;
-    private final Class<FT> factoryClass;
+    private final Class<R> factoryClass;
     private String method;
     private Object[] params = new Object[]{};
 
@@ -46,7 +46,7 @@ public class Factory<T, FT> implements MockUnit<T> {
         return MockNeat.threadLocal().factory(targetClass, factoryClass);
     }
 
-    public Factory(Class<T> targetClass, Class<FT> factoryClass) {
+    public Factory(Class<T> targetClass, Class<R> factoryClass) {
         this.targetClass = targetClass;
         this.factoryClass = factoryClass;
     }
@@ -57,7 +57,7 @@ public class Factory<T, FT> implements MockUnit<T> {
      * @param methodName The method factory method used to instantiate the class.
      * @return The same instance of the previously created {@code Factory} object. The {@code Factory} class implements the {@code MockUnit<T>} interface.
      */
-    public Factory<T, FT> method(String methodName) {
+    public Factory<T, R> method(String methodName) {
         this.method = methodName;
         return this;
     }
@@ -70,7 +70,7 @@ public class Factory<T, FT> implements MockUnit<T> {
      * @param params A var-arg array being the list of {@code params} supplied to the factory method.
      * @return The same instance of the {@code Factory} object. THe {@code Factory} class implements the {@code MockUnit<T>} interface.
      */
-    public Factory<T, FT> params(Object... params) {
+    public Factory<T, R> params(Object... params) {
         this.params = params;
         return this;
     }

@@ -72,7 +72,7 @@ public class FileManager {
                 logger.info("Loaded file '{}' in memory. The file contains {} lines.", path, lines.size());
                 JAR_EXTERNAL.put(path, lines);
             } catch (IOException e) {
-                logger.error("Cannot read file '{}' in memory.", e);
+                logger.error("Cannot read file '{}' in memory.", path);
                throw new IllegalArgumentException(e);
             }
         }
@@ -84,7 +84,7 @@ public class FileManager {
         if (!JAR_INTERNAL.containsKey(internal)) {
             try {
                 List<String> lines = read(dictType);
-                logger.info("Loading internal dictionary '{}' in memory. The dictionary contains {} lines",
+                logger.info("Loading internal dictionary '{}' in memory. The dictionary contains {} lines.",
                         dictType.getFile(),
                         lines.size());
                 JAR_INTERNAL.put(internal, lines);

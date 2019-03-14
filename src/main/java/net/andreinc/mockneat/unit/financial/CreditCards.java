@@ -21,13 +21,11 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CreditCardType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static java.util.Collections.unmodifiableList;
 import static java.util.stream.Collectors.toList;

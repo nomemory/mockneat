@@ -21,7 +21,6 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.DictType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import net.andreinc.mockneat.utils.file.FileManager;
 
 import java.util.Collections;
@@ -34,7 +33,7 @@ public class Dicts extends MockUnitBase {
 
     private final FileManager fm = FileManager.getInstance();
 
-    private static Dicts dicts() {
+    public static Dicts dicts() {
         return MockNeat.threadLocal().dicts();
     }
 

@@ -22,7 +22,6 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.CVVType;
 import net.andreinc.mockneat.utils.LoopsUtils;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 

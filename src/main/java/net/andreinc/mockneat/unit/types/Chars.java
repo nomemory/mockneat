@@ -19,7 +19,6 @@ package net.andreinc.mockneat.unit.types;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
-import net.andreinc.mockneat.alphabets.Alphabets;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.types.enums.CharsType;
 

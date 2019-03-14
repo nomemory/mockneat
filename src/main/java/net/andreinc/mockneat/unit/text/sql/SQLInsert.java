@@ -22,15 +22,16 @@ import net.andreinc.mockneat.types.Pair;
 
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class SQLInsert {
 
     private final String tableName;
-    private final Map<String, Pair<String, Function<String, String>>> columns;
+    private final Map<String, Pair<String, UnaryOperator<String>>> columns;
 
-    public SQLInsert(String tableName, Map<String, Pair<String, Function<String, String>>> columns) {
+    public SQLInsert(String tableName, Map<String, Pair<String, UnaryOperator<String>>> columns) {
         notEmpty(tableName, "tableName");
         notNull(columns, "columns");
         this.tableName = tableName;
@@ -47,7 +48,7 @@ public class SQLInsert {
         notEmpty(column, "column");
         notEmpty(value, "value");
         isTrue(columns.containsKey(column), COLUMN_DOESNT_EXISTS, "column", column, "table", tableName);
-        Function<String, String> existingMethod = columns.get(column).getSecond();
+        UnaryOperator<String> existingMethod = columns.get(column).getSecond();
         columns.put(column, Pair.of(value, existingMethod));
     }
 
@@ -62,7 +63,7 @@ public class SQLInsert {
                 .append(getColumnsSection())
                 .append("VALUES (");
 
-        for(Pair<String, Function<String, String>> str : columns.values()) {
+        for(Pair<String, UnaryOperator<String>> str : columns.values()) {
             String strVal = str.getFirst();
 
             if (str.getSecond() != null) {

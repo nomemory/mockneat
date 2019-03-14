@@ -24,7 +24,6 @@ import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.WordsType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,7 +34,6 @@ import static java.util.Collections.unmodifiableList;
 import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
-//TODO Document and test + add direct access to 1syll
 public class Words extends MockUnitBase implements MockUnitString {
 
     private final MockUnitString adjectives1syll = mockNeat.dicts().type(DictType.EN_ADJECTIVE_1SYLL);
@@ -78,14 +76,14 @@ public class Words extends MockUnitBase implements MockUnitString {
     public Words(MockNeat mockNeat) {
         super(mockNeat);
 
-        ArrayList<MockUnitString> all = new ArrayList<>();
+        ArrayList<MockUnitString> allWords = new ArrayList<>();
 
-        all.addAll(adjectives);
-        all.addAll(adverbs);
-        all.addAll(nouns);
-        all.addAll(verbs);
+        allWords.addAll(adjectives);
+        allWords.addAll(adverbs);
+        allWords.addAll(nouns);
+        allWords.addAll(verbs);
 
-        this.all = unmodifiableList(all);
+        this.all = unmodifiableList(allWords);
 
         typesMapping.put(WordsType.ADJECTIVES, adjectives());
         typesMapping.put(WordsType.ADJECTIVES_1SYLL, adjectives1syll());

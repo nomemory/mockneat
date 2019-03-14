@@ -14,4 +14,6 @@ public class Generic {
                             "''")
             )
     )::escape;
+
+    private Generic() {}
 }

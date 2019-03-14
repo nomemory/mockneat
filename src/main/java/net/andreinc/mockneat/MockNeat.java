@@ -49,8 +49,6 @@ import net.andreinc.mockneat.unit.user.*;
 import java.util.*;
 import java.util.function.Supplier;
 
-import static org.apache.commons.lang3.Validate.notEmpty;
-
 @SuppressWarnings("unchecked")
 public class MockNeat {
 
@@ -530,7 +528,7 @@ public class MockNeat {
      * @param <T>
      * @return A re-usable {@code Probabilities} object. The class implements {@code MockUnit<T>}.
      */
-    public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<T>(this, cls); }
+    public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<>(this, cls); }
 
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
 

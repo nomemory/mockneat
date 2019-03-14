@@ -24,6 +24,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class Hashes extends MockUnitBase {
 
@@ -37,7 +38,7 @@ public class Hashes extends MockUnitBase {
         super(mockNeat);
     }
 
-    private Supplier<String> supplier(Function<String, String> digester) {
+    private Supplier<String> supplier(UnaryOperator<String> digester) {
         return mockNeat.strings().size(HASHED_STRING_SIZE).map(digester).supplier();
     }
 

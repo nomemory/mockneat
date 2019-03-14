@@ -20,13 +20,10 @@ package net.andreinc.mockneat.unit.text.sql;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitString;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
@@ -48,7 +45,7 @@ public class SQLTable {
         notEmpty(columnName, "columnName");
         return mockNeat
                 .from(inserts)
-                .mapToString(SQLInsert -> SQLInsert.getValue(columnName));
+                .mapToString(insert -> insert.getValue(columnName));
     }
 
     public Optional<SQLInsert> selectFirstWhere(Predicate<SQLInsert> condition) {

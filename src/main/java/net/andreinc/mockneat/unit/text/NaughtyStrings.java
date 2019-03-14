@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 
-//TODO Document and test everything
 public class NaughtyStrings extends MockUnitBase implements MockUnitString {
 
     private final List<MockUnitString> mockUnitStrings =

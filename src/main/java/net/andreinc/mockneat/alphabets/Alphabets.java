@@ -269,5 +269,5 @@ public final class Alphabets {
             7829, 7841, 7853, 7867, 7873, 7877, 7879, 7883, 7901, 7907, 7919
     };
 
-    public final static List<Integer> SMALL_PRIMES = unmodifiableList(asList(SMALL_PRIMES_INT));
+    public static final List<Integer> SMALL_PRIMES = unmodifiableList(asList(SMALL_PRIMES_INT));
 }

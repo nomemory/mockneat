@@ -27,11 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
@@ -206,9 +202,9 @@ public interface MockUnit<T> {
      * @param function The {@code Function<T,Integer>} applied to the generated value in the intermediary step.
      * @return A new {@code MockUnitInt}.
      */
-    default MockUnitInt mapToInt(Function<T, Integer> function) {
+    default MockUnitInt mapToInt(ToIntFunction<T> function) {
         notNull(function, "function");
-        Supplier<Integer> supp = () -> function.apply(val());
+        Supplier<Integer> supp = () -> function.applyAsInt(val());
         return () -> supp;
     }
 
@@ -220,9 +216,9 @@ public interface MockUnit<T> {
      * @param function The {@code Function<T,Double>} applied to the generated value in the intermediary step.
      * @return A new {@code MockUnitDouble}
      */
-    default MockUnitDouble mapToDouble(Function<T, Double> function) {
+    default MockUnitDouble mapToDouble(ToDoubleFunction<T> function) {
         notNull(function, "function");
-        Supplier<Double> supp = () -> function.apply(val());
+        Supplier<Double> supp = () -> function.applyAsDouble(val());
         return () -> supp;
     }
 
@@ -234,9 +230,9 @@ public interface MockUnit<T> {
      * @param function The {@code Function<T,Long>} applied to the generated value in the intermediary step.
      * @return A new {@code MockUnitLong}
      */
-    default MockUnitLong mapToLong(Function<T, Long> function) {
+    default MockUnitLong mapToLong(ToLongFunction<T> function) {
         notNull(function, "function");
-        Supplier<Long> supp = () -> function.apply(val());
+        Supplier<Long> supp = () -> function.applyAsLong(val());
         return () -> supp;
     }
 
@@ -262,7 +258,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnitString}.
      */
     default MockUnitString mapToString() {
-        return () -> ifSupplierNotNullDo(supplier(), s -> s.toString());
+        return () -> ifSupplierNotNullDo(supplier(), Object::toString);
     }
 
     /**

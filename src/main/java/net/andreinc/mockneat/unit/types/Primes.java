@@ -18,7 +18,7 @@ public class Primes extends MockUnitBase implements MockUnitInt {
         super(mockNeat);
     }
 
-    private MockUnitInt smallPrimes() {
+    public MockUnitInt smallPrimes() {
         return () -> from(Alphabets.SMALL_PRIMES).supplier();
     }
 

@@ -23,10 +23,8 @@ import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.CharsType;
 import net.andreinc.mockneat.types.enums.IBANType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -58,9 +56,10 @@ public class IBANs extends MockUnitBase implements MockUnitString {
             VALUE_MAP.put(upper, value);
         });
 
-        range(0, DIGITS.size()).forEach( i -> {
-            VALUE_MAP.put(DIGITS.get(i), DIGITS.get(i).toString());
-        });
+        range(0, DIGITS.size())
+            .forEach( i ->
+                VALUE_MAP.put(DIGITS.get(i), DIGITS.get(i).toString())
+            );
     }
 
     public static IBANs ibans() { return MockNeat.threadLocal().ibans(); }

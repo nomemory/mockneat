@@ -129,9 +129,7 @@ public final class ValidationUtils {
 
     public static <T> T[] notEmptyOrNullValues(T[] arr, String arrName) {
         notEmpty(arr, arrName);
-        range(0, arr.length).forEach(i  -> {
-            notNull(arr[i], arrName + "[" + i + "]");
-        });
+        range(0, arr.length).forEach(i  -> notNull(arr[i], arrName + "[" + i + "]"));
         return arr;
     }
 

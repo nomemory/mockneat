@@ -96,7 +96,7 @@ public class Markovs extends MockUnitBase implements MockUnitString {
                 unit = get(type);
                 return unit.generateText(size);
             } catch (IOException e) {
-                logger.error("Cannot load MarkovUnit chain of type '{}'.", type.name(), e);
+                logger.error("Cannot load MarkovUnit chain of type '{}'.", type.name());
                 throw new UncheckedIOException(e);
             }
         };

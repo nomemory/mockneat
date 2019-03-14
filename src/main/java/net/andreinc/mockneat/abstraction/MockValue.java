@@ -19,6 +19,7 @@ package net.andreinc.mockneat.abstraction;
 
 public interface MockValue {
     Object get();
+
     default String getStr() {
         Object obj = get();
         if (null==obj) { return ""; }

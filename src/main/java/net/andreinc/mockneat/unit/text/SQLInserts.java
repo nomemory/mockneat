@@ -27,6 +27,7 @@ import net.andreinc.mockneat.unit.text.sql.SQLTable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
@@ -36,7 +37,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
 
     private String tableName;
-    private final Map<String, Pair<MockValue, Function<String, String>>> columns = new LinkedHashMap<>();
+    private final Map<String, Pair<MockValue, UnaryOperator<String>>> columns = new LinkedHashMap<>();
 
     public static SQLInserts sqlInserts() {
         return MockNeat.threadLocal().sqlInserts();
@@ -61,7 +62,7 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
         return this;
     }
 
-    public SQLInserts column(String column, MockUnit mockUnit, Function<String, String> sqlFormatter) {
+    public SQLInserts column(String column, MockUnit mockUnit, UnaryOperator<String> sqlFormatter) {
         notEmpty(column, "column");
         notNull(mockUnit, "mockUnit");
         notNull(sqlFormatter, "sqlFormatter");
@@ -77,7 +78,7 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     }
 
 
-    public SQLInserts column(String column, String str, Function<String, String> sqlFormatter) {
+    public SQLInserts column(String column, String str, UnaryOperator<String> sqlFormatter) {
         notEmpty(column, "column");
         notNull(str, "str");
         notNull(sqlFormatter, "sqlFormatter");
@@ -88,7 +89,7 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     @Override
     public Supplier<SQLInsert> supplier() {
         return () -> {
-            final Map<String, Pair<String, Function<String, String>>> values = new LinkedHashMap<>();
+            final Map<String, Pair<String, UnaryOperator<String>>> values = new LinkedHashMap<>();
             columns.forEach((k, v) ->
                     values.put(k, Pair.of(v.getFirst().getStr(), v.getSecond())));
             return new SQLInsert(tableName, values);

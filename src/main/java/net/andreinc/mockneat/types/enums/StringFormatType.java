@@ -20,6 +20,7 @@ package net.andreinc.mockneat.types.enums;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 @SuppressWarnings("ImmutableEnumChecker")
 public enum StringFormatType {
@@ -28,13 +29,13 @@ public enum StringFormatType {
     LOWER_CASE(StringUtils::lowerCase),
     CAPITALIZED(StringUtils::capitalize);
 
-    private final Function<String, String> formatter;
+    private final UnaryOperator<String> formatter;
 
-    StringFormatType(Function<String, String> formatter) {
+    StringFormatType(UnaryOperator<String> formatter) {
         this.formatter = formatter;
     }
 
-    public Function<String, String> getFormatter() {
+    public UnaryOperator<String> getFormatter() {
         return formatter;
     }
 

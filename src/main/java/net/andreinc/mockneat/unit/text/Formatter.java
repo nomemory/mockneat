@@ -18,12 +18,10 @@ package net.andreinc.mockneat.unit.text;
  */
 
 import net.andreinc.mockneat.MockNeat;
-import net.andreinc.mockneat.abstraction.MockConstValue;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.abstraction.MockValue;
 
-import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -90,7 +88,7 @@ public final class Formatter implements MockUnitString {
         return () -> {
             Map<String, Object> args = fields.entrySet()
                                              .stream()
-                                             .collect(toMap(e -> e.getKey(),
+                                             .collect(toMap(Map.Entry::getKey,
                                                             e -> e.getValue().getStr()));
             return str(fmt).args(args).fmt();
         };

@@ -32,7 +32,7 @@ public class MockUnitDictsTest {
     @Test
     public void dictData() {
         List<String> data = M.dicts().data(DictType.COUNTRY_ISO_CODE_2);
-        data.forEach((code) -> Assert.assertEquals(code.length(), 2));
+        data.forEach((code) -> Assert.assertEquals(2, code.length()));
     }
 
     @Test

@@ -46,7 +46,7 @@ public class FillerTest {
                                         .val();
 
         simpleBeans.stream().forEach(s -> {
-            Assert.assertEquals(s.getS(), "A");
+            Assert.assertEquals("A", s.getS());
         });
     }
 }

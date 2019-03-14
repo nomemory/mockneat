@@ -27,11 +27,11 @@ import static net.andreinc.mockneat.utils.FormatUtils.prependZeroesToSize;
 
 public class SSCs extends MockUnitBase implements MockUnitString {
 
-    private static SSCs sscs() {
+    public static SSCs sscs() {
         return MockNeat.threadLocal().sscs();
     }
 
-    protected SSCs() { }
+    private SSCs() { }
 
     public SSCs(MockNeat mockNeat) {
         super(mockNeat);

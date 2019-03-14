@@ -23,7 +23,6 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitDouble;
 import net.andreinc.mockneat.abstraction.MockValue;
 import net.andreinc.mockneat.types.Pair;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +54,7 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
 
     @Override
     public Supplier<T> supplier() {
-        return () -> getMock();
+        return this::getMock;
     }
 
     public Probabilities<T> add(Double prob, MockUnit<T> mock) {

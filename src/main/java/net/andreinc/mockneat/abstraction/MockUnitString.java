@@ -18,7 +18,6 @@ package net.andreinc.mockneat.abstraction;
  */
 
 import net.andreinc.mockneat.types.enums.StringFormatType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.text.StringEscapeUtils;
@@ -26,7 +25,6 @@ import org.apache.commons.text.StringEscapeUtils;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.function.Supplier;
-import java.util.stream.IntStream;
 
 import static java.net.URLEncoder.encode;
 import static net.andreinc.aleph.AlephFormatter.str;
@@ -323,7 +321,7 @@ public interface MockUnitString extends MockUnit<String> {
     }
 
     default MockUnitString base64() {
-        return () -> ifSupplierNotNullDo(supplier(), (str) -> new Base64().encodeAsString(str.getBytes(Charset.defaultCharset())));
+        return () -> ifSupplierNotNullDo(supplier(), str -> new Base64().encodeAsString(str.getBytes(Charset.defaultCharset())));
     }
 
     /**

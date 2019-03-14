@@ -2,7 +2,6 @@ package net.andreinc.mockneat.unit.text;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.*;
-import net.andreinc.mockneat.utils.ValidationUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.IOException;
@@ -75,21 +74,15 @@ public class CSVs extends MockUnitBase implements MockUnitString {
     @Override
     public Supplier<String> supplier() {
         isTrue(!columns.isEmpty(), EMPTY_CSV_NO_COLUMNS);
-        Supplier<String> supplier = () -> {
+        return () -> {
             StringBuilder buff = new StringBuilder();
-            columns.stream().forEach((v) -> {
-                if (v instanceof MockConstValue) {
-                    buff.append(StringEscapeUtils.escapeCsv(v.getStr()));
-                }
-                else if (v instanceof MockUnitValue) {
-                    buff.append(StringEscapeUtils.escapeCsv(v.getStr()));
-                }
+            columns.stream().forEach(v -> {
+                buff.append(StringEscapeUtils.escapeCsv(v.getStr()));
                 buff.append(separator);
             });
             buff.delete(buff.length() - separator.length(), buff.length());
             return buff.toString();
         };
-        return supplier;
     }
 
     /**

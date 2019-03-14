@@ -3,7 +3,6 @@ package net.andreinc.mockneat.unit.objects;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
-import net.andreinc.mockneat.abstraction.MockValue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

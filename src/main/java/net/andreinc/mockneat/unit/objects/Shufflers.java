@@ -21,7 +21,6 @@ import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -31,7 +30,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 //TODO document
 public class Shufflers extends MockUnitBase {
 
-    private static Shufflers shufflers() {
+    public static Shufflers shufflers() {
         return MockNeat.threadLocal().shufflers();
     }
 

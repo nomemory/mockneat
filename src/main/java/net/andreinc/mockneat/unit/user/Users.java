@@ -23,7 +23,6 @@ import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Pair;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.UserNameType;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 

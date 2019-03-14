@@ -17,10 +17,7 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.utils.ValidationUtils;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;

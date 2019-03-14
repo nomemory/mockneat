@@ -20,7 +20,6 @@ package net.andreinc.mockneat.unit.regex;
 import com.mifmif.common.regex.Generex;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitString;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.util.function.Supplier;
 
@@ -33,16 +32,16 @@ public class Regex implements MockUnitString {
         return MockNeat.threadLocal().regex(regex);
     }
 
-    private final String regex;
+    private final String regExp;
 
-    public Regex(String regex) {
-        this.regex = regex;
+    public Regex(String regExp) {
+        this.regExp = regExp;
     }
 
     @Override
     public Supplier<String> supplier() {
-        notNull(regex, "regex");
-        validRegex(regex);
-        return () -> new Generex(regex).random();
+        notNull(regExp, "regExp");
+        validRegex(regExp);
+        return () -> new Generex(regExp).random();
     }
 }

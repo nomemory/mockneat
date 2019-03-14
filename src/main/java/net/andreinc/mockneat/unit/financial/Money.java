@@ -20,7 +20,6 @@ package net.andreinc.mockneat.unit.financial;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
-import net.andreinc.mockneat.utils.ValidationUtils;
 
 import java.text.NumberFormat;
 import java.util.Locale;

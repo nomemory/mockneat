@@ -17,8 +17,6 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.utils.ValidationUtils;
-
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;

@@ -8,6 +8,9 @@ import java.util.Map;
 
 
 public class From {
+
+    private From() {}
+
     public static <T> MockUnit<T> from(List<T> alphabet) {
         return MockNeat.threadLocal().from(alphabet);
     }

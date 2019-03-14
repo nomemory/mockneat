@@ -5,16 +5,6 @@ import net.andreinc.mockneat.abstraction.MockUnitBase;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.Range;
 import net.andreinc.mockneat.types.enums.IPv4Type;
-import net.andreinc.mockneat.utils.ValidationUtils;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Supplier;
-
-import static java.util.stream.Collectors.toList;
-import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
-import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
-import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -32,6 +22,15 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+
+import static java.util.stream.Collectors.toList;
+import static net.andreinc.mockneat.types.enums.IPv4Type.NO_CONSTRAINT;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmptyOrNullValues;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class IPv4s extends MockUnitBase implements MockUnitString {
 
