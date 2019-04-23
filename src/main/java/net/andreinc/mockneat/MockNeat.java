@@ -40,6 +40,7 @@ import net.andreinc.mockneat.unit.seq.LongSeq;
 import net.andreinc.mockneat.unit.seq.Seq;
 import net.andreinc.mockneat.unit.text.*;
 import net.andreinc.mockneat.unit.text.Formatter;
+import net.andreinc.mockneat.unit.time.Dates;
 import net.andreinc.mockneat.unit.time.Days;
 import net.andreinc.mockneat.unit.time.LocalDates;
 import net.andreinc.mockneat.unit.time.Months;
@@ -66,6 +67,7 @@ public class MockNeat {
     private final Chars rChars;
     private final Currencies rCurrencies;
     private final CVVS rCVVS;
+    private final Dates rDates;
     private final Days rDays;
     private final Departments rDepartments;
     private final Dicts rDicts;
@@ -113,6 +115,7 @@ public class MockNeat {
         this.rCities = new Cities(this);
         this.rCurrencies = new Currencies(this);
         this.rCVVS = new CVVS(this);
+        this.rDates = new Dates(this);
         this.rDays = new Days(this);
         this.rDepartments = new Departments(this);
         this.rDomains = new Domains(this);
@@ -293,6 +296,14 @@ public class MockNeat {
      * @return A re-usable {@code Days} object. The {@code Days} class implements {@code MockUnitDays} interface.
      */
     public Days days() { return this.rDays; }
+
+
+    /**
+     * <p>Returns a {@code Dates} object that can be used to generate a random {@code java.util.Date} object.</p>
+     *
+     * @return A re-usable {@code Dates} object.
+     */
+    public Dates dates() { return this.rDates; }
 
     /**
      * <p>Returns a {@code Departments} object that can be used to generate arbitrary names representing department names from a company.</p>

@@ -29,18 +29,32 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public interface MockUnitLocalDate extends MockUnit<LocalDate> {
 
+
     /**
      * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnit<java.util.Date>}.</p>
      *
      * @return A new {@code MockUnit<java.util.Date>}.
      */
+    @Deprecated
     default MockUnit<Date> toUtilDate() {
         return () -> ifSupplierNotNullDo(supplier(),
                 localDate -> from(localDate
                                     .atStartOfDay(ZoneId.systemDefault())
                                     .toInstant()));
     }
-    
+
+    /**
+     * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnit<java.util.Date>}.</p>
+     *
+     * @return A new {@code MockUnit<java.util.Date>}.
+     */
+    default MockUnitDate mapToDate() {
+        return () -> ifSupplierNotNullDo(supplier(),
+                localDate -> from(localDate
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()));
+    }
+
     /**
      * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnitString} - the textual representation of the date object.</p>
      *
