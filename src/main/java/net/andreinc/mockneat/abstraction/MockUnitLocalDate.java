@@ -17,6 +17,8 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.utils.DateUtils;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static java.util.Date.from;
+import static net.andreinc.mockneat.utils.DateUtils.convertToDateViaInstant;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
@@ -32,6 +35,8 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
 
     /**
      * <p>Transforms an existing {@code MockUnitLocalDate} into a {@code MockUnit<java.util.Date>}.</p>
+     *
+     * Use {@code mapToDate()} method instead.
      *
      * @return A new {@code MockUnit<java.util.Date>}.
      */
@@ -50,9 +55,7 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
      */
     default MockUnitDate mapToDate() {
         return () -> ifSupplierNotNullDo(supplier(),
-                localDate -> from(localDate
-                        .atStartOfDay(ZoneId.systemDefault())
-                        .toInstant()));
+                localDate -> convertToDateViaInstant(localDate));
     }
 
     /**

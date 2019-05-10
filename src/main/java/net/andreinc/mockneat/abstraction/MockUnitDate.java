@@ -17,8 +17,60 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import net.andreinc.mockneat.utils.ValidationUtils;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
+import static net.andreinc.mockneat.utils.DateUtils.convertToLocalDateViaMilisecond;
+import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
+import static net.andreinc.mockneat.utils.ValidationUtils.notEmpty;
+import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public interface MockUnitDate extends MockUnit<Date> {
 
+    /**
+     * <p>Transforms an existing {@code MockUnitDate} into a {@code MockUnitLocalDate}.</p>
+     *
+     * @return A new {@code MockUnit<java.util.Date>}.
+     */
+    default MockUnitLocalDate mapToLocalDate() {
+        return () -> ifSupplierNotNullDo(supplier(), (date) -> convertToLocalDateViaMilisecond(date));
+    }
+
+    /**
+     * <p>Transforms an existing {@code MockUnitDate} into a {@code MockUnitString} - the textual representation of the date object.</p>
+     *
+     * @param format The format of the date. (Eg.: "yyyy:MM:dd")
+     * @return A new {@code MockUnitString}
+     */
+    default MockUnitString display(String format) {
+        return display(format, Locale.getDefault());
+    }
+
+
+
+    /**
+     * <p>Transforms an existing {@code MockUnitDate} into a {@code MockUnitString} - the textual representation of the date object.</p>
+     *
+     * @param locale the locale. (Eg.: Locale.FRANCE)
+     * @param format The format of the date. (Eg.: "yyyy:MM:dd")
+     * @return A new {@code MockUnitString}
+     */
+    default MockUnitString display(String format, Locale locale) {
+        notEmpty(format, "format");
+        notNull(format, "locale");
+        return () -> ifSupplierNotNullDo(supplier(), (date) -> {
+            SimpleDateFormat sdf = new SimpleDateFormat(format, locale);
+            return sdf.format(date);
+        });
+    }
+
+    default MockUnitString display(final SimpleDateFormat simpleDateFormat) {
+        notNull(simpleDateFormat, "simpleDateFormat");
+        return () -> ifSupplierNotNullDo(supplier(), (date) -> {
+            return simpleDateFormat.format(date);
+        });
+    }
 }
