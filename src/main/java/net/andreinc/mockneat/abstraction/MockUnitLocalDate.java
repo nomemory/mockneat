@@ -53,7 +53,7 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
      *
      * @return A new {@code MockUnit<java.util.Date>}.
      */
-    default MockUnitDate mapToDate() {
+    default MockUnit<Date> mapToDate() {
         return () -> ifSupplierNotNullDo(supplier(),
                 localDate -> convertToDateViaInstant(localDate));
     }
