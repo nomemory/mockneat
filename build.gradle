@@ -32,7 +32,7 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     compile group: 'org.apache.commons', name: 'commons-text', version: '1.7'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
     compile group: 'com.github.mifmif', name: 'generex', version: '1.0.2'
     compile 'net.andreinc.aleph:aleph-formatter:0.1.0'
     compile 'net.andreinc.markovneat:markovneat:1.7'
