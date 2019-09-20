@@ -1,5 +1,12 @@
 Version 0.3.6
 -------------
+- New gradle wrapper version created - works better with travis-ci;
+- Fixed a bug related to SQLEscapers. Replaced UnaryOperator<T> with Function<T,T> in the API;
+- Deprecating MockUnitLocalDate.display(DateTimeFormatter dtf, ...) methods;
+
+
+Version 0.3.6
+-------------
 - Fixed celebrities().rockStars() method;
 
 
