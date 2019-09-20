@@ -20,6 +20,7 @@ apply plugin: 'jacoco'
 group 'net.andreinc'
 version '0.3.6'
 
+sourceCompatibility = 1.9
 
 repositories {
     mavenCentral()
