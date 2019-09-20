@@ -29,9 +29,9 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 public class SQLInsert {
 
     private final String tableName;
-    private final Map<String, Pair<String, UnaryOperator<String>>> columns;
+    private final Map<String, Pair<String, Function<String, String>>> columns;
 
-    public SQLInsert(String tableName, Map<String, Pair<String, UnaryOperator<String>>> columns) {
+    public SQLInsert(String tableName, Map<String, Pair<String, Function<String, String>>> columns) {
         notEmpty(tableName, "tableName");
         notNull(columns, "columns");
         this.tableName = tableName;
@@ -48,7 +48,7 @@ public class SQLInsert {
         notEmpty(column, "column");
         notEmpty(value, "value");
         isTrue(columns.containsKey(column), COLUMN_DOESNT_EXISTS, "column", column, "table", tableName);
-        UnaryOperator<String> existingMethod = columns.get(column).getSecond();
+        Function<String, String> existingMethod = columns.get(column).getSecond();
         columns.put(column, Pair.of(value, existingMethod));
     }
 
@@ -63,7 +63,7 @@ public class SQLInsert {
                 .append(getColumnsSection())
                 .append("VALUES (");
 
-        for(Pair<String, UnaryOperator<String>> str : columns.values()) {
+        for(Pair<String, Function<String, String>> str : columns.values()) {
             String strVal = str.getFirst();
 
             if (str.getSecond() != null) {

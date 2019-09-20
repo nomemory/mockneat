@@ -4,9 +4,10 @@ import net.andreinc.mockneat.unit.text.sql.SQLEscaper;
 
 import java.util.Arrays;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 public class Generic {
-    public static final Function<String, String> DOUBLE_APOSTROPHE = new SQLEscaper(
+    public static final UnaryOperator<String> DOUBLE_APOSTROPHE = new SQLEscaper(
             Arrays.asList(
                     new SQLEscaper.TextEscapeToken(
                             "'",

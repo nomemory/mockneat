@@ -4,6 +4,7 @@ import net.andreinc.mockneat.unit.text.sql.SQLEscaper;
 
 import java.util.Arrays;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import static net.andreinc.mockneat.unit.text.sql.escapers.Generic.DOUBLE_APOSTROPHE;
 
