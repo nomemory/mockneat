@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.28'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.29'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
     compile group: 'org.apache.commons', name: 'commons-text', version: '1.8'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
