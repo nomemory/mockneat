@@ -30,6 +30,7 @@ public class Constants {
     public static final int CCS_CYCLES = 1000;
     public static final int CHARS_CYCLES = 1000;
     public static final int COMPOSE_CYCLES = 1000;
+    public static final int CREATURES_CYCLES = 1000;
     public static final int CVVS_CYCLES= 1000;
     public static final int CSVS_CYCLES = 20;
     public static final int DEP_CYCLES = 1000;

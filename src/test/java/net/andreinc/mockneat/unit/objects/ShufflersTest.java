@@ -83,17 +83,11 @@ public class ShufflersTest {
                                         .array(SimpleBean.class, 50)
                                         .val();
 
-//                    Arrays.stream(arr).forEach(simpleBean -> System.out.printf("%s ", simpleBean));
-//                    System.out.println();
-
                     Set<SimpleBean> allValues = new HashSet<>(asList(arr));
 
                     final SimpleBean[] newArr = m.shufflers()
                                                     .array(arr)
                                                     .val();
-
-//                    Arrays.stream(newArr).forEach(simpleBean -> System.out.printf("%s ", simpleBean));
-//                    System.out.println();
 
                     range(0, newArr.length).forEach(i ->
                             assertTrue(allValues.contains(newArr[i])));

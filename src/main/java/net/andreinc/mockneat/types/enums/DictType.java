@@ -35,6 +35,10 @@ public enum DictType {
     CITIES_CAPITALS("cities/cities-capitals"),
     CITIES_CAPITALS_EUROPE("cities/cities-capitals-europe"),
 
+    // CREATURES
+    // https://gist.github.com/atduskgreg/3cf8ef48cb0d29cf151bedad81553a54
+    CREATURES("creatures"),
+
     // DOMAINS
     DOMAIN_EMAIL("domain-email"),
     DOMAIN_TOP_LEVEL_ALL("domain-top-level-all"),

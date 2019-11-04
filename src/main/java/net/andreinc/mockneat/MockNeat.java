@@ -64,6 +64,7 @@ public class MockNeat {
     private final Countries rCountries;
     private final CreditCards rCCS;
     private final Chars rChars;
+    private final Creatures rCreatures;
     private final Currencies rCurrencies;
     private final CVVS rCVVS;
     private final Days rDays;
@@ -111,6 +112,7 @@ public class MockNeat {
         this.rCountries = new Countries(this);
         this.rCCS = new CreditCards(this);
         this.rCities = new Cities(this);
+        this.rCreatures = new Creatures(this);
         this.rCurrencies = new Currencies(this);
         this.rCVVS = new CVVS(this);
         this.rDays = new Days(this);
@@ -206,6 +208,15 @@ public class MockNeat {
      * @return A re-usable {@code Citites} object.
      */
     public Cities cities() { return this.rCities; }
+
+    /**
+     * <p> Returns a {@code Creatures} object that can be used to generate arbitrary creature names.</p>
+     *
+     * @return A re-usable {@code Creatures} instance. The class implements {@code MockUnitString}.
+     */
+    public Creatures creatures() {
+        return this.rCreatures;
+    }
 
     /**
      * <p>Returns a {@code CreditCards} object that can be used to generate valid Credit Card numbers.</p>
