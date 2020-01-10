@@ -407,7 +407,7 @@ public class MockNeat {
      */
     public IBANs ibans() { return this.rIbans; }
 
-    public Industries inudstries() { return this.rIndustries; }
+    public Industries industries() { return this.rIndustries; }
 
     /**
      * <p>Returns a {@code Ints} object that can be used to generate arbitrary {@code Integer} numbers.</p>

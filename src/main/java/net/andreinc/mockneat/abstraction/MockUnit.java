@@ -346,7 +346,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<List<T>> list(Class<? extends List> listClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return list(listClass, sizeUnit.val())::supplier;
+        return () -> list(listClass, sizeUnit.val()).supplier();
     }
 
     /**
@@ -360,7 +360,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<List<T>> list(Supplier<List<T>> listSupplier, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return list(listSupplier, sizeUnit.val())::supplier;
+        return () -> list(listSupplier, sizeUnit.val()).supplier();
     }
 
 
@@ -390,7 +390,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<List<T>> list(MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return list(sizeUnit.val())::supplier;
+        return () -> list(sizeUnit.val()).supplier();
     }
 
     /**
@@ -471,7 +471,7 @@ public interface MockUnit<T> {
     default MockUnit<Set<T>> set(Class<? extends Set> setClass, MockUnitInt sizeUnit) {
         notNull(setClass, "setClass");
         notNull(sizeUnit, "sizeUnit");
-        return set(setClass, sizeUnit.val())::supplier;
+        return () -> set(setClass, sizeUnit.val()).supplier();
     }
 
     /**
@@ -494,7 +494,7 @@ public interface MockUnit<T> {
     default MockUnit<Set<T>> set(Supplier<Set<T>> setSupplier, MockUnitInt sizeUnit) {
         notNull(setSupplier, "setSupplier");
         notNull(sizeUnit, "sizeUnit");
-        return set(setSupplier, sizeUnit.val())::supplier;
+        return () -> set(setSupplier, sizeUnit.val()).supplier();
     }
 
     /**
@@ -527,7 +527,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<Set<T>> set(MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return set(sizeUnit.val())::supplier;
+        return () -> set(sizeUnit.val()).supplier();
     }
 
     /**
@@ -595,7 +595,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return collection(collectionClass, sizeUnit.val())::supplier;
+        return () -> collection(collectionClass, sizeUnit.val()).supplier();
     }
 
     /**
@@ -611,7 +611,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<Collection<T>> collection(Supplier<Collection<T>> collectionSupplier, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return collection(collectionSupplier, sizeUnit.val())::supplier;
+        return () -> collection(collectionSupplier, sizeUnit.val()).supplier();
     }
 
     /**
@@ -641,7 +641,7 @@ public interface MockUnit<T> {
      */
     default MockUnit<Collection<T>> collection(MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
-        return collection(sizeUnit.val())::supplier;
+        return () -> collection(sizeUnit.val()).supplier();
     }
 
 
@@ -717,7 +717,7 @@ public interface MockUnit<T> {
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
         notNull(sizeUnit, "sizeUnit");
-        return mapKeys(mapClass, sizeUnit.val(), keysSupplier)::supplier;
+        return () -> mapKeys(mapClass, sizeUnit.val(), keysSupplier).supplier();
     }
 
     /**
@@ -735,7 +735,7 @@ public interface MockUnit<T> {
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, MockUnitInt sizeUnit, Supplier<R> keySupplier) {
         notNull(sizeUnit, "sizeUnit");
-        return mapKeys(mapSupplier, sizeUnit.val(), keySupplier)::supplier;
+        return () -> mapKeys(mapSupplier, sizeUnit.val(), keySupplier).supplier();
     }
 
     /**
@@ -769,7 +769,7 @@ public interface MockUnit<T> {
      */
     default <R> MockUnit<Map<R, T>> mapKeys(MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
         notNull(sizeUnit, "sizeUnit");
-        return mapKeys(sizeUnit.val(), keysSupplier)::supplier;
+        return () -> mapKeys(sizeUnit.val(), keysSupplier).supplier();
     }
 
     /**
@@ -1178,7 +1178,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
-        return mapVals(mapClass, sizeUnit.val(), valuesSupplier)::supplier;
+        return () -> mapVals(mapClass, sizeUnit.val(), valuesSupplier).supplier();
     }
 
     /**
@@ -1194,7 +1194,7 @@ public interface MockUnit<T> {
      */
     default <R> MockUnit<Map<T, R>> mapVals(Supplier<Map<T, R>> mapSupplier, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
         notNull(sizeUnit, "sizeUnit");
-        return mapVals(mapSupplier, sizeUnit.val(), valuesSupplier)::supplier;
+        return () -> mapVals(mapSupplier, sizeUnit.val(), valuesSupplier).supplier();
     }
 
     /**

@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 
 public class Industries extends MockUnitBase implements MockUnitString {
 
-    public static Industries industries() { return MockNeat.threadLocal().inudstries(); }
+    public static Industries industries() { return MockNeat.threadLocal().industries(); }
 
     public Industries(MockNeat mockNeat) {
         super(mockNeat);

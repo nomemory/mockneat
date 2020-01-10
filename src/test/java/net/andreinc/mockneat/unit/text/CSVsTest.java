@@ -1,6 +1,7 @@
 package net.andreinc.mockneat.unit.text;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.utils.LoopsUtils;
@@ -60,7 +61,12 @@ public class CSVsTest {
                         while ((line = csvReader.readNext()) != null) {
                             Assert.assertTrue(line.length == 7);
                         }
-                    } catch (IOException ioe) {
+                    }
+                    catch (CsvValidationException cve) {
+                        cve.printStackTrace();
+                        Assert.fail();
+                    }
+                    catch (IOException ioe) {
                         ioe.printStackTrace();
                         Assert.fail();
                     }
@@ -147,8 +153,11 @@ public class CSVsTest {
                         }
                         Files.delete(csvPath);
                     } catch (IOException ioe) {
+                        ioe.printStackTrace();
                         Assert.fail();
-                        throw new UncheckedIOException(ioe);
+                    } catch (CsvValidationException cve) {
+                        cve.printStackTrace();
+                        Assert.fail();
                     }
                 }
         );
