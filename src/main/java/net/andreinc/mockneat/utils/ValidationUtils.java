@@ -55,7 +55,7 @@ public final class ValidationUtils {
     public static final String MIN_DATE_DIFFERENT_THAN_NOW = "minDate '#{min}' should be < than now() (#{now}).";
     // MOCK
     public static final String CANNOT_INSTANTIATE_OBJECT_OF_CLASS = "Cannot create an instance of '#{cls.name}'. Please verify if the class has a public 'No Arguments' constructor: #{cls.name}.";
-    public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field #{cls}.#{field} with value '#{val}'. Is the supplied value correct ?";
+    public static final String CANNOT_SET_FIELD_WITH_VALUE = "Cannot set field (or static field) #{cls}.#{field} with value '#{val}'. Is the supplied value correct ?";
     public static final String CANNOT_INFER_CONSTRUCTOR = "Cannot infer #{c.name}.#{params}. Are you sure the constructor exists and it's public ?";
     public static final String CANNOT_INVOKE_STATIC_FACTORY_METHOD = "Cannot invoke '#{cls.class.name}.#{method}()' with params: '#{types}'.";
     public static final String JAVA_FIELD_REGEX_MATCH = "Field '#{field}' doesn't match the Java Naming Conventions for fields.";

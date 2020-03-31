@@ -44,6 +44,7 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
             compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 
     private final Map<String, MockValue> fields = new LinkedHashMap<>();
+
     private boolean useDefaults;
     private final Map<Class<?>, MockValue> defaults = new HashMap<>();
     private final Class<T> cls;
@@ -159,11 +160,10 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
         getAllFieldsList(cls).forEach(field -> {
 
             if (field.isSynthetic()) {
-                // Skip synthetic fields
+                // Skip synthetic fields;
                 return;
             }
-
-            if (Modifier.isStatic(field.getModifiers())) {
+            else  if (Modifier.isStatic(field.getModifiers())) {
                 // Skip static fields
                 return;
             }
@@ -178,7 +178,6 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
                 // Fallback to useDefaults
                 val = defaults.get(fieldCls).get();
             }
-
             try {
                 writeField(object, name, val, true);
             } catch (IllegalAccessException e) {

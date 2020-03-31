@@ -104,6 +104,7 @@ public class MockNeat {
     private final Words rWords;
 
     public MockNeat(final RandomType randomTypeType) {
+
         this.random = randomTypeType.getRandom();
 
         this.rCelebrities = new Celebrities(this);
@@ -241,6 +242,17 @@ public class MockNeat {
      * @return A new {@code Constructor} object. The {@code Constructor} class implements {@code MockUnit<T>}.
      */
     public <T> Constructor<T> constructor(Class<T> cls) { return new Constructor<>(cls); }
+
+    /**
+     * <p>Returns a new {@code Constant} object.</p>
+     *
+     * <p>This method is a {@code MockUnit<T>} used to generate constant values</p>
+     *
+     * @param object
+     * @param <T>
+     * @return
+     */
+    public <T> Constant<T> constant(T object) { return new Constant<>(object); }
 
     /**
      * <p>Returns a {@code Countries} object that can be used to generate country names or country ISO2 codes.</p>
@@ -567,7 +579,6 @@ public class MockNeat {
     public Users users() { return this.rUsers; }
 
     public USStates usStates() { return this.rUSStates; }
-
 
     public Words words() { return this.rWords; }
 

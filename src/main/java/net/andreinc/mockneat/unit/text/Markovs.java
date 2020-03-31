@@ -61,7 +61,7 @@ public class Markovs extends MockUnitBase implements MockUnitString {
     private MChainText get(MarkovChainType markovChainType) throws IOException {
         if (!markovUnits.containsKey(markovChainType)) {
             logger.info("Loading MarkovUnit in memory '{}'." , markovChainType.getFile());
-            MChainText mChainText = new MChainText(2);
+            MChainText mChainText = new MChainText(2, mockNeat.getRandom());
             List<String> lines = fm.read(markovChainType);
             mChainText.train(lines);
             markovUnits.put(markovChainType, mChainText);
