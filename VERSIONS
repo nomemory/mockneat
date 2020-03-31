@@ -1,3 +1,8 @@
+Version 0.3.9
+-------------
+- Added a new mockunit - constant()
+- Fixed the random contract for markovneat
+
 Version 0.3.8
 -------------
 - Added a new mockunit: creatures()
