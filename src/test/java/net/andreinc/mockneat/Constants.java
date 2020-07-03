@@ -53,7 +53,6 @@ public class Constants {
     public static final int IPV6S_CYCLES = 1000;
     public static final int LONGS_CYCLES = 1000;
     public static final int LOCAL_DATES_CYCLES = 1000;
-    public static final int LOCAL_DATES_TIME_CYCLES = 1000;
     public static final int MAC_CYCLES = 1000;
     public static final int HASH_CYCLES = 1000;
     public static final int MIME_CYCLES = 1000;
@@ -62,6 +61,7 @@ public class Constants {
     public static final int MONTH_CYCLES = 1000;
     public static final int NAMES_CYCLES = 1000;
     public static final int OBJS_CYCLES = 1000;
+    public static final int OBJECT_MAP_CYCLES = 1000;
     public static final int PASS_CYCLES = 1000;
     public static final int PROBABILITIES_CYCLES = 1000;
     public static final int SEQ_CYCLES = 1000;

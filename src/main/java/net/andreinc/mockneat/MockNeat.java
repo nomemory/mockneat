@@ -29,6 +29,7 @@ import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
+import net.andreinc.mockneat.unit.objects.ObjectMap;
 import net.andreinc.mockneat.unit.misc.ISSNS;
 import net.andreinc.mockneat.unit.misc.Mimes;
 import net.andreinc.mockneat.unit.misc.SSCs;
@@ -535,6 +536,11 @@ public class MockNeat {
      */
     public Passwords passwords() { return this.rPasswords; }
 
+
+    /**
+     * <p>Returns a {@code Primes} object that can be used to generate prime numbers (small) </p>
+     * @return A re-usable {@Code Primes} object. The {@Code Primes} class implements {@code MockUnitInt}
+     */
     public Primes primes() { return this.rPrimes; }
 
     /**
@@ -544,6 +550,11 @@ public class MockNeat {
      * @return A new {@code Regex} object. The {@code Regex} class implements {@code MockUnitString}.
      */
     public Regex regex(String regex) { return new Regex(regex); }
+
+    /**
+     * @return
+     */
+    public ObjectMap objectMap() { return new ObjectMap(this); }
 
     /**
      * <p>Returns a {@code Probabilities} object that can be used to generate arbitrary data with a given probability.</p>

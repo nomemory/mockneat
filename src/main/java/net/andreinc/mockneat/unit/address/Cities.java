@@ -58,4 +58,5 @@ public class Cities extends MockUnitBase {
     public MockUnitString us() {
         return () -> mockNeat.dicts().type(DictType.CITIES_US).supplier();
     }
+
 }
