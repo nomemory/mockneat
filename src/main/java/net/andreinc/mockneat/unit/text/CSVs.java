@@ -50,6 +50,8 @@ public class CSVs extends MockUnitBase implements MockUnitString {
      * Order is kept.
      *
      * @param mockUnit The supplied mockUnit
+     *
+     * @return (same object)
      */
     public CSVs column(MockUnit mockUnit) {
         notNull(mockUnit, "mockUnit");
@@ -64,6 +66,8 @@ public class CSVs extends MockUnitBase implements MockUnitString {
      * Order is kept.
      *
      * @param value The constant value used
+     *
+     * @return (same object)
      */
     public CSVs column(Object value) {
         notNull(value, "value");

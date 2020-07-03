@@ -249,9 +249,9 @@ public class MockNeat {
      *
      * <p>This method is a {@code MockUnit<T>} used to generate constant values</p>
      *
-     * @param object
-     * @param <T>
-     * @return
+     * @param object The constant object to return
+     * @param <T> The type of the object
+     * @return The constant object to return
      */
     public <T> Constant<T> constant(T object) { return new Constant<>(object); }
 
@@ -360,9 +360,10 @@ public class MockNeat {
      *
      * @param targetCls The Java class we want to create instances of.
      * @param factoryCls The Java class that contains the static-factory method we want to invoke.
-     * @param <T>
-     * @param <FT>
-     * @return
+     * @param <T> The type of the target class
+     * @param <FT> The type of the factory class
+     *
+     * @return The factory MockUnit
      */
     public <T, FT> Factory<T, FT> factory(Class<T> targetCls, Class<FT> factoryCls) {
         return new Factory<>(targetCls, factoryCls);
@@ -539,7 +540,7 @@ public class MockNeat {
 
     /**
      * <p>Returns a {@code Primes} object that can be used to generate prime numbers (small) </p>
-     * @return A re-usable {@Code Primes} object. The {@Code Primes} class implements {@code MockUnitInt}
+     * @return A re-usable {@code Primes} object. The {@code Primes} class implements {@code MockUnitInt}
      */
     public Primes primes() { return this.rPrimes; }
 
@@ -552,7 +553,7 @@ public class MockNeat {
     public Regex regex(String regex) { return new Regex(regex); }
 
     /**
-     * @return
+     * @return An objectMap object used to easily generate json files
      */
     public ObjectMap objectMap() { return new ObjectMap(this); }
 
@@ -560,7 +561,7 @@ public class MockNeat {
      * <p>Returns a {@code Probabilities} object that can be used to generate arbitrary data with a given probability.</p>
      *
      * @param cls The type we are going to generate.
-     * @param <T>
+     * @param <T> The type of the class for returning probabilities
      * @return A re-usable {@code Probabilities} object. The class implements {@code MockUnit<T>}.
      */
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<>(this, cls); }

@@ -56,7 +56,7 @@ public final class Formatter implements MockUnitString {
      *
      * @param param The parameter name as supplied in the template.
      * @param mock The {@code MockUnit} that generates values for the given parameter.
-     * @param <T>
+     * @param <T> The type of the MockUnit
      * @return The {@code Formatter} object.
      */
     public <T> Formatter param(String param, MockUnit<T> mock) {

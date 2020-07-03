@@ -71,8 +71,8 @@ public class Dicts extends MockUnitBase {
     /**
      * Returns all data from the dictionary as an immutable list.
      *
-     * @param type
-     * @return
+     * @param type the dictionary type we want to retrieve
+     * @return The list of lines from the dict
      */
     public List<String> data(DictType type) {
         notNull(type, "type");

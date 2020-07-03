@@ -84,6 +84,9 @@ public interface MockUnit<T> {
      * <p><em>Note:</em> If the specified path is not accessible a {@link java.io.UncheckedIOException} is thrown.</p>
      *
      * @param path The path of the file where to serialize the generated value.
+     *
+     * @throws IOException when the serialisation of the object is not achievable and the file cannot be written on the
+     * disk
      */
     default void serialize(String path) throws IOException {
         notNull(path, "path");
