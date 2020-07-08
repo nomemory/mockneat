@@ -1,6 +1,10 @@
 package net.andreinc.mockneat.unit.objects;
 
+import net.andreinc.mockneat.types.enums.DictType;
+import net.andreinc.mockneat.types.enums.NameType;
 import net.andreinc.mockneat.utils.LoopsUtils;
+import net.andreinc.mockneat.utils.NamesCheckUtils;
+import net.andreinc.mockneat.utils.file.FileManager;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -38,4 +42,47 @@ public class ObjectMapTest {
         );
     }
 
+    @Test
+    public void mockUnitFieldValues() {
+        LoopsUtils.loop(
+                OBJECT_MAP_CYCLES,
+                MOCKS,
+                m -> m.objectMap().put("firstName", m.names().first())
+                                  .put("lastName",  m.names().last())
+                                  .put("visits",    m.cities().capitals().array(10))
+                                  .put("sub",       m.objectMap().put("anInt", m.ints().range(0, 10))
+                                                                        .put("aDouble", m.doubles().range(0.0d, 0.1d))
+                                  )
+                                  .get(),
+                val -> {
+                    Assert.assertTrue(val.get("sub") instanceof Map);
+                    Map subMap = (Map) val.get("sub");
+
+                    Assert.assertTrue(val.get("firstName") instanceof String);
+                    String firstName = (String) val.get("firstName");
+                    Assert.assertNotNull(firstName);
+                    Assert.assertTrue(NamesCheckUtils.isNameOfType(firstName, NameType.FIRST_NAME));
+
+                    Assert.assertTrue(val.get("lastName") instanceof String);
+                    String lastName = (String) val.get("lastName");
+                    Assert.assertNotNull(lastName);
+                    Assert.assertTrue(NamesCheckUtils.isNameOfType(lastName, NameType.LAST_NAME));
+
+                    String[] visits = (String[]) val.get("visits");
+                    Assert.assertEquals(visits.length, 10);
+                    for(String visit : visits) {
+                        Assert.assertTrue(FileManager
+                                                .getInstance()
+                                                .getUniqueLines(DictType.CITIES_CAPITALS)
+                                                .contains(visit));
+                    }
+
+                    Integer anInt = (Integer) subMap.get("anInt");
+                    Assert.assertTrue(anInt < 10 && anInt >= 0);
+
+                    Double aDouble = (Double) subMap.get("aDouble");
+                    Assert.assertTrue(aDouble < 0.1d && aDouble >= 0.0d);
+                }
+        );
+    }
 }

@@ -28,9 +28,7 @@ import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static java.nio.charset.Charset.defaultCharset;
@@ -96,6 +94,10 @@ public class FileManager {
             }
         }
         return JAR_INTERNAL.get(internal);
+    }
+
+    public Set<String> getUniqueLines(DictType dictType) {
+        return new HashSet<>(getLines(dictType));
     }
 
     private String getDictPath(DictType dictType) {
