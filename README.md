@@ -10,6 +10,8 @@ Official Tutorial: **[www.mockneat.com](http://www.mockneat.com/tutorial)**
 
 <a href='https://bintray.com/nomemory/maven/mockneat?source=watch' alt='Get automatic notifications about new "mockneat" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
 
+If you want to use **mockneat** to mock REST APIs checkout my other project: **[serverneat](https://github.com/nomemory/serverneat)**.
+
 ### Example - A random dice roll
 
 ```java
