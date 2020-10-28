@@ -1,7 +1,10 @@
+Version 0.4.1
+-------------
+- Fixed a bug where objectMap() wasn't accessible by calling a shorthand method
+
 Version 0.4.0
 -------------
 - Added a mockunit - objectMap() - using this it's easy to create JSON objects without having to rely on an existing POJO
-
 
 Version 0.3.9
 -------------

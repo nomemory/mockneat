@@ -15,7 +15,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class ObjectMap extends MockUnitBase implements MockUnit<Map<String, Object>> {
 
-    public static ObjectMap cities() {
+    public static ObjectMap objectMap() {
         return MockNeat.threadLocal().objectMap();
     }
 
