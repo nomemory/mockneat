@@ -21,7 +21,6 @@ import net.andreinc.mockneat.unit.objects.model.Customer1;
 import net.andreinc.mockneat.unit.objects.model.FinalValue;
 import net.andreinc.mockneat.unit.objects.model.SerialPojo;
 import net.andreinc.mockneat.unit.objects.model.TheAbstractClass;
-import net.andreinc.mockneat.Constants;
 import net.andreinc.mockneat.utils.NamesCheckUtils;
 import org.junit.Test;
 
@@ -33,47 +32,45 @@ import static net.andreinc.mockneat.types.enums.CreditCardType.AMERICAN_EXPRESS;
 import static net.andreinc.mockneat.types.enums.NameType.FIRST_NAME;
 import static net.andreinc.mockneat.types.enums.NameType.LAST_NAME;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ReflectTest {
 
     @Test(expected = NullPointerException.class)
-    public void testReflectNullClass() throws Exception {
+    public void testReflectNullClass() {
         M.reflect(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testReflectInvalidParam() throws Exception {
+    public void testReflectInvalidParam() {
         M.reflect(Customer1.class)
                 .field("f Name", M.names().full())
                 .val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testReflectNotExistentParam() throws Exception {
+    public void testReflectNotExistentParam() {
         M.reflect(Customer1.class)
                 .field("firstNamex", M.names().full())
                 .val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testReflectionFinalValue() throws Exception {
+    public void testReflectionFinalValue() {
         M.reflect(FinalValue.class)
                 .field("name", "Test")
                 .val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testReflectionAbstractClass() throws Exception {
+    public void testReflectionAbstractClass() {
         M.reflect(TheAbstractClass.class)
                 .field("name", "Test")
                 .val();
     }
 
     @Test
-    public void testReflectionConstruct() throws Exception {
+    public void testReflectionConstruct() {
         loop(
             OBJS_CYCLES,
             MOCKS,
@@ -92,7 +89,7 @@ public class ReflectTest {
                     .field("cvv", m.cvvs())
                     .val(),
             c -> {
-                assertTrue(c!=null);
+                assertNotNull(c);
                 assertTrue(NamesCheckUtils.isNameOfType(c.getFirstName(), FIRST_NAME));
                 assertTrue(NamesCheckUtils.isNameOfType(c.getLastName(), LAST_NAME));
             }
@@ -100,7 +97,7 @@ public class ReflectTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullClassDefaults() throws Exception {
+    public void testNullClassDefaults() {
         M.reflect(Customer1.class)
                 .useDefaults(true)
                 .type(null, M.strings().size(15))
@@ -108,7 +105,7 @@ public class ReflectTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullMockUnitDefaults() throws Exception {
+    public void testNullMockUnitDefaults() {
         M.reflect(Customer1.class)
                 .useDefaults(true)
                 .type(String.class, null)
@@ -116,7 +113,7 @@ public class ReflectTest {
     }
 
     @Test
-    public void testReflectionConstructWithDefaultsDisabled() throws Exception {
+    public void testReflectionConstructWithDefaultsDisabled() {
         Customer1 customer1 = M.reflect(Customer1.class)
                 .useDefaults(false)
                 .val();
@@ -136,7 +133,7 @@ public class ReflectTest {
     }
 
     @Test
-    public void testReflectionConstructWithDefaultsEnabled() throws Exception {
+    public void testReflectionConstructWithDefaultsEnabled() {
         Customer1 customer1 = M.reflect(Customer1.class).useDefaults(true).val();
 
         assertNotNull(customer1.getAge());
@@ -157,7 +154,7 @@ public class ReflectTest {
     }
 
     @Test
-    public void testReflectionConstructWithConstantDefaults() throws Exception {
+    public void testReflectionConstructWithConstantDefaults() {
         loop(
                 OBJS_CYCLES,
                 MOCKS,
@@ -169,19 +166,19 @@ public class ReflectTest {
                         .val(),
                 c -> {
                     assertNotNull(c.getAge());
-                    assertTrue(c.getAge().equals(10));
+                    assertEquals(10, (int) c.getAge());
 
                     assertNotNull(c.getLastName());
-                    assertTrue(c.getLastName().equals("DEFAULT"));
+                    assertEquals("DEFAULT", c.getLastName());
 
                     assertNotNull(c.getEmail());
-                    assertTrue(!c.getEmail().equals("DEFAULT"));
+                    assertNotEquals("DEFAULT", c.getEmail());
                 }
         );
     }
 
     @Test
-    public void testSerialUIDPojo() throws Exception {
+    public void testSerialUIDPojo() {
         // Checks issue with static fields
         M.reflect(SerialPojo.class).field("name", M.names()).val();
     }

@@ -18,7 +18,6 @@ package net.andreinc.mockneat.unit.user;
  */
 
 import net.andreinc.mockneat.Constants;
-import net.andreinc.mockneat.abstraction.MockUnitString;
 import net.andreinc.mockneat.types.enums.NameType;
 import net.andreinc.mockneat.utils.NamesCheckUtils;
 import org.junit.Test;
@@ -29,11 +28,11 @@ import static net.andreinc.mockneat.types.enums.NameType.FIRST_NAME;
 import static net.andreinc.mockneat.types.enums.NameType.LAST_NAME;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class NamesTest {
     @Test
-    public void testNames() throws Exception {
+    public void testNames() {
         loop(
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
@@ -41,7 +40,7 @@ public class NamesTest {
                     String[] split = n.split(" ");
                     String firstName = split[0];
                     String lastName = split[1];
-                    assertTrue(split.length==2);
+                    assertEquals(2, split.length);
                     assertTrue(NamesCheckUtils.isNameOfType(firstName, FIRST_NAME));
                     assertTrue(NamesCheckUtils.isNameOfType(lastName, LAST_NAME));
                 }
@@ -49,7 +48,7 @@ public class NamesTest {
     }
 
     @Test
-    public void testNamesFirst() throws Exception {
+    public void testNamesFirst() {
        loop(
                Constants.NAMES_CYCLES,
                Constants.MOCKS,
@@ -59,7 +58,7 @@ public class NamesTest {
     }
 
     @Test
-    public void testNamesFirstNotEmpty() throws Exception {
+    public void testNamesFirstNotEmpty() {
         loop(
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
@@ -69,7 +68,7 @@ public class NamesTest {
     }
 
     @Test
-    public void testNamesLast() throws Exception {
+    public void testNamesLast() {
         loop(
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
@@ -79,7 +78,7 @@ public class NamesTest {
     }
 
     @Test
-    public void testNamesLastNotEmpty() throws Exception {
+    public void testNamesLastNotEmpty() {
         loop(
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
@@ -89,7 +88,7 @@ public class NamesTest {
     }
 
     @Test
-    public void testFullAlwaysMidName() throws Exception {
+    public void testFullAlwaysMidName() {
         loop(
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
@@ -100,37 +99,37 @@ public class NamesTest {
                         String middle = split[1];
                         String last = split[2];
 
-                        assertTrue(split.length==3);
+                    assertEquals(3, split.length);
                         assertTrue(NamesCheckUtils.isNameOfType(first, FIRST_NAME));
                         assertTrue(NamesCheckUtils.isNameOfType(last, LAST_NAME));
-                        assertTrue(!last.endsWith(" "));
-                        assertTrue(!first.endsWith(" "));
+                    assertFalse(last.endsWith(" "));
+                    assertFalse(first.endsWith(" "));
 
-                        assertTrue(middle.length()==2);
+                    assertEquals(2, middle.length());
                         assertTrue(isUpperCase(middle.charAt(0)));
-                        assertTrue('.' == middle.charAt(1));
+                    assertEquals('.', middle.charAt(1));
                 }
         );
     }
 
 
     @Test
-    public void testNamesFullNeverMid() throws Exception {
+    public void testNamesFullNeverMid() {
         loop(Constants.NAMES_CYCLES, Constants.MOCKS, r -> r.names().full(0.0).val(), n -> {
             String[] split = n.split(" ");
-            assertTrue(split.length==2);
-            assertTrue(!split[0].endsWith(" "));
-            assertTrue(!split[1].endsWith(" "));
+            assertEquals(2, split.length);
+            assertFalse(split[0].endsWith(" "));
+            assertFalse(split[1].endsWith(" "));
         });
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNamesTypeIsNull() throws Exception {
+    public void testNamesTypeIsNull() {
         M.names().type(null).val();
     }
 
     @Test
-    public void testNamesType() throws Exception {
+    public void testNamesType() {
         loop(
                 Constants.NAMES_CYCLES,
                 Constants.MOCKS,
@@ -143,18 +142,18 @@ public class NamesTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNamesTypesNulL() throws Exception {
+    public void testNamesTypesNulL() {
         NameType[] types = null;
         M.names().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNamesTypesEmptyArray() throws Exception {
+    public void testNamesTypesEmptyArray() {
         M.names().types(new NameType[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNamesEmptyElementInArray() throws Exception {
+    public void testNamesEmptyElementInArray() {
         NameType[] types = {FIRST_NAME, null, LAST_NAME};
         M.names().types(types).val();
     }

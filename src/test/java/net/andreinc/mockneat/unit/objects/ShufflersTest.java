@@ -28,8 +28,7 @@ import static java.util.stream.Collectors.toSet;
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ShufflersTest {
 
@@ -47,33 +46,33 @@ public class ShufflersTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testGenericArrayNullSource() throws Exception {
+    public void testGenericArrayNullSource() {
         M.shufflers().array(null).val();
     }
 
     @Test
-    public void testGenericArrayEmptySource() throws Exception {
+    public void testGenericArrayEmptySource() {
         SimpleBean[] simpleBeans = {};
         SimpleBean[] newSimpleBeans = M.shufflers().array(simpleBeans).val();
 
-        assertTrue(newSimpleBeans != simpleBeans);
+        assertNotSame(newSimpleBeans, simpleBeans);
         assertNotNull(newSimpleBeans);
-        assertTrue(newSimpleBeans.length == 0);
+        assertEquals(0, newSimpleBeans.length);
     }
 
     @Test
-    public void testGenericArrayOneElementSource() throws Exception {
+    public void testGenericArrayOneElementSource() {
         SimpleBean[] simpleBeans = { new SimpleBean("A") };
         SimpleBean[] newSimpleBeans = M.shufflers().array(simpleBeans).val();
 
         assertNotNull(newSimpleBeans);
-        assertTrue(simpleBeans!=newSimpleBeans);
-        assertTrue(newSimpleBeans.length == 1);
-        assertTrue( newSimpleBeans[0].getS().equals("A"));
+        assertNotSame(simpleBeans, newSimpleBeans);
+        assertEquals(1, newSimpleBeans.length);
+        assertEquals("A", newSimpleBeans[0].getS());
     }
 
     @Test
-    public void testGenericArray() throws Exception {
+    public void testGenericArray() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -96,34 +95,34 @@ public class ShufflersTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testLongArrayNullSource() throws Exception {
+    public void testLongArrayNullSource() {
         M.shufflers().arrayLong(null).val();
     }
 
 
     @Test
-    public void testLongArrayEmptySource() throws Exception {
+    public void testLongArrayEmptySource() {
         long[] emptyArr = {};
         long[] newEmptyArr = M.shufflers().arrayLong(emptyArr).val();
 
         assertNotNull(newEmptyArr);
-        assertTrue(emptyArr!=newEmptyArr);
-        assertTrue(newEmptyArr.length==0);
+        assertNotSame(emptyArr, newEmptyArr);
+        assertEquals(0, newEmptyArr.length);
     }
 
     @Test
-    public void testLongArrayOneElement() throws Exception {
+    public void testLongArrayOneElement() {
         long[] arr = { 1 };
         long[] newArr = M.shufflers().arrayLong(arr).val();
 
         assertNotNull(newArr);
-        assertTrue(newArr!=arr);
-        assertTrue(newArr.length == 1);
-        assertTrue(newArr[0] == 1);
+        assertNotSame(newArr, arr);
+        assertEquals(1, newArr.length);
+        assertEquals(1, newArr[0]);
     }
 
     @Test
-    public void testLongArray() throws Exception {
+    public void testLongArray() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -140,8 +139,8 @@ public class ShufflersTest {
                                     .arrayLong(arr)
                                     .val();
 
-                    assertTrue(newArr!=arr);
-                    assertTrue(arr.length == newArr.length);
+                    assertNotSame(newArr, arr);
+                    assertEquals(arr.length, newArr.length);
 
                     range(0, newArr.length)
                             .forEach(i -> assertTrue(possibleValues.contains(newArr[i])));
@@ -150,34 +149,34 @@ public class ShufflersTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testIntArrayNullSource() throws Exception {
+    public void testIntArrayNullSource() {
         M.shufflers().arrayInt(null).val();
     }
 
 
     @Test
-    public void testIntArrayEmptySource() throws Exception {
+    public void testIntArrayEmptySource() {
         int[] emptyArr = {};
         int[] newEmptyArr = M.shufflers().arrayInt(emptyArr).val();
 
         assertNotNull(newEmptyArr);
-        assertTrue(emptyArr!=newEmptyArr);
-        assertTrue(newEmptyArr.length==0);
+        assertNotSame(emptyArr, newEmptyArr);
+        assertEquals(0, newEmptyArr.length);
     }
 
     @Test
-    public void testIntArrayOneElement() throws Exception {
+    public void testIntArrayOneElement() {
         int[] arr = { 1 };
         int[] newArr = M.shufflers().arrayInt(arr).val();
 
         assertNotNull(newArr);
-        assertTrue(newArr!=arr);
-        assertTrue(newArr.length == 1);
-        assertTrue(newArr[0] == 1);
+        assertNotSame(newArr, arr);
+        assertEquals(1, newArr.length);
+        assertEquals(1, newArr[0]);
     }
 
     @Test
-    public void testIntArray() throws Exception {
+    public void testIntArray() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -194,8 +193,8 @@ public class ShufflersTest {
                             .arrayInt(arr)
                             .val();
 
-                    assertTrue(newArr!=arr);
-                    assertTrue(arr.length == newArr.length);
+                    assertNotSame(newArr, arr);
+                    assertEquals(arr.length, newArr.length);
 
                     range(0, newArr.length)
                             .forEach(i -> assertTrue(possibleValues.contains(newArr[i])));
@@ -204,34 +203,34 @@ public class ShufflersTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testDoubleArrayNullSource() throws Exception {
+    public void testDoubleArrayNullSource() {
         M.shufflers().arrayDouble(null).val();
     }
 
 
     @Test
-    public void testDoubleArrayEmptySource() throws Exception {
+    public void testDoubleArrayEmptySource() {
         double[] emptyArr = {};
         double[] newEmptyArr = M.shufflers().arrayDouble(emptyArr).val();
 
         assertNotNull(newEmptyArr);
-        assertTrue(emptyArr!=newEmptyArr);
-        assertTrue(newEmptyArr.length==0);
+        assertNotSame(emptyArr, newEmptyArr);
+        assertEquals(0, newEmptyArr.length);
     }
 
     @Test
-    public void testDoubleArrayOneElement() throws Exception {
+    public void testDoubleArrayOneElement() {
         double[] arr = { 1 };
         double[] newArr = M.shufflers().arrayDouble(arr).val();
 
         assertNotNull(newArr);
-        assertTrue(newArr!=arr);
-        assertTrue(newArr.length == 1);
-        assertTrue(newArr[0] == 1);
+        assertNotSame(newArr, arr);
+        assertEquals(1, newArr.length);
+        assertEquals(1, newArr[0], 0.0);
     }
 
     @Test
-    public void testDoubleArray() throws Exception {
+    public void testDoubleArray() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -248,8 +247,8 @@ public class ShufflersTest {
                             .arrayDouble(arr)
                             .val();
 
-                    assertTrue(newArr!=arr);
-                    assertTrue(arr.length == newArr.length);
+                    assertNotSame(newArr, arr);
+                    assertEquals(arr.length, newArr.length);
 
                     range(0, newArr.length)
                             .forEach(i -> assertTrue(possibleValues.contains(newArr[i])));
@@ -258,34 +257,34 @@ public class ShufflersTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFloatArrayNullSource() throws Exception {
+    public void testFloatArrayNullSource() {
         M.shufflers().arrayFloat(null).val();
     }
 
 
     @Test
-    public void testFloatArrayEmptySource() throws Exception {
+    public void testFloatArrayEmptySource() {
         float[] emptyArr = {};
         float[] newEmptyArr = M.shufflers().arrayFloat(emptyArr).val();
 
         assertNotNull(newEmptyArr);
-        assertTrue(emptyArr!=newEmptyArr);
-        assertTrue(newEmptyArr.length==0);
+        assertNotSame(emptyArr, newEmptyArr);
+        assertEquals(0, newEmptyArr.length);
     }
 
     @Test
-    public void testFloatArrayOneElement() throws Exception {
+    public void testFloatArrayOneElement() {
         float[] arr = { 1 };
         float[] newArr = M.shufflers().arrayFloat(arr).val();
 
         assertNotNull(newArr);
-        assertTrue(newArr!=arr);
-        assertTrue(newArr.length == 1);
-        assertTrue(newArr[0] == 1);
+        assertNotSame(newArr, arr);
+        assertEquals(1, newArr.length);
+        assertEquals(1, newArr[0], 0.0);
     }
 
     @Test
-    public void testFloatArray() throws Exception {
+    public void testFloatArray() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -298,44 +297,44 @@ public class ShufflersTest {
                             .arrayFloat(arr)
                             .val();
 
-                    assertTrue(newArr!=arr);
-                    assertTrue(arr.length == newArr.length);
+                    assertNotSame(newArr, arr);
+                    assertEquals(arr.length, newArr.length);
 
                 }
         );
     }
 
     @Test(expected = NullPointerException.class)
-    public void testArrayListNullSource() throws Exception {
+    public void testArrayListNullSource() {
         M.shufflers().arrayList(null).val();
     }
 
 
     @Test
-    public void testArrayListEmptySource() throws Exception {
+    public void testArrayListEmptySource() {
         ArrayList<Double> al = new ArrayList<>();
         ArrayList<Double> newAl = M.shufflers().arrayList(al).val();
 
         assertNotNull(newAl);
-        assertTrue(al.equals(newAl));
+        assertEquals(al, newAl);
         assertTrue(newAl.isEmpty());
     }
 
     @Test
-    public void testArrayListOneElement() throws Exception {
+    public void testArrayListOneElement() {
         ArrayList<Double> al = new ArrayList<>();
         al.add(1.0);
 
         ArrayList<Double> newAl = M.shufflers().arrayList(al).val();
 
         assertNotNull(newAl);
-        assertTrue(newAl.equals(al));
-        assertTrue(newAl.size() == 1);
-        assertTrue(newAl.get(0).equals(1.0));
+        assertEquals(newAl, al);
+        assertEquals(1, newAl.size());
+        assertEquals(1.0, newAl.get(0), 0.0);
     }
 
     @Test
-    public void testArrayListArray() throws Exception {
+    public void testArrayListArray() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -350,8 +349,8 @@ public class ShufflersTest {
                             .arrayList(al)
                             .val();
 
-                    assertTrue(!newAl.equals(al));
-                    assertTrue(al.size() == newAl.size());
+                    assertNotEquals(newAl, al);
+                    assertEquals(al.size(), newAl.size());
 
                     range(0, newAl.size())
                             .forEach(i -> assertTrue(possibleValues.contains(newAl.get(i))));
@@ -360,21 +359,21 @@ public class ShufflersTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testStringNull() throws Exception {
+    public void testStringNull() {
         M.shufflers().string(null).val();
     }
 
     @Test
-    public void testStringEmpty() throws Exception {
+    public void testStringEmpty() {
         String s1 = "";
         String s2 = M.shufflers().string(s1).val();
-        assertTrue(s2 != null);
-        assertTrue( s2.length() == 0);
-        assertTrue(s1.equals(s2));
+        assertNotNull(s2);
+        assertEquals(0, s2.length());
+        assertEquals(s1, s2);
     }
 
     @Test
-    public void testString() throws Exception {
+    public void testString() {
         loop(
                 SHUFFLED_CYCLES,
                 MOCKS,
@@ -382,8 +381,8 @@ public class ShufflersTest {
                     String s = m.strings().size(32).val();
                     String shuffled = m.shufflers().string(s).val();
 
-                    assertTrue(shuffled!=null);
-                    assertTrue(s.length() == shuffled.length());
+                    assertNotNull(shuffled);
+                    assertEquals(s.length(), shuffled.length());
                     assertTrue(areAnagrams(s, shuffled));
                 }
         );

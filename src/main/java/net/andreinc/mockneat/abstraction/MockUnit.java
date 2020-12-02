@@ -42,7 +42,7 @@ import static net.andreinc.mockneat.utils.MockUnitUtils.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @FunctionalInterface
-@SuppressWarnings("unchecked")
+@SuppressWarnings("ALL")
 public interface MockUnit<T> {
 
     // Functional Method
@@ -297,6 +297,7 @@ public interface MockUnit<T> {
      *
      * @return A new {@code MockUnit<List<T>>}
      */
+    @SuppressWarnings("rawtypes")
     default MockUnit<List<T>> list(Class<? extends List> listClass, int size) {
         notNull(listClass, "listClass");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
@@ -347,7 +348,7 @@ public interface MockUnit<T> {
      * @param sizeUnit The MockUnitInt used to generate the size of the List. If the MockUnitInt generates a negative value an exception will be thrown.
      * @return A new {@code MockUnit<List<T>>}
      */
-    default MockUnit<List<T>> list(Class<? extends List> listClass, MockUnitInt sizeUnit) {
+    default MockUnit<List<T>> list(@SuppressWarnings("rawtypes") Class<? extends List> listClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
         return () -> list(listClass, sizeUnit.val()).supplier();
     }

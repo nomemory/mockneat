@@ -19,7 +19,6 @@ package net.andreinc.mockneat.utils;
 
 
 import java.util.HashMap;
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +30,7 @@ public class SqlEscapeUtils {
     public static final class MySQL {
 
         private static final HashMap<String,String> sqlTokens;
-        private static Pattern sqlTokenPattern;
+        private static final Pattern sqlTokenPattern;
 
         private MySQL() {}
 
@@ -57,7 +56,7 @@ public class SqlEscapeUtils {
             for (String[] srr : searchRegexReplacement)
             {
                 sqlTokens.put(srr[0], srr[2]);
-                buff.append((buff.length() == 0 ? "" : "|") + srr[1]);
+                buff.append(buff.length() == 0 ? "" : "|").append(srr[1]);
             }
             String patternStr = buff.toString();
             sqlTokenPattern = Pattern.compile('(' + patternStr + ')');

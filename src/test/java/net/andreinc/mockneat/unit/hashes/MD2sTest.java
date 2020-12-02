@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 public class MD2sTest {
     @Test
-    public void testMD2sHash() throws Exception {
+    public void testMD2sHash() {
         loop(
                 HASH_CYCLES,
                 MOCKS,

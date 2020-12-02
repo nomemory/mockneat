@@ -26,7 +26,6 @@ import java.util.function.Supplier;
 import static net.andreinc.aleph.AlephFormatter.str;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
-@SuppressWarnings("unchecked")
 public final class MockUnitUtils {
 
     private MockUnitUtils() {}

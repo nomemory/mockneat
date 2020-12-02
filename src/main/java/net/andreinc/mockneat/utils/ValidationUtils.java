@@ -86,18 +86,17 @@ public final class ValidationUtils {
             throw new IllegalArgumentException(str(fmt).args(args).fmt());
     }
 
-    public static <T> T notNull(T object, final String message, Object... args) {
+    public static <T> void notNull(T object, final String message, Object... args) {
         if (object == null)
             throw new NullPointerException(str(message).args(args).fmt());
-        return object;
     }
 
-    public static <T> T notNull(T object, String input) {
-        return notNull(object, INPUT_PARAMETER_NOT_NULL, "input", input);
+    public static <T> void notNull(T object, String input) {
+        notNull(object, INPUT_PARAMETER_NOT_NULL, "input", input);
     }
 
-    public static <T> T notNullSupp(T object, String input) {
-        return notNull(object, SUPPLIER_VALUE_NOT_NULL, "supplier", input);
+    public static <T> void notNullSupp(T object, String input) {
+        notNull(object, SUPPLIER_VALUE_NOT_NULL, "supplier", input);
     }
 
     public static <T extends CharSequence> T notEmpty(T chars, String message, Object... values) {
@@ -110,7 +109,7 @@ public final class ValidationUtils {
         return chars;
     }
 
-    public static <T extends CharSequence> T notEmpty(T chars, String input) {
+    public static <T extends CharSequence> void notEmpty(T chars, String input) {
 
         String msg = str(INPUT_PARAMETER_NOT_EMPTY_OR_NULL)
                         .args("input", input)
@@ -124,79 +123,67 @@ public final class ValidationUtils {
             throw new IllegalArgumentException(msg);
         }
 
-        return chars;
     }
 
-    public static <T> T[] notEmptyOrNullValues(T[] arr, String arrName) {
+    public static <T> void notEmptyOrNullValues(T[] arr, String arrName) {
         notEmpty(arr, arrName);
         range(0, arr.length).forEach(i  -> notNull(arr[i], arrName + "[" + i + "]"));
-        return arr;
     }
 
-    public static String[] notEmptyOrNullValues(String[] arr, String arrName) {
+    public static void notEmptyOrNullValues(String[] arr, String arrName) {
         notEmpty(arr, arrName);
-        range(0, arr.length).forEach(i  -> {
-            notEmpty(arr[i], arrName + "[" + i + "]");
-        });
-        return arr;
+        range(0, arr.length).forEach(i  -> notEmpty(arr[i], arrName + "[" + i + "]"));
     }
 
-    public static <T> T[] notEmpty(T[] arr, String name) {
+    public static <T> void notEmpty(T[] arr, String name) {
         if (null == arr)
             throw new NullPointerException(str(INPUT_PARAMETER_NOT_EMPTY_OR_NULL).args("input", name).fmt());
         if (0 == arr.length) {
             throw new IllegalArgumentException(str(INPUT_PARAMETER_NOT_EMPTY_OR_NULL).args("input", name).fmt());
         }
-        return arr;
     }
 
-    public static char[] notEmpty(char[] array, String fmt, Object... params) {
+    public static void notEmpty(char[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
         if (0==array.length)
             throw new IllegalArgumentException(String.format(fmt, params));
-        return array;
     }
 
-    public static double [] notEmpty(double[] array, String fmt, Object... params) {
+    public static void notEmpty(double[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
         if (0==array.length)
             throw new IllegalArgumentException(String.format(fmt, params));
-        return array;
     }
 
-    public static float[] notEmpty(float[] array, String fmt, Object... params) {
+    public static void notEmpty(float[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
         if (0==array.length)
             throw new IllegalArgumentException(String.format(fmt, params));
-        return array;
     }
-    public static int[] notEmpty(int[] array, String fmt, Object... params) {
+    public static void notEmpty(int[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
         if (0==array.length)
             throw new IllegalArgumentException(String.format(fmt, params));
-        return array;
     }
 
-    public static long[] notEmpty(long[] array, String fmt, Object... params) {
+    public static void notEmpty(long[] array, String fmt, Object... params) {
         if (null==array)
             throw new NullPointerException(String.format(fmt, params));
         if (0==array.length)
             throw new IllegalArgumentException(String.format(fmt, params));
-        return array;
     }
 
-    public static String validRegex(String regex) {
+    public static void validRegex(String regex) {
         try {
             Pattern.compile(regex);
         } catch (PatternSyntaxException pse) {
             String fmt = str(INVALID_REGEX_PATTERN).arg("pattern", regex).fmt();
             throw new IllegalArgumentException(fmt, pse);
         }
-        return regex;
     }
 
     public static void isFinite(Double value) {

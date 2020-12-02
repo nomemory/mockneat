@@ -92,10 +92,10 @@ public class Words extends MockUnitBase implements MockUnitString {
         typesMapping.put(WordsType.ADJECTIVES_4SYLL, adjectives4syll());
 
         typesMapping.put(WordsType.ADVERBS, adverbs());
-        typesMapping.put(WordsType.ADJECTIVES_1SYLL, adjectives1syll());
-        typesMapping.put(WordsType.ADJECTIVES_2SYLL, adjectives1syll());
-        typesMapping.put(WordsType.ADJECTIVES_3SYLL, adjectives1syll());
-        typesMapping.put(WordsType.ADJECTIVES_4SYLL, adjectives1syll());
+        typesMapping.put(WordsType.ADVERBS_1SYLL, adverbs1syll());
+        typesMapping.put(WordsType.ADVERBS_2SYLL, adverbs2syll());
+        typesMapping.put(WordsType.ADVERBS_3SYLL, adverbs3syll());
+        typesMapping.put(WordsType.ADVERBS_4SYLL, adverbs4syll());
 
         typesMapping.put(WordsType.NOUNS, nouns());
         typesMapping.put(WordsType.NOUNS_1SYL, nouns1syll());

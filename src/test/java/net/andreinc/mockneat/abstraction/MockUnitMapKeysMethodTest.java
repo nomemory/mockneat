@@ -34,6 +34,7 @@ import static net.andreinc.mockneat.utils.MapCheckUtils.testMap;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MockUnitMapKeysMethodTest {
 
     /*----------------------------------
@@ -41,25 +42,25 @@ public class MockUnitMapKeysMethodTest {
      ----------------------------------*/
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysSupplierNullClass() throws Exception {
+    public void testMapKeysSupplierNullClass() {
         Class<Map<?, ?>> cls = null;
         M.ints().mapKeys(cls, 10, () -> "abc").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysSuppSupplierNullClass() throws Exception {
+    public void testMapKeysSuppSupplierNullClass() {
         Supplier<Map<String, Integer>> mapSupplier = null;
         M.ints().mapKeys(mapSupplier, 10, () -> "abc").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysSupplierNegativeSize() throws Exception {
+    public void testMapKeysSupplierNegativeSize() {
         M.ints().mapKeys(HashMap.class, -1, () -> "abc").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysSuppSupplierNegativeSize() throws Exception {
-        M.ints().mapKeys(() -> new HashMap<>(), -1, () -> "abc").val();
+    public void testMapKeysSuppSupplierNegativeSize() {
+        M.ints().mapKeys(HashMap::new, -1, () -> "abc").val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -71,26 +72,26 @@ public class MockUnitMapKeysMethodTest {
     @Test(expected = NullPointerException.class)
     public void testMapKeysSuppSupplierNullSupplier() {
         Supplier<?> supp = null;
-        M.ints().mapKeys(() -> new LinkedHashMap<>(), 10, supp).val();
+        M.ints().mapKeys(LinkedHashMap::new, 10, supp).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysSupplierCannotInstantiateMap() throws Exception {
+    public void testMapKeysSupplierCannotInstantiateMap() {
         M.ints().mapKeys(AbstractMapNoInstance.class, 10, M.ints().supplier()).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysSupplierTreeMapNoComparable() throws Exception {
-        M.ints().mapKeys(TreeMap.class, 100, () -> new ArrayList()).val();
+    public void testMapKeysSupplierTreeMapNoComparable() {
+        M.ints().mapKeys(TreeMap.class, 100, (Supplier<ArrayList>) ArrayList::new).val();
     }
 
     @Test(expected = ClassCastException.class)
-    public void testMapKeysSuppSupplierTreeMapNoComparable() throws Exception {
-        M.ints().mapKeys(() -> new TreeMap<>(), 100, () -> new ArrayList()).val();
+    public void testMapKeysSuppSupplierTreeMapNoComparable() {
+        M.ints().mapKeys(TreeMap::new, 100, (Supplier<ArrayList>) ArrayList::new).val();
     }
 
     @Test
-    public void testMapKeysSupplierNullKeyHashMap() throws Exception {
+    public void testMapKeysSupplierNullKeyHashMap() {
         Integer[] ints = { null };
         Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(HashMap.class, 10, M.from(ints).supplier()).val();
 
@@ -99,18 +100,18 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysSuppSupplierNullKeyHashMap() throws Exception {
+    public void testMapKeysSuppSupplierNullKeyHashMap() {
         Integer[] ints = { null };
         Map<Integer, Integer> m = M.ints()
                                    .range(0,5)
-                                   .mapKeys(() -> new HashMap<>(), 10, M.from(ints).supplier())
+                                   .mapKeys(HashMap::new, 10, M.from(ints).supplier())
                                    .val();
         Integer x = m.get(null);
         assertTrue(0 <= x && x < 5);
     }
 
     @Test
-    public void testMapKeysSupplier() throws Exception {
+    public void testMapKeysSupplier() {
         MockUnitInt ints = M.ints().range(0, 10);
         Class<? extends Map>[] maps =
                 new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
@@ -126,13 +127,13 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysSuppSupplier() throws Exception {
+    public void testMapKeysSuppSupplier() {
         MockUnitInt ints = M.ints().range(0, 10);
         Supplier<Map<Integer, Integer>>[] maps =
                 new Supplier[]{
-                        () -> new TreeMap<>(),
-                        () -> new HashMap(),
-                        () -> new LinkedHashMap<>()
+                        TreeMap::new,
+                        HashMap::new,
+                        LinkedHashMap::new
                 };
 
         loop(
@@ -148,7 +149,7 @@ public class MockUnitMapKeysMethodTest {
 
 
     @Test
-    public void testMapKeysSupplierOverloaded() throws Exception {
+    public void testMapKeysSupplierOverloaded() {
         MockUnitString strings = M.strings().size(5);
         loop(
                 MOCK_CYCLES,
@@ -173,14 +174,14 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysSuppSupplierOverloaded() throws Exception {
+    public void testMapKeysSuppSupplierOverloaded() {
         MockUnitString strings = M.strings().size(5);
         loop(
                 MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints()
                         .range(100, 200)
-                        .mapKeys(() -> new HashMap<>(), 10, strings.supplier())
+                        .mapKeys(HashMap::new, 10, strings.supplier())
                         .val(),
                 map -> testMap(
                         map,
@@ -198,7 +199,7 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysSupplierMockUnitIntSizeNull() throws Exception {
+    public void testMapKeysSupplierMockUnitIntSizeNull() {
         MockUnitInt sizeUnit = null;
         M.ints().range(0, 10).mapKeys(sizeUnit, M.ints().range(0, 10)::val);
     }
@@ -226,11 +227,6 @@ public class MockUnitMapKeysMethodTest {
     * <R> MockUnit<Map<R, T>> mapKeys(Supplier<Map<R, T>> mapSupplier, MockUnitInt sizeUnit, Supplier<R> keySupplier)
     ----------------------------------*/
 
-    @Test
-    public void testMapKeysMapSuppUnitKeysSuppWithNullSupp() {
-        
-    }
-
 
     /*----------------------------------
      * test map method with iterable
@@ -238,42 +234,42 @@ public class MockUnitMapKeysMethodTest {
      ----------------------------------*/
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysIterableNullClass() throws Exception {
+    public void testMapKeysIterableNullClass() {
         Class<Map> cls = null;
         M.ints().mapKeys(cls, M.ints().list(10).val());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysSuppIterableNullClass() throws Exception {
+    public void testMapKeysSuppIterableNullClass() {
         Supplier<Map<Integer, Integer>> mapSupplier = null;
         M.ints().mapKeys(mapSupplier, M.ints().list(10).val());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysIterableNullIterable() throws Exception {
+    public void testMapKeysIterableNullIterable() {
         List<String> nullList = null;
         M.ints().mapKeys(HashMap.class, nullList).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysSuppIterableNullIterable() throws Exception {
+    public void testMapKeysSuppIterableNullIterable() {
         List<String> nullList = null;
-        M.ints().mapKeys(() -> new  HashMap<>(), nullList).val();
+        M.ints().mapKeys(HashMap::new, nullList).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysIterableCannotInstantiateMap() throws Exception {
+    public void testMapKeysIterableCannotInstantiateMap() {
         M.ints().mapKeys(AbstractMapNoInstance.class, M.ints().list(10).val()).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysIterableTreeMapNoComparable() throws Exception {
-        List<ArrayList> list = ((MockUnit<ArrayList>)() -> () -> new ArrayList()).list(10).val();
+    public void testMapKeysIterableTreeMapNoComparable() {
+        List<ArrayList> list = ((MockUnit<ArrayList>)() -> ArrayList::new).list(10).val();
         M.ints().mapKeys(TreeMap.class, list).val();
     }
 
     @Test
-    public void testMapKeysIterableNullKeyHashMap() throws Exception {
+    public void testMapKeysIterableNullKeyHashMap() {
         Integer[] ints = { null };
         Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(HashMap.class, M.from(ints).list(10).val()).val();
 
@@ -282,16 +278,16 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysSuppIterableNullKeyHashMap() throws Exception {
+    public void testMapKeysSuppIterableNullKeyHashMap() {
         Integer[] ints = { null };
-        Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(() -> new HashMap<>(), M.from(ints).list(10).val()).val();
+        Map<Integer, Integer> m = M.ints().range(0,5).mapKeys(HashMap::new, M.from(ints).list(10).val()).val();
 
         Integer x = m.get(null);
         assertTrue(0 <= x && x < 5);
     }
 
     @Test
-    public void testMapKeysIterable() throws Exception {
+    public void testMapKeysIterable() {
         MockUnitInt ints = M.ints().range(50, 100);
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
@@ -310,12 +306,12 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysSuppIterable() throws Exception {
+    public void testMapKeysSuppIterable() {
         MockUnitInt ints = M.ints().range(50, 100);
         Supplier<Map<Integer, Integer>>[] maps = new Supplier[]{
-                () -> new TreeMap<>(),
-                () -> new HashMap<>(),
-                () -> new LinkedHashMap<>()
+                TreeMap::new,
+                HashMap::new,
+                LinkedHashMap::new
         };
         loop(
                 MOCK_CYCLES,
@@ -333,7 +329,7 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysIterableOverloade() throws Exception {
+    public void testMapKeysIterableOverload() {
         MockUnitInt ints = M.ints().range(1, 5);
         loop(
                 MOCK_CYCLES,
@@ -355,11 +351,11 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysSuppIterableOverloade() throws Exception {
+    public void testMapKeysSuppIterableOverloaded() {
         Supplier<Map<Integer, Integer>>[] maps = new Supplier[]{
-                () -> new TreeMap<>(),
-                () -> new HashMap<>(),
-                () -> new LinkedHashMap<>()
+                TreeMap::new,
+                HashMap::new,
+                LinkedHashMap::new
         };
         MockUnitInt ints = M.ints().range(1, 5);
         loop(
@@ -374,7 +370,7 @@ public class MockUnitMapKeysMethodTest {
                         MapCheckUtils.inRange(1, 5),
                         MapCheckUtils.inRange(100, 200),
                         m -> {
-                            if (!(m  instanceof Map))
+                            if (m == null)
                                 fail();
                         }
                 )
@@ -387,32 +383,32 @@ public class MockUnitMapKeysMethodTest {
      ----------------------------------*/
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayNullClass() throws Exception {
+    public void testMapKeysArrayNullClass() {
         Integer[] keys = {1,2,3};
         Class<Map> cls = null;
         M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayNullArray() throws Exception {
+    public void testMapKeysArrayNullArray() {
         Integer[] keys = null;
         M.ints().mapKeys(HashMap.class, keys);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysArrayCannotInstantiateMap() throws Exception {
+    public void testMapKeysArrayCannotInstantiateMap() {
         Integer[] keys = {1,2,3};
         M.ints().mapKeys(AbstractMapNoInstance.class, keys).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysArrayTreeMapNoComparable() throws Exception {
+    public void testMapKeysArrayTreeMapNoComparable() {
         ArrayList[] lists = { new ArrayList(), new ArrayList(), new ArrayList() };
         M.ints().mapKeys(TreeMap.class, lists).val();
     }
 
     @Test
-    public void testMapKeysArrayNullKeyHashMap() throws Exception {
+    public void testMapKeysArrayNullKeyHashMap() {
         Integer[] ints = { null };
         Map<Integer, Integer> map = M.ints().mapKeys(HashMap.class, ints).val();
 
@@ -420,7 +416,7 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysArray() throws Exception {
+    public void testMapKeysArray() {
         Integer[] ints = M.ints().range(0, 10).array(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
@@ -432,7 +428,7 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysArrayOverloaded() throws Exception {
+    public void testMapKeysArrayOverloaded() {
         Integer[] ints = M.ints().range(0, 10).array(100).val();
         loop(
                 MOCK_CYCLES,
@@ -451,27 +447,27 @@ public class MockUnitMapKeysMethodTest {
      ----------------------------------*/
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayIntNullClass() throws Exception {
+    public void testMapKeysArrayIntNullClass() {
         int[] keys = {1,2,3};
         Class<Map> cls = null;
         M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayIntNullArray() throws Exception {
+    public void testMapKeysArrayIntNullArray() {
         int[] keys = null;
         M.ints().mapKeys(HashMap.class, keys);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysArrayIntCannotInstantiateMap() throws Exception {
+    public void testMapKeysArrayIntCannotInstantiateMap() {
         int[] keys = {1,2,3};
         M.ints().mapKeys(AbstractMapNoInstance.class, keys).val();
     }
 
 
     @Test
-    public void testMapKeysArrayInt() throws Exception {
+    public void testMapKeysArrayInt() {
         int[] ints = M.ints().range(0, 10).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
@@ -483,7 +479,7 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysArrayIntOverloaded() throws Exception {
+    public void testMapKeysArrayIntOverloaded() {
         int[] ints = M.ints().range(0, 10).arrayPrimitive(100).val();
         loop(
                 MOCK_CYCLES,
@@ -501,45 +497,45 @@ public class MockUnitMapKeysMethodTest {
      ----------------------------------*/
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayLongNullClass() throws Exception {
+    public void testMapKeysArrayLongNullClass() {
         Class<Map> cls = null;
         long[] keys = {1,2,3};
         M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayLongNullArray() throws Exception {
+    public void testMapKeysArrayLongNullArray() {
         long[] keys = null;
         M.ints().mapKeys(HashMap.class, keys);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysArrayLongCannotInstantiateMap() throws Exception {
+    public void testMapKeysArrayLongCannotInstantiateMap() {
         long[] keys = {1,2,3};
         M.ints().mapKeys(AbstractMapNoInstance.class, keys).val();
     }
 
 
     @Test
-    public void testMapKeysArrayLong() throws Exception {
-        long[] longs = M.longs().range(0l, 10l).arrayPrimitive(100).val();
+    public void testMapKeysArrayLong() {
+        long[] longs = M.longs().range(0L, 10L).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
                 MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.longs().range(10, 20).mapKeys(M.from(maps).val(), longs).val(),
-                map -> testMap(map, MapCheckUtils.inRange(0l, 10l), MapCheckUtils.inRange(10l, 20l))
+                map -> testMap(map, MapCheckUtils.inRange(0L, 10L), MapCheckUtils.inRange(10L, 20L))
         );
     }
 
     @Test
-    public void testMapKeysArrayLongOverloaded() throws Exception {
-        long[] longs = M.longs().range(0l, 10l).arrayPrimitive(100).val();
+    public void testMapKeysArrayLongOverloaded() {
+        long[] longs = M.longs().range(0L, 10L).arrayPrimitive(100).val();
         loop(
                 MOCK_CYCLES,
                 Constants.MOCKS,
-                m -> m.longs().range(10l, 20l).mapKeys(longs).val(),
-                map -> testMap(map, MapCheckUtils.inRange(0l, 10l), MapCheckUtils.inRange(10l, 20l), m -> {
+                m -> m.longs().range(10L, 20L).mapKeys(longs).val(),
+                map -> testMap(map, MapCheckUtils.inRange(0L, 10L), MapCheckUtils.inRange(10L, 20L), m -> {
                     if (!(m instanceof HashMap)) fail();
                 })
         );
@@ -551,27 +547,27 @@ public class MockUnitMapKeysMethodTest {
      ----------------------------------*/
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayDoubleNullClass() throws Exception {
+    public void testMapKeysArrayDoubleNullClass() {
         Class<Map> cls = null;
         double[] keys = {1.0, 2.0, 3.0};
         M.ints().mapKeys(cls, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapKeysArrayDoubleNullArray() throws Exception {
+    public void testMapKeysArrayDoubleNullArray() {
         double[] keys = null;
         M.ints().mapKeys(HashMap.class, keys);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapKeysArrayDoubleCannotInstantiateMap() throws Exception {
+    public void testMapKeysArrayDoubleCannotInstantiateMap() {
         double[] keys = {1.0, 2.0, 3.0};
         M.ints().mapKeys(AbstractMapNoInstance.class, keys).val();
     }
 
 
     @Test
-    public void testMapKeysArrayDouble() throws Exception {
+    public void testMapKeysArrayDouble() {
         double[] doubles = M.doubles().range(0.0, 10.0).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{LinkedHashMap.class, HashMap.class, TreeMap.class};
         loop(
@@ -583,7 +579,7 @@ public class MockUnitMapKeysMethodTest {
     }
 
     @Test
-    public void testMapKeysArrayDoubleOverloaded() throws Exception {
+    public void testMapKeysArrayDoubleOverloaded() {
         double[] doubles = M.doubles().range(0.0, 10.0).arrayPrimitive(100).val();
         loop(
                 MOCK_CYCLES,

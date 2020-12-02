@@ -29,7 +29,6 @@ import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
-import net.andreinc.mockneat.unit.objects.ObjectMap;
 import net.andreinc.mockneat.unit.misc.ISSNS;
 import net.andreinc.mockneat.unit.misc.Mimes;
 import net.andreinc.mockneat.unit.misc.SSCs;
@@ -50,7 +49,6 @@ import net.andreinc.mockneat.unit.user.*;
 import java.util.*;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unchecked")
 public class MockNeat {
 
     private static final MockNeat THREAD_LOCAL = new MockNeat(RandomType.THREAD_LOCAL);

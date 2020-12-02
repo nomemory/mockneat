@@ -34,19 +34,17 @@ import static org.junit.Assert.assertTrue;
 public class MonthsTest {
 
     @Test
-    public void testMonths() throws Exception {
+    public void testMonths() {
         loop(DAYS_CYCLES, MOCKS, r ->
                 assertTrue((r.months().val()) instanceof Month));
     }
 
     @Test
-    public void testDaysInRange() throws Exception {
-        Month lower = OCTOBER;
-        Month upper = DECEMBER;
+    public void testDaysInRange() {
         Set<Month> monthSet = EnumSet.of(OCTOBER, NOVEMBER);
         loop(DAYS_CYCLES,
                 MOCKS,
-                r -> r.months().range(lower, upper).val(),
+                r -> r.months().range(OCTOBER, DECEMBER).val(),
                 m -> assertTrue(monthSet.contains(m)));
     }
 }

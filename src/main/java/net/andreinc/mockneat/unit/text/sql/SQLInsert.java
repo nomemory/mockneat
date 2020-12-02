@@ -22,7 +22,6 @@ import net.andreinc.mockneat.types.Pair;
 
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.UnaryOperator;
 
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 

@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 public class SHA1sTest {
     @Test
-    public void testSHA1sHash() throws Exception {
+    public void testSHA1sHash() {
         loop(
                 HASH_CYCLES,
                 MOCKS,

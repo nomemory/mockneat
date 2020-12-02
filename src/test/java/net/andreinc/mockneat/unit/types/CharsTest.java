@@ -41,61 +41,61 @@ public class CharsTest {
     }
 
     @Test
-    public void testAlphaNumeric() throws Exception {
+    public void testAlphaNumeric() {
         stream(Constants.MOCKS).forEach(rand ->
                 inAlpabet(ALPHA_NUMERIC, rand.chars()::val));
     }
 
     @Test
-    public void testDigits() throws Exception {
+    public void testDigits() {
         stream(Constants.MOCKS).forEach(rand ->
                 inAlpabet(DIGITS, rand.chars().digits()::val));
     }
 
     @Test
-    public void testLowerLetters() throws Exception {
+    public void testLowerLetters() {
         stream(Constants.MOCKS).forEach(rand ->
                 inAlpabet(LETTERS_LOWERCASE, rand.chars().lowerLetters()::val));
     }
 
     @Test
-    public void testUpperLetters() throws Exception {
+    public void testUpperLetters() {
         stream(Constants.MOCKS).forEach(rand ->
                 inAlpabet(LETTERS_UPPERCASE, rand.chars().upperLetters()::val));
     }
 
     @Test
-    public void testLetters() throws Exception {
+    public void testLetters() {
         stream(Constants.MOCKS).forEach(rand ->
                 inAlpabet(LETTERS, rand.chars().letters()::val));
     }
 
     @Test
-    public void testHexa() throws Exception {
+    public void testHexa() {
         stream(Constants.MOCKS).forEach(rand ->
                 inAlpabet(HEXA, rand.chars().hex()::val));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFromStringEmptyAlphabet() throws Exception {
+    public void testFromStringEmptyAlphabet() {
         String alphabet = "";
         Constants.M.chars().from(alphabet).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFromStringNullAlphabet() throws Exception {
+    public void testFromStringNullAlphabet() {
         String alphabet = null;
-        Constants.M.chars().from(alphabet).val();
+        Constants.M.chars().from((String) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFromArrayEmpty() throws Exception {
+    public void testFromArrayEmpty() {
         char[] alphabet = {};
         Constants.M.chars().from(alphabet).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFromArrayNull() throws Exception {
+    public void testFromArrayNull() {
         char[] alphabet = null;
         Constants.M.chars().from(alphabet).val();
     }

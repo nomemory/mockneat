@@ -2,7 +2,6 @@ package net.andreinc.mockneat.abstraction;
 
 import net.andreinc.mockneat.types.enums.StringFormatType;
 import net.andreinc.mockneat.types.enums.StringType;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -34,17 +33,17 @@ public class MockUnitStringTest {
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAccumulateZeroTimes() throws Exception {
+    public void testAccumulateZeroTimes() {
         M.strings().accumulate(0, ",");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAccumulateNegativeTimes() throws Exception {
+    public void testAccumulateNegativeTimes() {
         M.strings().accumulate(-1, ",");
     }
 
     @Test(expected = NullPointerException.class)
-    public void testAccumulateNullSeparator() throws Exception {
+    public void testAccumulateNullSeparator() {
         M.strings().accumulate(10, null);
     }
 
@@ -56,7 +55,7 @@ public class MockUnitStringTest {
                 MOCKS,
                 m -> m.fromStrings(strings).accumulate(10, "").val(),
                 str -> {
-                    assertTrue(str.length()==10);
+                    assertEquals(10, str.length());
                     for(char c : str.toCharArray()) {
                         assertTrue(c == 'A' || c == 'B' || c == 'C');
                     }
@@ -68,20 +67,20 @@ public class MockUnitStringTest {
     public void testAccumulateOneCharSeparator() {
         final String[] strings = new String[] { "A" };
         String result = M.fromStrings(strings).accumulate(10, ",").val();
-        assertTrue(10 == countMatches(result, "A"));
-        assertTrue(9 == countMatches(result, ","));
+        assertEquals(10, countMatches(result, "A"));
+        assertEquals(9, countMatches(result, ","));
     }
 
     @Test
     public void testAccumulatTwoCharSeparator() {
         final String[] strings = new String[] { "A" };
         String result = M.fromStrings(strings).accumulate(10, ";;").val();
-        assertTrue(10 == countMatches(result, "A"));
-        assertTrue(9 == countMatches(result, ";;"));
+        assertEquals(10, countMatches(result, "A"));
+        assertEquals(9, countMatches(result, ";;"));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFormatNull() throws Exception {
+    public void testFormatNull() {
         M.strings().format(null).val();
     }
 
@@ -93,7 +92,7 @@ public class MockUnitStringTest {
                 StringFormatType type = m.from(StringFormatType.class).val();
                 String result = m.strings().type(LETTERS).format(type).val();
 
-                assertTrue(result != null);
+                assertNotNull(result);
 
                 switch (type) {
                     case CAPITALIZED: { assertTrue(Character.isUpperCase(result.charAt(0))); break; }
@@ -111,54 +110,54 @@ public class MockUnitStringTest {
 
         String t1 = M.from(testString).mapToString().sub(0, 1).val();
 
-        assertTrue(t1!=null);
-        assertTrue(t1.equals("T"));
+        assertNotNull(t1);
+        assertEquals("T", t1);
 
         String t2 = M.from(testString).mapToString().sub(1, 2).val();
 
-        assertTrue(t2 != null);
-        assertTrue(t2.equals("E"));
+        assertNotNull(t2);
+        assertEquals("E", t2);
 
         String t3 = M.from(testString).mapToString().sub(0, 5).val();
-        assertTrue(t3 != null);
-        assertTrue(t3.equals("TEST1"));
+        assertNotNull(t3);
+        assertEquals("TEST1", t3);
 
         String t4 = M.from(testString).mapToString().sub(3).val();
-        assertTrue(t4 != null);
-        assertTrue(t4.equals("TES"));
+        assertNotNull(t4);
+        assertEquals("TES", t4);
     }
 
     @Test(expected = StringIndexOutOfBoundsException.class)
-    public void testSubStringInvalidIndex() throws Exception {
+    public void testSubStringInvalidIndex() {
         String[] testString =  { "TEST1" };
         M.from(testString).mapToString().sub(-1, -5).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testAppendNull() throws Exception {
+    public void testAppendNull() {
         String[] testString = { "A" };
         M.from(testString).mapToString().append(null).append("4").val();
     }
 
     @Test
-    public void testAppend() throws Exception {
+    public void testAppend() {
         String c = M.strings().size(5).append("A").append("B").val();
         assertTrue(c.endsWith("AB"));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testPrependNull() throws Exception {
+    public void testPrependNull() {
         M.strings().prepend(null).val();
     }
 
     @Test
-    public void testPrepend() throws Exception {
+    public void testPrepend() {
         String c = M.strings().size(5).prepend("A").prepend("B").val();
         assertTrue(c.startsWith("BA"));
     }
 
     @Test
-    public void testReplaceChrs() throws Exception {
+    public void testReplaceChrs() {
         String[] strs = { "aaa", "aab", "aac", "aa1" };
 
         M.from(strs)
@@ -170,7 +169,7 @@ public class MockUnitStringTest {
     }
 
     @Test
-    public void testReplaceStr() throws Exception {
+    public void testReplaceStr() {
         M.regex("AB[0-9][0-9]CD")
                 .replace("AB", "AC")
                 .stream().val()
@@ -179,50 +178,50 @@ public class MockUnitStringTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testReplaceStrNullTarget() throws Exception {
+    public void testReplaceStrNullTarget() {
         M.strings().replace(null, "B").val();
     }
 
     @Test
-    public void testReplaceAll() throws Exception {
+    public void testReplaceAll() {
         M.regex("A[0-9]A[1-5]A[a-z]")
                 .replaceAll("A", "X")
                 .stream().val()
                 .limit(STRING_CYCLES)
                 .forEach(s -> {
-                    assertTrue(s.charAt(0) == 'X');
-                    assertTrue(s.charAt(2) == 'X');
-                    assertTrue(s.charAt(4) == 'X');
+                    assertEquals('X', s.charAt(0));
+                    assertEquals('X', s.charAt(2));
+                    assertEquals('X', s.charAt(4));
                 });
     }
 
     @Test
-    public void testReplaceFirst() throws Exception {
+    public void testReplaceFirst() {
         M.regex("A[0-9][abc]A")
                 .replaceFirst("A", "B")
                 .stream().val()
                 .limit(STRING_CYCLES)
                 .forEach(s -> {
-                    assertTrue(s.charAt(0) == 'B');
-                    assertTrue(s.charAt(3) == 'A');
+                    assertEquals('B', s.charAt(0));
+                    assertEquals('A', s.charAt(3));
                 });
     }
 
     @Test
-    public void testSplitNull() throws Exception {
+    public void testSplitNull() {
         String[] s = { null };
         assertNull(M.from(s).mapToString().split("\\.").val());
     }
 
     @Test
-    public void testSplit() throws Exception {
+    public void testSplit() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
                 m  -> m.regex("[a-z];[a-z];[a-z]").split(";").val(),
                 arr -> {
                     assertNotNull(arr);
-                    assertTrue(arr.length == 3);
+                    assertEquals(3, arr.length);
                 }
         );
     }
@@ -241,7 +240,7 @@ public class MockUnitStringTest {
     public void testEncodeUrl() {
         String[] urls = { "A B C ™" };
         String encodedUrl = M.from(urls).mapToString().urlEncode().val();
-        assertTrue("A+B+C+%E2%84%A2".equals(encodedUrl));
+        assertEquals("A+B+C+%E2%84%A2", encodedUrl);
     }
 
     @Test
@@ -251,7 +250,7 @@ public class MockUnitStringTest {
                 STRING_CYCLES,
                 MOCKS,
                 m -> m.strings().types(StringType.SPECIAL_CHARACTERS).noSpecialChars().val(),
-                str -> assertTrue(str.length()==0)
+                str -> assertEquals(0, str.length())
         );
     }
 
@@ -263,7 +262,7 @@ public class MockUnitStringTest {
          .escapeCsv()
          .val();
 
-        assertTrue("\"\"\"Already Quoted\"\"\"".equals(escapedString));
+        assertEquals("\"\"\"Already Quoted\"\"\"", escapedString);
     }
 
     @Test
@@ -273,7 +272,7 @@ public class MockUnitStringTest {
                             .mapToString()
                             .escapeEcmaScript()
                             .val();
-        assertTrue(escaped.equals("Hello ol\\' \\\"boy\\\""));
+        assertEquals("Hello ol\\' \\\"boy\\\"", escaped);
     }
 
     @Test
@@ -283,7 +282,7 @@ public class MockUnitStringTest {
                             .mapToString()
                             .escapeXml()
                             .val();
-        assertTrue(escaped.equals("{@code &quot;bread&quot; &amp; &quot;butter&quot;}"));
+        assertEquals("{@code &quot;bread&quot; &amp; &quot;butter&quot;}", escaped);
     }
 
     @Test
@@ -293,7 +292,7 @@ public class MockUnitStringTest {
                             .mapToString()
                             .escapeHtml()
                             .val();
-        assertTrue(escaped.equals("&quot;bread&quot; &amp;amp; &quot;butter&quot;"));
+        assertEquals("&quot;bread&quot; &amp;amp; &quot;butter&quot;", escaped);
     }
 
     @Test
@@ -303,7 +302,7 @@ public class MockUnitStringTest {
                 MOCKS,
                 mockNeat -> mockNeat.strings().md2().val(),
                 md2 -> {
-                    assertTrue(32==md2.length());
+                    assertEquals(32, md2.length());
                     assertTrue(isAlphanumeric(md2));
                 }
         );
@@ -316,7 +315,7 @@ public class MockUnitStringTest {
                 MOCKS,
                 mockNeat -> mockNeat.strings().md5().val(),
                 md5 -> {
-                    assertTrue(32==md5.length());
+                    assertEquals(32, md5.length());
                     assertTrue(isAlphanumeric(md5));
                 }
         );
@@ -328,7 +327,7 @@ public class MockUnitStringTest {
                 STRING_CYCLES,
                 MOCKS,
                 mockNeat -> mockNeat.strings().sha1().val(),
-                sha1 -> assertTrue(sha1.length()==40)
+                sha1 -> assertEquals(40, sha1.length())
         );
     }
 
@@ -338,7 +337,7 @@ public class MockUnitStringTest {
                 STRING_CYCLES,
                 MOCKS,
                 mockNeat -> mockNeat.strings().sha256().val(),
-                sha256 -> assertTrue(sha256.length()==64)
+                sha256 -> assertEquals(64, sha256.length())
         );
     }
 
@@ -348,7 +347,7 @@ public class MockUnitStringTest {
                 STRING_CYCLES,
                 MOCKS,
                 mockNeat -> mockNeat.strings().sha384().val(),
-                sha384 -> assertTrue(sha384.length()==96)
+                sha384 -> assertEquals(96, sha384.length())
         );
     }
 
@@ -358,7 +357,7 @@ public class MockUnitStringTest {
                 STRING_CYCLES,
                 MOCKS,
                 mockNeat -> mockNeat.strings().sha512().val(),
-                sha512 -> assertTrue(sha512.length()==128)
+                sha512 -> assertEquals(128, sha512.length())
         );
     }
 

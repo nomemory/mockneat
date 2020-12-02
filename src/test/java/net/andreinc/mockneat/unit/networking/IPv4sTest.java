@@ -33,8 +33,7 @@ import static java.util.stream.Collectors.toList;
 import static net.andreinc.mockneat.types.enums.IPv4Type.CLASS_A;
 import static net.andreinc.mockneat.types.enums.IPv4Type.CLASS_B;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class IPv4sTest {
 
@@ -52,7 +51,7 @@ public class IPv4sTest {
         
         if(stream(new IPv4Type[] {IPv4Type.CLASS_A_NONPRIVATE, IPv4Type.CLASS_B_NONPRIVATE, IPv4Type.CLASS_C_NONPRIVATE}).anyMatch(x -> x == type)) {
             try {
-                assertTrue(!isPrivate(ip));
+                assertFalse(isPrivate(ip));
             }catch(UnknownHostException e) {
                 fail(e.getMessage());
             }
@@ -60,7 +59,7 @@ public class IPv4sTest {
         
         
         Range<Integer>[] bounds = type.getOctets();
-        assertTrue(bounds.length == 4);
+        assertEquals(4, bounds.length);
 
         try {
             List<Integer> numbers =
@@ -68,7 +67,7 @@ public class IPv4sTest {
                         .map(Integer::parseInt)
                         .collect(toList());
 
-            assertTrue(numbers.size() == 4);
+            assertEquals(4, numbers.size());
 
             IntStream
                     .range(0, bounds.length)
@@ -93,7 +92,7 @@ public class IPv4sTest {
     }
 
     @Test
-    public void testIPv4TypesMethod() throws Exception {
+    public void testIPv4TypesMethod() {
         loop(
                 Constants.IPV4S_CYCLES,
                 Constants.MOCKS,
@@ -106,68 +105,68 @@ public class IPv4sTest {
     }
 
     @Test
-    public void testNextIPv4AddressClassA() throws Exception {
+    public void testNextIPv4AddressClassA() {
         testIpCycle(CLASS_A);
     }
 
     @Test
-    public void testNextIPv4AddressClassALoopback() throws Exception {
+    public void testNextIPv4AddressClassALoopback() {
         testIpCycle(IPv4Type.CLASS_A_LOOPBACK);
     }
 
     @Test
-    public void testNextIPv4AddressClassAPrivate() throws Exception {
+    public void testNextIPv4AddressClassAPrivate() {
         testIpCycle(IPv4Type.CLASS_A_PRIVATE);
     }
 
     @Test
-    public void testNextIPv4AddressClassB() throws Exception {
+    public void testNextIPv4AddressClassB() {
         testIpCycle(CLASS_B);
     }
 
     @Test
-    public void testNextIPv4AddressClassBPrivate() throws Exception {
+    public void testNextIPv4AddressClassBPrivate() {
         testIpCycle(IPv4Type.CLASS_B_PRIVATE);
     }
 
     @Test
-    public void testNextIPv4AddressClassC() throws Exception {
+    public void testNextIPv4AddressClassC() {
         testIpCycle(IPv4Type.CLASS_C);
     }
 
     @Test
-    public void testNextIPv4AddressClassCPrivate() throws Exception {
+    public void testNextIPv4AddressClassCPrivate() {
         testIpCycle(IPv4Type.CLASS_C_PRIVATE);
     }
 
     @Test
-    public void testNextIPv4AddressClassD() throws Exception {
+    public void testNextIPv4AddressClassD() {
         testIpCycle(IPv4Type.CLASS_D);
     }
 
     @Test
-    public void testNextIPv4AddressClassE() throws Exception {
+    public void testNextIPv4AddressClassE() {
         testIpCycle(IPv4Type.CLASS_E);
     }
 
     @Test
-    public void testNextIPv4AddressClassNoConstraint() throws Exception {
+    public void testNextIPv4AddressClassNoConstraint() {
         testIpCycle(IPv4Type.NO_CONSTRAINT);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextIPv4AddressTypeNotNull() throws Exception {
+    public void testNextIPv4AddressTypeNotNull() {
         Constants.M.ipv4s().type(null).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextIPv4AddressTypesNotNull() throws Exception {
+    public void testNextIPv4AddressTypesNotNull() {
         IPv4Type[] types = null;
         Constants.M.ipv4s().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextIPv4AddressTypesNotEmpty() throws Exception {
+    public void testNextIPv4AddressTypesNotEmpty() {
         Constants.M.ipv4s().types().val();
     }
 

@@ -17,64 +17,63 @@ package net.andreinc.mockneat.unit.types;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class BoolsTest {
 
     @Test
-    public void test100ProbabilityVal() throws Exception {
+    public void test100ProbabilityVal() {
         loop(BOOLS_CYCLES,
                 MOCKS,
                 r -> r.bools().probability(100.0).val(),
-                b -> assertTrue(b));
+                Assert::assertTrue);
     }
 
     @Test
-    public void testNextBooleanAlwaysFalseIf() throws Exception {
+    public void testNextBooleanAlwaysFalseIf() {
         loop(BOOLS_CYCLES,
                 MOCKS,
                 r -> r.bools().probability(0.0).val(),
-                bol -> assertFalse(bol));
+                Assert::assertFalse);
     }
 
     @Test
-    public void testNextBooleanAlwaysFalseIf02() throws Exception {
+    public void testNextBooleanAlwaysFalseIf02() {
         loop(BOOLS_CYCLES,
                 MOCKS,
                 rand -> rand.bools().probability(0.0).val(),
-                bol -> assertFalse(bol));
+                Assert::assertFalse);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextBooleanNegativeNotProbability() throws Exception {
+    public void testNextBooleanNegativeNotProbability() {
         M.bools().probability(-5.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextBooleanNegativeNotProbability_2() throws Exception {
+    public void testNextBooleanNegativeNotProbability_2() {
         M.bools().probability(-5.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextBooleanGreaterThan100NotProbability() throws Exception {
+    public void testNextBooleanGreaterThan100NotProbability() {
         M.bools().probability(105.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextBooleanGreaterThan100NotProbability2() throws Exception {
+    public void testNextBooleanGreaterThan100NotProbability2() {
         M.bools().probability(105.0).val();
     }
 
     @Test
-    public void testBools() throws Exception {
+    public void testBools() {
         loop(BOOLS_CYCLES,
                 MOCKS,
                 r -> r.bools().val(),
-                b -> assertTrue(b!=null && (b||!b)));
+                Assert::assertNotNull);
     }
 }

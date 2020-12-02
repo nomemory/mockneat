@@ -34,17 +34,17 @@ import static org.junit.Assert.fail;
 public class FromFilesTest {
 
     @Test(expected = NullPointerException.class)
-    public void testNullPath() throws Exception {
+    public void testNullPath() {
         M.files().from(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testEmptyPath() throws Exception {
+    public void testEmptyPath() {
         M.files().from("").val();
     }
 
     @Test
-    public void testFiles() throws Exception {
+    public void testFiles() {
         String tmpFile = M.strings().size(32).type(LETTERS).val();
         String tmpFileExt = M.strings().size(3).type(LETTERS).val();
         Path tmp = null;
@@ -59,7 +59,7 @@ public class FromFilesTest {
                 MOCKS,
                 m -> m.files().from(path).val(),
                 l -> {
-                    Integer x = Integer.parseInt(l);
+                    int x = Integer.parseInt(l);
                     assertTrue(0<=x && x <100);
                 }
             );

@@ -41,8 +41,7 @@ import static net.andreinc.mockneat.types.enums.URLSchemeType.*;
 import static net.andreinc.mockneat.unit.networking.URLs.COMMON_HTTP_PORTS;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.validator.routines.UrlValidator.ALLOW_ALL_SCHEMES;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class URLsTest {
 
@@ -55,13 +54,13 @@ public class URLsTest {
             );
 
     @Test
-    public void testURLDefault() throws Exception {
+    public void testURLDefault() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().val(), u ->
                 assertTrue(DEFAULT_URL_VALID.isValid(u)));
     }
 
     @Test
-    public void testURLSchemes() throws Exception {
+    public void testURLSchemes() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().scheme(HTTPS).val(), u -> {
             assertTrue(u.startsWith(HTTPS.getStr()));
             assertTrue(DEFAULT_URL_VALID.isValid(u));
@@ -69,7 +68,7 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLSchemesMultiple() throws Exception {
+    public void testURLSchemesMultiple() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().schemes(FTP, HTTP, HTTPS).val(), u -> {
             assertTrue(u.startsWith(FTP.getStr()) ||
                     u.startsWith(HTTPS.getStr()) ||
@@ -79,7 +78,7 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLSCustomeScheme() throws Exception {
+    public void testURLSCustomeScheme() {
         String scheme = "fut";
         loop(URL_CYCLES, MOCKS, r -> r.urls().scheme(scheme).val(), u -> {
             assertTrue(u.startsWith(scheme));
@@ -88,27 +87,26 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLSNoScheme() throws Exception {
-        URLSchemeType scheme = NONE;
-        loop(URL_CYCLES, MOCKS, r -> r.urls().scheme(scheme.getStr()).val(), u -> {
+    public void testURLSNoScheme() {
+        loop(URL_CYCLES, MOCKS, r -> r.urls().scheme(NONE.getStr()).val(), u -> {
             String[] usplit = u.split("\\.");
-            assertTrue(usplit.length == 3);
-            assertTrue(usplit[0].equals("www"));
+            assertEquals(3, usplit.length);
+            assertEquals("www", usplit[0]);
         });
     }
 
     @Test
-    public void testURLsHostString() throws Exception {
+    public void testURLsHostString() {
         String host = "andreiciobanu";
         loop(URL_CYCLES, MOCKS, r -> r.urls().host(host).val(), u -> {
             String[] split = u.split("\\.");
             assertTrue(DEFAULT_URL_VALID.isValid(u));
-            assertTrue(split[1].equals(host));
+            assertEquals(split[1], host);
         });
     }
 
     @Test
-    public void testURLsHostsStrings() throws Exception {
+    public void testURLsHostsStrings() {
         String[] hosts = {"abc", "acd", "aef"};
         Set<String> hostsSet = new HashSet<>(asList(hosts));
         loop(URL_CYCLES, MOCKS, r -> r.urls().hosts(hosts).val(), u -> {
@@ -119,7 +117,7 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLsHostType() throws Exception {
+    public void testURLsHostType() {
         loop(URL_CYCLES,
                 MOCKS,
                 r -> {
@@ -130,7 +128,7 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLsHostsType() throws Exception {
+    public void testURLsHostsType() {
         HostNameType[] hosts = new HostNameType[]{ADJECTIVE_FIRST_NAME, NOUN_FIRST_NAME};
         loop(URL_CYCLES,
                 MOCKS,
@@ -139,7 +137,7 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLsPort() throws Exception {
+    public void testURLsPort() {
         Set<Integer> commonPortsSet = new HashSet<>(asList(COMMON_HTTP_PORTS));
         loop(URL_CYCLES, MOCKS, r -> r.urls().ports().val(), u -> {
             assertTrue(DEFAULT_URL_VALID.isValid(u));
@@ -150,17 +148,17 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLsPortConstant() throws Exception {
+    public void testURLsPortConstant() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().port(1080).val(), u -> {
             assertTrue(DEFAULT_URL_VALID.isValid(u));
             String[] uSplit = u.split(":");
-            Integer port = parseInt(uSplit[2]);
-            assertTrue(port.equals(1080));
+            int port = parseInt(uSplit[2]);
+            assertEquals(1080, port);
         });
     }
 
     @Test
-    public void testURLsPortConstants() throws Exception {
+    public void testURLsPortConstants() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().ports(1021, 1022, 1023).val(), u -> {
             assertTrue(DEFAULT_URL_VALID.isValid(u));
             String[] uSplit = u.split(":");
@@ -170,24 +168,24 @@ public class URLsTest {
     }
 
     @Test
-    public void testURLsDomain() throws Exception {
-        loop(URL_CYCLES, MOCKS, r -> r.urls().domain("cucu").val(), u -> {
-            assertTrue(CUSTOM_DOMAINS_VALIDATOR.isValid(u));
-        });
+    public void testURLsDomain() {
+        loop(URL_CYCLES, MOCKS,
+                r -> r.urls().domain("cucu").val(),
+                u -> assertTrue(CUSTOM_DOMAINS_VALIDATOR.isValid(u)));
     }
 
     @Test
-    public void testURLsDomainAndPort() throws Exception {
+    public void testURLsDomainAndPort() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().domain("mucu").ports(8080, 8090).val(), u -> {
             Integer port = parseInt(u.split(":")[2]);
             String domain = u.split("\\.")[2].split(":")[0];
             assertTrue(port.equals(8090) || port.equals(8080));
-            assertTrue(domain.equals("mucu"));
+            assertEquals("mucu", domain);
         });
     }
 
     @Test
-    public void testURLsDomains() throws Exception {
+    public void testURLsDomains() {
         loop(URL_CYCLES, MOCKS, r -> r.urls().domains("cu", "mu", "bu", "la").ports(100, 200).val(), u -> {
             Integer port = parseInt(u.split(":")[2]);
             String domain = u.split("\\.")[2].split(":")[0];
@@ -209,51 +207,51 @@ public class URLsTest {
     //
 
     @Test(expected = NullPointerException.class)
-    public void testURLNullScheme() throws Exception {
+    public void testURLNullScheme() {
         String scheme = null;
         M.urls().scheme(scheme).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testURLEmptySchemes() throws Exception {
+    public void testURLEmptySchemes() {
         M.urls().schemes(new String[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLNullSchemes() throws Exception {
+    public void testURLNullSchemes() {
         String[] schemes = null;
         M.urls().schemes(schemes).val();
     }
 
     @Test
-    public void testURLEmptyStringScheme() throws Exception {
+    public void testURLEmptyStringScheme() {
         M.urls().scheme("").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testURLEmptyStringSchemes() throws Exception {
+    public void testURLEmptyStringSchemes() {
         M.urls().schemes("", "abba", "baab").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLNullStringsSchemes() throws Exception {
+    public void testURLNullStringsSchemes() {
         M.urls().schemes(new String[]{null, "abba", "baab"}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLNullSchemeType() throws Exception {
+    public void testURLNullSchemeType() {
         URLSchemeType schemeType = null;
         M.urls().scheme(schemeType).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLNullSchemeTypes() throws Exception {
+    public void testURLNullSchemeTypes() {
         URLSchemeType[] schemes = null;
         M.urls().schemes(schemes).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLSchemeTypesNulLValue() throws Exception {
+    public void testURLSchemeTypesNulLValue() {
         URLSchemeType[] schemes = new URLSchemeType[]{FTP, HTTP, null, HTTPS};
         M.urls().schemes(schemes).val();
     }
@@ -263,41 +261,41 @@ public class URLsTest {
     //
 
     @Test(expected = NullPointerException.class)
-    public void testURLHostNullString() throws Exception {
+    public void testURLHostNullString() {
         String host = null;
         M.urls().host(host).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testURLHostEmptyString() throws Exception {
+    public void testURLHostEmptyString() {
         String host = "";
         M.urls().host(host).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLHostTypeNull() throws Exception {
+    public void testURLHostTypeNull() {
         HostNameType type = null;
         M.urls().host(type).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLHostsNullString() throws Exception {
+    public void testURLHostsNullString() {
         M.urls().hosts(null, "1", "2").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testURLHostsEmptyString() throws Exception {
+    public void testURLHostsEmptyString() {
         M.urls().hosts("2", "", "3").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLHostsNull() throws Exception {
+    public void testURLHostsNull() {
         HostNameType[] type = null;
         M.urls().hosts(type).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLHostsWithNull() throws Exception {
+    public void testURLHostsWithNull() {
         M.urls().hosts(ADJECTIVE_FIRST_NAME, null).val();
     }
 
@@ -306,41 +304,41 @@ public class URLsTest {
     //
 
     @Test(expected = NullPointerException.class)
-    public void testURLDomainNullString() throws Exception {
+    public void testURLDomainNullString() {
         String domain = null;
         M.urls().domain(domain).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testURLDomainEmptyString() throws Exception {
+    public void testURLDomainEmptyString() {
         String domain = "";
         M.urls().domain(domain).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLDomainTypeNull() throws Exception {
+    public void testURLDomainTypeNull() {
         DomainSuffixType domainType = null;
         M.urls().domain(domainType).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLDomainsNullString() throws Exception {
+    public void testURLDomainsNullString() {
         M.urls().domains(null, "com", "net").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testURLDomainsEmptyString() throws Exception {
+    public void testURLDomainsEmptyString() {
         M.urls().domains("net", "", "org").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLDomainsNull() throws Exception {
+    public void testURLDomainsNull() {
         DomainSuffixType[] types = null;
         M.urls().domains(types).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLDomainsWithNull() throws Exception {
+    public void testURLDomainsWithNull() {
         M.urls().domains(POPULAR, null).val();
     }
 
@@ -349,19 +347,19 @@ public class URLsTest {
     //
 
     @Test(expected = NullPointerException.class)
-    public void testURLPortNull() throws Exception {
+    public void testURLPortNull() {
         Integer port = null;
         M.urls().port(port).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLPortsNullArray() throws Exception {
+    public void testURLPortsNullArray() {
         Integer[] ports = null;
         M.urls().ports(ports).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testURLPortsNullPort() throws Exception {
+    public void testURLPortsNullPort() {
         M.urls().ports(3, 5, null).val();
     }
 
@@ -381,7 +379,7 @@ public class URLsTest {
                         URL urlObj = new URL(url);
                         String[] userInfo = urlObj.getUserInfo().split(":");
 
-                        assertTrue(userInfo.length == 2);
+                        assertEquals(2, userInfo.length);
                         assertTrue(StringUtils.isNotEmpty(userInfo[0]));
                         assertTrue(StringUtils.isNotEmpty(userInfo[1]));
 
@@ -414,8 +412,8 @@ public class URLsTest {
                 url -> {
                     String[] splits = url.split("//");
 
-                    assertTrue(splits.length==2);
-                    assertTrue("a:".equals(splits[0]));
+                    assertEquals(2, splits.length);
+                    assertEquals("a:", splits[0]);
                 }
         );
     }
@@ -429,8 +427,8 @@ public class URLsTest {
                 url -> {
                     String[] splits = url.split("//");
 
-                    assertTrue(splits.length==2);
-                    assertTrue("ftp:".equals(splits[0]));
+                    assertEquals(2, splits.length);
+                    assertEquals("ftp:", splits[0]);
                 }
         );
     }
@@ -447,7 +445,7 @@ public class URLsTest {
 
                     String[] splits = url.split("//");
 
-                    assertTrue(splits.length==2);
+                    assertEquals(2, splits.length);
                     assertTrue("http:".equals(splits[0]) ||
                                         "https:".equals(splits[0]));
                 }

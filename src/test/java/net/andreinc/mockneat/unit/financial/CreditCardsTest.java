@@ -31,14 +31,13 @@ import static net.andreinc.mockneat.Constants.CCS_CYCLES;
 import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.types.enums.CreditCardType.*;
 import static net.andreinc.mockneat.types.enums.DictType.CREDIT_CARD_NAMES;
-import static net.andreinc.mockneat.unit.financial.CreditCards.creditCards;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
 public class CreditCardsTest {
 
     private final FileManager FM = FileManager.getInstance();
-    private static Map<CreditCardType, Set<String>> PREFIX = new EnumMap<>(CreditCardType.class);
+    private static final Map<CreditCardType, Set<String>> PREFIX = new EnumMap<>(CreditCardType.class);
 
     static {
         Arrays.stream(CreditCardType.values())
@@ -47,29 +46,27 @@ public class CreditCardsTest {
                                                 .stream()
                                                 .map(list ->
                                                     list.stream()
-                                                        .map(i -> i.toString())
+                                                        .map(Object::toString)
                                                         .collect(Collectors.joining()))
                                                 .collect(Collectors.toSet());
                     PREFIX.put(type, typeSet);
                 });
     }
 
-    private static boolean hasValdiPrefix(String cc, CreditCardType type) {
+    private static boolean hasValidPrefix(String cc, CreditCardType type) {
         return PREFIX.get(type)
                         .stream()
-                        .filter(pref -> cc.startsWith(pref))
-                        .findFirst()
-                        .isPresent();
+                        .anyMatch(cc::startsWith);
     }
 
     private static boolean isValidCCOfType(String cc, CreditCardType type) {
         return type.getLength() == cc.length() &&
-                hasValdiPrefix(cc, type) &&
+                hasValidPrefix(cc, type) &&
                 LuhnUtils.luhnCheck(cc);
     }
 
     @Test
-    public void testDefaultVal() throws Exception {
+    public void testDefaultVal() {
         loop(
                 CCS_CYCLES,
                 Constants.MOCKS,
@@ -79,20 +76,20 @@ public class CreditCardsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCreditCardTypeNotNull() throws Exception {
+    public void testCreditCardTypeNotNull() {
         CreditCardType type = null;
         M.creditCards().type(type).val();
 
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCreditCardTypesNotNull() throws Exception {
+    public void testCreditCardTypesNotNull() {
         CreditCardType[] types = null;
         M.creditCards().types(types).val();
     }
 
     @Test
-    public void testCreditCardTypes() throws Exception {
+    public void testCreditCardTypes() {
         CreditCardType[] types = { MASTERCARD, VISA_13 };
         loop(
                 CCS_CYCLES,
@@ -106,7 +103,7 @@ public class CreditCardsTest {
     }
 
     @Test
-    public void testCreditCards() throws Exception {
+    public void testCreditCards() {
         loop(
                 CCS_CYCLES,
                 Constants.MOCKS,
@@ -119,7 +116,7 @@ public class CreditCardsTest {
     }
 
     @Test
-    public void testCreditCardsAmexApacheValidator() throws Exception {
+    public void testCreditCardsAmexApacheValidator() {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX);
         loop(
                 CCS_CYCLES,
@@ -130,7 +127,7 @@ public class CreditCardsTest {
     }
 
     @Test
-    public void testCreditCardNames() throws Exception {
+    public void testCreditCardNames() {
         Set<String> set = new HashSet<>(FM.getLines(CREDIT_CARD_NAMES));
         loop(
                 CCS_CYCLES,
@@ -141,40 +138,40 @@ public class CreditCardsTest {
     }
 
     @Test
-    public void testAmex() throws Exception {
+    public void testAmex() {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.AMEX);
         assertTrue(ccv.isValid(M.creditCards().amex().val()));
     }
 
     @Test
-    public void testMastercard() throws Exception {
+    public void testMastercard() {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.MASTERCARD);
         assertTrue(ccv.isValid(M.creditCards().masterCard().val()));
     }
 
     @Test
-    public void testVisa() throws Exception {
+    public void testVisa() {
         CreditCardValidator ccv = new CreditCardValidator(CreditCardValidator.VISA);
         assertTrue(ccv.isValid(M.creditCards().visa().val()));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCustom0length() throws Exception {
+    public void testCustom0length() {
         M.creditCards().custom(0, 10);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCustomNegativeLength() throws Exception {
+    public void testCustomNegativeLength() {
         M.creditCards().custom(Integer.MIN_VALUE, 10).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCustomEmptyArray() throws Exception {
+    public void testCustomEmptyArray() {
         M.creditCards().custom(10).val();
     }
 
     @Test
-    public void testCustomArray() throws Exception {
+    public void testCustomArray() {
         CreditCardValidator ccv = CreditCardValidator.genericCreditCardValidator();
         loop(CCS_CYCLES, () -> {
             int prefix = M.ints().range(100, Integer.MAX_VALUE).val();

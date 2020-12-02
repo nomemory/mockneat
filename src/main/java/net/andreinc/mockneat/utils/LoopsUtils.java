@@ -39,11 +39,11 @@ public final class LoopsUtils {
     }
 
     public static void loop(int cycles, MockNeat[] array, Consumer<MockNeat> consumer) {
-        loop(cycles, () -> Arrays.stream(array).forEach(consumer::accept));
+        loop(cycles, () -> Arrays.stream(array).forEach(consumer));
     }
 
     public static <T> void loop(int cycles, MockNeat[] array, Function<MockNeat, T> map, Consumer<T> consume) {
-        loop(cycles, () -> Arrays.stream(array).map(map::apply).forEach(consume::accept));
+        loop(cycles, () -> Arrays.stream(array).map(map).forEach(consume));
     }
 
     public static <T> void loop(boolean dbg, int cycles, MockNeat[] array, Function<MockNeat, T> map, Consumer<T> consume) {
@@ -56,7 +56,7 @@ public final class LoopsUtils {
                             }
                             return o;
                         })
-                        .forEach(consume::accept));
+                        .forEach(consume));
 
     }
 }

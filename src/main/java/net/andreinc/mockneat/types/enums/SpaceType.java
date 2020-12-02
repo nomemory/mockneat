@@ -23,7 +23,7 @@ public enum SpaceType {
         this.dictTypes = dictTypes;
     }
 
-    private DictType[] dictTypes;
+    private final DictType[] dictTypes;
 
     public DictType[] getDictTypes() {
         return Arrays.copyOf(dictTypes, dictTypes.length);

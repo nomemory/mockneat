@@ -21,28 +21,29 @@ import net.andreinc.mockneat.abstraction.models.ToString;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MockConstValueTest {
 
     @Test
-    public void testGet() throws Exception {
+    public void testGet() {
         String s = "test";
         MockConstValue mco = constant(s);
         assertTrue(mco.get() instanceof String);
-        assertTrue("test".equals(mco.get()));
+        assertEquals("test", mco.get());
     }
 
     @Test
-    public void testGetStr() throws Exception {
+    public void testGetStr() {
         ToString s = new ToString();
         MockConstValue mco = constant(s);
-        assertTrue(mco.getStr().equals(ToString.CONST));
+        assertEquals(mco.getStr(), ToString.CONST);
     }
 
     @Test
-    public void testGetStrNull() throws Exception {
+    public void testGetStrNull() {
         MockConstValue mco = constant(null);
-        assertTrue(mco.getStr().equals(""));
+        assertEquals("", mco.getStr());
     }
 }

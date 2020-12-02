@@ -30,18 +30,18 @@ public class IBANsTest {
     private static final IBANCheckDigit ICD = new IBANCheckDigit();
 
     @Test(expected = NullPointerException.class)
-    public void testNullType() throws Exception {
+    public void testNullType() {
         M.ibans().type(null).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNullTypes() throws Exception {
+    public void testNullTypes() {
         IBANType ibanType = null;
         M.ibans().types(ibanType, ibanType).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testEmptyTypes() throws Exception {
+    public void testEmptyTypes() {
         IBANType[] types = new IBANType[]{};
         M.ibans().types(types).val();
     }
@@ -57,7 +57,7 @@ public class IBANsTest {
     }
 
     @Test
-    public void testCheckDigitsInGeneral() throws Exception {
+    public void testCheckDigitsInGeneral() {
         loop(
                 IBANS_CYCLES,
                 MOCKS,

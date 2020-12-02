@@ -53,7 +53,7 @@ public class CSVs extends MockUnitBase implements MockUnitString {
      *
      * @return (same object)
      */
-    public CSVs column(MockUnit mockUnit) {
+    public CSVs column(MockUnit<?> mockUnit) {
         notNull(mockUnit, "mockUnit");
         columns.add(unit(mockUnit));
         return this;
@@ -80,7 +80,7 @@ public class CSVs extends MockUnitBase implements MockUnitString {
         isTrue(!columns.isEmpty(), EMPTY_CSV_NO_COLUMNS);
         return () -> {
             StringBuilder buff = new StringBuilder();
-            columns.stream().forEach(v -> {
+            columns.forEach(v -> {
                 buff.append(StringEscapeUtils.escapeCsv(v.getStr()));
                 buff.append(separator);
             });

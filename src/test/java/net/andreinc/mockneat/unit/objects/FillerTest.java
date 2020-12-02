@@ -4,7 +4,6 @@ import net.andreinc.mockneat.unit.objects.model.SimpleBean;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.nio.file.NotLinkException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,11 @@ public class FillerTest {
 
     @Test
     public void test1() {
-        SimpleBean s =  M.filler(() -> new SimpleBean())
+        SimpleBean s =  M.filler(SimpleBean::new)
                          .setter(SimpleBean::setS, M.from(new String[]{"A"}))
                          .val();
 
-        Assert.assertTrue(s.getS().equals("A"));
+        Assert.assertEquals("A", s.getS());
     }
 
     @Test(expected = NullPointerException.class)
@@ -28,7 +27,7 @@ public class FillerTest {
 
     @Test(expected = NullPointerException.class)
     public void testFillerNullSetter() {
-        M.filler(() -> new SimpleBean())
+        M.filler(SimpleBean::new)
          .setter(null, M.from(new String[]{"A"}));
     }
 
@@ -39,14 +38,12 @@ public class FillerTest {
     }
 
     @Test
-    public void testFillerWithConstnt() {
+    public void testFillerWithConstant() {
         List<SimpleBean> simpleBeans = M.filler(SimpleBean::new)
                                         .constant(SimpleBean::setS, "A")
                                         .list(ArrayList::new, 5)
                                         .val();
 
-        simpleBeans.stream().forEach(s -> {
-            Assert.assertEquals("A", s.getS());
-        });
+        simpleBeans.forEach(s -> Assert.assertEquals("A", s.getS()));
     }
 }

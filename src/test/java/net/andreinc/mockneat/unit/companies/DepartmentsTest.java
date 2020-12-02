@@ -38,7 +38,7 @@ public class DepartmentsTest {
     private static final FileManager fm = FileManager.getInstance();
 
     @Test
-    public void testDepartmentsCorrectValues() throws Exception {
+    public void testDepartmentsCorrectValues() {
         Set<String> deps = new HashSet<>(fm.getLines(DEPARTMENTS));
         loop(DEP_CYCLES, MOCKS, (m) -> m.departments().val(), d -> {
             assertTrue(isNotEmpty(d));

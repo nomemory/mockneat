@@ -174,8 +174,7 @@ public class Passwords extends MockUnitBase implements MockUnitString {
 
         return resultBuff.toString();
     }
-
-    @SuppressWarnings("unchecked")
+    
     private String nextStrongPassword() {
         Integer minLength = STRONG.getLength().getLowerBound();
         Integer maxLength = STRONG.getLength().getUpperBound();

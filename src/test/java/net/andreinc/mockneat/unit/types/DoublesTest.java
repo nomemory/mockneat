@@ -26,20 +26,15 @@ import java.util.Set;
 import static net.andreinc.mockneat.Constants.DOUBLES_CYCLES;
 import static net.andreinc.mockneat.Constants.MOCKS;
 import static java.util.Arrays.asList;
-import static java.util.Arrays.stream;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class DoublesTest {
 
     @Test
-    public void testNextGaussianInCorrectRange() throws Exception {
-        loop(DOUBLES_CYCLES, () -> stream(MOCKS).map(r -> r.doubles()).count());
-    }
-
-    @Test
-    public void testNextDoubleInCorrectRange() throws Exception {
+    public void testNextDoubleInCorrectRange() {
         loop(DOUBLES_CYCLES,
                 MOCKS,
                 r -> r.doubles().val(),
@@ -47,18 +42,18 @@ public class DoublesTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleZeroNotBound() throws Exception {
+    public void testNextDoubleZeroNotBound() {
         Constants.M.doubles().bound(0.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleNegativeNotBound() throws Exception {
+    public void testNextDoubleNegativeNotBound() {
         Constants.M.doubles().bound(-5.0).val();
     }
 
     @Test
-    public void testNextDoubleInCorrectRange2() throws Exception {
-        final Double bound = 0.01;
+    public void testNextDoubleInCorrectRange2() {
+        final double bound = 0.01;
         loop(DOUBLES_CYCLES,
                 MOCKS,
                 r -> r.doubles().bound(bound).val(),
@@ -66,20 +61,20 @@ public class DoublesTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleNaNNotBound() throws Exception {
+    public void testNextDoubleNaNNotBound() {
         Constants.M.doubles().bound(Double.NaN).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextDoubleNullNotBound() throws Exception {
+    public void testNextDoubleNullNotBound() {
         Double bound = null;
         Constants.M.doubles().bound(bound).val();
     }
 
     @Test
-    public void testNextDoubleInCorrectRange3() throws Exception {
+    public void testNextDoubleInCorrectRange3() {
         Double lowerBound = 1.1987;
-        Double upperBound = Double.MAX_VALUE;
+        double upperBound = Double.MAX_VALUE;
 
         loop(DOUBLES_CYCLES,
                 MOCKS,
@@ -88,35 +83,32 @@ public class DoublesTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleBoundsNotEqual() throws Exception {
-        Double lowerBound = 0.01;
-        Double upperBound = lowerBound;
-
-        Constants.M.doubles().range(lowerBound, upperBound).val();
+    public void testNextDoubleBoundsNotEqual() {
+        Constants.M.doubles().range(0.01, 0.01).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleNaNNotBound2() throws Exception {
+    public void testNextDoubleNaNNotBound2() {
         Constants.M.doubles().range(Double.NaN, 10.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleNaNNotBound3() throws Exception {
+    public void testNextDoubleNaNNotBound3() {
         Constants.M.doubles().range(10.0, Double.NaN).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleInfinityNotBound2() throws Exception {
+    public void testNextDoubleInfinityNotBound2() {
         Constants.M.doubles().range(Double.POSITIVE_INFINITY, 10.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleLesserUpperBound() throws Exception {
+    public void testNextDoubleLesserUpperBound() {
         Constants.M.doubles().range(10.0, 8.0).val();
     }
 
     @Test
-    public void testNextDoubleCorrectValues() throws Exception {
+    public void testNextDoubleCorrectValues() {
         double[] doubles = { 1.0, 5.0, 10.0, 15.0, 20.52 };
         Set<Double> values = new HashSet<>(asList(toObject(doubles)));
 
@@ -127,22 +119,22 @@ public class DoublesTest {
     }
 
     @Test
-    public void testnNextDoubleCorrectValues2() throws Exception {
+    public void testnNextDoubleCorrectValues2() {
         double[] doubles = { 0.0 };
         loop(DOUBLES_CYCLES,
                 MOCKS,
                 r -> r.doubles().from(doubles).val(),
-                num -> assertTrue(num.equals(doubles[0])));
+                num -> assertEquals(num, doubles[0], 0.0));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextDoubleNullNotAlphabet() throws Exception {
+    public void testNextDoubleNullNotAlphabet() {
         double[] alphabet = null;
         Constants.M.doubles().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextDoubleEmptyArrayNotAlphabet() throws Exception {
+    public void testNextDoubleEmptyArrayNotAlphabet() {
         Constants.M.doubles().from(new double[]{}).val();
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.Constants.M;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Copyright 2017, Andrei N. Ciobanu
@@ -29,26 +29,26 @@ import static org.junit.Assert.assertTrue;
 public class SeqTest {
 
     @Test(expected = NullPointerException.class)
-    public void testSeqNullList() throws Exception {
+    public void testSeqNullList() {
         List<String> list = null;
         M.seq(list).list(100).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testEmptyList() throws Exception {
+    public void testEmptyList() {
         M.seq(new ArrayList<String>()).list(100).val();
     }
 
     @Test
-    public void testSeq() throws Exception {
+    public void testSeq() {
         List<Integer> arr = M.intSeq().max(100).cycle(false).list(100).val();
         List<Integer> seq = M.seq(arr).cycle(false).list(10).val();
 
-        seq.forEach(i -> assertTrue(seq.get(i).equals(i)));
+        seq.forEach(i -> assertEquals(seq.get(i), i));
     }
 
     @Test
-    public void testTwoElementsCycle() throws Exception {
+    public void testTwoElementsCycle() {
         List<Integer> twoElements = new ArrayList<>();
 
         twoElements.add(1);
@@ -58,33 +58,33 @@ public class SeqTest {
 
         range(0, seq.size()).forEach(i -> {
             if (i%2==0)
-                assertTrue(seq.get(i) == 1);
+                assertEquals(1, (int) seq.get(i));
             else
-                assertTrue(seq.get(i) == 2);
+                assertEquals(2, (int) seq.get(i));
         });
     }
 
     @Test
-    public void testOneElementNoCycle() throws  Exception {
+    public void testOneElementNoCycle() {
         List<Integer> oneElement = new ArrayList<>();
 
         oneElement.add(2);
 
         List<Integer> seq = M.seq(oneElement).list(10).val();
 
-        assertTrue(seq.get(0) == 2);
-        assertTrue(seq.get(1) == null);
+        assertEquals(2, (int) seq.get(0));
+        assertNull(seq.get(1));
     }
 
     @Test
-    public void testOneElementNoCycleAfterNonNull() throws Exception {
+    public void testOneElementNoCycleAfterNonNull() {
         List<Integer> oneElement = new ArrayList<>();
 
         oneElement.add(2);
 
         List<Integer> seq = M.seq(oneElement).after(4).list(10).val();
 
-        assertTrue(seq.get(0) == 2);
-        assertTrue(seq.get(1) == 4);
+        assertEquals(2, (int) seq.get(0));
+        assertEquals(4, (int) seq.get(1));
     }
 }

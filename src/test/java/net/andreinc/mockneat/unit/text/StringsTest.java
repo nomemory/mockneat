@@ -30,90 +30,89 @@ import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.types.enums.StringType.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.StringUtils.*;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class StringsTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSizeNegative() throws Exception {
+    public void testSizeNegative() {
         M.strings().size(-10).val();
     }
 
     @Test
-    public void testVariableSizes() throws Exception {
+    public void testVariableSizes() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 (m) -> {
                     int size = M.ints().range(100, 1000).val();
                     String sized = M.strings().size(size).val();
-                    assertTrue(size == sized.length());
+                    assertEquals(size, sized.length());
                 }
         );
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNullMockUnitIntSize() throws Exception {
+    public void testNullMockUnitIntSize() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 m -> m.strings().size(m.fromInts(new int[]{-10, -10, -20})).type(ALPHA_NUMERIC).val(),
-                s -> Assert.assertNotNull(s)
+                Assert::assertNotNull
         );
     }
 
     @Test
-    public void testNumbers() throws Exception {
+    public void testNumbers() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 (m) -> {
                     int size = M.ints().range(10, 100).val();
                     String numeric = M.strings().size(size).type(NUMBERS).val();
-                    assertTrue(size == numeric.length());
+                    assertEquals(size, numeric.length());
                     assertTrue(isNumeric(numeric));
                 }
         );
     }
 
     @Test
-    public void testLetters() throws Exception {
+    public void testLetters() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 (m) -> {
                     int size = M.ints().range(10, 100).val();
                     String letters = M.strings().size(size).type(LETTERS).val();
-                    assertTrue(size == letters.length());
+                    assertEquals(size, letters.length());
                     assertTrue(isAlpha(letters));
                 }
         );
     }
 
     @Test
-    public void testAlphaNumeric() throws Exception {
+    public void testAlphaNumeric() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 (m) -> {
                     int size = M.ints().range(10, 100).val();
                     String alphaNumeric = M.strings().size(size).type(ALPHA_NUMERIC).val();
-                    assertTrue(size == alphaNumeric.length());
+                    assertEquals(size, alphaNumeric.length());
                     assertTrue(isAlphanumeric(alphaNumeric));
                 }
         );
     }
 
     @Test
-    public void testSpecialCharacters() throws Exception {
+    public void testSpecialCharacters() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 (m) -> {
                     int size = M.ints().range(10, 100).val();
                     String specialChars = M.strings().size(size).type(SPECIAL_CHARACTERS).val();
-                    assertTrue(size == specialChars.length());
+                    assertEquals(size, specialChars.length());
                     verifySpecialChars(specialChars);
                 }
         );
@@ -127,14 +126,14 @@ public class StringsTest {
     }
 
     @Test
-    public void testHex() throws Exception {
+    public void testHex() {
         loop(
                 STRING_CYCLES,
                 MOCKS,
                 (m) -> {
                     int size = M.ints().range(10, 100).val();
                     String hex = M.strings().size(size).type(HEX).val();
-                    assertTrue(size == hex.length());
+                    assertEquals(size, hex.length());
                     verifyHex(hex);
                 }
         );
@@ -149,7 +148,7 @@ public class StringsTest {
     }
 
     @Test
-    public void testType() throws Exception {
+    public void testType() {
         loop(
                 STRING_CYCLES,
                 MOCKS,

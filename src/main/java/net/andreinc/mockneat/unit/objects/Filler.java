@@ -16,9 +16,11 @@ public class Filler<T> extends MockUnitBase implements MockUnit<T> {
     private final Supplier<T> supplier;
 
     //TODO: Change this horrible way
+    @SuppressWarnings("rawtypes")
+    final
     Map<BiConsumer, MockUnit> setters = new LinkedHashMap<>();
 
-    public static final <T> Filler<T> filler(Supplier<T> supplier) {
+    public static <T> Filler<T> filler(Supplier<T> supplier) {
         return MockNeat.threadLocal().filler(supplier);
     }
 
@@ -48,6 +50,7 @@ public class Filler<T> extends MockUnitBase implements MockUnit<T> {
         return this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Supplier<T> supplier() {
         return () -> {

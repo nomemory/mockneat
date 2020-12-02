@@ -54,7 +54,7 @@ public class IPv6s extends MockUnitBase implements MockUnitString {
     }
 
     private String ip() {
-        final StringBuilder buff = new StringBuilder("");
+        final StringBuilder buff = new StringBuilder();
         LoopsUtils.loop(8, () -> buff.append(group()).append(":"));
         buff.deleteCharAt(buff.length()-1);
         return buff.toString();

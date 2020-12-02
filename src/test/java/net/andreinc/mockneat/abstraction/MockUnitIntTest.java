@@ -24,18 +24,18 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MockUnitIntTest {
 
     @Test
-    public void testIntStream() throws Exception {
+    public void testIntStream() {
         loop(
                 Constants.MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints().range(0, 10).intStream().val(),
                 ds -> {
-                    assertTrue(ds != null);
+                    assertNotNull(ds);
                     assertTrue(ds instanceof IntStream);
                     ds.limit(10).forEach(el -> {
                         assertTrue(0 <= el);
@@ -46,19 +46,19 @@ public class MockUnitIntTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testArrayPrimitiveWithNegativeSize() throws Exception {
+    public void testArrayPrimitiveWithNegativeSize() {
         Constants.M.ints().arrayPrimitive(-5).val();
     }
 
     @Test
-    public void testArrayPrimitive() throws Exception {
+    public void testArrayPrimitive() {
         loop(
                 Constants.MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.ints().range(0, 10).arrayPrimitive(10).val(),
                 ai -> {
-                    assertTrue(ai != null);
-                    assertTrue(ai.length == 10);
+                    assertNotNull(ai);
+                    assertEquals(10, ai.length);
                     assertTrue(ai instanceof int[]);
                     Arrays.stream(ai).forEach(el -> {
                         assertTrue(0 <= el);
@@ -69,7 +69,7 @@ public class MockUnitIntTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testArrayNegative() throws Exception {
+    public void testArrayNegative() {
         Constants.M.ints().array(-10).val();
     }
 }

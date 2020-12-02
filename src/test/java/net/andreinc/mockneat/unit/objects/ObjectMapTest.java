@@ -25,7 +25,7 @@ public class ObjectMapTest {
                                   .put("field3", m.objectMap().put("subField1", "subValue1")
                                                                     .put("subField2", "subValue2"))
                                   .put("num1", 1)
-                                  .put("num2", 1l)
+                                  .put("num2", 1L)
                                   .get(),
                 val -> {
                     Assert.assertEquals(val.get("field1"), "const1");
@@ -37,7 +37,7 @@ public class ObjectMapTest {
                     Assert.assertEquals(subMap.get("subField2"), "subValue2");
 
                     Assert.assertEquals(val.get("num1"), 1);
-                    Assert.assertEquals(val.get("num2"), 1l);
+                    Assert.assertEquals(val.get("num2"), 1L);
                 }
         );
     }

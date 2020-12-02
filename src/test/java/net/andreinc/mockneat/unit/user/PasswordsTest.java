@@ -34,17 +34,17 @@ import static org.junit.Assert.assertTrue;
 public class PasswordsTest {
 
     @Test(expected = NullPointerException.class)
-    public void testPasswordNullType() throws Exception {
+    public void testPasswordNullType() {
         M.passwords().type(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testPasswordEmptyTypes() throws Exception {
+    public void testPasswordEmptyTypes() {
         M.passwords().types().val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testPasswordNullTypes() throws Exception {
+    public void testPasswordNullTypes() {
         PassStrengthType[] types = null;
         M.passwords().types(types).val();
     }
@@ -68,14 +68,14 @@ public class PasswordsTest {
         return result;
     }
 
-    protected void testPassLength(PassStrengthType type) throws Exception {
+    protected void testPassLength(PassStrengthType type) {
         loop(PASS_CYCLES,
                 MOCKS,
                 r -> r.passwords().type(type).val(),
                 p -> assertTrue(hasCorrectLength(p, type)));
     }
 
-    protected void testPassContainsSpecialChr(PassStrengthType type) throws Exception {
+    protected void testPassContainsSpecialChr(PassStrengthType type) {
         loop(PASS_CYCLES,
                 MOCKS,
                 r -> r.passwords().type(type).val(),
@@ -83,27 +83,27 @@ public class PasswordsTest {
     }
 
     @Test
-    public void testWeakPasswordLength() throws Exception {
+    public void testWeakPasswordLength() {
         testPassLength(WEAK);
     }
 
     @Test
-    public void testMediumPasswordLength() throws Exception {
+    public void testMediumPasswordLength() {
         testPassLength(MEDIUM);
     }
 
     @Test
-    public void testStrongPasswordLength() throws Exception {
+    public void testStrongPasswordLength() {
         testPassLength(STRONG);
     }
 
     @Test
-    public void testMediumContainsSpecialChr() throws Exception {
+    public void testMediumContainsSpecialChr() {
         testPassContainsSpecialChr(MEDIUM);
     }
 
     @Test
-    public void testStrongContainsSpecialChr() throws Exception {
+    public void testStrongContainsSpecialChr() {
         testPassContainsSpecialChr(STRONG);
     }
 }

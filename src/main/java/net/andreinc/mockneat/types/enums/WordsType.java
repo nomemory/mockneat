@@ -20,5 +20,5 @@ public enum WordsType {
     VERBS_1SYLL,
     VERBS_2SYLL,
     VERBS_3SYLL,
-    VERBS_4SYLL;
+    VERBS_4SYLL
 }

@@ -17,6 +17,7 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+
 import net.andreinc.mockneat.utils.DateUtils;
 
 import java.time.LocalDate;
@@ -26,7 +27,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import static java.util.Date.from;
-import static net.andreinc.mockneat.utils.DateUtils.convertToDateViaInstant;
 import static net.andreinc.mockneat.utils.MockUnitUtils.ifSupplierNotNullDo;
 import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
@@ -55,7 +55,7 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
      */
     default MockUnit<Date> mapToDate() {
         return () -> ifSupplierNotNullDo(supplier(),
-                localDate -> convertToDateViaInstant(localDate));
+                DateUtils::convertToDateViaInstant);
     }
 
     /**
@@ -86,7 +86,7 @@ public interface MockUnitLocalDate extends MockUnit<LocalDate> {
     default MockUnitString display(DateTimeFormatter dtf, Locale locale) {
         notNull(dtf, "dtf");
         notNull(locale, "locale");
-        return () -> ifSupplierNotNullDo(supplier(), localDate -> dtf.format(localDate));
+        return () -> ifSupplierNotNullDo(supplier(), dtf::format);
     }
 
     @Deprecated

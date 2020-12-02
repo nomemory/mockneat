@@ -45,6 +45,7 @@ public class Froms extends MockUnitBase {
         return from(arr);
     }
 
+    @SuppressWarnings("unchecked")
     public <T> MockUnit<T> fromKeys(Map<T, ?> map) {
         notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "map");
         Supplier<T> supp = () -> {
@@ -58,7 +59,7 @@ public class Froms extends MockUnitBase {
     public <T> MockUnit<T> fromValues(Map<?, T> map) {
         notEmpty(map, ValidationUtils.INPUT_PARAMETER_NOT_EMPTY_OR_NULL, "map");
         Supplier<T> supp = () -> {
-            T[] values = (T[]) map.values().toArray();
+            @SuppressWarnings("unchecked") T[] values = (T[]) map.values().toArray();
             int idx = getRandom().nextInt(values.length);
             return values[idx];
         };

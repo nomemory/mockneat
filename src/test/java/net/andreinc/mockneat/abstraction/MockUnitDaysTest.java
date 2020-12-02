@@ -19,7 +19,6 @@ package net.andreinc.mockneat.abstraction;
 
 import org.junit.Test;
 
-import java.time.format.TextStyle;
 
 import static net.andreinc.mockneat.Constants.*;
 import static java.time.format.TextStyle.FULL;
@@ -31,17 +30,17 @@ import static org.junit.Assert.assertTrue;
 public class MockUnitDaysTest {
 
     @Test(expected = NullPointerException.class)
-    public void testDisplayNullTextStyle() throws Exception {
+    public void testDisplayNullTextStyle() {
         M.days().display(null, FRANCE).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testDisplayNullLocale() throws Exception {
+    public void testDisplayNullLocale() {
         M.days().display(SHORT, null).val();
     }
 
     @Test
-    public void testDisplay() throws Exception {
+    public void testDisplay() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
@@ -60,12 +59,12 @@ public class MockUnitDaysTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void textDisplayOverloadedNullTextStyle() throws Exception {
+    public void textDisplayOverloadedNullTextStyle() {
         M.days().display(null).val();
     }
 
     @Test
-    public void testDisplayOverloaded() throws Exception {
+    public void testDisplayOverloaded() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
@@ -84,7 +83,7 @@ public class MockUnitDaysTest {
     }
 
     @Test
-    public void testDisplaySimple() throws Exception {
+    public void testDisplaySimple() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,

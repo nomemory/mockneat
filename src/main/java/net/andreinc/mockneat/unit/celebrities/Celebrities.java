@@ -15,12 +15,12 @@ public class Celebrities extends MockUnitBase implements MockUnitString {
 
     public static Celebrities celebrities() { return MockNeat.threadLocal().celebrities(); }
 
-    private JazzArtists jazzArtists;
-    private RockStars rockStars;
-    private USPresidents usPresidents;
-    private UKPrimeMinisters ukPrimeMinisters;
-    private Actors actors;
-    private Actresses actresses;
+    private final JazzArtists jazzArtists;
+    private final RockStars rockStars;
+    private final USPresidents usPresidents;
+    private final UKPrimeMinisters ukPrimeMinisters;
+    private final Actors actors;
+    private final Actresses actresses;
 
     public Celebrities(MockNeat mockNeat) {
         super(mockNeat);

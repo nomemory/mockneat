@@ -24,29 +24,30 @@ import net.andreinc.mockneat.utils.LoopsUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class FactoryTest {
 
     @Test(expected = NullPointerException.class)
-    public void testFactoryNullClass() throws Exception {
+    public void testFactoryNullClass() {
         Constants.M.factory(null, String.class).method("some").params("abc").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFactorNullFactoryClass() throws Exception {
+    public void testFactorNullFactoryClass() {
         Constants.M.factory(String.class, null).method("some").params("abc").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFactoryForgetMethod() throws Exception {
+    public void testFactoryForgetMethod() {
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                 .params("ABC")
                 .val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFactoryNullMethod() throws Exception {
+    public void testFactoryNullMethod() {
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                 .method(null)
                 .params("ABC")
@@ -54,14 +55,14 @@ public class FactoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFactoryForgetParams() throws Exception {
+    public void testFactoryForgetParams() {
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                 .method("buffBuilder")
                 .val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testFactoryNullParams() throws Exception {
+    public void testFactoryNullParams() {
         Object[] params = null;
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                 .method("buffBuilder")
@@ -70,7 +71,7 @@ public class FactoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFactoryBuilderInvalidMethod() throws Exception {
+    public void testFactoryBuilderInvalidMethod() {
         Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                       .method("xxx")
                       .params("ABC")
@@ -78,16 +79,16 @@ public class FactoryTest {
     }
 
     @Test
-    public void testFactoryBuilderConstantParam() throws Exception {
+    public void testFactoryBuilderConstantParam() {
         StringBuilder buff = Constants.M.factory(StringBuilder.class, FactoryMethods.class)
                                 .method("buffBuilder")
                                 .params("ABC")
                                 .val();
-        assertTrue(buff.toString().equals("ABC"));
+        assertEquals("ABC", buff.toString());
     }
 
     @Test
-    public void testFactoryBuilderMockParam() throws Exception {
+    public void testFactoryBuilderMockParam() {
         LoopsUtils.loop(
                 Constants.OBJS_CYCLES,
                 Constants.MOCKS,
@@ -97,7 +98,7 @@ public class FactoryTest {
                         .val(),
                 s -> {
                     assertTrue(s instanceof StringBuilder);
-                    assertTrue(s.length() == 10);
+                    assertEquals(10, s.length());
                     assertTrue(StringUtils.isAlphanumeric(s.toString()));
                 }
         );

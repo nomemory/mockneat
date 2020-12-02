@@ -17,7 +17,6 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.Constants;
 import net.andreinc.mockneat.abstraction.models.AbstractListNoInstance;
 import org.junit.Test;
 
@@ -29,8 +28,10 @@ import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.Constants.MOCKS;
 import static net.andreinc.mockneat.Constants.MOCK_CYCLES;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("ALL")
 public class MockUnitCollectionMethodTest {
 
     @Test(expected = NullPointerException.class)
@@ -58,8 +59,8 @@ public class MockUnitCollectionMethodTest {
 
     @Test
     public void testCollectionSupp0Size() {
-        assertTrue(M.ints().collection(() -> new PriorityQueue<>(), 0).val() instanceof Collection);
-        assertTrue(M.ints().collection(() -> new LinkedList<>(), 0).val().isEmpty());
+        assertTrue(M.ints().collection(PriorityQueue::new, 0).val() instanceof Collection);
+        assertTrue(M.ints().collection(LinkedList::new, 0).val().isEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -69,7 +70,7 @@ public class MockUnitCollectionMethodTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCollectionSuppNegativeSize() throws Exception {
-        M.ints().collection(() -> new ArrayList<>(), -1).val();
+        M.ints().collection(ArrayList::new, -1).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -94,8 +95,8 @@ public class MockUnitCollectionMethodTest {
         loop(MOCK_CYCLES, MOCKS,
                 m -> {
                     Collection<Collection<Integer>> result = m.ints().collection(10).collection(5).val();
-                    assertTrue(result.size()==5);
-                    result.forEach(sub -> assertTrue(sub.size()==10));
+                    assertEquals(5, result.size());
+                    result.forEach(sub -> assertEquals(10, sub.size()));
         });
     }
 
@@ -126,9 +127,9 @@ public class MockUnitCollectionMethodTest {
         loop(MOCK_CYCLES, MOCKS, m -> {
             Collection<Collection<Collection<Integer>>> result =
                     m.ints().range(100, 200)
-                            .collection(() -> new LinkedList<>(), 5)
-                            .collection(() -> new Stack<>(), 10)
-                            .collection(() -> new ArrayList<>(), 5)
+                            .collection(LinkedList::new, 5)
+                            .collection(Stack::new, 10)
+                            .collection(ArrayList::new, 5)
                             .val();
 
             // Iterate over all the values
@@ -158,10 +159,10 @@ public class MockUnitCollectionMethodTest {
 
     protected MockUnit getRecursiveRandUnitCollectionSupp(MockUnit ru, int stop) {
         Supplier<Collection>[] supps = new Supplier[] {
-                () -> new ArrayList<>(),
-                () -> new LinkedList<>(),
-                () -> new Stack<>(),
-                () -> new HashSet<>()
+                ArrayList::new,
+                LinkedList::new,
+                Stack::new,
+                HashSet::new
         };
         while(stop-->0) {
             ru = ru.collection(M.from(supps).val(), 1);
@@ -175,10 +176,11 @@ public class MockUnitCollectionMethodTest {
     }
 
     protected Collection getRecursiveCollectionSupp() {
-        MockUnit l = M.ints().collection(() -> new ArrayList<>(), 1);
+        MockUnit l = M.ints().collection(ArrayList::new, 1);
         return (Collection) getRecursiveRandUnitCollectionSupp(l, 100).val();
     }
-//
+
+//TODO fix the test
 //    @Test
 //    public void testCollectionDeep() {
 //        Collection l = getRecursiveCollection();
@@ -202,23 +204,19 @@ public class MockUnitCollectionMethodTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCollectionTreeSetWithNulls() {
         List<Integer> list = Arrays.asList(null, null);
-        loop(MOCK_CYCLES, () -> {
-            stream(MOCKS).forEach(r -> {
-                Collection c = r.from(list).collection(TreeSet.class, 100).val();
-                c.forEach(e -> assertTrue(null==e));
-            });
-        });
+        loop(MOCK_CYCLES, () -> stream(MOCKS).forEach(r -> {
+            Collection c = r.from(list).collection(TreeSet.class, 100).val();
+            c.forEach(e -> assertTrue(null==e));
+        }));
     }
 
     @Test
     public void testCollectionHashSetWithNulls() {
         List<Integer> list = Arrays.asList(null, null);
-        loop(MOCK_CYCLES, () -> {
-            stream(MOCKS).forEach(r -> {
-                Collection c = r.from(list).collection(HashSet.class, 100).val();
-                c.forEach(e -> assertTrue(null==e));
-            });
-        });
+        loop(MOCK_CYCLES, () -> stream(MOCKS).forEach(r -> {
+            Collection c = r.from(list).collection(HashSet.class, 100).val();
+            c.forEach(e -> assertTrue(null==e));
+        }));
     }
 
     // MockUnitInt sizes
@@ -238,14 +236,14 @@ public class MockUnitCollectionMethodTest {
     @Test(expected = NullPointerException.class)
     public void testCollectionSuppMockUnitSizeNull() {
         MockUnitInt sizeUnit = null;
-        M.ints().collection(() -> new TreeSet<>(), sizeUnit).val();
+        M.ints().collection(TreeSet::new, sizeUnit).val();
     }
 
     @Test
     public void testCollectionSuppCorrectMockUnitIntSize() {
         loop(MOCK_CYCLES, MOCKS, m -> {
             Collection<Integer> set = m.intSeq()
-                    .collection(() -> new HashSet<>(), m.ints().range(10, 20))
+                    .collection(HashSet::new, m.ints().range(10, 20))
                     .val();
 
             assertTrue(set.size()>=10 && set.size()<20);

@@ -28,7 +28,7 @@ import java.util.Locale;
 
 import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MockUnitLocalDateTest {
 
@@ -36,8 +36,8 @@ public class MockUnitLocalDateTest {
     public void testToUtilDateNullValue() {
         LocalDate[] localDates = { null };
         MockUnitLocalDate mockUnitLocalDate = () -> () -> M.from(localDates).val();
-        Date date = mockUnitLocalDate.toUtilDate().val();
-        assertTrue(null == date);
+        Date date = mockUnitLocalDate.mapToDate().val();
+        assertNull(date);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class MockUnitLocalDateTest {
         loop(
                 Constants.LOCAL_DATES_CYCLES,
                 Constants.MOCKS,
-                mockNeat -> mockNeat.localDates().between(start, stop).toUtilDate().val(),
-                utilDate -> assertTrue(!(utilDate.before(startDate) || utilDate.after(stopDate)))
+                mockNeat -> mockNeat.localDates().between(start, stop).mapToDate().val(),
+                utilDate -> assertFalse(utilDate.before(startDate) || utilDate.after(stopDate))
         );
     }
 
@@ -76,13 +76,13 @@ public class MockUnitLocalDateTest {
     @Test
     public void testDisplayInvalidFormat() {
         String fmt = M.localDates().display("123").val();
-        assertTrue(fmt.equals("123"));
+        assertEquals("123", fmt);
     }
 
     @Test
     public void testDisplayInvalidFormat2() {
         String fmt = M.localDates().display("").val();
-        assertTrue(fmt.equals(""));
+        assertEquals("", fmt);
     }
 
     @Test
@@ -96,7 +96,7 @@ public class MockUnitLocalDateTest {
                 date -> {
                     String[] split = date.split(":");
 
-                    assertTrue(split.length == 3);
+                    assertEquals(3, split.length);
 
                     int year = Integer.parseInt(split[0]);
                     int month = Integer.parseInt(split[1]);
@@ -140,7 +140,7 @@ public class MockUnitLocalDateTest {
                 date -> {
                     String[] split = date.split(":");
 
-                    assertTrue(split.length == 3);
+                    assertEquals(3, split.length);
 
                     int year = Integer.parseInt(split[0]);
                     int month = Integer.parseInt(split[1]);

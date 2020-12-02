@@ -43,22 +43,22 @@ public class CurrenciesTest {
     }
 
     @Test
-    public void testCodes() throws Exception {
+    public void testCodes() {
         loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().code().val(), c -> assertTrue(CODES.contains(c)));
     }
 
     @Test
-    public void testSymbol() throws Exception {
+    public void testSymbol() {
         loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().symbol().val(), c -> assertTrue(SYMBOLS.contains(c)));
     }
 
     @Test
-    public void testName() throws Exception {
+    public void testName() {
         loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().name().val(), c -> assertTrue(NAMES.contains(c)));
     }
 
     @Test
-    public void testForexPair() throws Exception {
+    public void testForexPair() {
         loop(CURRENCIES_CYCLES, MOCKS, r -> r.currencies().forexPair().val(), c -> {
             String[] pairs = c.split("/");
             assertTrue(CODES.contains(pairs[0]));

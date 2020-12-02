@@ -123,6 +123,7 @@ public class Shufflers extends MockUnitBase {
     public <T> MockUnit<ArrayList<T>> arrayList(ArrayList<T> source) {
         notNull(source, "source");
         Supplier<ArrayList<T>> supplier = () -> {
+            //noinspection unchecked
             ArrayList<T> result = (ArrayList<T>) source.clone();
             T tmp;
             for(int j, i = 0; i < result.size() - 2; ++i) {

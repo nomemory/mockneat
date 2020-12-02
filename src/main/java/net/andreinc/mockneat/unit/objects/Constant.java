@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 
 public class Constant<T> implements MockUnit<T> {
 
-    public static final <T> Constant constant(T object) { return MockNeat.threadLocal().constant(object); }
+    public static <T> Constant<T> constant(T object) { return MockNeat.threadLocal().constant(object); }
 
     private final T object;
 

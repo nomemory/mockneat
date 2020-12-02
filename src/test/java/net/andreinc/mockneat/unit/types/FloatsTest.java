@@ -20,7 +20,6 @@ package net.andreinc.mockneat.unit.types;
 import net.andreinc.mockneat.Constants;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,13 +27,13 @@ import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class FloatsTest {
 
     @Test
-    public void testNextFloatInCorrectRange() throws Exception {
+    public void testNextFloatInCorrectRange() {
         loop(Constants.FLOATS_CYCLES,
                 Constants.MOCKS,
                 r -> r.floats().val(),
@@ -42,18 +41,18 @@ public class FloatsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatZeroNotBound() throws Exception {
+    public void testNextFloatZeroNotBound() {
         Constants.M.floats().bound(0.0f).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void nextFloat_NegativeNotBound() throws Exception {
+    public void nextFloat_NegativeNotBound() {
         Constants.M.floats().bound(-5.0f).val();
     }
 
     @Test
-    public void testNextFloatInCorrectRange2() throws Exception {
-        Float bound = 0.01f;
+    public void testNextFloatInCorrectRange2() {
+        float bound = 0.01f;
         loop(Constants.FLOATS_CYCLES,
                 Constants.MOCKS,
                 r -> r.floats().bound(bound).val(),
@@ -61,20 +60,20 @@ public class FloatsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatNaNNotBound() throws Exception {
+    public void testNextFloatNaNNotBound() {
         Constants.M.floats().bound(Float.NaN).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void nextFloat_NullNotBound() throws Exception {
+    public void nextFloat_NullNotBound() {
         Float bound = null;
         Constants.M.floats().bound(bound).val();
     }
 
     @Test
-    public void testNextFloatInCorrectRange3() throws Exception {
+    public void testNextFloatInCorrectRange3() {
         Float lowerBound = 1.1987f;
-        Float upperBound = Float.MAX_VALUE;
+        float upperBound = Float.MAX_VALUE;
 
         loop(Constants.FLOATS_CYCLES,
                 Constants.MOCKS,
@@ -83,42 +82,39 @@ public class FloatsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatBoundsNotEqual() throws Exception {
-        Float lowerBound = 0.01f;
-        Float upperBound = lowerBound;
-
-        Constants.M.floats().range(lowerBound, upperBound).val();
+    public void testNextFloatBoundsNotEqual() {
+        Constants.M.floats().range(0.01f, 0.01f).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatNaNNotBound2() throws Exception {
+    public void testNextFloatNaNNotBound2() {
         Constants.M.floats().range(Float.NaN, 10.0f).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatNaNNotBound3() throws Exception {
+    public void testNextFloatNaNNotBound3() {
         Constants.M.floats().range(10.0f, Float.NaN).val();
     }
 
     @Test(expected =  NullPointerException.class)
-    public void testNextFloatNullNotBound2() throws Exception {
+    public void testNextFloatNullNotBound2() {
         Float f = null;
         Constants.M.floats().range(10.0f, f).val();
     }
 
     @Test(expected =  NullPointerException.class)
-    public void testNextFloatNullNotBound3() throws Exception {
+    public void testNextFloatNullNotBound3() {
         Float f = null;
         Constants.M.floats().range(f, 10.0f).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextFloatLesserUpperBound() throws Exception {
+    public void testNextFloatLesserUpperBound() {
         Constants.M.floats().range(10.0f, 8.0f).val();
     }
 
     @Test
-    public void testNextCorrectValues() throws Exception {
+    public void testNextCorrectValues() {
         float[] floats = { 1.0f, 5.0f, 10.0f, 15.0f, 20.52f };
         Set<Float> values = new HashSet<>(asList(toObject(floats)));
         loop(Constants.FLOATS_CYCLES,
@@ -128,22 +124,22 @@ public class FloatsTest {
     }
 
     @Test
-    public void testNextCorrectValues2() throws Exception {
+    public void testNextCorrectValues2() {
         float[] floats = { 0.0f };
         loop(Constants.FLOATS_CYCLES,
                 Constants.MOCKS,
                 r -> r.floats().from(floats).val(),
-                num -> assertTrue(num.equals(floats[0])));
+                num -> assertEquals(num, floats[0], 0.0));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextNullNotAlphabet() throws Exception {
+    public void testNextNullNotAlphabet() {
         float[] alphabet = null;
         Constants.M.floats().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextEmptyArrayNotAlphabet() throws Exception {
+    public void testNextEmptyArrayNotAlphabet() {
         Constants.M.floats().from(new float[]{}).val();
     }
 
@@ -183,7 +179,7 @@ public class FloatsTest {
                         .bound(10f)
                         .array(0)
                         .val(),
-                arr -> assertTrue(0 == arr.length)
+                arr -> assertEquals(0, arr.length)
         );
     }
 
@@ -200,7 +196,7 @@ public class FloatsTest {
                                         .array(size)
                                         .val();
 
-                    assertTrue(floats.length == size);
+                    assertEquals(floats.length, size);
                     stream(floats).forEach(f -> assertTrue(0f <= f && f< 1f));
                 }
         );

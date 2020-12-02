@@ -29,12 +29,13 @@ import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.Constants.MOCKS;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.ArrayUtils.toObject;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class IntsTest {
 
     @Test
-    public void testNextIntegerInCorrectRange() throws Exception {
+    public void testNextIntegerInCorrectRange() {
         int upperBound = 100;
         loop(INTS_CYCLES,
                 MOCKS,
@@ -43,28 +44,28 @@ public class IntsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextIntegerNegativeNotBound() throws Exception {
+    public void testNextIntegerNegativeNotBound() {
         int upperBound = -100;
         M.ints().bound(upperBound).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextIntegerNullNotBound() throws Exception {
+    public void testNextIntegerNullNotBound() {
         Integer bound = null;
         M.ints().bound(bound).val();
     }
 
     @Test
-    public void testNextIntegerInCorrectRange2() throws Exception {
+    public void testNextIntegerInCorrectRange2() {
         int upperBound = 1;
         loop(INTS_CYCLES,
                 MOCKS,
                 r -> r.ints().bound(upperBound).val(),
-                num -> assertTrue(num.equals(0)));
+                num -> assertEquals(0, (int) num));
     }
 
     @Test
-    public void testNextIntegerInCorrectRange3() throws Exception {
+    public void testNextIntegerInCorrectRange3() {
         Integer upperBound = MAX_VALUE;
         loop(INTS_CYCLES,
                 MOCKS,
@@ -73,33 +74,33 @@ public class IntsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextIntegerNegativeNotBound2() throws Exception {
+    public void testNextIntegerNegativeNotBound2() {
         int lowerBound = -1;
         int upperBound = 100;
         M.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextIntegerNegativeNotBound3() throws Exception {
+    public void testNextIntegerNegativeNotBound3() {
         int lowerBound = 100;
         int upperBound = -5;
         M.ints().range(lowerBound, upperBound).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextIntegerNullNotBound2() throws Exception {
+    public void testNextIntegerNullNotBound2() {
         Integer x = null;
         M.ints().range(x, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextIntegerNullNotBound3() throws Exception {
+    public void testNextIntegerNullNotBound3() {
         Integer x = null;
         M.ints().range(10, x).val();
     }
 
     @Test
-    public void testNextIntegerInCorrectRange4() throws Exception {
+    public void testNextIntegerInCorrectRange4() {
         int lowerBound = 5;
         int upperBound = 8;
         loop(INTS_CYCLES,
@@ -109,22 +110,22 @@ public class IntsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextIntegerNonEqualBounds() throws Exception {
+    public void testNextIntegerNonEqualBounds() {
         int lowerBound = 10, upperBound = 10;
         M.ints().range(lowerBound, upperBound).val();
     }
 
     @Test
-    public void testNextIntegerCorrectValues() throws Exception {
+    public void testNextIntegerCorrectValues() {
         int lowerBound = 10, upperBound = lowerBound + 1;
         loop(INTS_CYCLES,
                 MOCKS,
                 r -> r.ints().range(lowerBound, upperBound).val(),
-                num -> num.equals(lowerBound));
+                num -> assertEquals((int) num, lowerBound));
     }
 
     @Test
-    public void testNextIntegerInCorrectRange5() throws Exception {
+    public void testNextIntegerInCorrectRange5() {
         int lowerBound = 0;
         int upperBound = MAX_VALUE;
         loop(INTS_CYCLES,
@@ -134,7 +135,7 @@ public class IntsTest {
     }
 
     @Test
-    public void testNextCorrectValues() throws Exception {
+    public void testNextCorrectValues() {
         int[] alphabet = {10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000};
         Set<Integer> helperSet = new HashSet<>(asList(toObject(alphabet)));
         loop(INTS_CYCLES,
@@ -144,13 +145,13 @@ public class IntsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNextNulLNotAlphabet() throws Exception {
+    public void testNextNulLNotAlphabet() {
         int[] alphabet = null;
         M.ints().from(alphabet).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNextEmptyArrayNotAlphabet() throws Exception {
+    public void testNextEmptyArrayNotAlphabet() {
         int[] alphabet = new int[]{};
         M.ints().from(alphabet).val();
     }
@@ -182,16 +183,15 @@ public class IntsTest {
 
     @Test
     public void testIntegerRangeClosedHighRange() {
-        loop(INTS_CYCLES, MOCKS, m -> m.ints().rangeClosed(MAX_VALUE - 1, MAX_VALUE).val(), i -> {
-            assertTrue(i == MAX_VALUE || i == (MAX_VALUE - 1));
-        });
+        loop(INTS_CYCLES, MOCKS, m -> m.ints().rangeClosed(MAX_VALUE - 1, MAX_VALUE).val(),
+                i -> assertTrue(i == MAX_VALUE || i == (MAX_VALUE - 1)));
     }
 
     @Test
     public void testIntegerRangeClosed() {
-        loop(INTS_CYCLES, MOCKS, m -> m.ints().rangeClosed(0, 100).get(), i -> {
-            assertTrue(i >= 0 && i <= 100);
-        });
+        loop(INTS_CYCLES, MOCKS,
+                m -> m.ints().rangeClosed(0, 100).get(),
+                i -> assertTrue(i >= 0 && i <= 100));
     }
 
     /** Test lowerBound **/
@@ -213,15 +213,15 @@ public class IntsTest {
 
     @Test
     public void testLowerBound() {
-        loop(INTS_CYCLES, MOCKS,m -> m.ints().lowerBound(1000).get(), i -> {
-            assertTrue(i >= 1000);
-        });
+        loop(INTS_CYCLES, MOCKS,
+                m -> m.ints().lowerBound(1000).get(),
+                i -> assertTrue(i >= 1000));
     }
 
     @Test
     public void testLowerBoundHighInterval() {
-        loop(INTS_CYCLES, MOCKS, m -> m.ints().lowerBound(MAX_VALUE - 1).get(), i -> {
-            assertTrue(i == MAX_VALUE || i == (MAX_VALUE - 1));
-        });
+        loop(INTS_CYCLES, MOCKS,
+                m -> m.ints().lowerBound(MAX_VALUE - 1).get(),
+                i -> assertTrue(i == MAX_VALUE || i == (MAX_VALUE - 1)));
     }
 }

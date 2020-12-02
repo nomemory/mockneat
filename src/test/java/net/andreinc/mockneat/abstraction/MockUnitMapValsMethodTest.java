@@ -27,31 +27,32 @@ import java.util.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings({"ALL"})
 public class MockUnitMapValsMethodTest {
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsSupplierNullClass() throws Exception {
+    public void testMapValsSupplierNullClass() {
         Class<Map> cls = null;
         Constants.M.ints().mapVals(cls, 10, () -> "abc").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsSupplierNegativeSize() throws Exception {
+    public void testMapValsSupplierNegativeSize() {
         Constants.M.ints().mapVals(HashMap.class, -1, () -> "abc").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsSupplierNullSupplier() throws Exception {
+    public void testMapValsSupplierNullSupplier() {
         Constants.M.ints().mapVals(HashMap.class, 10, null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsSupplierCannotInstantiateMap() throws Exception {
+    public void testMapValsSupplierCannotInstantiateMap() {
         Constants.M.ints().mapVals(AbstractMapNoInstance.class, 10, () -> "abc").val();
     }
 
     @Test
-    public void testMapValsSupplierNullValuesHashMap() throws Exception {
+    public void testMapValsSupplierNullValuesHashMap() {
         Map<Integer, Integer> map = Constants.M.from(new Integer[]{ null, null, null})
                                         .mapVals(HashMap.class, 100, Constants.M.ints().supplier())
                                         .val();
@@ -60,7 +61,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsSupplier() throws Exception {
+    public void testMapValsSupplier() {
         MockUnitInt vals = Constants.M.ints().range(0, 10);
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
 
@@ -80,7 +81,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsSupplierOverloaded() throws Exception {
+    public void testMapValsSupplierOverloaded() {
         Iterable<Integer> iterable = Constants.M.ints().range(10, 100).set(100).val();
         loop(
                 Constants.MOCK_CYCLES,
@@ -104,24 +105,24 @@ public class MockUnitMapValsMethodTest {
     */
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsIterableNullClass() throws Exception {
+    public void testMapValsIterableNullClass() {
         Class<Map> cls = null;
         Constants.M.ints().mapVals(cls, Constants.M.ints().list(10).list(10).val());
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsIterableNullIterable() throws Exception {
+    public void testMapValsIterableNullIterable() {
         List<Integer> it = null;
         Constants.M.ints().mapVals(HashMap.class, it);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsIterableCannotInstantiateMap() throws Exception {
+    public void testMapValsIterableCannotInstantiateMap() {
         Constants.M.ints().mapVals(AbstractMapNoInstance.class, Constants.M.ints().list(10).val()).val();
     }
 
     @Test
-    public void testMapValsNullValuesHashMap() throws Exception {
+    public void testMapValsNullValuesHashMap() {
         Map<Integer, Integer> map = Constants.M.from(new Integer[]{ null, null, null})
                 .mapVals(HashMap.class, Constants.M.ints().list(10).val())
                 .val();
@@ -130,7 +131,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsIterable() throws Exception {
+    public void testMapValsIterable() {
         Iterable<Integer> vals = Constants.M.ints().range(0, 10).list(10).val();
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
 
@@ -150,9 +151,9 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsIterableOverloaded() throws Exception {
+    public void testMapValsIterableOverloaded() {
         Iterable<Integer> vals =
-                Constants.M.ints().range(0, 100).list(100).map(l -> new ArrayDeque<>(l)).val();
+                Constants.M.ints().range(0, 100).list(100).map(ArrayDeque::new).val();
         loop(
                 Constants.MOCK_CYCLES,
                 Constants.MOCKS,
@@ -174,24 +175,24 @@ public class MockUnitMapValsMethodTest {
      */
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayNullClass() throws Exception {
+    public void testMapValsArrayNullClass() {
         Class<Map> cls = null;
         Constants.M.ints().mapVals(cls, new Integer[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayNullArray() throws Exception {
+    public void testMapValsArrayNullArray() {
         Integer[] arr = null;
         Constants.M.ints().mapVals(HashMap.class, arr).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsArrayCannotInstantiateMap() throws Exception {
+    public void testMapValsArrayCannotInstantiateMap() {
         Constants.M.ints().mapVals(AbstractMapNoInstance.class, new Integer[]{1,2,3}).val();
     }
 
     @Test
-    public void testMapValsArrayNullValuesHashMap() throws Exception {
+    public void testMapValsArrayNullValuesHashMap() {
         Map<Integer, Integer> map = Constants.M.from(new Integer[]{ null, null, null})
                 .mapVals(HashMap.class, Constants.M.ints().array(10).val())
                 .val();
@@ -200,7 +201,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsArray() throws Exception {
+    public void testMapValsArray() {
         Integer[] array = Constants.M.ints().range(0, 100).array(100).val();
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
@@ -219,7 +220,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsArrayOverloaded() throws Exception {
+    public void testMapValsArrayOverloaded() {
         Integer[] array = Constants.M.ints().range(0, 100).array(100).val();
         loop(
                 Constants.MOCK_CYCLES,
@@ -242,25 +243,25 @@ public class MockUnitMapValsMethodTest {
      */
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayIntNullClass() throws Exception {
+    public void testMapValsArrayIntNullClass() {
         Class<Map> cls = null;
         Constants.M.ints().mapVals(cls, new int[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayIntNullArray() throws Exception {
+    public void testMapValsArrayIntNullArray() {
         int[] arr = null;
         Constants.M.ints().mapVals(HashMap.class, arr).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsArrayIntCannotInstantiateMap() throws Exception {
+    public void testMapValsArrayIntCannotInstantiateMap() {
         Constants.M.ints().mapVals(AbstractMapNoInstance.class, new int[]{1,2,3}).val();
     }
 
 
     @Test
-    public void testMapValsArrayInt() throws Exception {
+    public void testMapValsArrayInt() {
         int[] array = Constants.M.ints().range(0, 100).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
@@ -279,7 +280,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsArrayIntOverloaded() throws Exception {
+    public void testMapValsArrayIntOverloaded() {
         int[] array = Constants.M.ints().range(0, 100).arrayPrimitive(100).val();
         loop(
                 Constants.MOCK_CYCLES,
@@ -303,25 +304,25 @@ public class MockUnitMapValsMethodTest {
 
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayDoubleNullClass() throws Exception {
+    public void testMapValsArrayDoubleNullClass() {
         Class<Map> cls = null;
         Constants.M.ints().mapVals(cls, new double[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayDoubleNullArray() throws Exception {
+    public void testMapValsArrayDoubleNullArray() {
         int[] arr = null;
         Constants.M.ints().mapVals(HashMap.class, arr).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsArrayDoubleCannotInstantiateMap() throws Exception {
+    public void testMapValsArrayDoubleCannotInstantiateMap() {
         Constants.M.ints().mapVals(AbstractMapNoInstance.class, new double[]{1.0,2.0,3.0}).val();
     }
 
 
     @Test
-    public void testMapValsArrayDouble() throws Exception {
+    public void testMapValsArrayDouble() {
         double[] array = Constants.M.doubles().range(0.0, 100.0).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
@@ -340,7 +341,7 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test
-    public void testMapValsArrayDoubleOverloaded() throws Exception {
+    public void testMapValsArrayDoubleOverloaded() {
         double[] array = Constants.M.doubles().range(0.0, 100.0).arrayPrimitive(100).val();
         loop(
                 Constants.MOCK_CYCLES,
@@ -358,56 +359,56 @@ public class MockUnitMapValsMethodTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayLongNullClass() throws Exception {
+    public void testMapValsArrayLongNullClass() {
         Class<Map> cls = null;
         Constants.M.ints().mapVals(cls, new long[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testMapValsArrayLongNullArray() throws Exception {
+    public void testMapValsArrayLongNullArray() {
         long[] arr = null;
         Constants.M.ints().mapVals(HashMap.class, arr).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMapValsArrayLongCannotInstantiateMap() throws Exception {
-        Constants.M.ints().mapVals(AbstractMapNoInstance.class, new long[]{1l,2l,3l}).val();
+    public void testMapValsArrayLongCannotInstantiateMap() {
+        Constants.M.ints().mapVals(AbstractMapNoInstance.class, new long[]{1L, 2L, 3L}).val();
     }
 
 
     @Test
-    public void testMapValsArrayLong() throws Exception {
-        long[] array = Constants.M.longs().range(0l, 100l).arrayPrimitive(100).val();
+    public void testMapValsArrayLong() {
+        long[] array = Constants.M.longs().range(0L, 100L).arrayPrimitive(100).val();
         Class<? extends Map>[] maps = new Class[]{ TreeMap.class, HashMap.class, LinkedHashMap.class };
         loop(
                 Constants.MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.longs()
-                        .range(100l, 200l)
+                        .range(100L, 200L)
                         .mapVals(Constants.M.from(maps).val(), array)
                         .val(),
                 map -> MapCheckUtils.testMap(
                         map,
-                        MapCheckUtils.inRange(100l, 200l),
-                        MapCheckUtils.inRange(0l, 100l)
+                        MapCheckUtils.inRange(100L, 200L),
+                        MapCheckUtils.inRange(0L, 100L)
                 )
         );
     }
 
     @Test
-    public void testMapValsArrayLongOverloaded() throws Exception {
-        long[] array = Constants.M.longs().range(0l, 100l).arrayPrimitive(100).val();
+    public void testMapValsArrayLongOverloaded() {
+        long[] array = Constants.M.longs().range(0L, 100L).arrayPrimitive(100).val();
         loop(
                 Constants.MOCK_CYCLES,
                 Constants.MOCKS,
                 m -> m.longs()
-                        .range(100l, 200l)
+                        .range(100L, 200L)
                         .mapVals(array)
                         .val(),
                 map -> MapCheckUtils.testMap(
                         map,
-                        MapCheckUtils.inRange(100l, 200l),
-                        MapCheckUtils.inRange(0l, 100l)
+                        MapCheckUtils.inRange(100L, 200L),
+                        MapCheckUtils.inRange(0L, 100L)
                 )
         );
     }

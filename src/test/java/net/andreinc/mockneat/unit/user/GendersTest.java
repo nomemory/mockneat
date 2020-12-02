@@ -26,7 +26,7 @@ import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 
 public class GendersTest {
     @Test
-    public void testGendersLong() throws Exception {
+    public void testGendersLong() {
         loop(
                 GENDERS_CYCLES,
                 MOCKS,
@@ -36,7 +36,7 @@ public class GendersTest {
     }
 
     @Test
-    public void testGendersLetter() throws Exception {
+    public void testGendersLetter() {
         loop(
                 GENDERS_CYCLES,
                 MOCKS,

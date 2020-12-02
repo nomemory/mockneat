@@ -42,8 +42,8 @@ import java.util.*;
 
 public final class NamesCheckUtils {
 
-    private static FileManager FILE_MANAGER = FileManager.getInstance();
-    private static Map<NameType, List<Set<String>>> NAMES = new EnumMap<>(NameType.class);
+    private static final FileManager FILE_MANAGER = FileManager.getInstance();
+    private static final Map<NameType, List<Set<String>>> NAMES = new EnumMap<>(NameType.class);
 
     static {
         Arrays.stream(NameType.values()).forEach(nt -> {
@@ -55,7 +55,7 @@ public final class NamesCheckUtils {
     }
 
     private static boolean isInSets(String value, List<Set<String>> sets) {
-        return sets.stream().filter(s -> s.contains(value)).findFirst().isPresent();
+        return sets.stream().anyMatch(s -> s.contains(value));
     }
 
     public static boolean isNameOfType(String name, NameType type) {

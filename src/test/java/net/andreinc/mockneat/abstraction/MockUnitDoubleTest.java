@@ -24,17 +24,17 @@ import java.util.stream.DoubleStream;
 
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MockUnitDoubleTest {
     @Test
-    public void testDoubleStream() throws Exception {
+    public void testDoubleStream() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
                 m -> m.doubles().range(0.0, 10.0).doubleStream().val(),
                 ds -> {
-                    assertTrue(ds != null);
+                    assertNotNull(ds);
                     assertTrue(ds instanceof DoubleStream);
                     ds.limit(10).forEach(el -> {
                         assertTrue(0.0 <= el);
@@ -45,20 +45,20 @@ public class MockUnitDoubleTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testArrayPrimitiveWithNegativeSize() throws Exception {
+    public void testArrayPrimitiveWithNegativeSize() {
         M.doubles().arrayPrimitive(-5).val();
     }
 
     @Test
-    public void testArrayPrimitive() throws Exception {
+    public void testArrayPrimitive() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
                 m -> m.doubles().range(0.0, 10.0).arrayPrimitive(10).val(),
                 ad -> {
-                    assertTrue(ad != null);
+                    assertNotNull(ad);
                     assertTrue(ad instanceof double[]);
-                    assertTrue(ad.length == 10);
+                    assertEquals(10, ad.length);
                     Arrays.stream(ad).forEach(el -> {
                         assertTrue(0.0 <= el);
                         assertTrue(el < 10.0);
@@ -68,20 +68,20 @@ public class MockUnitDoubleTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testArrayNegative() throws Exception {
+    public void testArrayNegative() {
         M.doubles().array(-10).val();
     }
 
     @Test
-    public void testArray() throws Exception {
+    public void testArray() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
                 m -> m.doubles().range(0.0, 10.0).array(100).val(),
                 ad -> {
-                    assertTrue(ad != null);
+                    assertNotNull(ad);
                     assertTrue(ad instanceof Double[]);
-                    assertTrue(ad.length == 100);
+                    assertEquals(100, ad.length);
                     Arrays.stream(ad).forEach(el ->
                             {
                                 assertTrue(0.0 <= el);

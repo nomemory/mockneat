@@ -3,7 +3,6 @@ package net.andreinc.mockneat.unit.objects;
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnit;
 import net.andreinc.mockneat.abstraction.MockUnitBase;
-import net.andreinc.mockneat.unit.address.Cities;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -19,7 +18,7 @@ public class ObjectMap extends MockUnitBase implements MockUnit<Map<String, Obje
         return MockNeat.threadLocal().objectMap();
     }
 
-    private Map<String, MockUnit> map = new LinkedHashMap<>();
+    private final Map<String, MockUnit> map = new LinkedHashMap<>();
 
     public ObjectMap(MockNeat mockNeat) {
         super(mockNeat);

@@ -65,7 +65,7 @@ public class URLs extends MockUnitBase implements MockUnitString {
     // Port
     private Supplier<String> portSupplier;
 
-    public static final URLs urls() {
+    public static URLs urls() {
         return MockNeat.threadLocal().urls();
     }
 
@@ -85,14 +85,12 @@ public class URLs extends MockUnitBase implements MockUnitString {
                                           String domain,
                                           String port,
                                           String paths) {
-        StringBuilder buff = new StringBuilder();
-        buff.append(scheme)
-                .append(auth)
-                .append(host)
-                .append(domain)
-                .append(port)
-                .append(paths);
-        return buff.toString();
+        return scheme +
+                auth +
+                host +
+                domain +
+                port +
+                paths;
     }
 
     private void initializeSuppliers() {

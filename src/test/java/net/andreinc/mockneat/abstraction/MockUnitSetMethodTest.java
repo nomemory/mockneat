@@ -18,6 +18,7 @@ package net.andreinc.mockneat.abstraction;
  */
 
 import net.andreinc.mockneat.abstraction.models.AbstractSetNoInstance;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
@@ -27,25 +28,24 @@ import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static net.andreinc.mockneat.Constants.*;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MockUnitSetMethodTest {
 
     @Test(expected = NullPointerException.class)
-    public void testSetNullType() throws Exception {
+    public void testSetNullType() {
         Class<Set> cls = null;
         M.ints().set(cls, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testSetSuppNullType() throws Exception {
+    public void testSetSuppNullType() {
         Supplier<Set<Integer>> setSupplier = null;
         M.ints().set(setSupplier, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testSetSuppRetNullType() throws Exception {
+    public void testSetSuppRetNullType() {
         M.ints().set(() -> null, 10).val();
     }
 
@@ -56,42 +56,46 @@ public class MockUnitSetMethodTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSetNegativeSize() throws Exception {
+    public void testSetNegativeSize() {
         M.ints().set(HashSet.class, -1).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSetSuppNegativeSize() throws Exception {
-        M.ints().set(() -> new TreeSet<>(), -1).val();
+    public void testSetSuppNegativeSize() {
+        M.ints().set(TreeSet::new, -1).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCannotImplementSet() throws Exception {
+    public void testCannotImplementSet() {
         M.ints().set(AbstractSetNoInstance.class, 10).val();
     }
 
     @Test
     public void testSetCorrectSize0() {
-        loop(MOCK_CYCLES, MOCKS, m -> assertTrue(m.ints().set(0).set(0).val().isEmpty()));
+        loop(MOCK_CYCLES,
+                MOCKS,
+                m -> assertTrue(m.ints().set(0).set(0).val().isEmpty()));
     }
 
     @Test
-    public void testSetCorrectSize0_1() throws Exception {
-        loop(MOCK_CYCLES, MOCKS, m -> m.ints().set(5000).set(0).val().isEmpty());
+    public void testSetCorrectSize0_1() {
+        loop(MOCK_CYCLES,
+                MOCKS,
+                m -> assertTrue(m.ints().set(5000).set(0).val().isEmpty()));
     }
 
     @Test
-    public void testSetCorrectSize0_2() throws Exception {
+    public void testSetCorrectSize0_2() {
         loop(MOCK_CYCLES, () ->
                 stream(MOCKS).forEach(r -> {
                     Set<Set<Integer>> result = r.ints().set(10).set(5).val();
-                    assertTrue(result.size()==5);
-                    result.forEach(sub -> assertTrue(sub.size()==10));
+                    assertEquals(5, result.size());
+                    result.forEach(sub -> assertEquals(10, sub.size()));
                 }));
     }
 
     @Test
-    public void testSetCorrectValues() throws Exception {
+    public void testSetCorrectValues() {
         loop(MOCK_CYCLES, MOCKS, m -> {
             Set<Set<Set<Integer>>> result =
                     m.ints().range(100, 200)
@@ -100,7 +104,7 @@ public class MockUnitSetMethodTest {
                             .set(HashSet.class, 5)
                             .val();
 
-            assertTrue(result.size()==5);
+            assertEquals(5, result.size());
             assertTrue(result instanceof HashSet);
             assertTrue(result.iterator().next() instanceof HashSet);
             assertTrue(result.iterator().next().iterator().next() instanceof HashSet);
@@ -111,17 +115,17 @@ public class MockUnitSetMethodTest {
     }
 
     @Test
-    public void testSetSuppCorrectValues() throws Exception {
+    public void testSetSuppCorrectValues() {
         loop(MOCK_CYCLES, MOCKS, m -> {
-            Set<Set<Set<Integer>>> result = null;
+            Set<Set<Set<Integer>>> result;
             result = m.ints()
                       .range(100, 200)
-                      .set(() -> new TreeSet<>(), 5)
-                      .set(() -> new HashSet<>(), 10)
-                      .set(() -> new LinkedHashSet<>(), 5)
+                      .set(TreeSet::new, 5)
+                      .set(HashSet::new, 10)
+                      .set(LinkedHashSet::new, 5)
                       .val();
 
-            assertTrue(result.size()==5);
+            assertEquals(5, result.size());
             assertTrue(result instanceof LinkedHashSet);
             assertTrue(result.iterator().next() instanceof HashSet);
             assertTrue(result.iterator().next().iterator().next() instanceof TreeSet);
@@ -134,13 +138,11 @@ public class MockUnitSetMethodTest {
     @Test
     public void testSetOfNulls() {
         List<Integer> integers = asList(null, null, null, null);
-        loop(MOCK_CYCLES, () -> {
-            stream(MOCKS).forEach(r -> {
-                Set<Integer> set = r.from(integers).set(HashSet.class, 100).val();
-                assertTrue(set instanceof HashSet);
-                set.forEach(i -> assertTrue(null==i));
-            });
-        });
+        loop(MOCK_CYCLES, () -> stream(MOCKS).forEach(r -> {
+            Set<Integer> set = r.from(integers).set(HashSet.class, 100).val();
+            assertTrue(set instanceof HashSet);
+            set.forEach(Assert::assertNull);
+        }));
     }
 
     // MockUnitInt sizes
@@ -160,14 +162,14 @@ public class MockUnitSetMethodTest {
     @Test(expected = NullPointerException.class)
     public void testSetSuppMockUnitSizeNull() {
         MockUnitInt sizeUnit = null;
-        M.ints().set(() -> new TreeSet<>(), sizeUnit).val();
+        M.ints().set(TreeSet::new, sizeUnit).val();
     }
 
     @Test
     public void testSetSuppCorrectMockUnitIntSize() {
         loop(MOCK_CYCLES, MOCKS, m -> {
             Set<Integer> set = m.intSeq()
-                                .set(() -> new HashSet<>(), m.ints().range(10, 20))
+                                .set(HashSet::new, m.ints().range(10, 20))
                                 .val();
 
             assertTrue(set.size()>=10 && set.size()<20);

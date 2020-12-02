@@ -35,12 +35,12 @@ import static org.junit.Assert.assertTrue;
 public class CVVSTest {
 
     @Test(expected = NullPointerException.class)
-    public void testCVVTypeNotNull() throws Exception {
+    public void testCVVTypeNotNull() {
         M.cvvs().type(null).val();
     }
 
     @Test
-    public void testCVV3() throws Exception {
+    public void testCVV3() {
         loop(Constants.CVVS_CYCLES, Constants.MOCKS, r -> r.cvvs().type(CVV3).val(), cvv -> {
             assertTrue(!isEmpty(cvv) && cvv.length()==3);
             assertTrue(isAlphanumeric(cvv));
@@ -48,7 +48,7 @@ public class CVVSTest {
     }
 
     @Test
-    public void testCVV4() throws Exception {
+    public void testCVV4() {
         loop(Constants.CVVS_CYCLES, Constants.MOCKS, r -> r.cvvs().type(CVV4).val(), cvv -> {
             assertTrue(null!=cvv && cvv.length()==4);
             assertTrue(isAlphanumeric(cvv));
@@ -56,7 +56,7 @@ public class CVVSTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testCVVTypesNullType() throws Exception {
+    public void testCVVTypesNullType() {
         M.cvvs().types(CVV3, null).val();
     }
 

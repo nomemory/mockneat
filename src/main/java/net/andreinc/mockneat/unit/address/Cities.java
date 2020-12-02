@@ -24,7 +24,7 @@ import net.andreinc.mockneat.types.enums.DictType;
 
 public class Cities extends MockUnitBase {
 
-    public static final Cities cities() {
+    public static Cities cities() {
         return MockNeat.threadLocal().cities();
     }
 

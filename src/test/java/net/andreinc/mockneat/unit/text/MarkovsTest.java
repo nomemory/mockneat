@@ -24,7 +24,7 @@ import static net.andreinc.mockneat.unit.text.Markovs.markovs;
 
 public class MarkovsTest {
     @Test
-    public void test1() throws Exception {
+    public void test1() {
         markovs().type(MarkovChainType.LOREM_IPSUM).get();
     }
 }

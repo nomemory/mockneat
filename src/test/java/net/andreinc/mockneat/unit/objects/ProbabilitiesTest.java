@@ -17,15 +17,9 @@ package net.andreinc.mockneat.unit.objects;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.Constants;
-import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.utils.LoopsUtils;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.Constants.MOCKS;
@@ -34,7 +28,7 @@ import static net.andreinc.mockneat.Constants.PROBABILITIES_CYCLES;
 public class ProbabilitiesTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNegative() throws Exception {
+    public void testNegative() {
         M.probabilites(Integer.class)
                 .add(-0.5, M.ints().bound(10))
                 .add(1.5, M.ints().range(10, 20))
@@ -42,14 +36,14 @@ public class ProbabilitiesTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testNull() throws Exception {
+    public void testNull() {
         M.probabilites(Integer.class)
                 .add(null, M.ints().bound(10))
                 .val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testSumNot0() throws Exception {
+    public void testSumNot0() {
         M.probabilites(Integer.class)
                 .add(0.2, M.fromInts(new int[]{1,2,3}))
                 .add(0.5, M.fromInts(new int[]{4,5,6}))
@@ -101,23 +95,5 @@ public class ProbabilitiesTest {
                     Assert.assertTrue(val >= 0 && val <= 5);
                 }
         );
-    }
-
-    @Test
-    public void hiddenTest() {
-        MockNeat mockNeat = MockNeat.threadLocal();
-        mockNeat.probabilites(Integer.class)
-                            .add(0.1, mockNeat.ints().range(0, 1))
-                            .add(0.1, mockNeat.ints().range(1, 2))
-                            .add(0.2, mockNeat.ints().range(2, 3))
-                            .add(0.2, mockNeat.ints().range(3, 4))
-                            .add(0.3, mockNeat.ints().range(4, 5))
-                            .add(0.1, mockNeat.ints().range(5, 6))
-                            .list(100000)
-                            .consume(list -> {
-                                Map s = list.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-                                System.out.println(s);
-                            });
-
     }
 }

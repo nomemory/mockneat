@@ -27,7 +27,7 @@ import java.util.List;
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.Constants.M;
 import static org.apache.commons.lang3.SerializationUtils.deserialize;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class MockUnitSerializeTest {
 
@@ -50,10 +50,10 @@ public class MockUnitSerializeTest {
 
         List<Integer> list = deserialize(new FileInputStream(randomFileName));
 
-        assertTrue(list != null);
-        assertTrue( list.size() == 100);
-        assertTrue(list.get(0) == 0);
-        range(0, list.size()).forEach(i -> assertTrue(list.get(i) == i));
+        assertNotNull(list);
+        assertEquals(100, list.size());
+        assertEquals(0, (int) list.get(0));
+        range(0, list.size()).forEach(i -> assertEquals((int) list.get(i), i));
 
         boolean isDeleted = new File(randomFileName).delete();
         assertTrue(isDeleted);
@@ -70,8 +70,8 @@ public class MockUnitSerializeTest {
 
         List<ClassicPojo> list = deserialize(new FileInputStream(randomFileName));
 
-        assertTrue(list!=null);
-        assertTrue(list.size() == 100);
+        assertNotNull(list);
+        assertEquals(100, list.size());
 
         boolean isDeleted = new File(randomFileName).delete();
         assertTrue(isDeleted);

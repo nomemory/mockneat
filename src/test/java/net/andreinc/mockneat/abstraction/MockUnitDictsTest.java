@@ -37,6 +37,6 @@ public class MockUnitDictsTest {
 
     @Test
     public void correctFileName() {
-        Assert.assertTrue(CITIES_US.getFileName().equals("cities/cities-us"));
+        Assert.assertEquals("cities/cities-us", CITIES_US.getFileName());
     }
 }

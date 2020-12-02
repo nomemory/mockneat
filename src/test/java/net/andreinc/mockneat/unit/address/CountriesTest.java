@@ -36,7 +36,7 @@ public class CountriesTest {
     private final FileManager fm = FileManager.getInstance();
 
     @Test
-    public void testNextCountryName() throws Exception {
+    public void testNextCountryName() {
         Set<String> countries =
                 new HashSet<>(fm.getLines(COUNTRY_NAME));
         loop(Constants.COUNTRIES_CYCLES,
@@ -50,7 +50,7 @@ public class CountriesTest {
     }
 
     @Test
-    public void testNextCountryISO2() throws Exception {
+    public void testNextCountryISO2() {
         Set<String> iso2 =
                 new HashSet<>(fm.getLines(COUNTRY_ISO_CODE_2));
         loop(Constants.COUNTRIES_CYCLES,

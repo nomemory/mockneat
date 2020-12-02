@@ -76,7 +76,7 @@ public interface MockUnitString extends MockUnit<String> {
      */
     default MockUnitString format(StringFormatType formatType) {
         notNull(formatType, "formatType");
-        return () -> ifSupplierNotNullDo(supplier(), formatType.getFormatter()::apply);
+        return () -> ifSupplierNotNullDo(supplier(), formatType.getFormatter());
     }
 
     /**

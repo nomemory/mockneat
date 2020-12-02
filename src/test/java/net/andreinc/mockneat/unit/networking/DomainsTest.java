@@ -36,36 +36,34 @@ public class DomainsTest {
     public static final FileManager FM = FileManager.getInstance();
 
     @Test
-    public void testDomain() throws Exception {
+    public void testDomain() {
         Set<String> set = new HashSet<>(FM.getLines(DOMAIN_TOP_LEVEL_POPULAR));
-        loop(DOMAIN_CYCLES, MOCKS, r -> r.domains().val(), d -> {
-            assertTrue(set.contains(d));
-        });
+        loop(DOMAIN_CYCLES, MOCKS, r -> r.domains().val(), d -> assertTrue(set.contains(d)));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testDomainNullType() throws Exception {
+    public void testDomainNullType() {
         M.domains().type(null).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testDomainNullTypes() throws Exception {
+    public void testDomainNullTypes() {
         DomainSuffixType[] types = null;
         M.domains().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testDomainEmptyTypes() throws Exception {
+    public void testDomainEmptyTypes() {
         M.domains().types().val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testDomainEmptyTypes1() throws Exception {
+    public void testDomainEmptyTypes1() {
         M.domains().types(new DomainSuffixType[]{}).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testDomainNullElementInTypes() throws Exception {
+    public void testDomainNullElementInTypes() {
         M.domains().types(new DomainSuffixType[]{ ALL, POPULAR, null}).val();
     }
 }

@@ -22,33 +22,33 @@ import org.junit.Test;
 import static net.andreinc.mockneat.Constants.MOCKS;
 import static net.andreinc.mockneat.Constants.SSC_CYCLES;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SSCsTest {
 
     @Test
-    public void testSSC() throws Exception {
+    public void testSSC() {
         loop(
                 SSC_CYCLES,
                 MOCKS,
                 m -> m.sscs().val(),
                 ssc -> {
 
-                    assertTrue(!ssc.equals("078-05-1120"));
-                    assertTrue(!ssc.equals("219-09-9999"));
-                    assertTrue(!ssc.startsWith("666"));
+                    assertNotEquals("078-05-1120", ssc);
+                    assertNotEquals("219-09-9999", ssc);
+                    assertFalse(ssc.startsWith("666"));
 
                     String[] sscArr = ssc.split("-");
 
-                    assertTrue(sscArr.length == 3);
+                    assertEquals(3, sscArr.length);
 
                     String aaa = sscArr[0];
                     String gg = sscArr[1];
                     String ssss = sscArr[2];
 
-                    assertTrue(aaa.length() == 3);
-                    assertTrue(gg.length() == 2);
-                    assertTrue(ssss.length() == 4);
+                    assertEquals(3, aaa.length());
+                    assertEquals(2, gg.length());
+                    assertEquals(4, ssss.length());
                 }
         );
     }

@@ -19,6 +19,7 @@ package net.andreinc.mockneat.types.enums;
 
 import net.andreinc.mockneat.types.Pair;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -58,15 +59,15 @@ public enum UserNameType {
     ),
 
     ADJECTIVE_FIRST_NAME_MALE(
-            unmodifiableList(asList(
+            Collections.singletonList(
                     new Pair<>(DictType.EN_ADJECTIVE_1SYLL, DictType.FIRST_NAME_MALE_AMERICAN)
-            ))
+            )
     ),
 
     ADJECTIVE_FIRST_NAME_FEMALE(
-            unmodifiableList(asList(
+            Collections.singletonList(
                     new Pair<>(DictType.EN_ADJECTIVE_1SYLL, DictType.FIRST_NAME_FEMALE_AMERICAN)
-            ))
+            )
     );
 
     private final List<Pair<DictType, DictType>> dictCombos;

@@ -235,6 +235,7 @@ public enum IBANType {
     private final String prefix;
     private final List<Pair<Integer, CharsType>> bban;
 
+    @SafeVarargs
     IBANType(int length, String prefix, Pair<Integer, CharsType>... charsGroup) {
         this.length = length;
         this.prefix = prefix;

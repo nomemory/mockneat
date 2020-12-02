@@ -36,7 +36,7 @@ public class SQLEscaper {
         // Building the escape pattern
         notNull(tokenList, "tokenList");
         final StringBuilder buff = new StringBuilder();
-        tokenList.stream().forEach(token -> {
+        tokenList.forEach(token -> {
             replacers.put(token.getSearchToken(), token.getReplaceString());
             buff.append('|').append(token.getSearchRegex());
         });

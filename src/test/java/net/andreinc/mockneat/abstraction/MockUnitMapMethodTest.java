@@ -17,8 +17,6 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-import net.andreinc.mockneat.Constants;
-import net.andreinc.mockneat.MockNeat;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -29,8 +27,10 @@ import static net.andreinc.mockneat.Constants.M;
 import static net.andreinc.mockneat.Constants.MOCKS;
 import static net.andreinc.mockneat.Constants.MOCK_CYCLES;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("ALL")
 public class MockUnitMapMethodTest {
     @Test
     public void testMapToIntInts() {
@@ -58,12 +58,12 @@ public class MockUnitMapMethodTest {
                         .mapToLong(x -> x +5)
                         .longStream().val()
                         .limit(10)
-                        .forEach(x -> assertTrue(x >= 5l && x < 10l))));
+                        .forEach(x -> assertTrue(x >= 5L && x < 10L))));
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapToLongNullFunct() {
-        M.longs().range(0l, 5l).mapToLong(null).val();
+        M.longs().range(0L, 5L).mapToLong(null).val();
     }
 
     @Test
@@ -88,6 +88,7 @@ public class MockUnitMapMethodTest {
         M.ints().from(new int[]{ 5, 7, 8}).map(null).val();
     }
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void testMap() {
         Function<Object, String> f = (x) -> x.toString() + "x";
@@ -96,7 +97,7 @@ public class MockUnitMapMethodTest {
         while(i-->0) r = r.map(f);
         String result = r.valStr();
         for(int j = 1; j < result.length(); ++j) {
-            assertTrue(result.charAt(j)=='x');
+            assertEquals('x', result.charAt(j));
         }
     }
 
@@ -116,7 +117,7 @@ public class MockUnitMapMethodTest {
             MOCKS,
             m -> m.ints()
                   .from(new int[] { 2015, 2012, 2013 })
-                  .mapToLocalDate(i -> LocalDate.of(i, 01, 01)).get(),
+                  .mapToLocalDate(i -> LocalDate.of(i, 1, 1)).get(),
             ld -> assertTrue(ld.getYear() == 2015 || ld.getYear() == 2012 || ld.getYear() == 2013));
     }
 }

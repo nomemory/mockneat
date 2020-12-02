@@ -12,19 +12,18 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
 
 import static net.andreinc.mockneat.Constants.*;
 
 public class CSVsTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void testLineNoColumns() throws Exception {
+    public void testLineNoColumns() {
         M.csvs().val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNulLValues() throws Exception {
+    public void testWithNulLValues() {
         M.csvs().column(null).val();
     }
 
@@ -35,7 +34,7 @@ public class CSVsTest {
                         .column(ms1)
                         .column("A,a")
                         .val();
-        Assert.assertTrue(line.equals("\"ABC\"\",\",\"A,a\""));
+        Assert.assertEquals("\"ABC\"\",\",\"A,a\"", line);
     }
 
     @Test
@@ -59,15 +58,11 @@ public class CSVsTest {
                     String[] line;
                     try {
                         while ((line = csvReader.readNext()) != null) {
-                            Assert.assertTrue(line.length == 7);
+                            Assert.assertEquals(7, line.length);
                         }
                     }
-                    catch (CsvValidationException cve) {
+                    catch (CsvValidationException | IOException cve) {
                         cve.printStackTrace();
-                        Assert.fail();
-                    }
-                    catch (IOException ioe) {
-                        ioe.printStackTrace();
                         Assert.fail();
                     }
                 }
@@ -88,8 +83,8 @@ public class CSVsTest {
                 ,
                 s -> {
                     String[] split = s.split(",");
-                    Assert.assertTrue(split.length == 3);
-                    Assert.assertTrue(split[0].equals("A"));
+                    Assert.assertEquals(3, split.length);
+                    Assert.assertEquals("A", split[0]);
                     Assert.assertTrue(split[1].equals("true") || split[1].equals("false"));
                 }
 
@@ -97,31 +92,31 @@ public class CSVsTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWriteCsvNullPath() throws Exception {
+    public void testWriteCsvNullPath() {
         Path path = null;
         M.csvs().column(M.strings()).write(path, 10, true);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWriteCsvNullStringPath() throws Exception {
+    public void testWriteCsvNullStringPath() {
         String path = null;
         M.csvs().column(M.strings()).write(path, 10, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCsvZeroLinesStringPath() throws Exception {
+    public void testCsvZeroLinesStringPath() {
         String path = "test.csv";
         M.csvs().column(M.strings()).write(path, 0, true);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCsvZeroLinesPath() throws Exception {
+    public void testCsvZeroLinesPath() {
         Path path = Paths.get("test.csv");
         M.csvs().column(M.strings()).write(path, 0, true);
     }
 
     @Test
-    public void testCsvWrite() throws Exception {
+    public void testCsvWrite() {
         String[] chars = new String[]{ "\"", ",", "'", "|" };
         LoopsUtils.loop(
                 CSVS_CYCLES,
@@ -149,14 +144,11 @@ public class CSVsTest {
                         CSVReader csvReader = new CSVReader(new FileReader(csvPath.toFile()));
                         String[] line;
                         while ((line = csvReader.readNext()) != null) {
-                            Assert.assertTrue(line.length == 7);
+                            Assert.assertEquals(7, line.length);
                         }
                         Files.delete(csvPath);
-                    } catch (IOException ioe) {
+                    } catch (IOException | CsvValidationException ioe) {
                         ioe.printStackTrace();
-                        Assert.fail();
-                    } catch (CsvValidationException cve) {
-                        cve.printStackTrace();
                         Assert.fail();
                     }
                 }

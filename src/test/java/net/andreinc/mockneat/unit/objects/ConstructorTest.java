@@ -28,17 +28,18 @@ import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.apache.commons.lang3.StringUtils.isAlpha;
 import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ConstructorTest {
 
     @Test(expected = NullPointerException.class)
-    public void testConstructNullClass() throws Exception {
+    public void testConstructNullClass() {
         M.constructor(null).params("A").val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testConstructNullParams() throws Exception {
+    public void testConstructNullParams() {
         Object[] params = null;
         M.constructor(MultipleConstructors.class).params(params).val();
     }
@@ -49,7 +50,7 @@ public class ConstructorTest {
     }
 
     @Test
-    public void testConstruct1() throws Exception {
+    public void testConstruct1() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
@@ -61,16 +62,16 @@ public class ConstructorTest {
                                 "A"
                         ).val(),
                 mc -> {
-                    assertTrue("X".equals(mc.getX()));
-                    assertTrue("Y".equals(mc.getY()));
-                    assertTrue("Z".equals(mc.getZ()));
-                    assertTrue("A".equals(mc.getA()));
+                    assertEquals("X", mc.getX());
+                    assertEquals("Y", mc.getY());
+                    assertEquals("Z", mc.getZ());
+                    assertEquals("A", mc.getA());
                 }
         );
     }
 
     @Test
-    public void testConstruct2() throws Exception {
+    public void testConstruct2() {
         loop(
                 MOCK_CYCLES,
                 MOCKS,
@@ -83,11 +84,11 @@ public class ConstructorTest {
                     String x = s.getX();
                     String y = s.getY();
                     String z = s.getZ();
-                    assertTrue(x.length()==5);
+                    assertEquals(5, x.length());
                     assertTrue(isNumeric(x));
-                    assertTrue(y.length()==6);
+                    assertEquals(6, y.length());
                     assertTrue(isAlphanumeric(y));
-                    assertTrue(z.length()==7);
+                    assertEquals(7, z.length());
                     assertTrue(isAlpha(z));
                 }
         );

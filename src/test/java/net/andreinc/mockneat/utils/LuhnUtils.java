@@ -27,7 +27,7 @@ public final class LuhnUtils {
     public static boolean luhnCheck(String cc) {
         int result = 0;
         boolean flag = false;
-        int digit = 0;
+        int digit;
         int i = cc.length();
 
         while(i-->0) {

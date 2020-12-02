@@ -27,7 +27,7 @@ import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 public class SHA512sTest {
 
     @Test
-    public void testSHA512sHash() throws Exception {
+    public void testSHA512sHash() {
         loop(
                 HASH_CYCLES,
                 MOCKS,

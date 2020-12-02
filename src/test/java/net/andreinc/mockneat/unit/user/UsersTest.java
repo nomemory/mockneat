@@ -21,27 +21,22 @@ import net.andreinc.mockneat.types.enums.UserNameType;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.M;
-import static net.andreinc.mockneat.types.enums.PassStrengthType.MEDIUM;
-import static net.andreinc.mockneat.types.enums.PassStrengthType.WEAK;
-import static net.andreinc.mockneat.unit.text.Formatter.fmt;
-import static net.andreinc.mockneat.unit.user.Emails.emails;
-import static net.andreinc.mockneat.unit.user.Passwords.passwords;
 
 public class UsersTest {
 
     @Test(expected = NullPointerException.class)
-    public void testUsersTypeNull() throws Exception {
+    public void testUsersTypeNull() {
         M.users().type(null).val();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testUsersTypesNull() throws Exception {
+    public void testUsersTypesNull() {
         UserNameType[] types = null;
         M.users().types(types).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testUsersTypesEmpty() throws Exception {
+    public void testUsersTypesEmpty() {
         M.users().types(new UserNameType[]{}).val();
     }
 }

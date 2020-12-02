@@ -4,7 +4,8 @@ import org.junit.Test;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.assertNull;
 
 import static net.andreinc.mockneat.Constants.M;
 
@@ -34,6 +35,6 @@ public class MockUnitConsumeTest {
 
     @Test
     public void testBiConsumer() {
-        M.from(new String[]{ null }).consume(10, (i, val) -> assertTrue(val == null));
+        M.from(new String[]{ null }).consume(10, (i, val) -> assertNull(val));
     }
 }

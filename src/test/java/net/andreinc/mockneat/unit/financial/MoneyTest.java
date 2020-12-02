@@ -35,12 +35,12 @@ import static org.junit.Assert.fail;
 public class MoneyTest {
 
     @Test
-    public void testMoney() throws Exception {
+    public void testMoney() {
         NumberFormat nf = getCurrencyInstance(US);
         loop(MOCK_CYCLES, MOCKS, r -> r.money().locale(US).val(), m -> {
             try {
                 Number n = nf.parse(m);
-                Double d = n.doubleValue();
+                double d = n.doubleValue();
                 assertTrue(d >= DEFAULT_LOWER && d <= DEFAULT_UPPER);
             } catch (ParseException e) {
                 fail(e.getMessage());
@@ -49,7 +49,7 @@ public class MoneyTest {
     }
 
     @Test
-    public void testMoneyBound() throws Exception {
+    public void testMoneyBound() {
         double bound = 100000.00;
         NumberFormat nf = getCurrencyInstance(US);
         loop(MONEY_CYCLES, MOCKS, r -> r.money().locale(US).bound(bound).val(), m -> {
@@ -63,7 +63,7 @@ public class MoneyTest {
     }
 
     @Test
-    public void testMoneyRange() throws Exception {
+    public void testMoneyRange() {
         double lower = 10.0;
         double upper = 20.0;
         NumberFormat nf = getCurrencyInstance(US);
@@ -78,7 +78,7 @@ public class MoneyTest {
     }
 
     @Test
-    public void testMoneyLocale() throws Exception {
+    public void testMoneyLocale() {
         Locale[] locales = {FRANCE, GERMANY, ITALY, JAPAN, KOREA, CHINA, US, UK, CANADA};
         loop(MONEY_CYCLES, MOCKS, r -> {
             Locale locale = r.from(locales).val();
@@ -98,27 +98,27 @@ public class MoneyTest {
     //
 
     @Test(expected = NullPointerException.class)
-    public void testMoneyNullLocale() throws Exception {
+    public void testMoneyNullLocale() {
         M.money().locale(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMoneyNegativeBound() throws Exception {
+    public void testMoneyNegativeBound() {
         M.money().bound(-5.0).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMoneyIncorrectRange() throws Exception {
+    public void testMoneyIncorrectRange() {
         M.money().range(-1.5, 10).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMoneyIncorrectRange2() throws Exception {
+    public void testMoneyIncorrectRange2() {
         M.money().range(10, -1.5).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testMoneyIncorrectRange3() throws Exception {
+    public void testMoneyIncorrectRange3() {
         M.money().range(10, 10).val();
     }
 }

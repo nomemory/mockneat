@@ -19,7 +19,6 @@ package net.andreinc.mockneat.types.enums;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 @SuppressWarnings("ImmutableEnumChecker")
