@@ -24,17 +24,19 @@ import net.andreinc.mockneat.abstraction.MockUnitDouble;
 import net.andreinc.mockneat.abstraction.MockValue;
 import net.andreinc.mockneat.types.Pair;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static java.math.BigDecimal.valueOf;
 import static net.andreinc.mockneat.abstraction.MockConstValue.constant;
 import static net.andreinc.mockneat.abstraction.MockUnitValue.unit;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
 
-    private final List<Pair<Double, MockValue>> probs = new ArrayList<>();
+    private final List<Pair<BigDecimal, MockValue>> probs = new ArrayList<>();
     private final MockUnitDouble mud;
     private final Class<T> cls;
 
@@ -60,9 +62,10 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
     public Probabilities<T> add(Double prob, MockUnit<T> mock) {
         notNull(prob, "prob");
         isTrue(prob.compareTo(0.0)>0, PROBABILITY_NOT_NEGATIVE, "prob", prob);
-        double lastVal = lastVal();
-        double toAdd = lastVal + prob;
-        isTrue((lastVal + prob <= 1.0), PROBABILITIES_SUM_BIGGER);
+        BigDecimal probInternal = valueOf(prob);
+        BigDecimal lastVal = lastVal();
+        BigDecimal toAdd = lastVal.add(probInternal);
+        isTrue(toAdd.compareTo(valueOf(1.0)) <= 0, PROBABILITIES_SUM_BIGGER);
         probs.add(Pair.of(toAdd, unit(mock)));
         return this;
     }
@@ -70,22 +73,25 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
     public Probabilities<T> add(Double prob, T obj) {
         notNull(prob, "prob");
         isTrue(prob.compareTo(0.0)>0, PROBABILITY_NOT_NEGATIVE, "prob", prob);
-        double lastVal = lastVal();
-        double toAdd = lastVal + prob;
-        isTrue((lastVal + prob <= 1.0), PROBABILITIES_SUM_BIGGER);
+        BigDecimal probInternal = valueOf(prob);
+        BigDecimal lastVal = lastVal();
+        BigDecimal toAdd = lastVal.add(probInternal);
+        isTrue((toAdd.compareTo(valueOf(1.0)) <= 0), PROBABILITIES_SUM_BIGGER);
         probs.add(Pair.of(toAdd, constant(obj)));
         return this;
     }
 
-    private double lastVal() {
-       return (probs.isEmpty()) ? 0.0 : probs.get(probs.size()-1).getFirst();
+    private BigDecimal lastVal() {
+        return (probs.isEmpty()) ? valueOf(0.0) : probs.get(probs.size()-1).getFirst();
     }
 
     private T getMock() {
-        isTrue((probs.get(probs.size()-1).getFirst()>=1.0) , PROBABILITIES_SUM_NOT_1);
-        double rVal = mud.val();
+        isTrue((probs.get(probs.size()-1).getFirst().compareTo(valueOf(1.0))) == 0, PROBABILITIES_SUM_NOT_1);
+        BigDecimal rVal = mud.map(BigDecimal::valueOf).val();
         int i = 0;
-        while(probs.get(i).getFirst() < rVal) { i++; }
+        while(probs.get(i).getFirst().compareTo(rVal) < 0) {
+            i++;
+        }
         return cls.cast(probs.get(i).getSecond().get());
     }
 }
