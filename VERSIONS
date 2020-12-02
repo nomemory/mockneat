@@ -1,3 +1,7 @@
+Version 0.4.2
+-------------
+- Fixed https://github.com/nomemory/mockneat/issues/93 - issue with double loss precisions in case of probabilities
+
 Version 0.4.1
 -------------
 - Fixed a bug where objectMap() wasn't accessible by calling a shorthand method
