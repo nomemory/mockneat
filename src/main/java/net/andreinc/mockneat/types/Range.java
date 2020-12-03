@@ -22,9 +22,9 @@ public class Range<T extends Number> {
     private final T lowerBound;
     private final T upperBound;
 
-    public Range(T lowerBound, T uppeerBound) {
+    public Range(T lowerBound, T upperBound) {
         this.lowerBound = lowerBound;
-        this.upperBound = uppeerBound;
+        this.upperBound = upperBound;
     }
 
     public T getLowerBound() {

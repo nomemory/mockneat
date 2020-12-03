@@ -27,7 +27,7 @@ public enum PassStrengthType {
 
     private final Range<Integer> length;
 
-    PassStrengthType(Range length) {
+    PassStrengthType(Range<Integer> length) {
         this.length = length;
     }
 

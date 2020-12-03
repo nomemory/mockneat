@@ -72,7 +72,7 @@ public interface MockUnit<T> {
      *
      * <em>In some JVM languages val is a restricted keyword so {@code get()} was introduced as an alias for the {@code val()} method.</em>
      *
-     * @return The generated value.
+     * @return The generated value
      */
     default T get() { return val(); }
 
@@ -296,7 +296,10 @@ public interface MockUnit<T> {
      * @param size The size of the List
      *
      * @return A new {@code MockUnit<List<T>>}
+     *
+     * @deprecated use {@link #list(Supplier, int)} instead.
      */
+    @Deprecated
     @SuppressWarnings("rawtypes")
     default MockUnit<List<T>> list(Class<? extends List> listClass, int size) {
         notNull(listClass, "listClass");
@@ -347,8 +350,12 @@ public interface MockUnit<T> {
      * @param listClass The type of List we are going to use as the internal implementation (Eg.: ArrayList.class)
      * @param sizeUnit The MockUnitInt used to generate the size of the List. If the MockUnitInt generates a negative value an exception will be thrown.
      * @return A new {@code MockUnit<List<T>>}
+     *
+     * @deprecated use {@link #list(Supplier, MockUnitInt)} instead.
      */
-    default MockUnit<List<T>> list(@SuppressWarnings("rawtypes") Class<? extends List> listClass, MockUnitInt sizeUnit) {
+    @Deprecated
+    @SuppressWarnings("rawtypes")
+    default MockUnit<List<T>> list(Class<? extends List> listClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
         return () -> list(listClass, sizeUnit.val()).supplier();
     }
@@ -379,7 +386,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<List<T>>}
      */
     default MockUnit<List<T>> list(int size) {
-        return list(ArrayList.class, size);
+        return list(ArrayList::new, size);
     }
 
     /**
@@ -411,7 +418,11 @@ public interface MockUnit<T> {
      * @param setClass The {@code Set<T>} implementation we are going to use.
      * @param size The max size of the Set.
      * @return A new {@code MockUnit<Set<T>>}
+     *
+     * @deprecated since 0.4.2 use {@link #set(Supplier, int)} instead
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Set<T>> set(Class<? extends Set> setClass, int size) {
         notNull(setClass, "setClass");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
@@ -471,7 +482,11 @@ public interface MockUnit<T> {
      * @param setClass setSupplier The supplier that returns a {@code Set<T>}.
      * @param sizeUnit The MockUnitInt used to generate the size of the Set. If the MockUnitInt generates a negative value an exception will be thrown.
      * @return A new {@code MockUnit<Set<T>>}
+     * 
+     * @deprecated use {@link #set(Supplier, MockUnitInt)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Set<T>> set(Class<? extends Set> setClass, MockUnitInt sizeUnit) {
         notNull(setClass, "setClass");
         notNull(sizeUnit, "sizeUnit");
@@ -514,7 +529,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Set<T>>}
      */
     default MockUnit<Set<T>> set(int size) {
-        return set(HashSet.class, size);
+        return set(HashSet::new, size);
     }
 
     /**
@@ -544,7 +559,11 @@ public interface MockUnit<T> {
      * @param collectionClass  The {@code Collection<T>} implementation we are going to use.
      * @param size The size of the collection. (If the collection is a Set, this is guaranteed to be the max size, not the actual one).
      * @return A new {@code MockUnit<Collection<T>>}
+     *
+     * @deprecated use {@link #collection(Supplier, int)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, int size) {
         notNull(collectionClass, "collectionClass");
         isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
@@ -596,7 +615,11 @@ public interface MockUnit<T> {
      * @param collectionClass  The {@code Collection<T>} implementation we are going to use.
      * @param sizeUnit The MockUnitInt used to generate the size of the Collection. If the MockUnitInt generates a negative value an exception will be thrown. (If the collection is a Set, this is guaranteed to be the max size, not the actual one).
      * @return A new {@code MockUnit<Collection<T>>}
+     * 
+     * @deprecated use {@link #collection(Supplier, MockUnitInt)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Collection<T>> collection(Class<? extends Collection> collectionClass, MockUnitInt sizeUnit) {
         notNull(sizeUnit, "sizeUnit");
         return () -> collection(collectionClass, sizeUnit.val()).supplier();
@@ -629,7 +652,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Collection<T>>}
      */
     default MockUnit<Collection<T>> collection(int size) {
-        return collection(ArrayList.class, size);
+        return collection(ArrayList::new, size);
     }
 
 
@@ -661,7 +684,11 @@ public interface MockUnit<T> {
      * @param keysSupplier The supplier of the keys.
      * @param <R> The type of the Keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, int, Supplier)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, int size, Supplier<R> keysSupplier) {
         notNull(mapClass, "mapClass");
         notNull(keysSupplier, "keysSupplier");
@@ -718,7 +745,11 @@ public interface MockUnit<T> {
      * @param keysSupplier The supplier of the keys.
      * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, MockUnitInt, Supplier)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> keysSupplier) {
         notNull(sizeUnit, "sizeUnit");
         return () -> mapKeys(mapClass, sizeUnit.val(), keysSupplier).supplier();
@@ -755,7 +786,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(int size, Supplier<R> keysSupplier) {
-        return mapKeys(HashMap.class, size, keysSupplier);
+        return mapKeys(HashMap::new, size, keysSupplier);
     }
 
 
@@ -787,7 +818,11 @@ public interface MockUnit<T> {
      * @param keys The {@code Iterable<R>} used to generate the keys.
      * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, Iterable)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, Iterable<R> keys) {
         notNull(mapClass, "mapClass");
         notNull(keys, "keys");
@@ -840,7 +875,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(Iterable<R> keys) {
-        return mapKeys(HashMap.class, keys);
+        return mapKeys(HashMap::new, keys);
     }
 
     /**
@@ -854,7 +889,11 @@ public interface MockUnit<T> {
      * @param keys The {@code Iterable<R>} used to generate the keys.
      * @param <R> The type of the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, Object[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<R, T>> mapKeys(Class<? extends Map> mapClass, R[] keys) {
         notNull(mapClass, "mapClass");
         notNull(keys, "keys");
@@ -878,8 +917,6 @@ public interface MockUnit<T> {
      * <p>Transforms a {@code MockUnit<T>} into a {@code MockUnit<Map<R,T>>} where the keys are generated from a given {@code Iterable<R>}.</p>
      *
      * <p>The size of the Map is determined by the supplied {@code Iterable<R>}.</p>
-     *
-     * <p><em>Note:</em> The implementing Map need to have a NON-ARG constructor, otherwise it won't be instantiated.</p>
      *
      * @param mapSupplier The supplier method returning a {@code Map<R,T>}.
      * @param keys The {@code Iterable<R>} used to generate the keys.
@@ -910,7 +947,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default <R> MockUnit<Map<R, T>> mapKeys(R[] keys) {
-        return mapKeys(HashMap.class, keys);
+        return mapKeys(HashMap::new, keys);
     }
 
     /**
@@ -923,7 +960,11 @@ public interface MockUnit<T> {
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, int[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Map<Integer, T>> mapKeys(Class<? extends Map> mapClass, int[] keys) {
         notNull(mapClass, "mapClass");
         notNull(keys, "keys");
@@ -975,7 +1016,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default MockUnit<Map<Integer, T>> mapKeys(int[] keys) {
-        return mapKeys(HashMap.class, keys);
+        return mapKeys(HashMap::new, keys);
     }
 
     /**
@@ -988,7 +1029,11 @@ public interface MockUnit<T> {
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, long[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Map<Long, T>> mapKeys(Class<? extends Map> mapClass, long[] keys) {
         notNull(mapClass, "mapClass");
         notNull(keys, "keys");
@@ -1042,7 +1087,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default MockUnit<Map<Long, T>> mapKeys(long[] keys) {
-        return mapKeys(HashMap.class, keys);
+        return mapKeys(HashMap::new, keys);
     }
 
     /**
@@ -1055,7 +1100,11 @@ public interface MockUnit<T> {
      * @param mapClass The type of the Map (eg.: HashMap.class).
      * @param keys The array used to generate the keys.
      * @return A new {@code MockUnit<Map<R, T>>}
+     *
+     * @deprecated use {@link #mapKeys(Supplier, double[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Map<Double, T>> mapKeys(Class<? extends Map> mapClass, double[] keys) {
         notNull(mapClass, "mapClass");
         notNull(keys, "keys");
@@ -1107,7 +1156,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<R, T>>}
      */
     default MockUnit<Map<Double, T>> mapKeys(double[] keys) {
-        return mapKeys(HashMap.class, keys);
+        return mapKeys(HashMap::new, keys);
     }
 
     /**
@@ -1122,7 +1171,11 @@ public interface MockUnit<T> {
      * @param valuesSupplier The supplier of the values.
      * @param <R> The type of the values.
      * @return A new {@code MockUnit<Map<T, R>>}
+     *
+     * @deprecated use {@link #mapVals(Supplier, int, Supplier)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, int size, Supplier<R> valuesSupplier) {
         notNull(mapClass, "mapClass");
         notNull(valuesSupplier, "valuesSupplier");
@@ -1180,7 +1233,11 @@ public interface MockUnit<T> {
      * @param valuesSupplier The supplier of the values.
      * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
+     *
+     * @deprecated use {@link #mapVals(Supplier, MockUnitInt, Supplier)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, MockUnitInt sizeUnit, Supplier<R> valuesSupplier) {
         return () -> mapVals(mapClass, sizeUnit.val(), valuesSupplier).supplier();
     }
@@ -1214,7 +1271,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(int size, Supplier<R> valuesSupplier) {
-        return mapVals(HashMap.class, size, valuesSupplier);
+        return mapVals(HashMap::new, size, valuesSupplier);
     }
 
 
@@ -1245,7 +1302,11 @@ public interface MockUnit<T> {
      * @param values The {@code Iterable<R>} from where the values are selected in order.
      * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
+     *
+     * @deprecated use {@link #mapVals(Supplier, Iterable)} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, Iterable<R> values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -1300,7 +1361,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<T,R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(Iterable<R> values) {
-        return mapVals(HashMap.class, values);
+        return mapVals(HashMap::new, values);
     }
 
     /**

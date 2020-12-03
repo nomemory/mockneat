@@ -82,18 +82,20 @@ public final class MockUnitUtils {
             throw new IllegalArgumentException(msg, e);
         }
     }
+
     public static Object mockOrObject(Object obj) {
         if (null == obj) {
             return null;
         }
-        if (obj instanceof MockUnit) {
-            return ((MockUnit) obj).val();
+        if (obj instanceof MockUnit<?>) {
+            return ((MockUnit<?>) obj).val();
         }
         return obj;
     }
-    public static String listTypes(Object[] objs) {
+
+    public static String listTypes(Object[] objects) {
         final StringBuilder buff = new StringBuilder("(");
-        Arrays.stream(objs).forEach(obj -> {
+        Arrays.stream(objects).forEach(obj -> {
             if (null != obj) { buff.append(obj.getClass().getName()); }
             else { buff.append("null"); }
             buff.append(',');

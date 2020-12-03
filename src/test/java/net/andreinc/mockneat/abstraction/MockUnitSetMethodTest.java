@@ -34,14 +34,12 @@ public class MockUnitSetMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testSetNullType() {
-        Class<Set> cls = null;
-        M.ints().set(cls, 10).val();
+        M.ints().set((Class<Set<Integer>>) null, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testSetSuppNullType() {
-        Supplier<Set<Integer>> setSupplier = null;
-        M.ints().set(setSupplier, 10).val();
+        M.ints().set((Supplier<Set<Integer>>) null, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -149,20 +147,17 @@ public class MockUnitSetMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testSetMockUnitIntSizeNull() {
-        MockUnitInt sizeUnit = null;
-        M.ints().set(sizeUnit).val();
+        M.ints().set(null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testSetMockUnitIntSizeNull1() {
-        MockUnitInt sizeUnit = null;
-        M.ints().set(HashSet.class, sizeUnit).val();
+        M.ints().set(HashSet.class, null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testSetSuppMockUnitSizeNull() {
-        MockUnitInt sizeUnit = null;
-        M.ints().set(TreeSet::new, sizeUnit).val();
+        M.ints().set(TreeSet::new, null).val();
     }
 
     @Test
