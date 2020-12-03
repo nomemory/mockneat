@@ -17,6 +17,11 @@ package net.andreinc.mockneat.types;
  OTHERWISE, ARISING FROM, OUT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+/**
+ * A simple Pair (or Tuple implementation).
+ * @param <T1> The type of the first member
+ * @param <T2> The type of the second member
+ */
 public class Pair <T1,T2> {
 
     private final T1 first;
@@ -31,10 +36,16 @@ public class Pair <T1,T2> {
         return new Pair<>(first, second);
     }
 
+    /**
+     * @return the first member of the {@code Pair<T1, T2>}.
+     */
     public T1 getFirst() {
         return first;
     }
 
+    /**
+     * @return the second member fo the {@code Pair<T1, T2>}
+     */
     public T2 getSecond() {
         return second;
     }

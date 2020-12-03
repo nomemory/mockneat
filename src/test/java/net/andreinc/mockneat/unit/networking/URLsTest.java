@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.unit.networking;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import net.andreinc.mockneat.types.enums.DomainSuffixType;
 import net.andreinc.mockneat.types.enums.HostNameType;
 import net.andreinc.mockneat.types.enums.URLSchemeType;
@@ -208,8 +191,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLNullScheme() {
-        String scheme = null;
-        M.urls().scheme(scheme).val();
+        M.urls().scheme((String) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -219,8 +201,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLNullSchemes() {
-        String[] schemes = null;
-        M.urls().schemes(schemes).val();
+        M.urls().schemes((String[]) null).val();
     }
 
     @Test
@@ -240,14 +221,12 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLNullSchemeType() {
-        URLSchemeType schemeType = null;
-        M.urls().scheme(schemeType).val();
+        M.urls().scheme((URLSchemeType) null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testURLNullSchemeTypes() {
-        URLSchemeType[] schemes = null;
-        M.urls().schemes(schemes).val();
+        M.urls().schemes((URLSchemeType[]) null).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -262,8 +241,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLHostNullString() {
-        String host = null;
-        M.urls().host(host).val();
+        M.urls().host((String) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -274,8 +252,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLHostTypeNull() {
-        HostNameType type = null;
-        M.urls().host(type).val();
+        M.urls().host((HostNameType) null).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -290,8 +267,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLHostsNull() {
-        HostNameType[] type = null;
-        M.urls().hosts(type).val();
+        M.urls().hosts((HostNameType[]) null).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -305,8 +281,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLDomainNullString() {
-        String domain = null;
-        M.urls().domain(domain).val();
+        M.urls().domain((String) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -317,8 +292,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLDomainTypeNull() {
-        DomainSuffixType domainType = null;
-        M.urls().domain(domainType).val();
+        M.urls().domain((DomainSuffixType) null).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -333,8 +307,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLDomainsNull() {
-        DomainSuffixType[] types = null;
-        M.urls().domains(types).val();
+        M.urls().domains((DomainSuffixType[]) null).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -354,8 +327,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testURLPortsNullArray() {
-        Integer[] ports = null;
-        M.urls().ports(ports).val();
+        M.urls().ports((Integer[]) null).val();
     }
 
     @Test(expected = NullPointerException.class)
@@ -398,8 +370,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testSchemeNullSchemeString() {
-        String scheme = null;
-        M.urls().scheme(scheme).val();
+        M.urls().scheme((String) null).val();
     }
 
 
@@ -455,8 +426,7 @@ public class URLsTest {
 
     @Test(expected = NullPointerException.class)
     public void testSchemeNullType() {
-        URLSchemeType schemeType = null;
-        M.urls().scheme(schemeType).val();
+        M.urls().scheme((URLSchemeType) null).val();
     }
 
 }

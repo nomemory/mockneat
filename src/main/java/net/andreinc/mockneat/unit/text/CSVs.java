@@ -24,7 +24,7 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 public class CSVs extends MockUnitBase implements MockUnitString {
 
     private String separator = ",";
-    private final List<MockValue> columns = new LinkedList<>();
+    private final List<MockValue<?>> columns = new LinkedList<>();
 
     public static CSVs csvs() {
         return MockNeat.threadLocal().csvs();

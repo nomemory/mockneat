@@ -32,7 +32,7 @@ public class ObjectMapTest {
                     Assert.assertEquals(val.get("field2"), "const2");
                     Assert.assertTrue((val.get("field3") instanceof Map));
 
-                    Map subMap = (Map) val.get("field3");
+                    Map<?, ?> subMap = (Map<?, ?>) val.get("field3");
                     Assert.assertEquals(subMap.get("subField1"), "subValue1");
                     Assert.assertEquals(subMap.get("subField2"), "subValue2");
 
@@ -51,12 +51,12 @@ public class ObjectMapTest {
                                   .put("lastName",  m.names().last())
                                   .put("visits",    m.cities().capitals().array(10))
                                   .put("sub",       m.objectMap().put("anInt", m.ints().range(0, 10))
-                                                                        .put("aDouble", m.doubles().range(0.0d, 0.1d))
+                                                                       .put("aDouble", m.doubles().range(0.0d, 0.1d))
                                   )
                                   .get(),
                 val -> {
                     Assert.assertTrue(val.get("sub") instanceof Map);
-                    Map subMap = (Map) val.get("sub");
+                    Map<?, ?> subMap = (Map<?, ?>) val.get("sub");
 
                     Assert.assertTrue(val.get("firstName") instanceof String);
                     String firstName = (String) val.get("firstName");

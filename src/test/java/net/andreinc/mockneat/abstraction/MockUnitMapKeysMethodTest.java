@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.abstraction;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import net.andreinc.mockneat.Constants;
 import net.andreinc.mockneat.abstraction.models.AbstractMapNoInstance;
 import net.andreinc.mockneat.utils.MapCheckUtils;
@@ -31,8 +14,7 @@ import static net.andreinc.mockneat.Constants.MOCKS;
 import static net.andreinc.mockneat.Constants.MOCK_CYCLES;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static net.andreinc.mockneat.utils.MapCheckUtils.testMap;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class MockUnitMapKeysMethodTest {
@@ -43,14 +25,12 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSupplierNullClass() {
-        Class<Map<?, ?>> cls = null;
-        M.ints().mapKeys(cls, 10, () -> "abc").val();
+        M.ints().mapKeys((Class<Map<?, ?>>) null, 10, () -> "abc").val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSuppSupplierNullClass() {
-        Supplier<Map<String, Integer>> mapSupplier = null;
-        M.ints().mapKeys(mapSupplier, 10, () -> "abc").val();
+        M.ints().mapKeys((Supplier<Map<String, Integer>>) null, 10, () -> "abc").val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -65,14 +45,12 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSupplierNullSupplier() {
-        Supplier<?> supp = null;
-        M.ints().mapKeys(HashMap.class, 10, supp).val();
+        M.ints().mapKeys(HashMap.class, 10, (Supplier<?>) null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSuppSupplierNullSupplier() {
-        Supplier<?> supp = null;
-        M.ints().mapKeys(LinkedHashMap::new, 10, supp).val();
+        M.ints().mapKeys(LinkedHashMap::new, 10, (Supplier<?>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -200,8 +178,7 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSupplierMockUnitIntSizeNull() {
-        MockUnitInt sizeUnit = null;
-        M.ints().range(0, 10).mapKeys(sizeUnit, M.ints().range(0, 10)::val);
+        M.ints().range(0, 10).mapKeys((MockUnitInt) null, M.ints().range(0, 10)::val);
     }
 
     @Test
@@ -235,26 +212,22 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysIterableNullClass() {
-        Class<Map> cls = null;
-        M.ints().mapKeys(cls, M.ints().list(10).val());
+        M.ints().mapKeys((Class<Map>) null, M.ints().list(10).val());
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSuppIterableNullClass() {
-        Supplier<Map<Integer, Integer>> mapSupplier = null;
-        M.ints().mapKeys(mapSupplier, M.ints().list(10).val());
+        M.ints().mapKeys((Supplier<Map<Integer, Integer>>) null, M.ints().list(10).val());
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysIterableNullIterable() {
-        List<String> nullList = null;
-        M.ints().mapKeys(HashMap.class, nullList).val();
+        M.ints().mapKeys(HashMap.class, (List<String>) null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysSuppIterableNullIterable() {
-        List<String> nullList = null;
-        M.ints().mapKeys(HashMap::new, nullList).val();
+        M.ints().mapKeys(HashMap::new, (List<String>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -385,14 +358,12 @@ public class MockUnitMapKeysMethodTest {
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayNullClass() {
         Integer[] keys = {1,2,3};
-        Class<Map> cls = null;
-        M.ints().mapKeys(cls, keys).val();
+        M.ints().mapKeys(( Class<Map>) null, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayNullArray() {
-        Integer[] keys = null;
-        M.ints().mapKeys(HashMap.class, keys);
+        M.ints().mapKeys(HashMap.class, (Integer[]) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -411,8 +382,7 @@ public class MockUnitMapKeysMethodTest {
     public void testMapKeysArrayNullKeyHashMap() {
         Integer[] ints = { null };
         Map<Integer, Integer> map = M.ints().mapKeys(HashMap.class, ints).val();
-
-        assertTrue(map.get(null) instanceof Integer);
+        assertNotNull(map.get(null));
     }
 
     @Test
@@ -449,14 +419,12 @@ public class MockUnitMapKeysMethodTest {
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayIntNullClass() {
         int[] keys = {1,2,3};
-        Class<Map> cls = null;
-        M.ints().mapKeys(cls, keys).val();
+        M.ints().mapKeys((Class<Map>) null, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayIntNullArray() {
-        int[] keys = null;
-        M.ints().mapKeys(HashMap.class, keys);
+        M.ints().mapKeys(HashMap.class, (int[]) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -498,15 +466,12 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayLongNullClass() {
-        Class<Map> cls = null;
-        long[] keys = {1,2,3};
-        M.ints().mapKeys(cls, keys).val();
+        M.ints().mapKeys((Class<Map>) null, (long[]) null).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayLongNullArray() {
-        long[] keys = null;
-        M.ints().mapKeys(HashMap.class, keys);
+        M.ints().mapKeys(HashMap.class, (long[]) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -523,7 +488,7 @@ public class MockUnitMapKeysMethodTest {
         loop(
                 MOCK_CYCLES,
                 Constants.MOCKS,
-                m -> m.longs().range(10, 20).mapKeys(M.from(maps).val(), longs).val(),
+                m -> m.longs().range(10L, 20L).mapKeys(M.from(maps).val(), longs).val(),
                 map -> testMap(map, MapCheckUtils.inRange(0L, 10L), MapCheckUtils.inRange(10L, 20L))
         );
     }
@@ -548,15 +513,13 @@ public class MockUnitMapKeysMethodTest {
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayDoubleNullClass() {
-        Class<Map> cls = null;
         double[] keys = {1.0, 2.0, 3.0};
-        M.ints().mapKeys(cls, keys).val();
+        M.ints().mapKeys((Class<Map>) null, keys).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testMapKeysArrayDoubleNullArray() {
-        double[] keys = null;
-        M.ints().mapKeys(HashMap.class, keys);
+        M.ints().mapKeys(HashMap.class, (double[]) null);
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.unit.types;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -51,8 +34,7 @@ public class IntsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound() {
-        Integer bound = null;
-        M.ints().bound(bound).val();
+        M.ints().bound(null).val();
     }
 
     @Test
@@ -89,14 +71,12 @@ public class IntsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound2() {
-        Integer x = null;
-        M.ints().range(x, 10).val();
+        M.ints().range(null, 10).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextIntegerNullNotBound3() {
-        Integer x = null;
-        M.ints().range(10, x).val();
+        M.ints().range(10, null).val();
     }
 
     @Test
@@ -146,8 +126,7 @@ public class IntsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextNulLNotAlphabet() {
-        int[] alphabet = null;
-        M.ints().from(alphabet).val();
+        M.ints().from(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.abstraction;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import net.andreinc.mockneat.Constants;
 import org.junit.Assert;
 import org.junit.Test;
@@ -102,8 +85,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromNullArray() {
-        TestModel[] array = null;
-        Constants.M.from(array).val();
+        Constants.M.from((TestModel[]) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -133,8 +115,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromNullList() {
-        List<TestModel> array = null;
-        Constants.M.from(array).val();
+        Constants.M.from((List<TestModel>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -159,8 +140,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testEnumNull() {
-        Class<? extends Enum<?>> cls = null;
-        Constants.M.from(cls).val();
+        Constants.M.from((Class<? extends Enum<?>>) null).val();
     }
 
     @Test
@@ -174,8 +154,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromKeysNullMap() {
-        Map<Integer, Integer> intMap = null;
-        Constants.M.fromKeys(intMap).val();
+        Constants.M.fromKeys((Map<Integer, Integer>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -195,8 +174,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromValuesNullMap() {
-        Map<Integer, Integer> intMap = null;
-        Constants.M.fromValues(intMap).val();
+        Constants.M.fromValues((Map<Integer, Integer>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -221,8 +199,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromIntsIntegerNullArray() {
-        Integer[] array = null;
-        Constants.M.fromInts(array).val();
+        Constants.M.fromInts((Integer[]) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -249,8 +226,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromIntsIntNullArray() {
-        int[] array = null;
-        Constants.M.fromInts(array).val();
+        Constants.M.fromInts((int[]) null).val();
     }
 
     @Test
@@ -265,8 +241,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromIntsListNullList() {
-        List<Integer> list = null;
-        Constants.M.fromInts(list).val();
+        Constants.M.fromInts((List<Integer>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -286,8 +261,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromIntsValuesNullMap() {
-        Map<Collection<?>, Integer> map = null;
-        Constants.M.fromIntsValues(map).val();
+        Constants.M.fromIntsValues(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -307,8 +281,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromIntKeysNullMap() {
-        Map<Integer, ?> map = null;
-        Constants.M.fromIntsKeys(map).val();
+        Constants.M.fromIntsKeys(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -333,8 +306,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromDoublesDoubleNullArray() {
-        Double[] array = null;
-        Constants.M.fromDoubles(array).val();
+        Constants.M.fromDoubles((Double[]) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -361,8 +333,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromDoublesDoublePrimNullArray() {
-        double[] array = null;
-        Constants.M.fromDoubles(array).val();
+        Constants.M.fromDoubles((double[]) null).val();
     }
 
     @Test
@@ -377,8 +348,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromDoubleListNullList() {
-        List<Double> list = null;
-        Constants.M.fromDoubles(list).val();
+        Constants.M.fromDoubles((List<Double>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -398,8 +368,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromDoublesValuesNullMap() {
-        Map<Collection<?>, Double> map = null;
-        Constants.M.fromDoublesValues(map).val();
+        Constants.M.fromDoublesValues(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -419,8 +388,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromDoubleKeysNullMap() {
-        Map<Double, ?> map = null;
-        Constants.M.fromDoublesKeys(map).val();
+        Constants.M.fromDoublesKeys(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -445,8 +413,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromLongsLongNullArray() {
-        Long[] array = null;
-        Constants.M.fromLongs(array).val();
+        Constants.M.fromLongs((Long[]) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -473,13 +440,12 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromLongsLongPrimNullArray() {
-        long[] array = null;
-        Constants.M.fromLongs(array).val();
+        Constants.M.fromLongs((long[]) null).val();
     }
 
     @Test
     public void testFromLongsList() {
-        List<Long> list = Constants.M.longs().range(0,5).list(10).val();
+        List<Long> list = Constants.M.longs().range(0L,5L).list(10).val();
         Set<Long> listValues = new HashSet<>(list);
         loop(Constants.MOCK_CYCLES,
                 Constants.MOCKS,
@@ -489,8 +455,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromLongsLongNullList() {
-        List<Long> list = null;
-        Constants.M.fromLongs(list).val();
+        Constants.M.fromLongs((List<Long>) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -510,8 +475,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromLongsValuesNullMap() {
-        Map<Collection<?>, Long> map = null;
-        Constants.M.fromLongsValues(map).val();
+        Constants.M.fromLongsValues(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -532,14 +496,12 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromLongsKeysNullMap() {
-        Map<Long, ?> map = null;
-        Constants.M.fromLongsKeys(map).val();
+        Constants.M.fromLongsKeys(null).val();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testFromLongsKeysEmptyMap() {
-        Map<Long, ?> map = new HashMap<>();
-        Constants.M.fromLongsKeys(map).val();
+        Constants.M.fromLongsKeys(null).val();
     }
 
     /**********************
@@ -558,8 +520,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromStringNullArray() {
-        String[] array = null;
-        Constants.M.fromStrings(array).val();
+        Constants.M.fromStrings((String[]) null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -580,8 +541,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromStringNullList() {
-        List<String> list = null;
-        Constants.M.fromStrings(list).val();
+        Constants.M.fromStrings((List<String>)null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -601,8 +561,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromStringValuesNullMap() {
-        Map<Collection<?>, String> map = null;
-        Constants.M.fromStringsValues(map).val();
+        Constants.M.fromStringsValues(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -622,8 +581,7 @@ public class MockFromFunctionsTest {
 
     @Test(expected = NullPointerException.class)
     public void testFromStringKeysNullMap() {
-        Map<String, ?> map = null;
-        Constants.M.fromStringsKeys(map).val();
+        Constants.M.fromStringsKeys(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.unit.types;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import net.andreinc.mockneat.Constants;
 import org.junit.Test;
 
@@ -66,8 +49,7 @@ public class FloatsTest {
 
     @Test(expected = NullPointerException.class)
     public void nextFloat_NullNotBound() {
-        Float bound = null;
-        Constants.M.floats().bound(bound).val();
+        Constants.M.floats().bound((Float) null).val();
     }
 
     @Test
@@ -98,14 +80,12 @@ public class FloatsTest {
 
     @Test(expected =  NullPointerException.class)
     public void testNextFloatNullNotBound2() {
-        Float f = null;
-        Constants.M.floats().range(10.0f, f).val();
+        Constants.M.floats().range(10.0f, (Float) null).val();
     }
 
     @Test(expected =  NullPointerException.class)
     public void testNextFloatNullNotBound3() {
-        Float f = null;
-        Constants.M.floats().range(f, 10.0f).val();
+        Constants.M.floats().range((Float) null, 10.0f).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -134,8 +114,7 @@ public class FloatsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextNullNotAlphabet() {
-        float[] alphabet = null;
-        Constants.M.floats().from(alphabet).val();
+        Constants.M.floats().from(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -13,8 +13,7 @@ public class MockUnitDictsTest {
 
     @Test(expected = NullPointerException.class)
     public void dictTypeNull() {
-        DictType ndt = null;
-        M.dicts().type(ndt).val();
+        M.dicts().type(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -25,8 +24,7 @@ public class MockUnitDictsTest {
 
     @Test(expected = NullPointerException.class)
     public void dictDataNull() {
-        DictType ndt = null;
-        M.dicts().data(ndt);
+        M.dicts().data(null);
     }
 
     @Test

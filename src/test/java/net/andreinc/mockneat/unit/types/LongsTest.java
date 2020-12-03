@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.unit.types;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Test;
 
@@ -48,8 +31,7 @@ public class LongsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound() {
-        Long bound = null;
-        M.longs().bound(bound).val();
+        M.longs().bound(null).val();
     }
 
     @Test
@@ -86,14 +68,12 @@ public class LongsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound2() {
-        Long l = null;
-        M.longs().range(l, 10L).val();
+        M.longs().range(null, 10L).val();
     }
 
     @Test(expected = NullPointerException.class)
     public void testNextLongNullNotBound3() {
-        Long l = null;
-        M.longs().range(10L, l).val();
+        M.longs().range(null, null).val();
     }
 
     @Test
@@ -143,8 +123,7 @@ public class LongsTest {
 
     @Test(expected = NullPointerException.class)
     public void testNextNulLNotAlphabet() {
-        long[] alphabet = null;
-        M.longs().from(alphabet).val();
+        M.longs().from(null).val();
     }
 
     @Test(expected = IllegalArgumentException.class)

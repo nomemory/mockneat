@@ -2,9 +2,6 @@ package net.andreinc.mockneat.abstraction;
 
 import org.junit.Test;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import static org.junit.Assert.assertNull;
 
 import static net.andreinc.mockneat.Constants.M;
@@ -13,14 +10,12 @@ public class MockUnitConsumeTest {
 
     @Test(expected = NullPointerException.class)
     public void testConsumeNulLConsumer() {
-        Consumer<Integer> consumer = null;
-        M.ints().range(0, 100).consume(consumer);
+        M.ints().range(0, 100).consume(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testConsumeWithBiConsumerNullBiConsumer() {
-        BiConsumer<Integer, Integer> biConsumer = null;
-        M.ints().range(0, 100).consume(10, biConsumer);
+        M.ints().range(0, 100).consume(10, null);
     }
 
     @Test(expected = IllegalArgumentException.class)

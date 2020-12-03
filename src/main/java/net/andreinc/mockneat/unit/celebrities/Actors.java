@@ -13,8 +13,15 @@ public class Actors extends MockUnitBase implements MockUnitString {
         super(mockNeat);
     }
 
+    /**
+     * The method returns a {@code Supplier<String>} that can be used to generate full actor names (Eg.: "Adrien Brody")
+     *
+     * @return A new {@code Supplier<String>}
+     */
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().type(DictType.ACTORS).supplier();
+        return mockNeat.dicts()
+                        .type(DictType.ACTORS)
+                        .supplier();
     }
 }

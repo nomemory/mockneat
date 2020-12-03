@@ -53,19 +53,22 @@ public class Celebrities extends MockUnitBase implements MockUnitString {
     public MockUnitString type(CelebrityType celebrityType) {
         notNull(celebrityType, "celebrityType");
         DictType dictType = mockNeat.from(celebrityType.getDictionaries()).val();
-        return () -> mockNeat.dicts().type(dictType)::val;
+        return () -> mockNeat.dicts().type(dictType)::get;
     }
 
     public MockUnitString types(CelebrityType... celebrityTypes) {
         notEmptyOrNullValues(celebrityTypes, "celebrityTypes");
         return () -> {
-            CelebrityType type = mockNeat.from(celebrityTypes).val();
+            CelebrityType type = mockNeat.from(celebrityTypes).get();
             return type(type).supplier();
         };
     }
 
     @Override
     public Supplier<String> supplier() {
-        return null;
+        return () -> {
+            CelebrityType celebrityType = mockNeat.from(CelebrityType.class).get();
+            return type(celebrityType).get();
+        };
     }
 }

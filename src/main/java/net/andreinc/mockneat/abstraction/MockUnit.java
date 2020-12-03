@@ -1,22 +1,5 @@
 package net.andreinc.mockneat.abstraction;
 
-/**
- * Copyright 2017, Andrei N. Ciobanu
-
- Permission is hereby granted, free of charge, to any user obtaining a copy of this software and associated
- documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
- rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
- persons to whom the Software is furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
- Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. PARAM NO EVENT SHALL THE AUTHORS OR
- COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
- OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
- */
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -42,7 +25,6 @@ import static net.andreinc.mockneat.utils.MockUnitUtils.*;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 @FunctionalInterface
-@SuppressWarnings("ALL")
 public interface MockUnit<T> {
 
     // Functional Method
@@ -1375,7 +1357,11 @@ public interface MockUnit<T> {
      * @param values The array.
      * @param <R> The type the values.
      * @return A new {@code MockUnit<Map<T, R>>}
+     *
+     * @deprecated use {@link #mapVals(Supplier, Object[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default <R> MockUnit<Map<T, R>> mapVals(Class<? extends Map> mapClass, R[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -1430,7 +1416,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default <R> MockUnit<Map<T, R>> mapVals(R[] values) {
-        return mapVals(HashMap.class, values);
+        return mapVals(HashMap::new, values);
     }
 
     /**
@@ -1443,7 +1429,11 @@ public interface MockUnit<T> {
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param values The array.
      * @return A new {@code MockUnit<Map<T, R>>}
+     *
+     * @deprecated use {@link #mapVals(Supplier, int[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Map<T, Integer>> mapVals(Class<? extends Map> mapClass, int[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -1494,7 +1484,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default MockUnit<Map<T, Integer>> mapVals(int[] values) {
-        return mapVals(HashMap.class, values);
+        return mapVals(HashMap::new, values);
     }
 
     /**
@@ -1507,7 +1497,11 @@ public interface MockUnit<T> {
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param values The array.
      * @return A new {@code MockUnit<Map<T, R>>}
+     *
+     * @deprecated use {@link #mapVals(Supplier, long[])} instead
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Map<T, Long>> mapVals(Class<? extends Map> mapClass, long[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -1559,7 +1553,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}.
      */
     default MockUnit<Map<T, Long>> mapVals(long[] values) {
-        return mapVals(HashMap.class, values);
+        return mapVals(HashMap::new, values);
     }
 
     /**
@@ -1572,7 +1566,11 @@ public interface MockUnit<T> {
      * @param mapClass The implementing class for the Map (eg.: HashMap.class).
      * @param values The array.
      * @return A new {@code MockUnit<Map<T, R>>}
+     * 
+     * @deprecated use {@link #mapVals(Supplier, double[])} instead.
      */
+    @Deprecated
+    @SuppressWarnings("rawtypes")
     default MockUnit<Map<T, Double>> mapVals(Class<? extends Map> mapClass, double[] values) {
         notNull(mapClass, "mapClass");
         notNull(values, "values");
@@ -1623,7 +1621,7 @@ public interface MockUnit<T> {
      * @return A new {@code MockUnit<Map<T, R>>}
      */
     default MockUnit<Map<T, Double>> mapVals(double[] values) {
-        return mapVals(HashMap.class, values);
+        return mapVals(HashMap::new, values);
     }
 
 

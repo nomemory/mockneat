@@ -40,7 +40,9 @@ public class Cities extends MockUnitBase {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString capitals() {
-        return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS).supplier();
+        return () -> mockNeat.dicts()
+                                .type(DictType.CITIES_CAPITALS)
+                                .supplier();
     }
 
     /**
@@ -48,7 +50,11 @@ public class Cities extends MockUnitBase {
      *
      * @return A new {@code MockUnitString}
      */
-    public MockUnitString capitalsEurope() { return () -> mockNeat.dicts().type(DictType.CITIES_CAPITALS_EUROPE).supplier(); }
+    public MockUnitString capitalsEurope() {
+        return () -> mockNeat.dicts()
+                                .type(DictType.CITIES_CAPITALS_EUROPE)
+                                .supplier();
+    }
 
     /**
      * Returns a {@code MockUnitString} that can be used to generate US city names. (Eg.: "New York")
@@ -56,7 +62,9 @@ public class Cities extends MockUnitBase {
      * @return A new {@code MockUnitString}.
      */
     public MockUnitString us() {
-        return () -> mockNeat.dicts().type(DictType.CITIES_US).supplier();
+        return () -> mockNeat.dicts()
+                                .type(DictType.CITIES_US)
+                                .supplier();
     }
 
 }

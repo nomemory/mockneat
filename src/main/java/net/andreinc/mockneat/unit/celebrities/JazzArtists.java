@@ -13,8 +13,15 @@ public class JazzArtists extends MockUnitBase implements MockUnitString {
         super(mockNeat);
     }
 
+    /**
+     * The method returns a {@code Supplier<String>} that can be used to generate jazz artists names (Eg.: "Duke Ellington")
+     *
+     * @return A new {@code Supplier<String>}
+     */
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().type(DictType.JAZZ_ARTISTS).supplier();
+        return mockNeat.dicts()
+                        .type(DictType.JAZZ_ARTISTS)
+                        .supplier();
     }
 }

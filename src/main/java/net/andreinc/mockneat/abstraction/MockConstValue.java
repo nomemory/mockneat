@@ -16,11 +16,11 @@ package net.andreinc.mockneat.abstraction;
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER PARAM AN ACTION OF CONTRACT, TORT OR
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
-public final class MockConstValue implements MockValue {
+public final class MockConstValue<T> implements MockValue<T> {
 
-    private final Object value;
+    private final T value;
 
-    private MockConstValue(Object value) {
+    private MockConstValue(T value) {
         this.value = value;
     }
 
@@ -30,15 +30,15 @@ public final class MockConstValue implements MockValue {
      * @param value The Object wrapped by the {@code MockConstantValue} class.
      * @return A new MockConstValue.
      */
-    public static MockConstValue constant(Object value) {
-        return new MockConstValue(value);
+    public static <T> MockConstValue<T> constant(T value) {
+        return new MockConstValue<>(value);
     }
 
     /**
      * @return The wrapped Object value.
      */
     @Override
-    public Object get() {
+    public T get() {
         return value;
     }
 }

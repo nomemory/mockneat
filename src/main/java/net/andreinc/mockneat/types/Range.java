@@ -17,6 +17,10 @@ package net.andreinc.mockneat.types;
  OTHERWISE, ARISING FROM, OUT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
+/**
+ * A simple model class encapsulating a Range between two numbers.
+ * @param <T> The type of the number
+ */
 public class Range<T extends Number> {
 
     private final T lowerBound;

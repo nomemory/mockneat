@@ -21,8 +21,8 @@ package net.andreinc.mockneat.utils;
 public final class LuhnUtils {
     /**
      * Tests if a certain String is a valid Luhn number
-     * @param cc
-     * @return
+     * @param cc The value to be tested if it's a Luhn number
+     * @return True if the value is a Luhn number, false otherwise
      */
     public static boolean luhnCheck(String cc) {
         int result = 0;

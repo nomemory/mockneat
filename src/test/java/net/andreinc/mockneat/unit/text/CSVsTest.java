@@ -93,14 +93,12 @@ public class CSVsTest {
 
     @Test(expected = NullPointerException.class)
     public void testWriteCsvNullPath() {
-        Path path = null;
-        M.csvs().column(M.strings()).write(path, 10, true);
+        M.csvs().column(M.strings()).write((Path) null, 10, true);
     }
 
     @Test(expected = NullPointerException.class)
     public void testWriteCsvNullStringPath() {
-        String path = null;
-        M.csvs().column(M.strings()).write(path, 10, true);
+        M.csvs().column(M.strings()).write((Path) null, 10, true);
     }
 
     @Test(expected = IllegalArgumentException.class)

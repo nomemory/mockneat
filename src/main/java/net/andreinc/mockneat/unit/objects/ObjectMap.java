@@ -18,7 +18,7 @@ public class ObjectMap extends MockUnitBase implements MockUnit<Map<String, Obje
         return MockNeat.threadLocal().objectMap();
     }
 
-    private final Map<String, MockUnit> map = new LinkedHashMap<>();
+    private final Map<String, MockUnit<?>> map = new LinkedHashMap<>();
 
     public ObjectMap(MockNeat mockNeat) {
         super(mockNeat);
@@ -29,7 +29,7 @@ public class ObjectMap extends MockUnitBase implements MockUnit<Map<String, Obje
         return () -> traverseObject(this);
     }
 
-    public ObjectMap put(String value, MockUnit unit) {
+    public ObjectMap put(String value, MockUnit<?> unit) {
         notEmpty(value, "value");
         notNull(unit, "unit");
         map.put(value, unit);
@@ -57,10 +57,10 @@ public class ObjectMap extends MockUnitBase implements MockUnit<Map<String, Obje
     }
 
     protected static Map<String, Object> traverseObject(ObjectMap ojMap) {
-        Map<String, MockUnit> map = ojMap.map;
+        Map<String, MockUnit<?>> map = ojMap.map;
         Map<String, Object> result = new HashMap<>();
         for(String key : map.keySet()) {
-            MockUnit value = map.get(key);
+            MockUnit<?> value = map.get(key);
             if (value instanceof ObjectMap) {
                 result.put(key, traverseObject((ObjectMap) value));
             }

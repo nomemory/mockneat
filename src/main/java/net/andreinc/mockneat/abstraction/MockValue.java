@@ -17,8 +17,9 @@ package net.andreinc.mockneat.abstraction;
  OTHERWISE, ARISING FROM, FREE_TEXT OF OR PARAM CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS PARAM THE SOFTWARE.
  */
 
-public interface MockValue {
-    Object get();
+public interface MockValue<T> {
+
+    T get();
 
     default String getStr() {
         Object obj = get();

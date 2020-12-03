@@ -13,8 +13,15 @@ public class Actresses extends MockUnitBase implements MockUnitString {
         super(mockNeat);
     }
 
+    /**
+     * The method returns a {@code Supplier<String>} that can be used to generate full actress names (Eg.: Tilda Swinton")
+     *
+     * @return A new {@code Supplier<String>}
+     */
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().type(DictType.ACTRESSES).supplier();
+        return mockNeat.dicts()
+                        .type(DictType.ACTRESSES)
+                        .supplier();
     }
 }
