@@ -160,7 +160,7 @@ public class MockUnitListMethodTest {
 
     protected List getRecursiveList() {
         MockUnit l = M.ints().list(1);
-        return (List) getRecursiveRandUnitList(l, 1000).val();
+        return (List) getRecursiveRandUnitList(l, 100).val();
     }
 
     protected List getRecursiveListSupp() {

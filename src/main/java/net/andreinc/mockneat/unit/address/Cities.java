@@ -28,8 +28,6 @@ public class Cities extends MockUnitBase {
         return MockNeat.threadLocal().cities();
     }
 
-    protected Cities() { }
-
     public Cities(MockNeat mockNeat) {
         super(mockNeat);
     }

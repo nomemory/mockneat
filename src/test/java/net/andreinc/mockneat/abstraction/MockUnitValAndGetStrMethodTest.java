@@ -9,7 +9,7 @@ import static java.util.Arrays.stream;
 import static net.andreinc.mockneat.utils.LoopsUtils.loop;
 import static org.junit.Assert.*;
 
-public class MockUnitValStrMethodTest {
+public class MockUnitValAndGetStrMethodTest {
 
     @Test
     public void testValStrNulls() {

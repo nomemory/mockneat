@@ -15,8 +15,6 @@ public class Countries extends MockUnitBase implements MockUnitString {
         return MockNeat.threadLocal().countries();
     }
 
-    protected Countries() { }
-
     public Countries(MockNeat mockNeat) {
         super(mockNeat);
     }

@@ -13,8 +13,6 @@ public class USStates extends MockUnitBase implements MockUnitString {
         return MockNeat.threadLocal().usStates();
     }
 
-    protected USStates() { }
-
     public USStates(MockNeat mockNeat) {
         super(mockNeat);
     }

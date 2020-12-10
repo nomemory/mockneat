@@ -61,7 +61,7 @@ public interface MockUnit<T> {
     /**
      * <p>Serializes the generated value {@code <T>} into a file.</p>
      *
-     * <p>The method uses the standard Java serilization mechanism.</p>
+     * <p>The method uses the standard Java serialization mechanism.</p>
      *
      * <p><em>Note:</em> If the specified path is not accessible a {@link java.io.UncheckedIOException} is thrown.</p>
      *

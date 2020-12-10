@@ -1,4 +1,4 @@
-package net.andreinc.mockneat.unit.text;
+package net.andreinc.mockneat.unit.misc;
 
 import net.andreinc.mockneat.MockNeat;
 import net.andreinc.mockneat.abstraction.MockUnitBase;

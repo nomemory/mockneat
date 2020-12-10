@@ -12,6 +12,7 @@ import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
+import net.andreinc.mockneat.unit.misc.Creatures;
 import net.andreinc.mockneat.unit.misc.ISSNS;
 import net.andreinc.mockneat.unit.misc.Mimes;
 import net.andreinc.mockneat.unit.misc.SSCs;
