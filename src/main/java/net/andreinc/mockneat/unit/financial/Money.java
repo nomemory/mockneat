@@ -19,7 +19,18 @@ public class Money extends MockUnitBase implements MockUnitString {
 
     private NumberFormat formatter = getCurrencyInstance(US);
 
-    public static Money money() { return MockNeat.threadLocal().money(); }
+    /**
+     * <p>Returns a {@code Money} object that can be used to generate arbitrary "money" information.</p>
+     *
+     * <p>The generated text represents sums of money generated using {@code NumberFormat.getCurrencyInstance().format(...)}.</p>
+     *
+     * <p><em>Note:</em>By default it returns a random sum of money</p>
+     *
+     * @return A re-usable {@code Money} object. The {@code Money} class implements {@code MockUnitString}.
+     */
+    public static Money money() {
+        return MockNeat.threadLocal().money();
+    }
 
     public Money() { }
 

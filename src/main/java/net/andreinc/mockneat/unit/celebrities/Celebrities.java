@@ -13,7 +13,9 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Celebrities extends MockUnitBase implements MockUnitString {
 
-    public static Celebrities celebrities() { return MockNeat.threadLocal().celebrities(); }
+    public static Celebrities celebrities() {
+        return MockNeat.threadLocal().celebrities();
+    }
 
     private final JazzArtists jazzArtists;
     private final RockStars rockStars;

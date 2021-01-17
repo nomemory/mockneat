@@ -11,6 +11,12 @@ import static net.andreinc.mockneat.utils.ValidationUtils.validRegex;
 
 public class Regex implements MockUnitString {
 
+    /**
+     * <p>Returns a new {@code Regex} object that can be used to generate arbitrary text bassed on a certain regex pattern.</p>
+     *
+     * @param regex The regex pattern that the generated string needs to comply.
+     * @return A new {@code Regex} object. The {@code Regex} class implements {@code MockUnitString}.
+     */
     public static Regex regex(String regex) {
         return MockNeat.threadLocal().regex(regex);
     }

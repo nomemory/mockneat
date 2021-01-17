@@ -13,6 +13,13 @@ public class Ints extends MockUnitBase implements MockUnitInt {
 
     private final Random random;
 
+    /**
+     * <p>Returns a {@code Ints} object that can be used to generate arbitrary {@code Integer} numbers.</p>
+     *
+     * <p>Internally the method uses the {@code Random::nextInt} implementation.</p>
+     *
+     * @return A re-usable {@code Ints} object. The {@code Ints} class implements {@code MockUnitInt}.
+     */
     public static Ints ints() {
         return MockNeat.threadLocal().ints();
     }

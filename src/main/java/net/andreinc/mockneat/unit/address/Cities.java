@@ -24,6 +24,11 @@ import net.andreinc.mockneat.types.enums.DictType;
 
 public class Cities extends MockUnitBase {
 
+    /**
+     * <p>Returns a {@code Cities} object that can be used to generate arbitrary city names from around the world.</p>
+     *
+     * @return A re-usable {@code Citites} object.
+     */
     public static Cities cities() {
         return MockNeat.threadLocal().cities();
     }

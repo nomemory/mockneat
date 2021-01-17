@@ -17,6 +17,13 @@ public class Doubles extends MockUnitBase implements MockUnitDouble {
 
     private final Random random;
 
+    /**
+     * <p>Returns a {@code Doubles} object that can be used to generate arbitrary {@code double} values.</p>
+     *
+     * <p><em>Note:</em> By default the {@code Doubles} object returns a random double in the [0.0, 1.0) interval. </p>
+     *
+     * @return A re-usable {@code Doubles} object. The {@code Doubles} class implements {@code MockUnitDouble}.
+     */
     public static Doubles doubles() {
         return MockNeat.threadLocal().doubles();
     }

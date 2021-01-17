@@ -19,6 +19,15 @@ public class Constructor<T> implements MockUnit<T> {
     private final Class<T> cls;
     private Object[] params = new Object[0];
 
+    /**
+     * <p>Returns a new {@code Constructor} object.</p>
+     *
+     * <p>This method can be used to generate {@code MockUnit<T>} from a Java Bean {@code <T>} by accessing it's constructor and supply it with arbitrary input.</p>
+     *
+     * @param cls The class for type {@code <T>}. (Eg.: Student.class)
+     * @param <T> The type of {@code MockUnit<T>}. This is the wrapped type.
+     * @return A new {@code Constructor} object. The {@code Constructor} class implements {@code MockUnit<T>}.
+     */
     public static <T> Constructor<T> constructor(Class<T> cls) {
         return MockNeat.threadLocal().constructor(cls);
     }

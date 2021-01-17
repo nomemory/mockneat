@@ -15,6 +15,11 @@ public class LocalDates extends MockUnitBase implements MockUnitLocalDate {
 
     public static final LocalDate EPOCH_START = ofEpochDay(0);
 
+    /**
+     * <p>Returns a {@code LocalDates} object that can be used to generate arbitrary {@code LocalDate} objects.</p>
+     *
+     * @return A re-usable {@code LocalDates} object. The {@code LocalDates} implements {@code MockUnitLocalDate}.
+     */
     public static LocalDates localDates() {
         return MockNeat.threadLocal().localDates();
     }

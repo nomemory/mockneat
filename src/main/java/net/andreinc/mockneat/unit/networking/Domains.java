@@ -14,6 +14,13 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Domains extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Domains} object</p> that can be used to generate domain names. (eg.: "www", "info")
+     *
+     * <p><em>Note: </em> By default "popular" domains will be generated (like: "com", "org", "net", "edu", "gov", "info", "io")</p>
+     *
+     * @return A re-usable {@code Domains} object. The {@code Domains} class implements {@code MockUnitString}
+     */
     public static Domains domains() {
         return MockNeat.threadLocal().domains();
     }

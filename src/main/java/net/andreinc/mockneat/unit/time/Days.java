@@ -14,6 +14,13 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Days extends MockUnitBase implements MockUnitDays {
 
+    /**
+     * <p>Returns a {@code Days} object that can be used to generate a random {@code java.time.DayOfWeek} object.</p>
+     *
+     * <p><em>Note: </em> By default the {@code Days} object returns a random day of the week.</p>
+     *
+     * @return A re-usable {@code Days} object. The {@code Days} class implements {@code MockUnitDays} interface.
+     */
     public static Days days() {
         return MockNeat.threadLocal().days();
     }

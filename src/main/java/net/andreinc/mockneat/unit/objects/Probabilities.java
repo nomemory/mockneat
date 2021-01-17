@@ -23,6 +23,13 @@ public class Probabilities<T> extends MockUnitBase implements MockUnit<T> {
     private final MockUnitDouble mud;
     private final Class<T> cls;
 
+    /**
+     * <p>Returns a {@code Probabilities} object that can be used to generate arbitrary data with a given probability.</p>
+     *
+     * @param cls The type we are going to generate.
+     * @param <T> The type of the class for returning probabilities
+     * @return A re-usable {@code Probabilities} object. The class implements {@code MockUnit<T>}.
+     */
     public static <T> Probabilities<T> probabilities(Class<T> cls) {
         return MockNeat.threadLocal().probabilites(cls);
     }

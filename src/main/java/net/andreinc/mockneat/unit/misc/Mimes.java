@@ -11,6 +11,11 @@ import static net.andreinc.mockneat.types.enums.DictType.MIME_TYPE;
 
 public class Mimes extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Mimes} object that can be used to generate arbitrary Mime Types (Eg.: "text/html", "image/x-icon", "text/calendar")</p>
+     *
+     * @return A re-usable {@code Mimes} object. The {@code Mimes} class implements {@code MockUnitString}.
+     */
     public static Mimes mimes() {
         return MockNeat.threadLocal().mimes();
     }

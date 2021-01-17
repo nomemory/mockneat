@@ -14,6 +14,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class ObjectMap extends MockUnitBase implements MockUnit<Map<String, Object>> {
 
+    /**
+     * <p>Returns a new {@code ObjectMap} object that can be used to easily generate json files. </p>
+     *
+     * @return An objectMap object used to easily generate json files
+     */
     public static ObjectMap objectMap() {
         return MockNeat.threadLocal().objectMap();
     }

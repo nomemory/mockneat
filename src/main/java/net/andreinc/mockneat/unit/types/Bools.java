@@ -13,6 +13,11 @@ public class Bools extends MockUnitBase implements MockUnit<Boolean> {
 
     private final Random random;
 
+    /**
+     * <p>Returns a {@code Bools} object that can be used to generate arbitrary {@code Boolean} values.</p>
+     *
+     * @return A re-usable {@code Bools} instance. The class implements {@code MockUnit<Boolean>}.
+     */
     public static Bools bools() {
         return MockNeat.threadLocal().bools();
     }

@@ -22,6 +22,11 @@ public class IntSeq implements MockUnitInt {
     private int min;
     private AtomicInteger internal;
 
+    /**
+     * <p>Returns a {@code IntSeq} object that can be used to generate arbitrary {@code Integer} numbers in a sequence.</p>
+     *
+     * @return A re-usable {@code IntSeq} object. The {@code IntSeq} class implements {@code MockUnitInt}.
+     */
     public static IntSeq intSeq() {
         return MockNeat.threadLocal().intSeq();
     }

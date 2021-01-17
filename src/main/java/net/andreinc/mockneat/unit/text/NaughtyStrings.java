@@ -43,11 +43,17 @@ public class NaughtyStrings extends MockUnitBase implements MockUnitString {
                     );
 
 
+    /**
+     * <p>Returns a {@code NaughtyStrings} object that can be used to generate "naughty strings".</p>
+     *
+     * <p>Please check this URL for more info about the naughty strings:</p>
+     *
+     * <p>https://github.com/minimaxir/big-list-of-naughty-strings/blob/master/blns.txt</p>
+     *
+     * @return A re-usable {@code NaughtyStrings} object. The {@code NaughtStrings} class implements {@code MockUnitString}.
+     */
     public static NaughtyStrings naughtyStrings() {
         return MockNeat.threadLocal().naughtyStrings();
-    }
-
-    protected NaughtyStrings() {
     }
 
     public NaughtyStrings(MockNeat mockNeat) {

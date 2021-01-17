@@ -9,15 +9,17 @@ import java.util.function.Supplier;
 
 public class Creatures extends MockUnitBase implements MockUnitString {
 
-    protected Creatures() {
+    /**
+     * <p> Returns a {@code Creatures} object that can be used to generate arbitrary creature names.</p>
+     *
+     * @return A re-usable {@code Creatures} instance. The class implements {@code MockUnitString}.
+     */
+    public static Creatures creatures() {
+        return MockNeat.threadLocal().creatures();
     }
 
     public Creatures(MockNeat mockNeat) {
         super(mockNeat);
-    }
-
-    public static Creatures creatures() {
-        return MockNeat.threadLocal().creatures();
     }
 
     @Override

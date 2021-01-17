@@ -12,6 +12,11 @@ import static net.andreinc.mockneat.alphabets.Alphabets.HEXA_STR;
 
 public class IPv6s extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code IPv6s} object that can be used to generate arbitrary IPv6 addresses.</p>
+     *
+     * @return A re-usable {@code IPv6s} object. The {@code IPv6s} class implements {@code MockUnitString}.
+     */
     public static IPv6s ipv6s() {
         return MockNeat.threadLocal().iPv6s();
     }

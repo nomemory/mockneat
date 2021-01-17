@@ -10,6 +10,11 @@ import static net.andreinc.mockneat.types.enums.DictType.DEPARTMENTS;
 
 public class Departments extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Departments} object that can be used to generate arbitrary names representing department names from a company.</p>
+     *
+     * @return A re-usable {@code Departments} object. The {@code Departments} class is implementing {@code MockUnitString}.
+     */
     public static Departments departments() {
         return MockNeat.threadLocal().departments();
     }

@@ -12,6 +12,13 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Chars extends MockUnitBase implements MockUnit<Character> {
 
+    /**
+     * <p>Returns a {@code Chars} object that can be used to generate arbitrary {@code Character} values.</p>
+     *
+     * <p><em>Note:</em> Without any additional constraint, the {@code Chars} object will generate alphanumeric characters.</p>
+     *
+     * @return A re-usable {@code Chars} instance. The class implements {@code MockUnit<Character>}.
+     */
     public static Chars chars() {
         return MockNeat.threadLocal().chars();
     }

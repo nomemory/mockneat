@@ -19,11 +19,14 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Passwords extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Passwords} object that can be used to generate arbitrary user passwords.</p>
+     *
+     * @return A re-usable {@code Passwords} object. The {@code Passwords} class implements {@code MockUnitString}.
+     */
     public static Passwords passwords() {
         return MockNeat.threadLocal().passwords();
     }
-
-    protected Passwords() { }
 
     public Passwords(MockNeat mockNeat) {
         super(mockNeat);
@@ -67,7 +70,6 @@ public class Passwords extends MockUnitBase implements MockUnitString {
      *
      * @return A new {@code MockUnitString}.
      */
-    //TODO document
     public MockUnitString weak() {
         return type(WEAK);
     }
@@ -77,7 +79,6 @@ public class Passwords extends MockUnitBase implements MockUnitString {
      *
      * @return A new {@code MockUnitString}.
      */
-    //TODO document
     public MockUnitString medium() {
         return type(MEDIUM);
     }

@@ -15,7 +15,14 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class CVVS extends MockUnitBase implements MockUnitString {
 
-    public static CVVS cvvs() { return new CVVS(); }
+    /**
+     * <p>Returns a {@code CVVS} object that can be used to generate credit card cvv codes.</p>
+     *
+     * <p><em>Note: </em> By default the values generated are 3-digits CVV codes.</p>
+     *
+     * @return A re-usable {@code CVVS} object. The {@code CVVS} class implements the {@code MockUnitString} interface.
+     */
+    public static CVVS cvvs() { return MockNeat.threadLocal().cvvs(); }
 
     protected CVVS() { }
 

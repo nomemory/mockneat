@@ -45,6 +45,11 @@ public class IBANs extends MockUnitBase implements MockUnitString {
             );
     }
 
+    /**
+     * <p>Returns a {@code IBANs} object that can be used to generate valid IBANs codes.</p>
+     *
+     * @return A re-usable {@code IBANs} object. The {@code IBANs} class implements {@code MockUnitString}.
+     */
     public static IBANs ibans() { return MockNeat.threadLocal().ibans(); }
 
     protected IBANs() { }

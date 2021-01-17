@@ -6,7 +6,10 @@ import net.andreinc.mockneat.types.enums.RandomType;
 import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.address.USStates;
+import net.andreinc.mockneat.unit.celebrities.Actors;
+import net.andreinc.mockneat.unit.celebrities.Actresses;
 import net.andreinc.mockneat.unit.celebrities.Celebrities;
+import net.andreinc.mockneat.unit.celebrities.JazzArtists;
 import net.andreinc.mockneat.unit.companies.Departments;
 import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
@@ -41,6 +44,8 @@ public class MockNeat {
 
     private final Random random;
 
+    private final Actors rActors;
+    private final Actresses rActresses;
     private final Bools rBools;
     private final Celebrities rCelebrities;
     private final Cities rCities;
@@ -67,6 +72,7 @@ public class MockNeat {
     private final ISSNS rISSNS;
     private final IPv4s rIPv4s;
     private final IPv6s rIPv6s;
+    private final JazzArtists rJazzArtists;
     private final LocalDates rLocalDates;
     private final Longs rLongs;
     private final Macs rMacs;
@@ -90,11 +96,13 @@ public class MockNeat {
 
         this.random = randomTypeType.getRandom();
 
+        this.rActors = new Actors(this);
+        this.rActresses = new Actresses(this);
+        this.rBools = new Bools(this);
+        this.rCCS = new CreditCards(this);
         this.rCelebrities = new Celebrities(this);
         this.rChars = new Chars(this);
-        this.rBools = new Bools(this);
         this.rCountries = new Countries(this);
-        this.rCCS = new CreditCards(this);
         this.rCities = new Cities(this);
         this.rCreatures = new Creatures(this);
         this.rCurrencies = new Currencies(this);
@@ -116,6 +124,7 @@ public class MockNeat {
         this.rIPv4s = new IPv4s(this);
         this.rIPv6s = new IPv6s(this);
         this.rISSNS = new ISSNS(this);
+        this.rJazzArtists = new JazzArtists(this);
         this.rLocalDates = new LocalDates(this);
         this.rLongs = new Longs(this);
         this.rMacs = new Macs(this);
@@ -167,6 +176,22 @@ public class MockNeat {
      * @return An already instantiated {@code MockNeat} instance that can be reused.
      */
     public static MockNeat old() { return OLD; }
+
+    /**
+     * <p>Returns a {@code Actors} object that can be used to generate arbitrary actor names (e.g.: Michael Douglas)</p>
+     *
+     * @return a re-usable {@code Actors} instance. This class implements {@code MockUnitString}
+     */
+    public Actors actors() { return this.rActors; }
+
+    /**
+     * <p>Returns a {@code Actresses} object that can be used to generate arbitrary actresses names (e.g.: Elizabeth Taylor)</p>
+     *
+     * @return a re-usable {@code Actresses} instance. This class implements {@code MockUnitString}
+     */
+    public Actresses actresses() {
+        return  this.rActresses;
+    }
 
     /**
      * <p>Returns a {@code Bools} object that can be used to generate arbitrary {@code Boolean} values.</p>
@@ -367,7 +392,7 @@ public class MockNeat {
     /**
      * <p>Returns a {@code Floats} object than can be used to generate random float numbers.</p>
      *
-     * <p><em>Note:</em> By defult it generates float numbers in the [0.0f, 1.0f) range.</p>
+     * <p><em>Note:</em> By default it generates float numbers in the [0.0f, 1.0f) range.</p>
      * @return A re-usable {@code Floats} object. The {@code Floats} class implements {@code MockUnitFloats}.
      */
     public Floats floats() { return this.rFloats; }
@@ -403,6 +428,12 @@ public class MockNeat {
      */
     public IBANs ibans() { return this.rIbans; }
 
+
+    /**
+     * <p>Returns a {@code Industries} object that can be used to generate valid Industry names (Eg.: "Education and Health Services")</p>
+     *
+     * @return A re-usable {@code Industries} object. The {@code Industries} class implements {@code MockUnitString}.
+     */
     public Industries industries() { return this.rIndustries; }
 
     /**
@@ -443,6 +474,15 @@ public class MockNeat {
     public ISSNS issns() { return this.rISSNS; }
 
     /**
+     * <p>Returns a {@code JazzArtists} object that can be used to generate arbitrary jazz artists names</p>
+     *
+     * @return a re-usable {@code JazzArtists} object. The {@code JazzArtists} class implements {@code MockUnitString}
+     */
+    public JazzArtists jazzArtists() {
+        return this.rJazzArtists;
+    }
+
+    /**
      * <p>Returns a {@code LocalDates} object that can be used to generate arbitrary {@code LocalDate} objects.</p>
      *
      * @return A re-usable {@code LocalDates} object. The {@code LocalDates} implements {@code MockUnitLocalDate}.
@@ -472,6 +512,13 @@ public class MockNeat {
      */
     public Macs macs() { return this.rMacs; }
 
+    /**
+     * <p>Returns a {@code Markovs} object that can be used to generate arbitrary text that can pass as almost valid using Markov Chains</p>
+     *
+     * <p>It can also be used to generate Lorem Ipsum text that is different each time the ending method is invoked</p>
+     *
+     * @return A re-usable {@code Markovs} object. The {@code Markovs} class implements {@code MockUnitString}
+     */
     public Markovs markovs() { return this.rMarkovs; }
 
     /**
@@ -510,6 +557,15 @@ public class MockNeat {
      */
     public Names names() { return this.rNames; }
 
+    /**
+     * <p>Returns a {@code NaughtyStrings} object that can be used to generate "naughty strings".</p>
+     *
+     * <p>Please check this URL for more info about the naughty strings:</p>
+     *
+     * <p>https://github.com/minimaxir/big-list-of-naughty-strings/blob/master/blns.txt</p>
+     *
+     * @return A re-usable {@code NaughtyStrings} object. The {@code NaughtStrings} class implements {@code MockUnitString}.
+     */
     public NaughtyStrings naughtyStrings() { return this.rNaughtyStrings; }
 
     /**
@@ -522,6 +578,9 @@ public class MockNeat {
 
     /**
      * <p>Returns a {@code Primes} object that can be used to generate prime numbers (small) </p>
+     *
+     * <p>The primes are only generated in this interval [0, 7919]</p>
+     *
      * @return A re-usable {@code Primes} object. The {@code Primes} class implements {@code MockUnitInt}
      */
     public Primes primes() { return this.rPrimes; }
@@ -535,6 +594,8 @@ public class MockNeat {
     public Regex regex(String regex) { return new Regex(regex); }
 
     /**
+     * <p>Returns a new {@code ObjectMap} object that can be used to easily generate json files. </p>
+     *
      * @return An objectMap object used to easily generate json files
      */
     public ObjectMap objectMap() { return new ObjectMap(this); }
@@ -548,16 +609,57 @@ public class MockNeat {
      */
     public <T> Probabilities<T> probabilites(Class<T> cls) { return new Probabilities<>(this, cls); }
 
+    /**
+     * <p>Returns a new {@code Reflect<T>} object that can be used to fill-up objects through reflection</p>
+     *
+     * <p>Check {@link #filler(Supplier)} as an alternative that doesn't use reflection. </p>
+     *
+     * @param cls The type of the class you want to construct
+     * @param <T> The generic type of the class
+     *
+     * @return A re-usable {@code Reflect<T>} instance. The class implements {@code MockUnit<T>}
+     */
     public <T> Reflect<T> reflect(Class<T> cls) { return new Reflect<>(this, cls);}
 
+    /**
+     * <p>Returns a new {@code Seq<T>} object that can be used to generate values by iterating trough the given {@code Iterable<T>} in order.</p>
+     *
+     * @param iterable The {@code Iterable<T>} values.
+     * @param <T> The type of both the resulting {@code Seq<T>} and the {@code Iterable<T>}
+     *
+     * @return A re-usable {@code Seq<T>} object. The class implements {@code MockUnit<T>}
+     */
     public <T> Seq<T> seq(Iterable<T> iterable) { return Seq.fromIterable(iterable); }
 
+    /**
+     * <p>Returns a new {@code Seq<String>} object that can be used to generate values by iterating through all the lines associated with a {@code DictType} in order.</p>
+     *
+     * @param dictType The {@code DictType} to iterate over
+     * @return A re-usable {@code Seq<String>} object. The class implements {@code MockUnitString}
+     */
     public Seq<String> seq(DictType dictType) { return Seq.fromDict(dictType); }
 
+    /**
+     * <p>Returns a {@code Seq<T>} object that can be used to generate values by iterating through all the elements of an array</p> in order.<p>
+     *
+     * @param array The array to iterate over
+     * @param <T> The type of the array
+     * @return A re-usable {@code Seq<T>}. The class implement {@code MockUnit<T>}
+     */
     public <T> Seq<T> seq(T[] array) { return Seq.fromArray(array); }
 
+    /**
+     * <p>Returns a {@code SQLInserts} object that can be used to generate SQL Inserts</p>
+     *
+     * @return A re-usable {@code SQLInserts} object. This class implements {@code MockUnit<SQLInsert>}.
+     */
     public SQLInserts sqlInserts() { return new SQLInserts(this); }
 
+    /**
+     * <p>Returns a {@code Shufflers} object than gets the arbitrary permutations of the source.<p>
+     *
+     * @return A re-usable {@code Shufflers} object.
+     */
     public Shufflers shufflers() { return rShufflers; }
 
     public Strings strings() { return new Strings(this); }

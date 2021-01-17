@@ -19,6 +19,11 @@ public class Shufflers extends MockUnitBase {
 
     protected Shufflers() {}
 
+    /**
+     * <p>Returns a {@code Shufflers} object than gets the arbitrary permutations of the source.<p>
+     *
+     * @return A re-usable {@code Shufflers} object.
+     */
     public Shufflers(MockNeat mockNeat) {
         super(mockNeat);
     }

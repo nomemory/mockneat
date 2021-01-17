@@ -9,6 +9,15 @@ import java.util.function.Supplier;
 
 public class JazzArtists extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code JazzArtists} object that can be used to generate arbitrary jazz artists names</p>
+     *
+     * @return a re-usable {@code JazzArtists} object. The {@code JazzArtists} class implements {@code MockUnitString}
+     */
+    public static JazzArtists jazzArtists() {
+        return MockNeat.threadLocal().jazzArtists();
+    }
+
     public JazzArtists(MockNeat mockNeat) {
         super(mockNeat);
     }

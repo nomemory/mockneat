@@ -31,6 +31,13 @@ public class Markovs extends MockUnitBase implements MockUnitString {
 
     private int size = 512;
 
+    /**
+     * <p>Returns a {@code Markovs} object that can be used to generate arbitrary text that can pass as almost valid using Markov Chains</p>
+     *
+     * <p>It can also be used to generate Lorem Ipsum text that is different each time the ending method is invoked</p>
+     *
+     * @return A re-usable {@code Markovs} object. The {@code Markovs} class implements {@code MockUnitString}
+     */
     public static Markovs markovs() {
         return MockNeat.threadLocal().markovs();
     }

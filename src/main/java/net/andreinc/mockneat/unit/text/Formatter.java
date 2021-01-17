@@ -21,10 +21,22 @@ public final class Formatter implements MockUnitString {
     private final Map<String, MockValue<?>> fields = new HashMap<>();
     private final String fmt;
 
+    /**
+     * <p>Returns a {@code Formatter} object than can be used to generate arbitrary patterns based on a given format.</p>
+     *
+     * @param fmt The template of the desired pattern.
+     * @return A <strong>new</strong> {@code Formatter} object. The {@code Formatter} class implements {@code MockUnitString}.
+     */
     public static Formatter fmt(String fmt) {
         return MockNeat.threadLocal().fmt(fmt);
     }
 
+    /**
+     * <p>Returns a {@code Formatter} object than can be used to generate arbitrary patterns based on a given format.</p>
+     *
+     * @param fmt The template of the desired pattern.
+     * @return A <strong>new</strong> {@code Formatter} object. The {@code Formatter} class implements {@code MockUnitString}.
+     */
     public static Formatter formatter(String fmt) {
         return new Formatter(fmt);
     }

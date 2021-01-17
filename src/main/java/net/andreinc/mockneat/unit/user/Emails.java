@@ -10,11 +10,13 @@ import static net.andreinc.mockneat.types.enums.DictType.DOMAIN_EMAIL;
 
 public class Emails extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns an {@code Email} object that can be used to generate arbitrary email address.</p>
+     *
+     * @return A re-usable {@code Emails} object. The {@code Emails} class implements {@code MockUnitString}.
+     */
     public static Emails emails() {
         return MockNeat.threadLocal().emails();
-    }
-
-    protected Emails() {
     }
 
     public Emails(MockNeat mockNeat) {

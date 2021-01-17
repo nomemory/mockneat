@@ -25,6 +25,18 @@ public class Factory<T, R> implements MockUnit<T> {
     private String method;
     private Object[] params = new Object[]{};
 
+    /**
+     * <p>Returns a new {@code Factory} object that can be used to instantiate Java Objects by calling a static factory method and supplying it with arbitrary data.</p>
+     *
+     * <p>The {@code Factory} class implements {@code MockUnit<T>}.</p>
+     *
+     * @param targetClass The Java class we want to create instances of.
+     * @param factoryClass The Java class that contains the static-factory method we want to invoke.
+     * @param <T> The type of the target class
+     * @param <FT> The type of the factory class
+     *
+     * @return The factory MockUnit
+     */
     public static <T, FT> Factory<T, FT> factory(Class<T> targetClass, Class<FT> factoryClass) {
         return MockNeat.threadLocal().factory(targetClass, factoryClass);
     }

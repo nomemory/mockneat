@@ -13,6 +13,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class Macs extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Macs} object that can be used to generate arbitrary physical addresses (MAC).</p>
+     *
+     * @return A re-usable {@code Macs} object. The {@code Macs} class implements {@code MockUnitString}.
+     */
     public static Macs macs() {
         return MockNeat.threadLocal().macs();
     }

@@ -16,6 +16,17 @@ public class Dicts extends MockUnitBase {
 
     private final FileManager fm = FileManager.getInstance();
 
+    /**
+     * <p>Returns a {@code Dicts} object that can be used to generate data from the library existing dictionaries.</p>
+     *
+     * <p>A dictionary is an {@code enum} mapping a text file containing a set of data</p>
+     *
+     * <p>The file contents are loaded in memory after the first call.</p>
+     *
+     * <p>Check {@link DictType} to see the comprehensive list.</p>
+     *
+     * @return A re-usable {@code Dicts} object.
+     */
     public static Dicts dicts() {
         return MockNeat.threadLocal().dicts();
     }

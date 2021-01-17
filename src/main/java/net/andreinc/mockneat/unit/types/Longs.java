@@ -13,6 +13,13 @@ public class Longs extends MockUnitBase implements MockUnitLong {
 
     private final Random random;
 
+    /**
+     * <p>Returns a {@code Longs} object that can be used to generate arbitrary {@code Long} numbers.</p>
+     *
+     * <p><em>Note:</em>By default the internal {@code Random.nextLong()} will be called.</p>
+     *
+     * @return A re-usable {@code Longs} object. The {@code Longs} class extends the {@code MockUnitLong} class.
+     */
     public static Longs longs() {
         return MockNeat.threadLocal().longs();
     }

@@ -9,6 +9,18 @@ import static net.andreinc.mockneat.types.enums.DictType.FOREX_PAIRS;
 
 public class Currencies extends MockUnitBase {
 
+    /**
+     * <p>Returns a {@code Currencies} object that can be used to generate currencies-related information: </p>
+     *
+     * <ul>
+     *     <li>Forex pairs. (Eg.: "USD/CAD")</li>
+     *     <li>Currency codes. (Eg.: "USD", "GBP")</li>
+     *     <li>Currency symbols. (Eg.: "$", "¥")</li>
+     *     <li>Currency names. (Eg.: "Boliviano", "Dollar")</li>
+     * </ul>
+     *
+     * @return A re-usable {@code Currencies} object.
+     */
     public static Currencies currencies() {
         return MockNeat.threadLocal().currencies();
     }

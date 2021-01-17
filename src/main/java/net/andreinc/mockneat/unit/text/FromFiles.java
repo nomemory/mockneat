@@ -12,6 +12,13 @@ public class FromFiles extends MockUnitBase {
 
     private final FileManager fm = FileManager.getInstance();
 
+    /**
+     * <p>Returns a {@code FromFiles} object that can used to generate random strings from a given text file.</p>
+     *
+     * <p><em>Note:</em> The file is loaded in memory. For the moment there is no functionality to "unload" it.</p>
+     *
+     * @return A re-usable {@code FromFiles} object.
+     */
     public static FromFiles files() {
         return MockNeat.threadLocal().files();
     }

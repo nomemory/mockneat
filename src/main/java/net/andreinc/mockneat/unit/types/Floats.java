@@ -13,6 +13,12 @@ public class Floats extends MockUnitBase implements MockUnitFloat {
 
     private final Random random;
 
+    /**
+     * <p>Returns a {@code Floats} object than can be used to generate random float numbers.</p>
+     *
+     * <p><em>Note:</em> By default it generates float numbers in the [0.0f, 1.0f) range.</p>
+     * @return A re-usable {@code Floats} object. The {@code Floats} class implements {@code MockUnitFloats}.
+     */
     public static Floats floats() {
         return MockNeat.threadLocal().floats();
     }

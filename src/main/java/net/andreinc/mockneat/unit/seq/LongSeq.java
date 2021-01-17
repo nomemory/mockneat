@@ -20,6 +20,11 @@ public class LongSeq implements MockUnitLong {
     private long min = Long.MIN_VALUE;
     private AtomicLong internal;
 
+    /**
+     * <p>Returns a {@code LongSeq} object that can be used to generate arbitrary {@code Long} numbers in a sequence.</p>
+     *
+     * @return A re-usable {@code LongSeq} object. The {@code LongSeq} class implements {@code MockUnitLong}.
+     */
     public static LongSeq longSeq() {
         return MockNeat.threadLocal().longSeq();
     }

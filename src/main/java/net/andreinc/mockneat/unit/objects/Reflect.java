@@ -32,6 +32,16 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
     private final Map<Class<?>, MockValue<?>> defaults = new HashMap<>();
     private final Class<T> cls;
 
+    /**
+     * <p>Returns a new {@code Reflect<T>} object that can be used to fill-up objects through reflection</p>
+     *
+     * <p>Check {@code filler(Supplier<T>)} as an alternative that doesn't use reflection. </p>
+     *
+     * @param cls The type of the class you want to construct
+     * @param <T> The generic type of the class
+     *
+     * @return A re-usable {@code Reflect<T>} instance. The class implements {@code MockUnit<T>}
+     */
     public static <T> Reflect<T> reflect(Class<T> cls) {
         return MockNeat.threadLocal().reflect(cls);
     }
@@ -82,6 +92,17 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
         };
     }
 
+    /**
+     * <p>Associates the class field with a given {@code MockUnit<T>} when generating values.</p>
+     *
+     * <p>Field can be private by not final.</p>
+     *
+     * @param fieldName The field name (not the setter name!)
+     * @param mockUnit The unit that generates values for the field
+     * @param <T1> the type fo the mock unit used.
+     *
+     * @return The same {@code Reflect<T>} object.
+     */
     public <T1> Reflect<T> field(String fieldName, MockUnit<T1> mockUnit) {
         notEmpty(fieldName, "fieldName");
         notNull(mockUnit, "mockUnit");
@@ -89,23 +110,77 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
         return this;
     }
 
+    /**
+     * <p>Associates the class field with a constant value.</p>
+     *
+     * <p>Field can be private by not final.</p>
+     *
+     * @param fieldName The field name (not the setter name!)
+     * @param value The constant value the field will have
+     *
+     * @return The same {@code Reflect<T>} object
+     */
     public Reflect<T> field(String fieldName, Object value) {
         notEmpty(fieldName, "fieldName");
         this.fields.put(fieldName, constant(value));
         return this;
     }
 
+    /**
+     * <p>If the field is not specified, you can enable the library to use default values for a limited range of common types:</p>
+     *
+     * <p>
+     * <ul>
+     *     <li>{@code Boolean}/{@code boolean} - the default value is either {@code true} or {@code false}</li>
+     *     <li>{@code Character}/{@code char} - the default value is an arbitrary letter.</li>
+     *     <li>{@code Double}/{@code double} - the default value is an arbitrary double in the range [0.0, 10.0)</li>
+     *     <li>{@code Float}/{@code float} - the default value is an arbitrary float in the range [0,0, 10.0)</li>
+     *     <li>{@code Integer}/{@code int} - the default value is an arbitrary int number in the [0, 100) range</li>
+     *     <li>{@code Short}/{@code short} - the default value is a short number in the [0, 100) range</li>
+     *     <li>{@code String} - a random string with a size of 32</li>
+     * </ul>
+     * </p>
+     *
+     * <p>By default the defaults are disabled</p>
+     *
+     * @param status true to enable, false otherwise.
+     * @return The same {@code Reflect<T>} object
+     */
     public Reflect<T> useDefaults(boolean status) {
         this.useDefaults = status;
         return this;
     }
 
+    /**
+     * <p>Adds a default constant value for a type when the field is not defined using {@link #field(String, Object)}</p>
+     * 
+     * <p>This definition will be used only if the default values where activated with {@link #useDefaults(boolean)}</p>
+     *
+     * <p>Can be used to override default values.</p>
+     *
+     * @param cls The type of the field
+     * @param value THe constant value
+     * @return The same {@code Reflect<T>} object.
+     */
     public Reflect<T> type(Class<?> cls, Object value) {
         notNull(cls, "cls");
         this.defaults.put(cls, constant(value));
         return this;
     }
 
+    /**
+     * <p>Adds a default mock unit for a type when the field is not defined using {@link #field(String, MockUnit)} </p>
+     *
+     * <p>This definition will be used only if the default values where activated with {@link #useDefaults(boolean)}</p>
+     *
+     * <p>Can be used to override default values.</p>
+     *
+     * @param cls The type of the field
+     * @param mockUnit The unit used to generate the arbitrary value
+     * @param <T1> The MockUnit type
+     *
+     * @return The same {@code Reflect<T>} object.
+     */
     public <T1> Reflect<T> type(Class<T1> cls, MockUnit<T1> mockUnit) {
         notNull(cls, "cls");
         notNull(mockUnit, "mockUnit");

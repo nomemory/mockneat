@@ -26,6 +26,11 @@ public class CSVs extends MockUnitBase implements MockUnitString {
     private String separator = ",";
     private final List<MockValue<?>> columns = new LinkedList<>();
 
+    /**
+     * <p> Returns a {@code CSVs} object that can be used to generate CSV lines or files.</p>
+     *
+     * @return A new CSVs object.
+     */
     public static CSVs csvs() {
         return MockNeat.threadLocal().csvs();
     }

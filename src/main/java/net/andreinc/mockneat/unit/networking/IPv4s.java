@@ -17,6 +17,11 @@ import static net.andreinc.mockneat.utils.ValidationUtils.notNull;
 
 public class IPv4s extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code IPv4s} object that can be used to generate arbitrary IPv4 addresses.</p>
+     *
+     * @return A re-usable {@code IPv4s} object. The {@code IPv4s} class implements {@code MockUnitString}.
+     */
     public static IPv4s ipv4s() { return new IPv4s(); }
 
     protected IPv4s() { }

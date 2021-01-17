@@ -18,6 +18,15 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class CreditCards extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code CreditCards} object that can be used to generate valid Credit Card numbers.</p>
+     *
+     * <p><em>Note: </em>By default it generates AMERICAN_EXPRESS valid credit card numbers.</p>
+     *
+     * <p><em>Note: </em> Credit card numbers are financial information. The values are generated at random so don't use them in real-life scenarios.</p>
+     *
+     * @return A re-usable {@code CreditCards} instance. The class implements {@code MockUnitString}.
+     */
     public static CreditCards creditCards() {
         return MockNeat.threadLocal().creditCards();
     }

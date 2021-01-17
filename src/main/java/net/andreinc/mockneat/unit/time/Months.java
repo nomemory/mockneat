@@ -11,11 +11,14 @@ import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
 public class Months extends MockUnitBase implements MockUnitMonth {
 
+    /**
+     * <p>Returns a {@code Months} object that can be used to generate arbitrary {@code Month} objects.</p>
+     *
+     * @return A re-usable {@code Months} object. The {@code Months} class implements {@code MockUnitMonth}.
+     */
     public static Months months() {
         return MockNeat.threadLocal().months();
     }
-
-    protected Months() { }
 
     public Months(MockNeat mockNeat) {
         super(mockNeat);

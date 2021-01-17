@@ -15,6 +15,15 @@ import static org.apache.commons.lang3.Validate.notNull;
 
 public class Names extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Names} object that can be used to generate "names" (full names, first names or last names).</p>
+     *
+     * <p><em>Note:</em>By default it can be used to generate people full names.</p>
+     *
+     * <p><em>Note:</em> The names are the most common names that appear in the US.</p>
+     *
+     * @return A re-usable {@code Names} object. The {@code Names} class implements {@code MockUnitString}.
+     */
     public static Names names() {
         return MockNeat.threadLocal().names();
     }

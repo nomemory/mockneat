@@ -12,6 +12,11 @@ public class ISSNS extends MockUnitBase implements MockUnitString {
 
     private static final String ISSN_PREFIX = "ISSN";
 
+    /**
+     * <p>Returns a {@code ISSNS} object that can be used to generate arbitrary ISSN codes.</p>
+     *
+     * @return A re-usable {@code ISSNS} object. The {@code ISSNS} class implements {@code MockUnitString}.
+     */
     public static ISSNS issns() { return MockNeat.threadLocal().issns(); }
 
     protected ISSNS() { }

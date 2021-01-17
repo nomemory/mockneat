@@ -11,6 +11,11 @@ import static net.andreinc.mockneat.types.enums.DictType.COUNTRY_NAME;
 
 public class Countries extends MockUnitBase implements MockUnitString {
 
+    /**
+     * <p>Returns a {@code Countries} object that can be used to generate country names or country ISO2 codes.</p>
+     *
+     * @return A re-usable {@code Countries} object.
+     */
     public static Countries countries() {
         return MockNeat.threadLocal().countries();
     }
