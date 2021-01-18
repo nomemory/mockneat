@@ -73,3 +73,9 @@ Lakiesha ; Zevenbergen ; stalegaye@mockneat.com ; http://www.unbendingeyes.edu ;
 
 ... and so on
 ```
+
+--------
+
+Special thanks to the contributors:
+
+* https://github.com/mariotrucco
