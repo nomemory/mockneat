@@ -1,3 +1,9 @@
+Version 0.4.3
+-------------
+- Removed logging - it was never implemented and it's not as useful as I was imagining
+- Added more javadocs
+- Fixed javadocs
+
 Version 0.4.2
 -------------
 - Fixed https://github.com/nomemory/mockneat/issues/93 - issue with double loss precisions in case of probabilities
