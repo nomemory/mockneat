@@ -24,7 +24,7 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     /**
      * <p>Returns a {@code SQLInserts} object that can be used to generate SQL Inserts</p>
      *
-     * @return A re-usable {@code SQLInserts} object. This class implements {@code MockUnit<SQLInsert>}.
+     * @return A new {@code SQLInserts} object
      */
     public static SQLInserts sqlInserts() {
         return MockNeat.threadLocal().sqlInserts();
@@ -67,12 +67,12 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     /**
      * <p>Associates a column of the SQL table with a corresponding {@code MockUnit<T>}. </p>
      *
-     * <p>Before the value is generated from the {@code MockUnit<T>} the {@param sqlParameter} function is applied to the values. This is useful when for example Strings have to be escaped for a given SQL dialect.</p>
+     * <p>Before the value is generated from the {@code MockUnit<T>} the @param sqlParameter function is applied to the values. This is useful when for example Strings have to be escaped for a given SQL dialect.</p>
      *
      * @param column The column of the table
      * @param mockUnit The {@code MockUnit<T>} used to generate values for the column. The result is automatically transformed to String.
      * @param sqlFormatter The {@code Function<String, String>} for formatting the generated value
-     * @return
+     * @return The same {@code SQLInserts} instance.
      */
     public SQLInserts column(String column, MockUnit<?> mockUnit, Function<String, String> sqlFormatter) {
         notEmpty(column, "column");
@@ -100,7 +100,7 @@ public class SQLInserts extends MockUnitBase implements MockUnit<SQLInsert> {
     /**
      * <p>Associates a column of the SQL table with a constant value.</p>
      *
-     * <p>Before the value is generated from the {@code MockUnit<T>} the {@param sqlParameter} function is applied to the values. This is useful when for example Strings have to be escaped for a given SQL dialect.</p>
+     * <p>Before the value is generated from the {@code MockUnit<T>} the @param sqlParameter function is applied to the values. This is useful when for example Strings have to be escaped for a given SQL dialect.</p>
      *
      * @param column The column of the SQLTable
      * @param str The constant {@code String} value.

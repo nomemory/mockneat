@@ -27,6 +27,7 @@ public final class MockConstValue<T> implements MockValue<T> {
     /**
      * <p>Creates a new "constant" MockValue by wrapping an Object value.</p>
      *
+     * @param <T> Generic type for the constant value
      * @param value The Object wrapped by the {@code MockConstantValue} class.
      * @return A new MockConstValue.
      */

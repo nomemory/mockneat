@@ -129,7 +129,6 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
     /**
      * <p>If the field is not specified, you can enable the library to use default values for a limited range of common types:</p>
      *
-     * <p>
      * <ul>
      *     <li>{@code Boolean}/{@code boolean} - the default value is either {@code true} or {@code false}</li>
      *     <li>{@code Character}/{@code char} - the default value is an arbitrary letter.</li>
@@ -139,7 +138,6 @@ public class Reflect<T> extends MockUnitBase implements MockUnit<T> {
      *     <li>{@code Short}/{@code short} - the default value is a short number in the [0, 100) range</li>
      *     <li>{@code String} - a random string with a size of 32</li>
      * </ul>
-     * </p>
      *
      * <p>By default the defaults are disabled</p>
      *

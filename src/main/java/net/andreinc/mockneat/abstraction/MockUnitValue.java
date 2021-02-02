@@ -28,6 +28,7 @@ public final class MockUnitValue<T> implements MockValue<T> {
     /**
      * Wraps a {@code MockUnit}.
      * @param unit The {@code MockUnit} to be wrapped.
+     * @param <T> generic param for the MockUnit
      * @return A new {@code MockUnitValue}
      */
     public static <T> MockUnitValue<T> unit(MockUnit<T> unit) {
