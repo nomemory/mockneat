@@ -2,8 +2,6 @@ package net.andreinc.mockneat.utils.file;
 
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.MarkovChainType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,8 +18,6 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 public class FileManager {
-
-    private static final Logger logger = LoggerFactory.getLogger(FileManager.class);
 
     private static final String DICT_FOLDER = "dicts/";
 
@@ -52,10 +48,8 @@ public class FileManager {
         if (!JAR_EXTERNAL.containsKey(path)) {
             try {
                 List<String> lines = read(path);
-                logger.info("Loaded file '{}' in memory. The file contains {} lines.", path, lines.size());
                 JAR_EXTERNAL.put(path, lines);
             } catch (IOException e) {
-                logger.error("Cannot read file '{}' in memory.", path);
                throw new IllegalArgumentException(e);
             }
         }
@@ -67,13 +61,8 @@ public class FileManager {
         if (!JAR_INTERNAL.containsKey(internal)) {
             try {
                 List<String> lines = read(dictType);
-                logger.info("Loading internal dictionary '{}' in memory. The dictionary contains {} lines.",
-                        dictType.getFile(),
-                        lines.size());
                 JAR_INTERNAL.put(internal, lines);
             } catch (IOException e) {
-                logger.error("Cannot read internal dictionary '{}' in memory. Something is terribly wrong.",
-                        dictType.getFile());
                 throw new UncheckedIOException(e);
             }
         }

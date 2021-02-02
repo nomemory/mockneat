@@ -74,7 +74,6 @@ public class ProbabilitiesTest {
                                     .add(0.1, mockNeat.ints().range(5, 6))
                                     .val(),
                 val -> {
-                    System.out.println(val);
                     Assert.assertTrue(val >= 0 && val <= 5);
                 }
         );
