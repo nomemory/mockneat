@@ -1,22 +1,15 @@
-buildscript() {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
-    }
-}
-
 plugins {
     id "com.github.johnrengelman.shadow" version "6.1.0"
-    id "com.jfrog.bintray" version "1.8.5"
 }
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
-group 'net.andreinc'
-version '0.4.2'
+group = "net.andreinc"
+version = "0.4.2"
+archivesBaseName = "mockneat"
 
 sourceCompatibility = 1.8
 
@@ -39,8 +32,67 @@ dependencies {
     testCompile group: 'commons-validator', name: 'commons-validator', version: '1.7'
 }
 
-apply from: 'install.gradle'
-apply from: 'bintray.gradle'
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'mockneat library'
+                packaging 'jar'
+                description "Mockneat data generator library"
+                url 'http://www.mockneat.com'
+
+                scm {
+                    connection 'https://github.com/nomemory/mockneat'
+                    developerConnection 'https://github.com/nomemory/mockneat'
+                    url 'https://github.com/nomemory/mockneat'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'nomemory'
+                        name 'nomemory'
+                        email 'gnomemory@yahoo.com'
+                    }
+                }
+            }
+        }
+    }
+}
 
 jacocoTestReport {
     reports {

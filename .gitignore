@@ -10,3 +10,4 @@ build/*
 .settings/
 src/main/main.iml
 src/main/test.iml
+gradle.properties
