@@ -1,3 +1,8 @@
+Version 0.4.4
+-------------
+- Migration to maven central
+
+
 Version 0.4.3
 -------------
 - Removed logging - it was never implemented and it's not as useful as I was imagining
