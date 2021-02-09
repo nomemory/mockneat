@@ -8,9 +8,57 @@ Official Documentation: **[www.mockneat.com](http://www.mockneat.com)**
 
 Official Tutorial: **[www.mockneat.com](http://www.mockneat.com/tutorial)**
 
-<a href='https://bintray.com/nomemory/maven/mockneat?source=watch' alt='Get automatic notifications about new "mockneat" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>
-
 If you want to use **mockneat** to mock REST APIs checkout my other project: **[serverneat](https://github.com/nomemory/serverneat)**.
+
+### Installing
+
+#### >= 0.4.4
+
+Maven:
+```xml
+<dependency>
+  <groupId>net.andreinc</groupId>
+  <artifactId>mockneat</artifactId>
+  <version>0.4.4</version>
+</dependency>
+
+```
+
+Gradle:
+```groovy
+implementation 'net.andreinc:mockneat:0.4.4'
+```
+
+#### <= 0.4.2
+
+Maven:
+```xml
+<repositories>
+    <repository>
+        <id>jcenter</id>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+<dependencies>
+    <dependency>
+        <groupId>net.andreinc.mockneat</groupId>
+        <artifactId>mockneat</artifactId>
+        <version>0.4.2</version>
+    </dependency>
+</dependencies>
+```
+
+Gradle:
+```groovy
+repositories {
+  jcenter()
+}
+dependencies {
+  compile 'net.andreinc.mockneat:mockneat:0.4.2'
+}
+
+```
+
 
 ### Example - A random dice roll
 
