@@ -37,4 +37,9 @@ public class MockUnitDictsTest {
     public void correctFileName() {
         Assert.assertEquals("cities/cities-us", CITIES_US.getFileName());
     }
+
+    @Test
+    public void hasCorrectSize() {
+        Assert.assertEquals(DictType.ACTORS.size(), 303);
+    }
 }

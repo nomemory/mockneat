@@ -1,7 +1,10 @@
+Version 0.4.5
+-------------
+- Fixed a bug affecting the size of a DictType
+
 Version 0.4.4
 -------------
 - Migration to maven central
-
 
 Version 0.4.3
 -------------

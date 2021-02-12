@@ -2,6 +2,8 @@ package net.andreinc.mockneat.types.enums;
 
 import net.andreinc.mockneat.utils.file.FileManager;
 
+import java.io.File;
+
 /**
  * Copyright 2017, Andrei N. Ciobanu
 
@@ -125,7 +127,7 @@ public enum DictType {
     }
 
     public int size() {
-        return FileManager.getInstance().getLines(fileName).size();
+        return FileManager.getInstance().getLines(this).size();
     }
 
     private final String fileName;
