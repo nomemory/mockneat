@@ -27,7 +27,7 @@ dependencies {
     implementation 'net.andreinc:markovneat:1.8'
 
     testImplementation group: 'com.opencsv', name: 'opencsv', version: '5.3'
-    testImplementation group: 'junit', name: 'junit', version: '4.13.1'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
     testImplementation group: 'commons-validator', name: 'commons-validator', version: '1.7'
 }
 
