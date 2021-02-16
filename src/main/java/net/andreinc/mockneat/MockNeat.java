@@ -15,10 +15,7 @@ import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
 import net.andreinc.mockneat.unit.hashes.Hashes;
 import net.andreinc.mockneat.unit.id.UUIDs;
-import net.andreinc.mockneat.unit.misc.Creatures;
-import net.andreinc.mockneat.unit.misc.ISSNS;
-import net.andreinc.mockneat.unit.misc.Mimes;
-import net.andreinc.mockneat.unit.misc.SSCs;
+import net.andreinc.mockneat.unit.misc.*;
 import net.andreinc.mockneat.unit.networking.*;
 import net.andreinc.mockneat.unit.objects.*;
 import net.andreinc.mockneat.unit.regex.Regex;
@@ -47,6 +44,7 @@ public class MockNeat {
     private final Actors rActors;
     private final Actresses rActresses;
     private final Bools rBools;
+    private final Cars rCars;
     private final Celebrities rCelebrities;
     private final Cities rCities;
     private final Countries rCountries;
@@ -99,6 +97,7 @@ public class MockNeat {
         this.rActors = new Actors(this);
         this.rActresses = new Actresses(this);
         this.rBools = new Bools(this);
+        this.rCars = new Cars(this);
         this.rCCS = new CreditCards(this);
         this.rCelebrities = new Celebrities(this);
         this.rChars = new Chars(this);
@@ -210,6 +209,15 @@ public class MockNeat {
      * @return A re-usable {@code Chars} instance. The class implements {@code MockUnit<Character>}.
      */
     public Chars chars() { return this.rChars; }
+
+    /**
+     * <p>Returns a {@code Cars} object that can be used to generate arbitrary car names</p>
+     *
+     * @return A re-usable {@code Cars} instance. The class implements {@code MockUnitString}.
+     */
+    public Cars cars() {
+        return this.rCars;
+    }
 
     /**
      * <p>Returns a {@code Cities} object that can be used to generate arbitrary city names from around the world.</p>

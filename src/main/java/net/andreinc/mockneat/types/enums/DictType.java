@@ -37,6 +37,9 @@ public enum DictType {
     CITIES_CAPITALS("cities/cities-capitals"),
     CITIES_CAPITALS_EUROPE("cities/cities-capitals-europe"),
 
+    // CARS
+    CARS_BRANDS("car-brands"),
+
     // CREATURES
     // https://gist.github.com/atduskgreg/3cf8ef48cb0d29cf151bedad81553a54
     CREATURES("creatures"),

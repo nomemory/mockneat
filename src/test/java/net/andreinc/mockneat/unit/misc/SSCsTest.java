@@ -1,5 +1,6 @@
 package net.andreinc.mockneat.unit.misc;
 
+import net.andreinc.mockneat.MockNeat;
 import org.junit.Test;
 
 import static net.andreinc.mockneat.Constants.MOCKS;
@@ -34,5 +35,10 @@ public class SSCsTest {
                     assertEquals(4, ssss.length());
                 }
         );
+    }
+
+    @Test
+    public void something() {
+        MockNeat.threadLocal().cars().list(1000).consume(System.out::println);
     }
 }

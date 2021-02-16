@@ -23,7 +23,7 @@ public class Space extends MockUnitBase implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().types().supplier();
+        return mockNeat.dicts().types(SpaceType.ALL.getDictTypes()).supplier();
     }
 
     public MockUnitString type(SpaceType spaceType) {
