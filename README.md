@@ -19,14 +19,14 @@ Maven:
 <dependency>
   <groupId>net.andreinc</groupId>
   <artifactId>mockneat</artifactId>
-  <version>0.4.4</version>
+  <version>0.4.6</version>
 </dependency>
 
 ```
 
 Gradle:
 ```groovy
-implementation 'net.andreinc:mockneat:0.4.4'
+implementation 'net.andreinc:mockneat:0.4.6'
 ```
 
 #### <= 0.4.2
