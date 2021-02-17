@@ -36,9 +36,4 @@ public class SSCsTest {
                 }
         );
     }
-
-    @Test
-    public void something() {
-        MockNeat.threadLocal().cars().list(1000).consume(System.out::println);
-    }
 }

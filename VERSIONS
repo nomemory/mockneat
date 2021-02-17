@@ -1,3 +1,7 @@
+Version 0.4.6
+-------------
+- Added new new mockunit: cars()
+
 Version 0.4.5
 -------------
 - Fixed a bug affecting the size of a DictType
