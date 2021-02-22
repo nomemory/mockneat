@@ -1,7 +1,9 @@
 Version 0.4.7
 --------------
 - Added logos for the library
--
+- Added new functionality to the SQLTable class:
+    - Deleting rows;
+    - Overloaded the update functions to simplify the API
 
 Version 0.4.6
 -------------
