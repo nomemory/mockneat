@@ -127,3 +127,4 @@ Lakiesha ; Zevenbergen ; stalegaye@mockneat.com ; http://www.unbendingeyes.edu ;
 Special thanks to the contributors:
 
 * https://github.com/mariotrucco
+* https://hatchful.shopify.com/ (for creating the logo)

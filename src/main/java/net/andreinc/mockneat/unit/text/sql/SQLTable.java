@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
 import static net.andreinc.mockneat.utils.ValidationUtils.*;
 
@@ -38,7 +39,7 @@ public class SQLTable {
 
     public List<SQLInsert> selectWhere(Predicate<SQLInsert> condition) {
         notNull(condition, "condition");
-        return inserts.stream().filter(condition).collect(Collectors.toList());
+        return inserts.stream().filter(condition).collect(toList());
     }
 
     public SQLInsert selectRow(int row) {
@@ -68,6 +69,34 @@ public class SQLTable {
                 .forEach(i -> updater.accept(i, inserts.get(i)));
         return this;
     }
+
+    public SQLTable updateAll(Consumer<SQLInsert> updater) {
+        notNull(updater, "updater");
+        inserts.forEach(updater);
+        return this;
+    }
+
+    public SQLTable delete(int row) {
+        isTrue(row>=0, ROW_POSITIVE_VALUE);
+        inserts.remove(row);
+        return this;
+    }
+
+    public SQLTable deleteWhere(Predicate<SQLInsert> condition) {
+        notNull(condition, "condition");
+        ListIterator<SQLInsert> insertsIt = inserts.listIterator();
+        while(insertsIt.hasNext()) {
+            if (condition.test(insertsIt.next())) {
+                insertsIt.remove();
+            }
+        }
+        return this;
+    }
+
+//    public SQLTable deleteWhere(BiPredicate<Integer, SQLInsert> condition) {
+//        notNull(condition, "condition");
+//        return this;
+//    }
 
     public int size() {
         return inserts.size();
