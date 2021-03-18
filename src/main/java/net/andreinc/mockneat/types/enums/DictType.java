@@ -36,6 +36,10 @@ public enum DictType {
     CITIES_US("cities/cities-us"),
     CITIES_CAPITALS("cities/cities-capitals"),
     CITIES_CAPITALS_EUROPE("cities/cities-capitals-europe"),
+    CITIES_CAPITALS_AFRICA("cities/cities-capitals-africa"),
+    CITIES_CAPITALS_ASIA("cities/cities-capitals-asia"),
+    CITIES_CAPITALS_AMERICA("cities/cities-capitals-america"),
+    CITIES_CAPITALS_AUSTRALIA_AND_OCEANIA("cities/cities-capitals-australia-and-oceania"),
 
     // CARS
     CARS_BRANDS("car-brands"),

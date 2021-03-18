@@ -1,9 +1,17 @@
+Version 0.4.8
+-------------
+- Added new MockUnit: addresses()
+- Added new MockUnit: cities().capitalsAfrica()
+- Added new MockUnit: cities().capitalsAsia()
+- Added new MockUnit: cities().capitalsAmerica()
+- Added new MockUnit: cities().capitalsAustraliaAndOceania()
+
 Version 0.4.7
 --------------
 - Added logos for the library
 - Added new functionality to the SQLTable class:
     - Deleting rows;
-    - Overloaded the update functions to simplify the API
+    - Overloaded the update functions to simplify the API.
 
 Version 0.4.6
 -------------

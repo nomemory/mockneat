@@ -23,6 +23,13 @@ public class CitiesTest {
 
     private final Set<String> allCapitalCitiesEurope = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS_EUROPE));
 
+    private final Set<String> allCapitalCitiesAfrica = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS_AFRICA));
+
+    private final Set<String> allCapitalCitiesAsia = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS_ASIA));
+
+    private final Set<String> allCapitalCitiesAmerica = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS_AMERICA));
+
+    private final Set<String> allCapitalCitiesAustraliaAndOceania = new HashSet<>(fm.getLines(DictType.CITIES_CAPITALS_AUSTRALIA_AND_OCEANIA));
 
     @Test
     public void testUsCity() {
@@ -59,6 +66,58 @@ public class CitiesTest {
                 capitalCity -> {
                     Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
                     Assert.assertTrue(allCapitalCitiesEurope.contains(capitalCity));
+                }
+        );
+    }
+
+    @Test
+    public void testCapitalsAfrica() {
+        loop(
+                Constants.CITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.cities().capitalsAfrica().get(),
+                capitalCity -> {
+                    Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
+                    Assert.assertTrue(allCapitalCitiesAfrica.contains(capitalCity));
+                }
+        );
+    }
+
+    @Test
+    public void testCapitalsAsia() {
+        loop(
+                Constants.CITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.cities().capitalsAsia().get(),
+                capitalCity -> {
+                    Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
+                Assert.assertTrue(allCapitalCitiesAsia.contains(capitalCity));
+                }
+        );
+    }
+
+    @Test
+    public void testCapitalsAmerica() {
+        loop(
+                Constants.CITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.cities().capitalsAmerica().get(),
+                capitalCity -> {
+                    Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
+                    Assert.assertTrue(allCapitalCitiesAmerica.contains(capitalCity));
+                }
+        );
+    }
+
+    @Test
+    public void testCapitalsAustraliaAndOceania() {
+        loop(
+                Constants.CITIES_CYCLES,
+                Constants.MOCKS,
+                mockNeat -> mockNeat.cities().capitalsAustraliaAndOceania().get(),
+                capitalCity -> {
+                    Assert.assertTrue(StringUtils.isNotEmpty(capitalCity));
+                    Assert.assertTrue(allCapitalCitiesAustraliaAndOceania.contains(capitalCity));
                 }
         );
     }

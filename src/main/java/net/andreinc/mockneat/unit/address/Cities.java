@@ -60,6 +60,50 @@ public class Cities extends MockUnitBase {
     }
 
     /**
+     * Returns a {@code MockUnitString} that can be used to generate capital city names from Africa (Eg.: "Mogadishu")
+     *
+     * @return A new {@code MockUnitString}
+     */
+    public MockUnitString capitalsAfrica() {
+        return () -> mockNeat.dicts()
+                                .type(DictType.CITIES_CAPITALS_AFRICA)
+                                .supplier();
+    }
+
+    /**
+     * Returns a {@code MockUnitString} that can be used to generate capital city names from Asia
+     *
+     * @return A new {@code MockUnitString}
+     */
+public MockUnitString capitalsAsia() {
+        return () -> mockNeat.dicts()
+                                .type(DictType.CITIES_CAPITALS_ASIA)
+                                .supplier();
+    }
+
+    /**
+     * Returns a {@code MockUnitString} that can be used to generate capital city names from America
+     *
+     * @return A new {@code MockUnitString}
+     */
+    public MockUnitString capitalsAmerica() {
+        return () -> mockNeat.dicts()
+                        .type(DictType.CITIES_CAPITALS_AMERICA)
+                        .supplier();
+    }
+
+    /**
+     * Returns a {@code MockUnitString} that can be used to generate Australia and Oceania capitals
+     *
+     * @return A new {@code MockUnitString}.
+     */
+    public MockUnitString capitalsAustraliaAndOceania() {
+        return () -> mockNeat.dicts()
+                                .type(DictType.CITIES_CAPITALS_AUSTRALIA_AND_OCEANIA)
+                                .supplier();
+    }
+
+    /**
      * Returns a {@code MockUnitString} that can be used to generate US city names. (Eg.: "New York")
      *
      * @return A new {@code MockUnitString}.
@@ -69,5 +113,4 @@ public class Cities extends MockUnitBase {
                                 .type(DictType.CITIES_US)
                                 .supplier();
     }
-
 }

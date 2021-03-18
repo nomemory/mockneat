@@ -3,6 +3,7 @@ package net.andreinc.mockneat;
 import net.andreinc.mockneat.abstraction.*;
 import net.andreinc.mockneat.types.enums.DictType;
 import net.andreinc.mockneat.types.enums.RandomType;
+import net.andreinc.mockneat.unit.address.Addresses;
 import net.andreinc.mockneat.unit.address.Cities;
 import net.andreinc.mockneat.unit.address.Countries;
 import net.andreinc.mockneat.unit.address.USStates;
@@ -43,6 +44,7 @@ public class MockNeat {
 
     private final Actors rActors;
     private final Actresses rActresses;
+    private final Addresses rAddresses;
     private final Bools rBools;
     private final Cars rCars;
     private final Celebrities rCelebrities;
@@ -96,6 +98,7 @@ public class MockNeat {
 
         this.rActors = new Actors(this);
         this.rActresses = new Actresses(this);
+        this.rAddresses = new Addresses(this);
         this.rBools = new Bools(this);
         this.rCars = new Cars(this);
         this.rCCS = new CreditCards(this);
@@ -190,6 +193,15 @@ public class MockNeat {
      */
     public Actresses actresses() {
         return  this.rActresses;
+    }
+
+    /**
+     * <p>Returns a {@code Addresses} object that can be used to generate arbitrary address lines</p>
+     *
+     * @return a re-usable {@code Addresses} instance. This class implements {@code MockUnitString}
+     */
+    public Addresses addresses() {
+        return  this.rAddresses;
     }
 
     /**
