@@ -71,6 +71,9 @@ public enum DictType {
     ACTORS("actors"),
     ACTRESSES("actresses"),
 
+    // NON-BINARY_GENDERS
+    NON_BINARY_GENDERS("non-binary-genders"),
+
     // WORDS
     EN_ADJECTIVE_1SYLL("words/en-adjective-1syll"),
     EN_ADJECTIVE_2SYLL("words/en-adjective-2syll"),
@@ -90,6 +93,7 @@ public enum DictType {
     EN_VERB_4SYLL("words/en-verb-4syll"),
 
     //COMPANIES
+    COMPANIES("companies-sp500"),
     DEPARTMENTS("departments"),
     INDUSTRIES("industries"),
 

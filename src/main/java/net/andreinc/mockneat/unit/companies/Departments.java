@@ -27,6 +27,6 @@ public class Departments extends MockUnitBase implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-        return mockNeat.dicts().type(DEPARTMENTS)::val;
+        return mockNeat.dicts().type(DEPARTMENTS).supplier();
     }
 }

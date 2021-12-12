@@ -11,6 +11,7 @@ import net.andreinc.mockneat.unit.celebrities.Actors;
 import net.andreinc.mockneat.unit.celebrities.Actresses;
 import net.andreinc.mockneat.unit.celebrities.Celebrities;
 import net.andreinc.mockneat.unit.celebrities.JazzArtists;
+import net.andreinc.mockneat.unit.companies.Companies;
 import net.andreinc.mockneat.unit.companies.Departments;
 import net.andreinc.mockneat.unit.companies.Industries;
 import net.andreinc.mockneat.unit.financial.*;
@@ -49,6 +50,7 @@ public class MockNeat {
     private final Cars rCars;
     private final Celebrities rCelebrities;
     private final Cities rCities;
+    private final Companies rCompanies;
     private final Countries rCountries;
     private final CreditCards rCCS;
     private final Chars rChars;
@@ -82,6 +84,7 @@ public class MockNeat {
     private final Months rMonths;
     private final Names rNames;
     private final NaughtyStrings rNaughtyStrings;
+    private final NonBinaryGenders rNonBinaryGenders;
     private final Passwords rPasswords;
     private final Primes rPrimes;
     private final Shufflers rShufflers;
@@ -105,6 +108,7 @@ public class MockNeat {
         this.rCelebrities = new Celebrities(this);
         this.rChars = new Chars(this);
         this.rCountries = new Countries(this);
+        this.rCompanies = new Companies(this);
         this.rCities = new Cities(this);
         this.rCreatures = new Creatures(this);
         this.rCurrencies = new Currencies(this);
@@ -135,6 +139,7 @@ public class MockNeat {
         this.rMoney = new Money(this);
         this.rMonths = new Months(this);
         this.rNames = new Names(this);
+        this.rNonBinaryGenders = new NonBinaryGenders(this);
         this.rNaughtyStrings = new NaughtyStrings(this);
         this.rPasswords = new Passwords(this);
         this.rPrimes = new Primes(this);
@@ -290,6 +295,13 @@ public class MockNeat {
     public Countries countries() {
         return this.rCountries;
     }
+
+    /**
+     * <p>Returns a {@code Companies} object that can be used to generate company names.</p>
+     *
+     * @return A re-usable {@code Companies} object.
+     */
+    public Companies companies() { return this.rCompanies; }
 
     /**
      * <p>Returns a {@code Currencies} object that can be used to generate currencies-related information: </p>
@@ -587,6 +599,13 @@ public class MockNeat {
      * @return A re-usable {@code NaughtyStrings} object. The {@code NaughtStrings} class implements {@code MockUnitString}.
      */
     public NaughtyStrings naughtyStrings() { return this.rNaughtyStrings; }
+
+    /**
+     * <p>Returns a {@code NonBinaryGenders} object that can be used to generate non-binary gender names (e.g.: Cis Male).</p>
+     *
+     * @return A re-usable {@code NonBinaryGenders} object. The {@code NonBinaryGenders} class implements {@code MockUnitString}.
+     */
+    public NonBinaryGenders nonBinaryGenders() { return this.rNonBinaryGenders; }
 
     /**
      * <p>Returns a {@code Passwords} object that can be used to generate arbitrary user passwords.</p>

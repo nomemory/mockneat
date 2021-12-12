@@ -19,6 +19,7 @@ public class Constants {
     public static final int DEP_CYCLES = 1000;
     public static final int CITIES_CYCLES= 1000;
     public static final int COUNTRIES_CYCLES = 1000;
+    public static final int COMPANIES_CYCLES = 1000;
     public static final int CURRENCIES_CYCLES = 1000;
     public static final int DAYS_CYCLES = 1000;
     public static final int DOMAIN_CYCLES = 1000;
@@ -30,6 +31,7 @@ public class Constants {
     public static final int FMT_CYCLES = 1000;
     public static final int GENDERS_CYCLES = 1000;
     public static final int IBANS_CYCLES = 1000;
+    public static final int INDUSTRIES_CYCLES = 1000;
     public static final int ISSNS_CYCLES = 1000;
     public static final int INTS_CYCLES = 1000;
     public static final int IPV4S_CYCLES = 1000;
@@ -43,6 +45,7 @@ public class Constants {
     public static final int MONEY_CYCLES = 1000;
     public static final int MONTH_CYCLES = 1000;
     public static final int NAMES_CYCLES = 1000;
+    public static final int NON_BINARY_GENDER_CYLES = 1000;
     public static final int OBJS_CYCLES = 1000;
     public static final int OBJECT_MAP_CYCLES = 1000;
     public static final int PASS_CYCLES = 1000;
