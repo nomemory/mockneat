@@ -36,7 +36,7 @@ public class Emails extends MockUnitBase implements MockUnitString {
      * @param domains A var-arg String array containing the list of the domains to be used.
      * @return A new {@code MockUnitString}.
      */
-    public MockUnit<String> domains(String... domains) {
+    public MockUnitString domains(String... domains) {
         Supplier<String> supp = () -> {
             String user = mockNeat.users().val();
             String domain = mockNeat.from(domains).val();
@@ -53,7 +53,7 @@ public class Emails extends MockUnitBase implements MockUnitString {
      * @param domain The domain to be used.
      * @return A new {@code MockUnitString}.
      */
-    public MockUnit<String> domain(String domain) {
+    public MockUnitString domain(String domain) {
         return domains(domain);
     }
 }
