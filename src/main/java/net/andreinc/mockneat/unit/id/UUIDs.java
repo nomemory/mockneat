@@ -16,7 +16,7 @@ public class UUIDs extends MockUnitBase implements MockUnitString {
 
     @Override
     public Supplier<String> supplier() {
-       return UUID.randomUUID()::toString;
+       return ()->UUID.randomUUID().toString();
     }
 
 }
