@@ -27,9 +27,9 @@ public class StringsTest {
         loop(
                 STRING_CYCLES,
                 MOCKS,
-                (m) -> {
-                    int size = M.ints().range(100, 1000).val();
-                    String sized = M.strings().size(size).val();
+                m -> {
+                    int size = m.ints().range(100, 1000).val();
+                    String sized = m.strings().size(size).val();
                     assertEquals(size, sized.length());
                 }
         );
@@ -50,9 +50,9 @@ public class StringsTest {
         loop(
                 STRING_CYCLES,
                 MOCKS,
-                (m) -> {
-                    int size = M.ints().range(10, 100).val();
-                    String numeric = M.strings().size(size).type(NUMBERS).val();
+                m -> {
+                    int size = m.ints().range(10, 100).val();
+                    String numeric = m.strings().size(size).type(NUMBERS).val();
                     assertEquals(size, numeric.length());
                     assertTrue(isNumeric(numeric));
                 }
@@ -64,9 +64,9 @@ public class StringsTest {
         loop(
                 STRING_CYCLES,
                 MOCKS,
-                (m) -> {
-                    int size = M.ints().range(10, 100).val();
-                    String letters = M.strings().size(size).type(LETTERS).val();
+                m -> {
+                    int size = m.ints().range(10, 100).val();
+                    String letters = m.strings().size(size).type(LETTERS).val();
                     assertEquals(size, letters.length());
                     assertTrue(isAlpha(letters));
                 }
@@ -78,9 +78,9 @@ public class StringsTest {
         loop(
                 STRING_CYCLES,
                 MOCKS,
-                (m) -> {
-                    int size = M.ints().range(10, 100).val();
-                    String alphaNumeric = M.strings().size(size).type(ALPHA_NUMERIC).val();
+                m -> {
+                    int size = m.ints().range(10, 100).val();
+                    String alphaNumeric = m.strings().size(size).type(ALPHA_NUMERIC).val();
                     assertEquals(size, alphaNumeric.length());
                     assertTrue(isAlphanumeric(alphaNumeric));
                 }
@@ -92,9 +92,9 @@ public class StringsTest {
         loop(
                 STRING_CYCLES,
                 MOCKS,
-                (m) -> {
-                    int size = M.ints().range(10, 100).val();
-                    String specialChars = M.strings().size(size).type(SPECIAL_CHARACTERS).val();
+                m -> {
+                    int size = m.ints().range(10, 100).val();
+                    String specialChars = m.strings().size(size).type(SPECIAL_CHARACTERS).val();
                     assertEquals(size, specialChars.length());
                     verifySpecialChars(specialChars);
                 }
@@ -113,9 +113,9 @@ public class StringsTest {
         loop(
                 STRING_CYCLES,
                 MOCKS,
-                (m) -> {
-                    int size = M.ints().range(10, 100).val();
-                    String hex = M.strings().size(size).type(HEX).val();
+                m -> {
+                    int size = m.ints().range(10, 100).val();
+                    String hex = m.strings().size(size).type(HEX).val();
                     assertEquals(size, hex.length());
                     verifyHex(hex);
                 }
