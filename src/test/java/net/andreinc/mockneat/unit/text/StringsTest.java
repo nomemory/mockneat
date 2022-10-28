@@ -23,6 +23,18 @@ public class StringsTest {
     }
 
     @Test
+    public void testSizeZero() {
+        loop(
+                1,
+                MOCKS,
+                (m) -> {
+                    String empty = m.strings().size(0).val();
+                    assertEquals(0, empty.length());
+                }
+        );
+    }
+
+    @Test
     public void testVariableSizes() {
         loop(
                 STRING_CYCLES,

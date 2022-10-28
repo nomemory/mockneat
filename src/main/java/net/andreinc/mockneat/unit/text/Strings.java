@@ -36,7 +36,7 @@ public class Strings extends MockUnitBase implements MockUnitString {
     }
 
     public Strings size(int size) {
-        isTrue(size>0, SIZE_BIGGER_THAN_ZERO_STRICT);
+        isTrue(size>=0, SIZE_BIGGER_THAN_ZERO);
         this.size = size;
         return this;
     }
