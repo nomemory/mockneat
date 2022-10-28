@@ -35,7 +35,6 @@ public final class ValidationUtils {
     public static final String UPPER_BOUND_BIGGER_LOWER_BOUND = "The input parameter 'upperBound' > 'lowerBound'.";
     public static final String UPPER_MONTH_BIGGER_THAN_LOWER = "'lower' Month < 'upper' Month";
     public static final String IS_FINITE_NUMBER = "Number #{number} should be finite (non-infinite, non-nan).";
-    public static final String SIZE_BIGGER_THAN_ZERO_STRICT = "The size needs to be bigger than 0 (>).";
     public static final String SIZE_BIGGER_THAN_ZERO = "The size needs to be bigger than 0 (>=).";
     public static final String IN_RANGE_CLOSED = "Number: #{num} should be in [#{min}, #{max}] range.";
     public static final String CANNOT_ADD_VALUE_TO_COLLECTION = "Cannot add value '#{val}' to collection '#{cls.simpleName}'";
