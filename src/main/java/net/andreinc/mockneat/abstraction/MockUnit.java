@@ -180,6 +180,46 @@ public interface MockUnit<T> {
     }
 
     /**
+     * <p>Returns a generator consisting of the elements of this generator that match the given predicate.</p>
+     *
+     * @param predicate The {@code Predicate<T>} applied to the generated value in the intermediary step to determine if it should be returned.
+     * @return A new MockUnit
+     */
+    default MockUnit<T> filter(Predicate<? super T> predicate) {
+        notNull(predicate, "predicate");
+        Supplier<T> supp = () -> {
+            T val = val();
+            while (!predicate.test(val)) {
+                val = val();
+            }
+            return val;
+        };
+        return () -> supp;
+    }
+
+    /**
+     * <p>Returns a generator consisting of the distinct elements (according to {@link Object#equals(Object)}) of this generator.</p>
+     *
+     * @param function The {@code Function<T,R>} applied to the generated value for check for unique.
+     * @param <K> The type of the values for check for unique.
+     * @return A new MockUnit
+     */
+    default <K> MockUnit<T> distinctBy(Function<? super T, ? extends K> function) {
+        notNull(function, "function");
+        Set<K> seen = new HashSet<>();
+        return filter(it -> seen.add(function.apply(it)));
+    }
+
+    /**
+     * <p>Returns a generator consisting of the distinct elements (according to {@link Object#equals(Object)}) of this generator.</p>
+     *
+     * @return A new MockUnit
+     */
+    default MockUnit<T> distinct() {
+        return distinctBy(Function.identity());
+    }
+
+    /**
      * <p>This method is used to transform a {@code MockUnit} into a {@code MockUnitInt}.</p>
      *
      * <p>{@code MockUnitInt} is a super-type of {@code MockUnit} specialized in manipulating Integers.</p>
